@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#11CFC5"
+        android:gravity="center"
+        tools:context=".ui.SignUpActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <RelativeLayout
+                    android:id="@+id/firstStep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/fredoka_one"
+                        android:text="Here’s\nyour first\nstep with \nAgro World! "
+                        android:textColor="@color/darkPink"
+                        android:textSize="@dimen/sp_25" />
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/farmer_in" />
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="@dimen/dp_20">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:id="@+id/layoutEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10"
+                                android:hint="Name"
+                                app:boxBackgroundColor="#20D81B60"
+                                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etNameUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textPersonName" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_marginEnd="@dimen/dp_10"
+                                android:hint="Email"
+                                app:boxBackgroundColor="#20D81B60"
+                                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etEmailSignUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textEmailAddress"
+                                    tools:ignore="SpeakableTextPresentCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_10"
+                                android:hint="Number"
+                                app:boxBackgroundColor="#20D81B60"
+                                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etNumberUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="number"
+                                    tools:ignore="TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dp_10"
+                                android:layout_marginEnd="@dimen/dp_10"
+                                android:hint="Password"
+                                app:boxBackgroundColor="#20D81B60"
+                                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etPasswdUp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textWebPassword"
+                                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Button
+                                android:id="@+id/btnSignup"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="50dp"
+                                android:layout_marginTop="@dimen/dp_20"
+                                android:layout_marginEnd="50dp"
+                                android:background="@drawable/side_white_panel"
+                                android:fontFamily="@font/poppins_medium"
+                                android:text="@string/register"
+                                android:textAllCaps="false"
+                                android:textColor="@color/darkPink"
+                                android:textSize="20sp" />
+
+                            <TextView
+                                android:id="@+id/tvHaveAnAccountUp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_20"
+                                android:text="Already have an account?"
+                                android:textAlignment="center"
+                                android:textColor="@color/darkPink"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_20"
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:weightSum="12">
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_weight="3"
+                                    android:background="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    style="@style/viewParent.headerText.NoMode"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="6"
+                                    android:text="Use other Methods"
+                                    android:textAlignment="center"
+                                    android:textSize="12sp" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="1dp"
+                                    android:layout_weight="3"
+                                    android:background="@color/colorPrimaryDark" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
+
+                                <ImageView
+                                    android:id="@+id/ivGoogleSignup"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/icons8_google_50" />
+
+                                <ImageView
+                                    android:id="@+id/ivFbSignup"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icons8_facebook_50"
+                                    tools:ignore="ImageContrastCheck" />
+
+                                <ImageView
+                                    android:id="@+id/ivInstaSignup"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:src="@drawable/icons8_instagram_50" />
+
+                                <ImageView
+                                    android:id="@+id/ivGithubSignup"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/icons8_github_50" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+
+</layout>

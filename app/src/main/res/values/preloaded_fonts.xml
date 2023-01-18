@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/average_sans</item>
+        <item>@font/averia_libre_bold</item>
+        <item>@font/cantora_one</item>
+        <item>@font/coiny</item>
+        <item>@font/copse</item>
+        <item>@font/fredoka_one</item>
+        <item>@font/lemon</item>
+        <item>@font/new_rocker</item>
+        <item>@font/poppins_medium</item>
+    </array>
+</resources>
