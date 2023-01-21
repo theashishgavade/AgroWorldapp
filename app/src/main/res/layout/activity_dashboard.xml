@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".DashboardActivity">
+    tools:context=".ui.DashboardActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

@@ -1,9 +1,5 @@
 package com.project.agroworld.ui;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +8,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -25,13 +25,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.project.agroworld.DashboardActivity;
 import com.project.agroworld.R;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
+    private CustomMultiColorProgressBar progressBar;
     ImageView ivFbSignup, ivGithubSignup, ivInstaSignup, ivGoogleSignup;
     TextView tvHaveAnAccountUp;
     Button btnSignup;
@@ -43,6 +45,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
+        progressBar = new CustomMultiColorProgressBar(this, "Please wait...\nWe're running your request");
         loginWithGoogle();
         initViews();
     }
@@ -62,6 +65,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     }
+
     private void loginWithGoogle() {
         // Configure Google Sign In
 
@@ -88,10 +92,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                showToast("Google sign in successful");
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
+                progressBar.hideProgressBar();
                 // Google Sign In failed, update UI appropriately
+                showToast("Google sign in failed");
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -99,21 +106,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private void firebaseAuthWithGoogle(String idToken) {
+        progressBar.showProgressBar();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            progressBar.hideProgressBar();
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAG, "");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(SignUpActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUpActivity.this, DashboardActivity.class);
-                            startActivity(intent);
-
+                            showToast("signInWithCredential:success");
+                            Constants.identifyUser(user, SignUpActivity.this);
                         } else {
+                            progressBar.hideProgressBar();
                             // If sign in fails, display a message to the user.
+                            showToast("signInWithCredential:failure");
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                         }
                     }
@@ -122,7 +131,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ivFbSignup:
                 showToast("Facebook login not available");
                 break;
@@ -138,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void showToast(String msg){
+    private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

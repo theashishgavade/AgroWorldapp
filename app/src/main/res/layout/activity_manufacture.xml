@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/manufacutre"
+    tools:context=".manufacture.ManufactureActivity">
+
+    <Button
+        android:id="@+id/btnMfrLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/button_bgd"
+        android:backgroundTint="#367fd9"
+        android:fontFamily="@font/fredoka_one"
+        android:padding="@dimen/dp_10"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark" />
+
+
+    <TextView
+        android:id="@+id/tvUserType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_20"
+        android:fontFamily="@font/fredoka_one"
+        android:textAllCaps="true"
+        android:layout_below="@id/btnMfrLogout"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp" />
+
+    <TextView
+        android:id="@+id/tvMfrWelcomeMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUserType"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:fontFamily="@font/rowdies"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/fontColor"
+        android:textSize="21sp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/crdMfrProfile"
+        android:layout_width="@dimen/dp_150"
+        android:layout_height="@dimen/dp_150"
+        android:layout_below="@id/tvMfrWelcomeMsg"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="@dimen/dp_50"
+        app:cardCornerRadius="@dimen/dp_75">
+
+        <ImageView
+            android:id="@+id/ivMfrProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/plant3" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvMfrName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/crdMfrProfile"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:fontFamily="@font/fredoka_one"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="21sp" />
+
+    <TextView
+        android:id="@+id/tvMfrEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMfrName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnMfrProceed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_40"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:background="@drawable/button_bgd"
+        android:fontFamily="@font/fredoka_one"
+        android:text="Proceed With Ideas"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/size_20sp" />
+
+</RelativeLayout>

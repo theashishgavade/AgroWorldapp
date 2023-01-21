@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +23,10 @@ import com.project.agroworld.R;
 
 public class ProfileFragment extends Fragment {
 
-    ImageView userBackgroundImage, userImageUserFrag, uploadProfilePictureImage;
-    TextView userNameUserProfileFrag, userCityUserProfileFrag, userPostsCountUserProfileFrag, userEmailUserProfileFrag, aboutValueUserProfileFrag;
-    ProgressBar uploadProgressBarProfile, uploadBackProgressProfile;
+    ImageView userBackgroundImage, userImageUserFrag;
+    TextView tvProfileUserName, tvProfileUserEmail, tvProfileNoDataFound;
+    ProgressBar uploadProgressBarProfile;
+    RecyclerView userProfilePostsRecycler;
     FirebaseAuth auth;
     FirebaseUser user;
     @Override
@@ -48,28 +50,22 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        userBackgroundImage = view.findViewById(R.id.userBackgroundImage);
-        userImageUserFrag = view.findViewById(R.id.userImageUserFrag);
-        uploadProfilePictureImage = view.findViewById(R.id.uploadProfilePictureImage);
+        userBackgroundImage = view.findViewById(R.id.userImageUserFrag);
         uploadProgressBarProfile = view.findViewById(R.id.uploadProgressBarProfile);
-        userNameUserProfileFrag = view.findViewById(R.id.userNameUserProfileFrag);
-        userCityUserProfileFrag = view.findViewById(R.id.userCityUserProfileFrag);
-        userPostsCountUserProfileFrag = view.findViewById(R.id.userPostsCountUserProfileFrag);
-        userEmailUserProfileFrag = view.findViewById(R.id.userEmailUserProfileFrag);
-        aboutValueUserProfileFrag = view.findViewById(R.id.aboutValueUserProfileFrag);
-        uploadBackProgressProfile = view.findViewById(R.id.uploadBackProgressProfile);
+        tvProfileUserName = view.findViewById(R.id.tvProfileUserName);
+        tvProfileUserEmail = view.findViewById(R.id.tvProfileUserEmail);
+        tvProfileNoDataFound = view.findViewById(R.id.tvProfileNoDataFound);
         updateUI(user);
-
-
     }
+
     private void updateUI(FirebaseUser user) {
         uploadProgressBarProfile.setVisibility(View.GONE);
-        uploadBackProgressProfile.setVisibility(View.GONE);
+
         if (user != null){
             Glide.with(userImageUserFrag).load(user.getPhotoUrl()).into(userImageUserFrag);
             Glide.with(userBackgroundImage).load(user.getPhotoUrl()).into(userBackgroundImage);
-            userNameUserProfileFrag.setText(user.getDisplayName());
-            userEmailUserProfileFrag.setText(user.getEmail());
+            tvProfileUserName.setText(user.getDisplayName());
+            tvProfileUserEmail.setText(user.getEmail());
         }
     }
 }

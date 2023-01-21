@@ -62,15 +62,11 @@ dependencies {
     // New Material Design
     implementation 'com.google.android.material:material:1.8.0-alpha02'
 
-    // Declare the dependency for the Firebase Authentication library
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.0'
     // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
-    // Declare the dependency for the Firebase Authentication library
-    implementation 'com.google.firebase:firebase-auth-ktx'
-    // Also declare the dependency for the Google Play services library and specify its version
-    implementation 'com.google.android.gms:play-services-auth:20.3.0'
-
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-auth:20.4.0'
+    implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-analytics:21.2.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
 

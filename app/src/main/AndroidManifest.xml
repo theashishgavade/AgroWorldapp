@@ -18,6 +18,27 @@
         android:theme="@style/Theme.AgroWorld"
         tools:targetApi="31">
         <activity
+            android:name=".manufacture.ManufactureDataPost"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".transport.TransportActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".manufacture.ManufactureActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".weatherAPI.WeatherActivity"
             android:exported="false">
             <meta-data
@@ -32,7 +53,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.DashboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

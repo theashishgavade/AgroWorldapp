@@ -42,20 +42,25 @@
                             android:id="@+id/ivWeatherIconHome"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
+                            android:layout_above="@id/tvWeatherStatus"
+                            android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:scaleType="fitXY" />
+                            android:scaleType="centerCrop" />
 
                         <TextView
                             android:id="@+id/tvWeatherStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
                             android:layout_alignParentBottom="true"
                             android:layout_marginStart="@dimen/dp_30"
                             android:layout_marginTop="@dimen/dp_10"
                             android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_toStartOf="@id/tvWeatherDate"
                             android:fontFamily="@font/fredoka_one"
+                            android:gravity="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="15sp" />
 
@@ -64,13 +69,14 @@
                             android:id="@+id/tvWeatherTemp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dp_30"
-                            android:layout_marginTop="@dimen/dp_20"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:layout_toStartOf="@id/layoutWeatherDT"
                             android:layout_toEndOf="@id/ivWeatherIconHome"
                             android:fontFamily="@font/coiny"
+                            android:gravity="center"
+                            android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="30sp"
-                            android:textStyle="bold" />
+                            android:textSize="35sp" />
 
 
                         <TextView
@@ -78,58 +84,68 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/tvWeatherTemp"
-                            android:layout_marginStart="@dimen/dp_20"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:fontFamily="@font/fredoka_one"
+                            android:layout_marginBottom="@dimen/dp_10"
+                            android:layout_toStartOf="@id/layoutWeatherDT"
                             android:layout_toEndOf="@id/ivWeatherIconHome"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tvWeatherCity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:layout_marginEnd="@dimen/dp_10"
-                            android:textColor="@color/colorPrimaryDark"
                             android:fontFamily="@font/fredoka_one"
-                            android:textSize="22sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvWeatherWind"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tvWeatherCity"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="@dimen/dp_10"
-                            android:layout_marginEnd="@dimen/dp_10"
-                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="14sp" />
 
-                        <TextView
-                            android:id="@+id/tvWeatherHumidity"
+                        <LinearLayout
+                            android:id="@+id/layoutWeatherDT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/tvWeatherWind"
+                            android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="@dimen/dp_10"
-                            android:fontFamily="@font/poppins_medium"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:textSize="14sp" />
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="@dimen/dp_10"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvWeatherCity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/fredoka_one"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="22sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvWeatherWind"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp_10"
+                                android:layout_marginEnd="@dimen/dp_10"
+                                android:fontFamily="@font/poppins_medium"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/tvWeatherHumidity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dp_10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
                     </RelativeLayout>
 
                     <ProgressBar
                         android:id="@+id/weatherProgressbar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:progressTint="@color/colorPrimaryDark"
+                        android:layout_centerInParent="true"
                         android:progressBackgroundTint="@color/colorPrimaryDark"
-                        android:visibility="gone"
-                        android:layout_centerInParent="true"/>
+                        android:progressTint="@color/colorPrimaryDark"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -140,11 +156,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="14dp"
                 android:text="Articles"
-
                 android:textColor="@color/fontColor"
                 android:textSize="21sp"
                 android:textStyle="bold"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/weatherCard" />
 
@@ -166,7 +180,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-
                         android:layout_marginVertical="10dp">
 
                         <LinearLayout
@@ -322,18 +335,27 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
+            <TextView
+                android:id="@+id/tvDashboardProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="14dp"
+                android:text="Products"
+                android:textColor="@color/fontColor"
+                android:textSize="21sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categoryHorizontal" />
 
-            <!--            <androidx.recyclerview.widget.RecyclerView-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:id="@+id/dashboardEcommRecycler"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/productsTitle"-->
-            <!--                android:layout_marginVertical="7dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                />-->
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/productsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/dp_10"
+                app:layout_constraintTop_toBottomOf="@id/tvDashboardProduct"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

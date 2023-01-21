@@ -55,6 +55,7 @@ public class DialogUtils {
                     Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
                     ((Activity) context).startActivityForResult(intent, Constants.GPS_REQUEST_CODE);
                 }
+
             }
         });
         dialog.show();

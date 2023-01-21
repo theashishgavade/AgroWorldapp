@@ -20,4 +20,6 @@
     <string name="proceed">Proceed</string>
     <string name="enable_gps_service">Please enable your GPS service to show your exact location</string>
     <string name="check_internet_connection">Check Internet Connection\nPlease enable your Internet service to show your exact location</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="label">title</string>
 </resources>

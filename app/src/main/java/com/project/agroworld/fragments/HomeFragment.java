@@ -106,7 +106,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
     }
 
     private void callApiService(Double lat, Double lon) {
@@ -138,7 +137,7 @@ public class HomeFragment extends Fragment {
         String humidity = String.valueOf(response.getMain().getHumidity());
         String iconUrl = "http://openweathermap.org/img/wn/" + response.getWeather().get(0).getIcon() + "@4x.png";
         Log.d("IconURL", iconUrl);
-        Glide.with(ivWeatherIconHome).load(iconUrl).into(ivWeatherIconHome);
+        Glide.with(requireContext()).load(iconUrl).placeholder(R.drawable.weather).dontAnimate().into(ivWeatherIconHome);
         tvWeatherDate.setText(date);
         tvWeatherHumidity.setText("Humidity:" + humidity);
         tvWeatherStatus.setText(status);
