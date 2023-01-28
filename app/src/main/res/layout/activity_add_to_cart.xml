@@ -14,6 +14,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:fontFamily="@font/fredoka_one"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
             android:gravity="center"
             android:visibility="gone"
             android:layout_above="@id/crdPayment"

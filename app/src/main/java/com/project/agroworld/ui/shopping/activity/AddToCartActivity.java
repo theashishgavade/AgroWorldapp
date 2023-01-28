@@ -1,7 +1,6 @@
 package com.project.agroworld.ui.shopping.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -44,12 +43,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         actionBar = getSupportActionBar();
         actionBar.hide();
         getProductListFromFirebase();
-        binding.tvAddAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Constants.showToast(AddToCartActivity.this, "Proceed to add address");
-            }
-        });
+        binding.tvAddAddress.setOnClickListener(v -> Constants.showToast(AddToCartActivity.this, "Proceed to add address"));
     }
 
     private void getProductListFromFirebase() {
@@ -57,19 +51,19 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                totalItemAmount = 0.0;
                 if (snapshot.exists()) {
                     productCartList.clear();
-                    totalItemAmount = 0.0;
                     for (DataSnapshot product : snapshot.getChildren()) {
                         ProductModel productItem = product.getValue(ProductModel.class);
                         productCartList.add(productItem);
                         totalItemAmount += productItem.getPrice();
                     }
-                    if (productCartList.isEmpty()) {
-                        binding.tvNoCartDataFound.setVisibility(View.VISIBLE);
-                    }
                     binding.tvTotalAmount.setText("₹" + df.format(totalItemAmount));
                     setRecyclerView();
+                }else {
+                    binding.recyclerViewCrtList.setVisibility(View.GONE);
+                    binding.tvNoCartDataFound.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -89,32 +83,24 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
     @Override
     public void onIncreaseItemClick(ProductModel productModel) {
-        String [] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
-        double currentDoubleValue = Double.valueOf(currentValue[1] )+ productModel.getPrice();
+        String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
+        double currentDoubleValue = Double.valueOf(currentValue[1]) + productModel.getPrice();
         binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
     }
 
     @Override
     public void onDecreaseItemClick(ProductModel productModel) {
-        String [] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
+        String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
         double currentDoubleValue = Double.valueOf(currentValue[1]) - productModel.getPrice();
         binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
     }
 
     @Override
     public void onRemovedItemClick(ProductModel productModel, int position) {
-        databaseReference.child(productModel.getTitle()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                totalItemAmount -= productModel.getPrice();
-                productAdapter.notifyDataSetChanged();
-                Constants.showToast(AddToCartActivity.this, "Item removed successfully price " + productModel.getPrice());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Constants.showToast(AddToCartActivity.this, "Failed to  removed item");
-            }
-        });
+        databaseReference.child(productModel.getTitle()).removeValue().addOnSuccessListener(unused -> {
+            totalItemAmount -= productModel.getPrice();
+            productAdapter.notifyDataSetChanged();
+            Constants.showToast(AddToCartActivity.this, "Item removed successfully price " + productModel.getPrice());
+        }).addOnFailureListener(e -> Constants.showToast(AddToCartActivity.this, "Failed to  removed item"));
     }
 }
