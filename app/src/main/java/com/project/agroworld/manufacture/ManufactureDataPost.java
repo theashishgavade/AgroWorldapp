@@ -22,13 +22,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
-import com.project.agroworld.manufacture.model.ProductModel;
+import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 public class ManufactureDataPost extends AppCompatActivity {
     private ActivityManufactureDataPostBinding binding;
-    private int REQUEST_CODE = 99;
+    private final int REQUEST_CODE = 99;
     private Uri imageUri;
     private DatabaseReference firebaseStorage;
     private StorageReference storage;
@@ -55,16 +55,6 @@ public class ManufactureDataPost extends AppCompatActivity {
             }
         });
 
-  /*      binding.btnProductImageUpload.setOnClickListener(v -> {
-            String title = binding.etProductTitle.getText().toString();
-            Double price = Double.valueOf(binding.etProductPrice.getText().toString());
-            String description = binding.etProductDescription.getText().toString();
-
-            if (!title.isEmpty() && !price.toString().isEmpty() && !description.isEmpty()) {
-            } else {
-                Constants.showToast(this, "All fields are required to fill.");
-            }
-        });*/
     }
 
     private void uploadImageToFirebase(String title, double price, String description) {
@@ -73,6 +63,8 @@ public class ManufactureDataPost extends AppCompatActivity {
         storage.child(title).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                binding.ivProductSelected.setImageResource(R.color.colorPrimary);
+                Constants.showToast(ManufactureDataPost.this, "Image uploaded successfully");
                 taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
@@ -86,8 +78,7 @@ public class ManufactureDataPost extends AppCompatActivity {
                         Constants.showToast(ManufactureDataPost.this, "Failed to generate Image url");
                     }
                 });
-                binding.ivProductSelected.setImageURI(null);
-                Constants.showToast(ManufactureDataPost.this, "Image uploaded successfully");
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

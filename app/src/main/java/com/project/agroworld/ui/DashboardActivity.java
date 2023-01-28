@@ -1,13 +1,13 @@
 package com.project.agroworld.ui;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Bundle;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
-
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 import com.project.agroworld.R;
@@ -34,9 +34,12 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         Permissions.checkConnection(this);
         Permissions.isGpsEnable(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Agro World");
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tabs);
         fragments = new ArrayList<>();
 
         fragments.add(new HomeFragment());
@@ -45,9 +48,11 @@ public class DashboardActivity extends AppCompatActivity {
         fragments.add(new TransportFragment());
         fragments.add(new NewsFragment());
         fragments.add(new ProfileFragment());
+
         FragmentAdapter pagerAdapter = new FragmentAdapter(getSupportFragmentManager(), getApplicationContext(), fragments);
         viewPager.setAdapter(pagerAdapter);
-
+        viewPager.setEnabled(false);
+        viewPager.setNestedScrollingEnabled(false);
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_home_24);
@@ -56,12 +61,6 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.getTabAt(3).setIcon(R.drawable.ic_baseline_emoji_transportation_24);
         tabLayout.getTabAt(4).setIcon(R.drawable.ic_baseline_newspaper_24);
         tabLayout.getTabAt(5).setIcon(R.drawable.ic_baseline_person_24);
-
-//        tabLayout.getTabAt(0).setText("Home");
-//        tabLayout.getTabAt(1).setText("Shopping");
-//        tabLayout.getTabAt(2).setText("Education");
-//        tabLayout.getTabAt(3).setText("Transport");
-//        tabLayout.getTabAt(4).setText("Profile");
 
         tabLayout.getTabAt(0).getIcon().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
         tabLayout.getTabAt(1).getIcon().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);

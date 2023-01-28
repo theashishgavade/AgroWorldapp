@@ -18,7 +18,7 @@ public class CustomMultiColorProgressBar extends Dialog {
         super(context);
         requestWindowFeature(1);
         setContentView(R.layout.dialog_custom_multicolor_progressbar);
-        circle_multicolor_progressbar = (CircleProgressBar) findViewById(R.id.bar);
+        circle_multicolor_progressbar = findViewById(R.id.bar);
         circle_multicolor_progressbar.setColorSchemeResources(android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_blue_light, android.R.color.holo_red_light);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(false);

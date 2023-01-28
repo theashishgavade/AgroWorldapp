@@ -164,7 +164,7 @@ public class CircleProgressBar extends ImageView {
                 ViewCompat.setLayerType(this, ViewCompat.LAYER_TYPE_SOFTWARE, mBgCircle.getPaint());
                 mBgCircle.getPaint().setShadowLayer(mShadowRadius, shadowXOffset, shadowYOffset,
                         KEY_SHADOW_COLOR);
-                final int padding = (int) mShadowRadius;
+                final int padding = mShadowRadius;
                 // set padding so the inner image sits correctly within the shadow.
                 setPadding(padding, padding, padding, padding);
             }
@@ -365,10 +365,10 @@ public class CircleProgressBar extends ImageView {
 
 
     private class OvalShadow extends OvalShape {
-        private RadialGradient mRadialGradient;
-        private int mShadowRadius;
-        private Paint mShadowPaint;
-        private int mCircleDiameter;
+        private final RadialGradient mRadialGradient;
+        private final int mShadowRadius;
+        private final Paint mShadowPaint;
+        private final int mCircleDiameter;
 
         public OvalShadow(int shadowRadius, int circleDiameter) {
             super();

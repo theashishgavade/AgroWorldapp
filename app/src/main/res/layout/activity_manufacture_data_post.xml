@@ -1,144 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".manufacture.ManufactureDataPost">
+        android:scrollIndicators="none">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/crdUploadImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="70dp"
-            app:cardCornerRadius="14dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivProductSelected"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:scaleType="fitXY"
-                android:src="@color/colorPrimary" />
-
-            <ImageView
-                android:id="@+id/ivProductUploadIcon"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_photo_camera_24" />
-
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/btnProductImageUpload"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_40"
-            android:layout_below="@id/crdUploadImage"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginBottom="@dimen/dp_30"
-            android:background="@drawable/button_bgd"
-            android:fontFamily="@font/fredoka_one"
-            android:paddingStart="@dimen/dp_20"
-            android:paddingEnd="@dimen/dp_20"
-            android:text="Upload"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_20sp" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etLayoutTitle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btnProductImageUpload"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:hint="title"
-            app:boxBackgroundColor="#20D81B60"
-            app:boxCornerRadiusTopEnd="@dimen/dp_10"
-            app:boxCornerRadiusTopStart="@dimen/dp_10">
+            tools:context=".manufacture.ManufactureDataPost">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductTitle"
+            <TextView
+                android:id="@+id/tvUploadNewProduct"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:fontFamily="@font/fredoka_one"
+                android:gravity="center"
+                android:text="Add product to Agro World store."
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/sp_25" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/crdUploadImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvUploadNewProduct"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="14dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etLayoutPrice"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etLayoutTitle"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:hint="price"
-            app:boxBackgroundColor="#20D81B60"
-            app:boxCornerRadiusTopEnd="@dimen/dp_10"
-            app:boxCornerRadiusTopStart="@dimen/dp_10">
+                <ImageView
+                    android:id="@+id/ivProductSelected"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:scaleType="fitXY"
+                    android:src="@color/colorPrimary" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductPrice"
+                <ImageView
+                    android:id="@+id/ivProductUploadIcon"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_photo_camera_24" />
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutTitle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:layout_below="@id/crdUploadImage"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:hint="title"
+                app:boxBackgroundColor="#20D81B60"
+                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                app:boxCornerRadiusTopStart="@dimen/dp_10">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etProductTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/etLayoutDesc"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/etLayoutPrice"
-            android:layout_marginStart="@dimen/dp_20"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_above="@id/btnUpdateData"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:hint="description"
-            app:boxBackgroundColor="#20D81B60"
-            app:boxCornerRadiusTopEnd="@dimen/dp_10"
-            app:boxCornerRadiusTopStart="@dimen/dp_10">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductDescription"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutPrice"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:minHeight="@dimen/dp_100" />
+                android:layout_below="@id/etLayoutTitle"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:hint="price"
+                app:boxBackgroundColor="#20D81B60"
+                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                app:boxCornerRadiusTopStart="@dimen/dp_10">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etProductPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
-        <Button
-            android:id="@+id/btnUpdateData"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dp_40"
-            android:layout_marginEnd="@dimen/dp_40"
-            android:layout_marginBottom="@dimen/dp_30"
-            android:background="@drawable/button_bgd"
-            android:fontFamily="@font/fredoka_one"
-            android:text="Update Product"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/size_20sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </RelativeLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutDesc"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etLayoutPrice"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:hint="description"
+                app:boxBackgroundColor="#20D81B60"
+                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:isScrollContainer="true"
+                    android:maxLength="2000"
+                    android:maxLines="30"
+                    android:minHeight="@dimen/dp_100"
+                    android:singleLine="false" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnUpdateData"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_below="@id/etLayoutDesc"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_40"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_40"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/button_bgd"
+                android:fontFamily="@font/fredoka_one"
+                android:text="Update Product"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp" />
+
+        </RelativeLayout>
+    </ScrollView>
 
 </layout>

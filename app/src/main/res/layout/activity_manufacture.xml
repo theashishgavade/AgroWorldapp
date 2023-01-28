@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/manufacutre"
-    tools:context=".manufacture.ManufactureActivity">
+    tools:context=".ui.UserProfileActivity">
 
     <Button
         android:id="@+id/btnMfrLogout"

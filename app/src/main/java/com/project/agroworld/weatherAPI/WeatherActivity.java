@@ -65,7 +65,7 @@ public class WeatherActivity extends AppCompatActivity {
             findViewById(R.id.errorText).setVisibility(View.GONE);
         }
 
-        protected String doInBackground(String args[]) {
+        protected String doInBackground(String[] args) {
             String response = HttpRequest.excuteGet("https://api.openweathermap.org/data/2.5/weather?q=" + adminArea + "&units=metric&appid=cff3614749a8d630f28ea5c7f079d389");
             return response;
         }
@@ -95,8 +95,7 @@ public class WeatherActivity extends AppCompatActivity {
                 JSONObject coord = jsonObj.getJSONObject("coord");
 
                 JSONObject weather = jsonObj.getJSONArray("weather").getJSONObject(0);
-                String icon = weather.getString("icon");
-                Glide.with(WeatherActivity.this).load("http://openweathermap.org/img/wn/\" + icon + \"@2x.png").into(weatherPNG);
+                Glide.with(WeatherActivity.this).load("http://openweathermap.org/img/wn/" + weather.getString("icon") + "@4x.png").into(weatherPNG);
                 long updatedAt = jsonObj.getLong("dt");
                 String updatedAtText = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(updatedAt * 1000));
                 String temp = main.getString("temp") + "°C";

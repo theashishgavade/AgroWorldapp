@@ -17,6 +17,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroWorld"
         tools:targetApi="31">
+        <activity android:name=".ui.shopping.activity.AddToCartActivity"/>
+        <activity
+            android:name=".articles.YojanasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".articles.MethodsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".articles.FruitsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".articles.PlantsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.ArticlesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.shopping.activity.ProductDetailActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".manufacture.ManufactureDataPost"
             android:exported="false">
@@ -32,7 +55,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".manufacture.ManufactureActivity"
+            android:name=".ui.UserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

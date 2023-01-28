@@ -118,8 +118,8 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
      * Canvas rotation in degrees.
      */
     private float mRotation;
-    private Resources mResources;
-    private View mAnimExcutor;
+    private final Resources mResources;
+    private final View mAnimExcutor;
     private Animation mAnimation;
     private float mRotationCount;
     private double mWidth;

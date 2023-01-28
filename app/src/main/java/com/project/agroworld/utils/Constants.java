@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.project.agroworld.manufacture.ManufactureActivity;
+import com.project.agroworld.ui.UserProfileActivity;
 import com.project.agroworld.ui.DashboardActivity;
 
 public class Constants {
@@ -25,12 +25,12 @@ public class Constants {
         if (user != null) {
             if (user.getEmail().equals("devdeveloper66@gmail.com")) {
                 //Manufacture user
-                Intent manufacturerIntent = new Intent(context, ManufactureActivity.class);
+                Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
             } else if (user.getEmail().equals("nap.napster08@gmail.com")) {
                 //transport user
-               Intent transportIntent = new Intent(context, ManufactureActivity.class);
+               Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
                 context.startActivity(transportIntent);
             } else {

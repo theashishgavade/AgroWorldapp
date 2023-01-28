@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,13 +22,11 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
+import com.project.agroworld.databinding.FragmentProfileBinding;
 
 
 public class ProfileFragment extends Fragment {
-
-    ImageView userBackgroundImage, userImageUserFrag;
-    TextView tvProfileUserName, tvProfileUserEmail, tvProfileNoDataFound;
-    ProgressBar uploadProgressBarProfile;
+    private FragmentProfileBinding dataBinding;
     RecyclerView userProfilePostsRecycler;
     FirebaseAuth auth;
     FirebaseUser user;
@@ -38,34 +39,27 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
+        return dataBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Agro world");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        initViews(view);
-    }
-
-    private void initViews(View view) {
-        userBackgroundImage = view.findViewById(R.id.userImageUserFrag);
-        uploadProgressBarProfile = view.findViewById(R.id.uploadProgressBarProfile);
-        tvProfileUserName = view.findViewById(R.id.tvProfileUserName);
-        tvProfileUserEmail = view.findViewById(R.id.tvProfileUserEmail);
-        tvProfileNoDataFound = view.findViewById(R.id.tvProfileNoDataFound);
         updateUI(user);
     }
 
     private void updateUI(FirebaseUser user) {
-        uploadProgressBarProfile.setVisibility(View.GONE);
+        dataBinding.uploadProgressBarProfile.setVisibility(View.GONE);
 
         if (user != null){
-            Glide.with(userImageUserFrag).load(user.getPhotoUrl()).into(userImageUserFrag);
-            Glide.with(userBackgroundImage).load(user.getPhotoUrl()).into(userBackgroundImage);
-            tvProfileUserName.setText(user.getDisplayName());
-            tvProfileUserEmail.setText(user.getEmail());
+            Glide.with(requireContext()).load(user.getPhotoUrl()).into(dataBinding.userImageUserFrag);
+            dataBinding.tvProfileUserName.setText(user.getDisplayName());
+            dataBinding.tvProfileUserEmail.setText(user.getEmail());
         }
     }
 }

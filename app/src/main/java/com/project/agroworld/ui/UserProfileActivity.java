@@ -1,4 +1,4 @@
-package com.project.agroworld.manufacture;
+package com.project.agroworld.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,16 +14,18 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
-import com.project.agroworld.ui.LoginActivity;
+import com.project.agroworld.manufacture.ManufactureDataPost;
+import com.project.agroworld.transport.TransportActivity;
 
 import java.util.Objects;
 
-public class ManufactureActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
     private ImageView ivMfrProfile;
     private Button btnMfrLogout, btnMfrProceed;
+    private String userType;
     private TextView tvMfrEmail, tvMfrName, tvMfrWelcomeMsg, tvUserType;
 
     @Override
@@ -41,7 +43,7 @@ public class ManufactureActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if (intent != null) {
-            String userType = intent.getStringExtra("manufacturerUser");
+            userType = intent.getStringExtra("manufacturerUser");
             if (Objects.equals(userType, "manufacturer")) {
                 tvUserType.setText("Manufacturer Panel");
             } else {
@@ -66,15 +68,19 @@ public class ManufactureActivity extends AppCompatActivity {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface arg0, int arg1) {
                             auth.signOut();
-                            startActivity(new Intent(ManufactureActivity.this, LoginActivity.class));
+                            startActivity(new Intent(UserProfileActivity.this, LoginActivity.class));
                             finish();
                         }
                     }).create().show();
         });
 
-        btnMfrProceed.setOnClickListener(v ->{
-
-            Intent intent1 = new Intent(ManufactureActivity.this, ManufactureDataPost.class);
+        btnMfrProceed.setOnClickListener(v -> {
+            Intent intent1;
+            if (Objects.equals(userType, "manufacturer")) {
+                intent1 = new Intent(UserProfileActivity.this, ManufactureDataPost.class);
+            } else {
+                intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
+            }
             startActivity(intent1);
         });
 

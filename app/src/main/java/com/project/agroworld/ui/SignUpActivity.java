@@ -58,10 +58,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         tvHaveAnAccountUp = findViewById(R.id.tvHaveAnAccountUp);
         btnSignup = findViewById(R.id.btnSignup);
 
-        ivFbSignup.setOnClickListener((View.OnClickListener) SignUpActivity.this);
-        ivGithubSignup.setOnClickListener((View.OnClickListener) SignUpActivity.this);
-        ivInstaSignup.setOnClickListener((View.OnClickListener) SignUpActivity.this);
-        ivGoogleSignup.setOnClickListener((View.OnClickListener) SignUpActivity.this);
+        ivFbSignup.setOnClickListener(SignUpActivity.this);
+        ivGithubSignup.setOnClickListener(SignUpActivity.this);
+        ivInstaSignup.setOnClickListener(SignUpActivity.this);
+        ivGoogleSignup.setOnClickListener(SignUpActivity.this);
 
 
     }

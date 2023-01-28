@@ -22,4 +22,13 @@
     <string name="check_internet_connection">Check Internet Connection\nPlease enable your Internet service to show your exact location</string>
     <string name="please_wait">Please Wait</string>
     <string name="label">title</string>
+    <string name="username">Seeds Shopping</string>
+    <string name="seed_title">Seed Title</string>
+    <string name="price">Price</string>
+    <string name="description">Product Description</string>
+    <string name="benefits">Description</string>
+    <string name="BuyNow">Buy Now</string>
+    <string name="transport">Book Vehicle</string>
+    <string name="title_activity_methods">MethodsActivity</string>
+    <string name="Add_to_cart">Add to cart</string>
 </resources>

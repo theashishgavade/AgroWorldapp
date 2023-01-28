@@ -72,13 +72,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         etEmail = findViewById(R.id.etEmail);
         etPasswd = findViewById(R.id.etPasswd);
 
-        ivGoogleLogin.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        ivFacebookLogin.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        ivGithubLogin.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        ivInstaLogin.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        tvNewUser.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        tvForgetPasswd.setOnClickListener((View.OnClickListener) LoginActivity.this);
-        btnLoginUp.setOnClickListener((View.OnClickListener) LoginActivity.this);
+        ivGoogleLogin.setOnClickListener(LoginActivity.this);
+        ivFacebookLogin.setOnClickListener(LoginActivity.this);
+        ivGithubLogin.setOnClickListener(LoginActivity.this);
+        ivInstaLogin.setOnClickListener(LoginActivity.this);
+        tvNewUser.setOnClickListener(LoginActivity.this);
+        tvForgetPasswd.setOnClickListener(LoginActivity.this);
+        btnLoginUp.setOnClickListener(LoginActivity.this);
 
     }
 
@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressBar.hideProgressBar();
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    Constants.showToast(LoginActivity.this, task.getException().getLocalizedMessage().toString());
+                    Constants.showToast(LoginActivity.this, task.getException().getLocalizedMessage());
                 }
             }
         });

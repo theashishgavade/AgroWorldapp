@@ -1,10 +1,16 @@
-package com.project.agroworld.manufacture.model;
+package com.project.agroworld.ui.shopping.model;
 
-public class ProductModel {
+import java.io.Serializable;
+
+public class ProductModel implements Serializable {
     private String title;
     private String description;
     private double price;
     private String imageUrl;
+
+    public ProductModel(){
+
+    }
 
     public ProductModel(String title, String description, double price, String imageUrl) {
         this.title = title;
@@ -21,9 +27,7 @@ public class ProductModel {
         return description;
     }
 
-    public double getPrice() {
-        return price;
-    }
+    public double getPrice() {return price;}
 
     public String getImageUrl() {
         return imageUrl;
