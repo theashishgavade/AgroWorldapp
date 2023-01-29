@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentTransportBinding;
+import com.project.agroworld.ui.AgroViewModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
@@ -35,14 +37,13 @@ import java.util.ArrayList;
 public class TransportFragment extends Fragment implements OnVehicleCallClick {
 
     private FragmentTransportBinding binding;
-    private DatabaseReference databaseReference;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private VehicleAdapter vehicleAdapter;
+    private AgroViewModel viewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -58,6 +59,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         getVehicleListFromFirebase();
 
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
@@ -89,30 +91,15 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
 
     private void getVehicleListFromFirebase() {
         binding.shimmerVehicle.startShimmer();
-        databaseReference = FirebaseDatabase.getInstance().getReference("vehicle");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    vehicleItemList.clear();
-                    for (DataSnapshot product : snapshot.getChildren()) {
-                        VehicleModel vehicleModel = product.getValue(VehicleModel.class);
-                        if (vehicleModel != null) {
-                            vehicleItemList.add(vehicleModel);
-                        }
-                    }
-                    Log.d("productListsCount", String.valueOf(vehicleItemList.size()));
-                    binding.shimmerVehicle.stopShimmer();
-                    binding.shimmerVehicle.setVisibility(View.GONE);
-                    binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
-                    setRecyclerView();
-                }
+        viewModel.getVehicleList().observe(getViewLifecycleOwner(), vehicleModelsList -> {
+            if (!vehicleModelsList.isEmpty()){
+                vehicleItemList.addAll(vehicleModelsList);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Constants.showToast(getContext(), error.toString());
-            }
+            Log.d("productListsCount", String.valueOf(vehicleItemList.size()));
+            binding.shimmerVehicle.stopShimmer();
+            binding.shimmerVehicle.setVisibility(View.GONE);
+            binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
+            setRecyclerView();
         });
     }
 

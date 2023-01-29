@@ -21,20 +21,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
+import com.project.agroworld.ui.AgroViewModel;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.ui.shopping.listener.OnProductListener;
@@ -44,10 +41,10 @@ import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
-import com.project.agroworld.weatherAPI.APIService;
-import com.project.agroworld.weatherAPI.Network;
-import com.project.agroworld.weatherAPI.WeatherActivity;
-import com.project.agroworld.weatherAPI.model.WeatherResponse;
+import com.project.agroworld.weather.APIService;
+import com.project.agroworld.weather.Network;
+import com.project.agroworld.weather.WeatherActivity;
+import com.project.agroworld.weather.model.weather_data.WeatherResponse;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -64,12 +61,13 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private FragmentHomeBinding binding;
-    private DatabaseReference databaseReference;
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
     private ProductAdapter productAdapter;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
+    private AgroViewModel viewModel;
     private VehicleAdapter vehicleAdapter;
-    String locality, adminArea;
+    private String locality;
+    double latitude, longitude;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -105,6 +103,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Agro world");
         initViews(view);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         getProductListFromFirebase();
         getVehicleListFromFirebase();
 
@@ -122,7 +121,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), WeatherActivity.class);
-                intent.putExtra("adminArea", adminArea);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivity(intent);
             }
         });
@@ -178,31 +178,12 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         }
     }
 
-
     private void getProductListFromFirebase() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("product");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    productModelArrayList.clear();
-                    for (DataSnapshot product : snapshot.getChildren()) {
-                        ProductModel productItem = product.getValue(ProductModel.class);
-                        if (productItem != null) {
-                            productModelArrayList.add(productItem);
-                        }
-                    }
-
-                    Log.d("productListsCount", String.valueOf(productModelArrayList.size()));
-                    binding.shoppingRecyclerView.setVisibility(View.VISIBLE);
-                    setRecyclerView();
-                }
+        viewModel.getProductList().observe(getViewLifecycleOwner(), productModelList ->{
+            if (!productModelList.isEmpty()){
+                productModelArrayList.addAll(productModelList);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Constants.showToast(getContext(), error.toString());
-            }
+            setRecyclerView();
         });
     }
 
@@ -214,28 +195,12 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getVehicleListFromFirebase() {
-        databaseReference = FirebaseDatabase.getInstance().getReference("vehicle");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    vehicleItemList.clear();
-                    for (DataSnapshot product : snapshot.getChildren()) {
-                        VehicleModel vehicleModel = product.getValue(VehicleModel.class);
-                        if (vehicleModel != null) {
-                            vehicleItemList.add(vehicleModel);
-                        }
-                    }
-                    Log.d("productListsCount", String.valueOf(vehicleItemList.size()));
-                    binding.transportRecyclerView.setVisibility(View.VISIBLE);
-                    setVehicleRecyclerView();
-                }
+        viewModel.getVehicleList().observe(getViewLifecycleOwner(), vehicleModels -> {
+            if (!vehicleModels.isEmpty()){
+                vehicleItemList.addAll(vehicleModels);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Constants.showToast(getContext(), error.toString());
-            }
+            binding.transportRecyclerView.setVisibility(View.VISIBLE);
+            setVehicleRecyclerView();
         });
     }
 
@@ -260,10 +225,9 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             Double lat = addresses.get(0).getLatitude();
                             Double lon = addresses.get(0).getLongitude();
-                            String currentLocality = addresses.get(0).getLocality();
-                            String currentAdminArea = addresses.get(0).getAdminArea();
-                            adminArea = currentAdminArea;
-                            locality = currentLocality;
+                            locality = addresses.get(0).getLocality();
+                            latitude = lat;
+                            longitude = lon;
                             callApiService(lat, lon);
                         } catch (IOException e) {
                             e.printStackTrace();

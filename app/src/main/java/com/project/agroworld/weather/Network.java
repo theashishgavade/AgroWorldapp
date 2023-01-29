@@ -1,4 +1,4 @@
-package com.project.agroworld.weatherAPI;
+package com.project.agroworld.weather;
 
 import static com.project.agroworld.utils.Constants.BASE_URL;
 

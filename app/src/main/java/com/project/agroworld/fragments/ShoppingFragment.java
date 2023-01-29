@@ -2,7 +2,6 @@ package com.project.agroworld.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,22 +13,23 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
-import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.shopping.listener.OnProductListener;
-import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
+import com.project.agroworld.ui.AgroViewModel;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
+import com.project.agroworld.ui.shopping.listener.OnProductListener;
+import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.ArrayList;
+
+import kotlinx.coroutines.CoroutineScope;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
@@ -38,6 +38,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     private DatabaseReference databaseReference;
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
     private ProductAdapter productAdapter;
+    private AgroViewModel agroViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,8 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         getProductListFromFirebase();
-
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,31 +91,14 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
 
     private void getProductListFromFirebase() {
         binding.shimmer.startShimmer();
-        databaseReference = FirebaseDatabase.getInstance().getReference("product");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    productModelArrayList.clear();
-                    for (DataSnapshot product : snapshot.getChildren()) {
-                        ProductModel productItem = product.getValue(ProductModel.class);
-                        if (productItem != null) {
-                            productModelArrayList.add(productItem);
-                        }
-                    }
-
-                    Log.d("productListsCount", String.valueOf(productModelArrayList.size()));
-                    binding.shimmer.stopShimmer();
-                    binding.shimmer.setVisibility(View.GONE);
-                    binding.recyclerView.setVisibility(View.VISIBLE);
-                    setRecyclerView();
-                }
+        agroViewModel.getProductList().observe(getViewLifecycleOwner(), productModelList -> {
+            if (!productModelList.isEmpty()){
+                productModelArrayList.addAll(productModelList);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Constants.showToast(getContext(), error.toString());
-            }
+            binding.shimmer.stopShimmer();
+            binding.shimmer.setVisibility(View.GONE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            setRecyclerView();
         });
     }
 

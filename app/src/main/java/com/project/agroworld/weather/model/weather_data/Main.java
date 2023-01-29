@@ -1,4 +1,4 @@
-package com.project.agroworld.weatherAPI.model;
+package com.project.agroworld.weather.model.weather_data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -13,10 +13,10 @@ public class Main implements Serializable {
     private Object feelsLike;
 
     @SerializedName("temp_min")
-    private Object tempMin;
+    private double tempMin;
 
     @SerializedName("temp_max")
-    private Object tempMax;
+    private double tempMax;
 
     @SerializedName("pressure")
     private int pressure;
@@ -40,19 +40,19 @@ public class Main implements Serializable {
         return feelsLike;
     }
 
-    public void setTempMin(Object tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public Object getTempMin() {
+    public double getTempMin() {
         return tempMin;
     }
 
-    public void setTempMax(Object tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
-    public Object getTempMax() {
+    public double getTempMax() {
         return tempMax;
     }
 

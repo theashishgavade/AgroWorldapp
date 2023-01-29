@@ -1,4 +1,4 @@
-package com.project.agroworld.weatherAPI.model;
+package com.project.agroworld.weather.model.weather_data;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,24 +7,24 @@ import java.io.Serializable;
 public class Coord implements Serializable {
 
     @SerializedName("lon")
-    private Object lon;
+    private double lon;
 
     @SerializedName("lat")
-    private Object lat;
+    private double lat;
 
-    public void setLon(Object lon) {
+    public void setLon(double lon) {
         this.lon = lon;
     }
 
-    public Object getLon() {
+    public double getLon() {
         return lon;
     }
 
-    public void setLat(Object lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Object getLat() {
+    public double getLat() {
         return lat;
     }
 

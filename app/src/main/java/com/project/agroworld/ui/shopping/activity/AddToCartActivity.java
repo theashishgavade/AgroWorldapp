@@ -64,6 +64,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                 }else {
                     binding.recyclerViewCrtList.setVisibility(View.GONE);
                     binding.tvNoCartDataFound.setVisibility(View.VISIBLE);
+                    binding.tvTotalAmount.setText("₹" + 0.0);
                 }
             }
 

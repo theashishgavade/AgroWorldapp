@@ -1,4 +1,4 @@
-package com.project.agroworld.weatherAPI.model;
+package com.project.agroworld.weather.model.weather_data;
 
 import com.google.gson.annotations.SerializedName;
 
