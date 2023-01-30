@@ -12,7 +12,7 @@ import com.project.agroworld.ui.DashboardActivity;
 public class Constants {
 
     public static String BASE_URL = "https://api.openweathermap.org/data/2.5/";
-    public static String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
+    public static String API_KEY = "YOUR_API_KEY";
     public static String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static int REQUEST_CODE = 99;
     public static int GPS_REQUEST_CODE = 999;
