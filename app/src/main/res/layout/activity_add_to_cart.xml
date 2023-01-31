@@ -11,17 +11,17 @@
             android:id="@+id/tvNoCartDataFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/crdPayment"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:fontFamily="@font/fredoka_one"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
+            android:fontFamily="@font/fredoka_one"
             android:gravity="center"
-            android:visibility="gone"
-            android:layout_above="@id/crdPayment"
-            android:text="Look's like you haven't add any item to cart."
+            android:text="@string/tem_to_cart"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="@dimen/size_20sp" />
+            android:textSize="@dimen/size_20sp"
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_crt_list"
@@ -35,14 +35,12 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/crdPayment"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_150"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/dp_200"
                 android:background="@drawable/cart_bottom_bg">
 
                 <TextView
@@ -56,22 +54,23 @@
                     android:layout_marginEnd="@dimen/dp_20"
                     android:drawableEnd="@drawable/baseline_add_location_alt_24"
                     android:drawablePadding="@dimen/dp_20"
-                    android:fontFamily="@font/fredoka_one"
+                    android:fontFamily="@font/poppins_medium"
                     android:gravity="end"
-                    android:text="Add Address"
-                    android:textColor="@color/cardview_dark_background"
-                    android:textSize="@dimen/size_20sp" />
+                    android:text="@string/add_address"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_18" />
 
                 <TextView
                     android:id="@+id/tvTotalTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvAddAddress"
+                    android:layout_above="@id/btnProceedToPayment"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="@dimen/dp_20"
                     android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:fontFamily="@font/fredoka_one"
-                    android:text="Total: "
+                    android:text="@string/total"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -79,12 +78,13 @@
                     android:id="@+id/tvTotalAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tvAddAddress"
+                    android:layout_above="@id/btnProceedToPayment"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:fontFamily="@font/fredoka_one"
-                    android:text="456.88"
+                    android:text="@string/_456_88"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp" />
 
@@ -97,13 +97,13 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/dp_50"
                     android:layout_marginEnd="@dimen/dp_50"
-                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:background="@drawable/all_buttons"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Proceed To Payment"
+                    android:text="@string/proceed_to_payment"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sp_18"/>
+                    android:textSize="@dimen/sp_18" />
 
 
             </RelativeLayout>

@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
-        if (!(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)) {
+        if ((ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             askPermission();
         }
     }

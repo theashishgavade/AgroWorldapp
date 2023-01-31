@@ -28,7 +28,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
                     android:fontFamily="@font/fredoka_one"
-                    android:text="Already \nhave an \nAccount?"
+                    android:text="@string/already_nhave_an_naccount"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/sp_25" />
 
@@ -78,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="12dp"
-                        android:hint="Password"
+                        android:hint="@string/password"
                         app:boxBackgroundColor="#20D81B60"
                         app:boxCornerRadiusTopEnd="@dimen/dp_10"
                         app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -98,7 +98,7 @@
                         android:layout_gravity="end"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Forgot Password"
+                        android:text="@string/forgot_password"
                         android:textColor="@color/darkPink"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -113,7 +113,7 @@
                         android:background="@drawable/side_white_panel"
                         android:backgroundTint="@color/white"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Login"
+                        android:text="@string/login"
                         android:textAllCaps="false"
                         android:textColor="@color/darkPink"
                         android:textSize="20sp" />
@@ -149,7 +149,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="6"
-                            android:text="Use other Methods"
+                            android:text="@string/use_other_methods"
                             android:textAlignment="center"
                             android:textSize="12sp" />
 
@@ -171,7 +171,7 @@
                             android:id="@+id/ivGoogleLogin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:src="@drawable/icons8_google_50" />
 
                         <ImageView
@@ -184,7 +184,7 @@
                             android:id="@+id/ivInstaLogin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginStart="10dp"
                             android:src="@drawable/icons8_instagram_50" />
 
                         <ImageView

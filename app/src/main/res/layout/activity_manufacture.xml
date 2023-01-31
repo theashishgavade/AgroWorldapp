@@ -17,7 +17,7 @@
         android:backgroundTint="#367fd9"
         android:fontFamily="@font/fredoka_one"
         android:padding="@dimen/dp_10"
-        android:text="Logout"
+        android:text="@string/logout"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark" />
 
