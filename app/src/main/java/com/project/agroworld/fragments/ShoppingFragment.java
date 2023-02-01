@@ -92,6 +92,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     private void getProductListFromFirebase() {
         binding.shimmer.startShimmer();
         agroViewModel.getProductList().observe(getViewLifecycleOwner(), productModelList -> {
+            productModelArrayList.clear();
             if (!productModelList.isEmpty()){
                 productModelArrayList.addAll(productModelList);
             }

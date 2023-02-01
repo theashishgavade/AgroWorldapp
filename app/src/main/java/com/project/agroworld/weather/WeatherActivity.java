@@ -1,5 +1,7 @@
 package com.project.agroworld.weather;
 
+import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -53,7 +54,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private void callApiService(Double lat, Double lon) {
         progressBar.showProgressBar();
-        APIService apiService = Network.getInstance().create(APIService.class);
+        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
         apiService.getWeatherData(lat, lon, Constants.API_KEY).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {

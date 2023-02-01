@@ -1,5 +1,7 @@
 package com.project.agroworld.fragments;
 
+import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -32,13 +34,13 @@ import com.project.agroworld.R;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
 import com.project.agroworld.ui.AgroViewModel;
-import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.transport.model.VehicleModel;
-import com.project.agroworld.ui.shopping.listener.OnProductListener;
-import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
+import com.project.agroworld.ui.shopping.listener.OnProductListener;
+import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
+import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.weather.APIService;
@@ -130,7 +132,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        APIService apiService = Network.getInstance().create(APIService.class);
+        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
         apiService.getWeatherData(lat, lon, Constants.API_KEY).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
@@ -179,8 +181,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getProductListFromFirebase() {
-        viewModel.getProductList().observe(getViewLifecycleOwner(), productModelList ->{
-            if (!productModelList.isEmpty()){
+        viewModel.getProductList().observe(getViewLifecycleOwner(), productModelList -> {
+            if (!productModelList.isEmpty()) {
                 productModelArrayList.addAll(productModelList);
             }
             setRecyclerView();
@@ -196,7 +198,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void getVehicleListFromFirebase() {
         viewModel.getVehicleList().observe(getViewLifecycleOwner(), vehicleModels -> {
-            if (!vehicleModels.isEmpty()){
+            if (!vehicleModels.isEmpty()) {
+                vehicleItemList.clear();
                 vehicleItemList.addAll(vehicleModels);
             }
             binding.transportRecyclerView.setVisibility(View.VISIBLE);

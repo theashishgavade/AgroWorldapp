@@ -1,7 +1,8 @@
 package com.project.agroworld.ui;
 
+import static com.project.agroworld.utils.Constants.BASE_URL_SHEET_DB;
+
 import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -13,18 +14,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
-import com.project.agroworld.utils.Constants;
+import com.project.agroworld.weather.APIService;
+import com.project.agroworld.weather.Network;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AgroViewModel extends ViewModel {
 
     private DatabaseReference databaseReference;
     private MutableLiveData<List<ProductModel>> productModelArrayList;
     private MutableLiveData<List<VehicleModel>> vehicleModelList;
+
+    private MutableLiveData<List<TechniquesResponse>> techniquesResponseList;
 
     public LiveData<List<ProductModel>> getProductList() {
         if (productModelArrayList == null) {
@@ -40,6 +49,32 @@ public class AgroViewModel extends ViewModel {
             getVehicleListFromFirebase();
         }
         return vehicleModelList;
+    }
+
+    public LiveData<List<TechniquesResponse>> getFruitsList() {
+        if (techniquesResponseList == null) {
+            techniquesResponseList = new MutableLiveData<>();
+            getTechniques();
+        }
+        return techniquesResponseList;
+    }
+
+    private void getTechniques() {
+        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
+        apiService.getTechniquesList().enqueue(new Callback<List<TechniquesResponse>>() {
+            @Override
+            public void onResponse(Call<List<TechniquesResponse>> call, Response<List<TechniquesResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    techniquesResponseList.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TechniquesResponse>> call, Throwable t) {
+                Log.d("fruitsResponseArrayList", t.getLocalizedMessage());
+
+            }
+        });
     }
 
 

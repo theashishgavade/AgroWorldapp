@@ -1,6 +1,7 @@
 package com.project.agroworld.weather;
 
 import static com.project.agroworld.utils.Constants.API_KEY;
+import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
     private void callForecastApiService(double lat, double lon) {
         progressBar.showProgressBar();
         binding.tvForecastNoDataFound.setVisibility(View.GONE);
-        APIService apiService = Network.getInstance().create(APIService.class);
+        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
         apiService.getWeatherForecastData(lat, lon, API_KEY).enqueue(new Callback<WeatherDatesResponse>() {
             @Override
             public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {

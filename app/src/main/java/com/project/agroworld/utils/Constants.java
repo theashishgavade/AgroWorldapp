@@ -11,8 +11,10 @@ import com.project.agroworld.ui.DashboardActivity;
 
 public class Constants {
 
-    public static String BASE_URL = "https://api.openweathermap.org/data/2.5/";
-    public static String API_KEY = "YOUR_API_KEY";
+    public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
+
+    public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
+    public static String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
     public static String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static int REQUEST_CODE = 99;
     public static int GPS_REQUEST_CODE = 999;
@@ -30,7 +32,7 @@ public class Constants {
                 context.startActivity(manufacturerIntent);
             } else if (user.getEmail().equals("nap.napster08@gmail.com")) {
                 //transport user
-               Intent transportIntent = new Intent(context, UserProfileActivity.class);
+                Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
                 context.startActivity(transportIntent);
             } else {
@@ -44,4 +46,5 @@ public class Constants {
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
+
 }
