@@ -3,7 +3,6 @@ package com.project.agroworld.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,20 +14,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentTransportBinding;
-import com.project.agroworld.ui.AgroViewModel;
-import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
+import com.project.agroworld.ui.transport.model.VehicleModel;
+import com.project.agroworld.ui.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.ArrayList;
@@ -39,7 +33,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     private FragmentTransportBinding binding;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private VehicleAdapter vehicleAdapter;
-    private AgroViewModel viewModel;
+    private AgroViewModel agroViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,7 +53,8 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel.init();
         getVehicleListFromFirebase();
 
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
@@ -90,16 +85,33 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     private void getVehicleListFromFirebase() {
-        binding.shimmerVehicle.startShimmer();
-        viewModel.getVehicleList().observe(getViewLifecycleOwner(), vehicleModelsList -> {
-            if (!vehicleModelsList.isEmpty()){
-                vehicleItemList.addAll(vehicleModelsList);
+        binding.shimmer.startShimmer();
+        agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
+            switch (vehicleModelResource.status) {
+                case ERROR:
+                    binding.shimmer.stopShimmer();
+                    binding.shimmer.setVisibility(View.GONE);
+                    binding.recyclerViewVehicle.setVisibility(View.GONE);
+                    binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+                    binding.tvNoDataFoundErr.setText(vehicleModelResource.message);
+                    break;
+                case LOADING:
+                    binding.shimmer.startShimmer();
+                    break;
+                case SUCCESS:
+                    if (vehicleModelResource.data != null) {
+                        vehicleItemList.clear();
+                        vehicleItemList.addAll(vehicleModelResource.data);
+                        binding.shimmer.stopShimmer();
+                        binding.shimmer.setVisibility(View.GONE);
+                        binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
+                        setRecyclerView();
+                    } else {
+                        binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+                        binding.tvNoDataFoundErr.setText("Looks like Admin haven't added any item yet.");
+                    }
+                    break;
             }
-            Log.d("productListsCount", String.valueOf(vehicleItemList.size()));
-            binding.shimmerVehicle.stopShimmer();
-            binding.shimmerVehicle.setVisibility(View.GONE);
-            binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
-            setRecyclerView();
         });
     }
 

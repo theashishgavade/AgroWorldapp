@@ -25,13 +25,13 @@
             android:name=".articles.YojanasActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.MethodsActivity"
+            android:name=".articles.FlowersActivity"
             android:exported="false" />
         <activity
             android:name=".articles.FruitsActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.PlantsActivity"
+            android:name=".articles.CropsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.ArticlesActivity"

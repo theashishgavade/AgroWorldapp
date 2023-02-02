@@ -58,7 +58,8 @@ public class CartViewHolder extends RecyclerView.ViewHolder{
 
         binding.tvProductPrice.setText("₹" + productModel.getPrice());
         binding.tvProductName.setText(productModel.getTitle());
-        Glide.with(binding.ivProductImage).load(productModel.getImageUrl()).into(binding.ivProductImage);
+        Constants.bindImage(binding.getRoot(), productModel.getImageUrl(), binding.ivProductImage);
+//        Glide.with(binding.ivProductImage).load(productModel.getImageUrl()).into(binding.ivProductImage);
 
     }
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/crdArticleItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        app:cardCornerRadius="@dimen/dp_10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivArticleItem"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_150"
+                android:scaleType="fitCenter"
+                android:src="@drawable/farmer_in" />
+
+            <TextView
+                android:id="@+id/tvSeasonArticleItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="season"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvTitleArticleItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rowdies"
+                android:gravity="center"
+                android:text="article name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp" />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

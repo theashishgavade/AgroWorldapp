@@ -3,11 +3,14 @@ package com.project.agroworld.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.agroworld.ui.UserProfileActivity;
 import com.project.agroworld.ui.DashboardActivity;
+import com.project.agroworld.ui.UserProfileActivity;
 
 public class Constants {
 
@@ -45,6 +48,10 @@ public class Constants {
 
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
+
+    public static void bindImage(View view, String url, ImageView imageView) {
+        Glide.with(view).load(url).into(imageView);
     }
 
 }

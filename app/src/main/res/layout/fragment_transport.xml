@@ -70,6 +70,17 @@
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
+        <TextView
+            android:id="@+id/tvNoDataFoundErr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppins_medium"
+            android:text="No Data Found"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_vehicle"
             android:layout_width="match_parent"
@@ -79,7 +90,7 @@
             android:visibility="gone" />
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_vehicle"
+            android:id="@+id/shimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/crdHeader"

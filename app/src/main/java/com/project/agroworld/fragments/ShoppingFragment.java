@@ -13,23 +13,20 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.database.DatabaseReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
-import com.project.agroworld.ui.AgroViewModel;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
 import com.project.agroworld.ui.shopping.listener.OnProductListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
+import com.project.agroworld.ui.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.ArrayList;
-
-import kotlinx.coroutines.CoroutineScope;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
@@ -60,7 +57,8 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel.init();
         getProductListFromFirebase();
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,16 +88,32 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     }
 
     private void getProductListFromFirebase() {
-        binding.shimmer.startShimmer();
-        agroViewModel.getProductList().observe(getViewLifecycleOwner(), productModelList -> {
-            productModelArrayList.clear();
-            if (!productModelList.isEmpty()){
-                productModelArrayList.addAll(productModelList);
+        agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
+            switch (productModelResource.status) {
+                case ERROR:
+                    binding.shimmer.stopShimmer();
+                    binding.shimmer.setVisibility(View.GONE);
+                    binding.recyclerView.setVisibility(View.GONE);
+                    binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+                    binding.tvNoDataFoundErr.setText(productModelResource.message);
+                    break;
+                case LOADING:
+                    binding.shimmer.startShimmer();
+                    break;
+                case SUCCESS:
+                    if (productModelResource.data != null) {
+                        productModelArrayList.clear();
+                        productModelArrayList.addAll(productModelResource.data);
+                        binding.shimmer.stopShimmer();
+                        binding.shimmer.setVisibility(View.GONE);
+                        binding.recyclerView.setVisibility(View.VISIBLE);
+                        setRecyclerView();
+                    } else {
+                        binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+                        binding.tvNoDataFoundErr.setText("Looks like Admin haven't added any item yet.");
+                    }
+                    break;
             }
-            binding.shimmer.stopShimmer();
-            binding.shimmer.setVisibility(View.GONE);
-            binding.recyclerView.setVisibility(View.VISIBLE);
-            setRecyclerView();
         });
     }
 

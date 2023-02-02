@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +33,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.project.agroworld.R;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
-import com.project.agroworld.ui.AgroViewModel;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
 import com.project.agroworld.ui.shopping.listener.OnProductListener;
@@ -41,6 +40,7 @@ import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
 import com.project.agroworld.ui.transport.model.VehicleModel;
+import com.project.agroworld.ui.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.weather.APIService;
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
     private ProductAdapter productAdapter;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
-    private AgroViewModel viewModel;
+    private AgroViewModel agroViewModel;
     private VehicleAdapter vehicleAdapter;
     private String locality;
     double latitude, longitude;
@@ -105,7 +105,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle("Agro world");
         initViews(view);
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel.init();
         getProductListFromFirebase();
         getVehicleListFromFirebase();
 
@@ -181,11 +182,21 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getProductListFromFirebase() {
-        viewModel.getProductList().observe(getViewLifecycleOwner(), productModelList -> {
-            if (!productModelList.isEmpty()) {
-                productModelArrayList.addAll(productModelList);
+        agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
+            switch (productModelResource.status) {
+                case ERROR:
+                    binding.shoppingRecyclerView.setVisibility(View.GONE);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (productModelResource.data != null) {
+                        productModelArrayList.clear();
+                        productModelArrayList.addAll(productModelResource.data);
+                        setRecyclerView();
+                    }
+                    break;
             }
-            setRecyclerView();
         });
     }
 
@@ -197,13 +208,22 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getVehicleListFromFirebase() {
-        viewModel.getVehicleList().observe(getViewLifecycleOwner(), vehicleModels -> {
-            if (!vehicleModels.isEmpty()) {
-                vehicleItemList.clear();
-                vehicleItemList.addAll(vehicleModels);
+
+        agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
+            switch (vehicleModelResource.status) {
+                case ERROR:
+                    binding.shoppingRecyclerView.setVisibility(View.GONE);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (vehicleModelResource.data != null) {
+                        vehicleItemList.clear();
+                        vehicleItemList.addAll(vehicleModelResource.data);
+                        setVehicleRecyclerView();
+                    }
+                    break;
             }
-            binding.transportRecyclerView.setVisibility(View.VISIBLE);
-            setVehicleRecyclerView();
         });
     }
 
