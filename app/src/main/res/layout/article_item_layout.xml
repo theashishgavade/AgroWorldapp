@@ -18,7 +18,7 @@
                 android:id="@+id/ivArticleItem"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_150"
-                android:scaleType="fitCenter"
+                android:scaleType="fitXY"
                 android:src="@drawable/farmer_in" />
 
             <TextView

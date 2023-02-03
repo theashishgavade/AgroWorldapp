@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".articles.ArticleDetailsActivity">
+
+            <ImageView
+                android:id="@+id/ivItemPicture"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvTitleArtDetail_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivItemPicture"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/fredoka_one"
+                android:text="article Title"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_20sp" />
+
+            <TextView
+                android:id="@+id/tvStateArtDetail_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitleArtDetail_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/poppins_medium"
+                android:text="available state"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_15sp" />
+
+            <LinearLayout
+                android:id="@+id/llSeason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvStateArtDetail_txt"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvSeason_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="available state"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15sp" />
+
+                <Space
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvReqTemp_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="available state"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTimeFertilize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llSeason"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/tvTime_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="available state"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15sp" />
+
+                <Space
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvFertilize_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="center"
+                    android:text="available state"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/size_15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDetailInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llTimeFertilize"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Crops Information"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvArticleInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDetailInfo"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:text="available state"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+            <TextView
+                android:id="@+id/tvDetailIrrigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvArticleInfo_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Irrigation"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvIrrigationInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDetailIrrigation"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:text="available state"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+            <TextView
+                android:id="@+id/tvLandPrep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvIrrigationInfo_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Land Preparation"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvLandPrepInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvLandPrep"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:text="available state"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+            <TextView
+                android:id="@+id/tvHarvesting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvLandPrepInfo_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Harvesting"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvHarvestingInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvHarvesting"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:text="available state"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+            <TextView
+                android:id="@+id/tvPostHarvesting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvHarvestingInfo_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="Post Harvest"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvPostHarvestingInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPostHarvesting"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:text="available state"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</layout>

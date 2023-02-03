@@ -1,31 +1,97 @@
 package com.project.agroworld.articles;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.FruitsAdapter;
-import com.project.agroworld.articles.model.TechniquesResponse;
+import com.project.agroworld.articles.listener.FruitsClickListener;
+import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.databinding.ActivityFruitsBinding;
 import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;
 
-public class FruitsActivity extends AppCompatActivity {
+public class FruitsActivity extends AppCompatActivity implements FruitsClickListener {
 
-    private ArrayList<TechniquesResponse> techniquesResponseArrayList = new ArrayList<>();
+    private ArrayList<FruitsResponse> fruitsList = new ArrayList<>();
     private FruitsAdapter fruitsAdapter;
     private AgroViewModel viewModel;
-
+    private ActivityFruitsBinding binding;
+    private CustomMultiColorProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fruits);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_fruits);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Fruits");
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        progressBar = new CustomMultiColorProgressBar(this, "Please wait..\nWe're running your request.");
+        viewModel.init();
+        getFruitsListFromApi();
+    }
 
-          }
+    private void getFruitsListFromApi() {
+        progressBar.showProgressBar();
+        viewModel.getFruitsResponseLivedata().observe(this, resource -> {
+            switch (resource.status) {
+                case ERROR:
+                    progressBar.hideProgressBar();
+                    binding.rvFruits.setVisibility(View.GONE);
+                    binding.tvNoFruitsDataFound.setVisibility(View.VISIBLE);
+                    binding.tvNoFruitsDataFound.setText(resource.message);
+                    break;
+                case LOADING:
+                    progressBar.showProgressBar();
+                    break;
+                case SUCCESS:
+                    if (resource.data != null) {
+                        fruitsList.clear();
+                        fruitsList.addAll(resource.data);
+                        progressBar.hideProgressBar();
+                        binding.rvFruits.setVisibility(View.VISIBLE);
+                        setRecyclerView();
+                    } else {
+                        binding.tvNoFruitsDataFound.setVisibility(View.VISIBLE);
+                        binding.tvNoFruitsDataFound.setText("Looks like Admin haven't added any item yet.");
+                    }
+                    break;
+            }
+        });
+    }
 
+    private void setRecyclerView() {
+        fruitsAdapter = new FruitsAdapter(fruitsList, this);
+        binding.rvFruits.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.rvFruits.setAdapter(fruitsAdapter);
+    }
+
+    @Override
+    public void onFruitClick(FruitsResponse response) {
+        Intent intent = new Intent(FruitsActivity.this, ArticleDetailsActivity.class);
+        intent.putExtra("fruitItemResponse", response);
+        intent.putExtra("isFruitResponse", true);
+        startActivity(intent);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

@@ -22,5 +22,7 @@
     <dimen name="dp_200">200dp</dimen>
     <dimen name="dp_220">220dp</dimen>
     <dimen name="sp_18">18sp</dimen>
+    <dimen name="size_18sp">18sp</dimen>
+    <dimen name="size_16sp">16sp</dimen>
 
 </resources>

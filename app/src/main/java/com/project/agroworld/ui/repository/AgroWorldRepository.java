@@ -11,6 +11,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.FlowersResponse;
+import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
@@ -45,6 +48,64 @@ public class AgroWorldRepository {
             }
         });
         return techniquesMutableLiveData;
+    }
+
+    public LiveData<Resource<List<FlowersResponse>>> getFlowersResponse() {
+        final MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
+        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
+        apiService.getFlowersList().enqueue(new Callback<List<FlowersResponse>>() {
+            @Override
+            public void onResponse(Call<List<FlowersResponse>> call, Response<List<FlowersResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    flowersMutableLiveData.setValue(Resource.success(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FlowersResponse>> call, Throwable t) {
+                flowersMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return flowersMutableLiveData;
+    }
+
+
+    public LiveData<Resource<List<CropsResponse>>> getCropsResponse() {
+        final MutableLiveData<Resource<List<CropsResponse>>> cropsMutableLiveData = new MutableLiveData<>();
+        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
+        apiService.getListOfCrops().enqueue(new Callback<List<CropsResponse>>() {
+            @Override
+            public void onResponse(Call<List<CropsResponse>> call, Response<List<CropsResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    cropsMutableLiveData.setValue(Resource.success(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CropsResponse>> call, Throwable t) {
+                cropsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return cropsMutableLiveData;
+    }
+
+    public LiveData<Resource<List<FruitsResponse>>> getFruitsResponse() {
+        final MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
+        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
+        apiService.getFruitsFromDB().enqueue(new Callback<List<FruitsResponse>>() {
+            @Override
+            public void onResponse(Call<List<FruitsResponse>> call, Response<List<FruitsResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    fruitsMutableLiveData.setValue(Resource.success(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FruitsResponse>> call, Throwable t) {
+                fruitsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return fruitsMutableLiveData;
     }
 
 

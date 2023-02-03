@@ -31,6 +31,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.project.agroworld.R;
+import com.project.agroworld.articles.CropsActivity;
+import com.project.agroworld.articles.FlowersActivity;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
@@ -116,6 +118,15 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                 startActivity(new Intent(requireContext(), FruitsActivity.class));
             }
         });
+
+        binding.crdCrops.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), CropsActivity.class));
+        });
+
+        binding.crdFlowers.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), FlowersActivity.class));
+        });
+
 
     }
 

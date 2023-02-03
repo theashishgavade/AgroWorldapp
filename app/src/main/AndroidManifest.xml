@@ -18,6 +18,10 @@
         android:theme="@style/Theme.AgroWorld"
         tools:targetApi="31">
         <activity
+            android:name=".articles.ArticleDetailsActivity"
+            android:launchMode="singleTask"
+            android:exported="false" />
+        <activity
             android:name=".weather.WeatherForecastActivity"
             android:exported="false" />
         <activity android:name=".ui.shopping.activity.AddToCartActivity" />

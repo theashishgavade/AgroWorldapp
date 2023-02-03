@@ -3,6 +3,9 @@ package com.project.agroworld.ui.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.FlowersResponse;
+import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.ui.repository.AgroWorldRepository;
 import com.project.agroworld.ui.shopping.model.ProductModel;
@@ -18,6 +21,17 @@ public class AgroViewModel extends ViewModel {
     }
     public LiveData<Resource<List<TechniquesResponse>>> getTechniqueResponseLivedata() {
         return repository.getTechniques();
+    }
+
+    public LiveData<Resource<List<FruitsResponse>>> getFruitsResponseLivedata(){
+        return repository.getFruitsResponse();
+    }
+
+    public LiveData<Resource<List<CropsResponse>>> getCropsResponseLivedata(){
+        return repository.getCropsResponse();
+    }
+    public LiveData<Resource<List<FlowersResponse>>> getFlowersResponseLivedata(){
+        return repository.getFlowersResponse();
     }
 
     public LiveData<Resource<List<ProductModel>>> getProductModelLivedata(){

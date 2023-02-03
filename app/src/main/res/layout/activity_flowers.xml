@@ -8,12 +8,12 @@
         tools:context=".articles.FlowersActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fruits"
+            android:id="@+id/rv_flowers"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/tvNoFruitsDataFound"
+            android:id="@+id/tvNoFlowersDataFound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
