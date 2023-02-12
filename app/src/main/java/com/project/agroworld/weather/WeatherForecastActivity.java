@@ -40,9 +40,9 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_forecast);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait...\nWe're running your request.");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Hourly Forecast weather");
+        actionBar.setTitle(R.string.forecast_weather);
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         double lat = intent.getDoubleExtra("lat", 0.0);

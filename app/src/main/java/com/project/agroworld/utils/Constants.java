@@ -2,6 +2,7 @@ package com.project.agroworld.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,15 +13,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.ui.DashboardActivity;
 import com.project.agroworld.ui.UserProfileActivity;
 
+import java.util.Locale;
+
 public class Constants {
 
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
-
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
     public static String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static int REQUEST_CODE = 99;
     public static int GPS_REQUEST_CODE = 999;
+
+    public static String ENGLISH_KEY = "EnglishLang";
+    public static String HINDI_KEY = "HindiLang";
+
 
     public static void printLog(String message) {
         Log.d("AgroWorldUser", message);
@@ -46,12 +52,28 @@ public class Constants {
         }
     }
 
+    public static void setAppLocale(Context context, String language) {
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = context.getResources().getConfiguration();
+        config.setLocale(locale);
+        context.createConfigurationContext(config);
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+    }
+
     public static void showToast(Context context, String msg) {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void bindImage(View view, String url, ImageView imageView) {
         Glide.with(view).load(url).into(imageView);
+    }
+
+    public static boolean contactValidation(String contact) {
+        if (contact.length() == 10) {
+            return true;
+        }
+        return false;
     }
 
 }

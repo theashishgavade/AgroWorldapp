@@ -42,9 +42,9 @@ public class WeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Current Weather");
+        actionBar.setTitle(R.string.current_weather);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait...\nWe're running your request.");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         Intent intent = getIntent();
         latitude = intent.getDoubleExtra("latitude", 0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);

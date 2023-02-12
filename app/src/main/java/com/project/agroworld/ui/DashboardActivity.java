@@ -1,9 +1,15 @@
 package com.project.agroworld.ui;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Config;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -21,6 +27,7 @@ import com.project.agroworld.fragments.TransportFragment;
 import com.project.agroworld.utils.Permissions;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DashboardActivity extends AppCompatActivity {
 

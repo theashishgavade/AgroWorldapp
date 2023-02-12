@@ -138,7 +138,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Sunrise"
+                            android:text="@string/sunrise"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -175,7 +175,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Sunset"
+                            android:text="@string/sunset"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -220,7 +220,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Pressure"
+                            android:text="@string/pressure"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -257,7 +257,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Wind"
+                            android:text="@string/wind"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -301,7 +301,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Latitude"
+                            android:text="@string/latitude"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -341,7 +341,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/copse"
-                            android:text="Longitude"
+                            android:text="@string/longitude"
                             android:textColor="#0DE8A3"
                             android:textSize="@dimen/size_20sp"
                             android:textStyle="bold" />
@@ -367,7 +367,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Something went wrong"
+            android:text="@string/something_wrong_err"
             android:textColor="@color/colorPrimary"
             android:visibility="gone" />
 

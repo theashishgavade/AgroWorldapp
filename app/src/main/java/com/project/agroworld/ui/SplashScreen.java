@@ -1,5 +1,7 @@
 package com.project.agroworld.ui;
 
+import static com.project.agroworld.utils.Constants.setAppLocale;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,10 +13,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.PreferenceHelper;
 
 public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
+    PreferenceHelper preferenceHelper;
 
     @Override
     protected void onStart() {
@@ -24,11 +28,19 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceHelper = PreferenceHelper.getInstance(this);
+        boolean isHindi = preferenceHelper.getData(Constants.HINDI_KEY);
+        if (isHindi) {
+            setAppLocale(SplashScreen.this, "hi");
+        } else {
+            setAppLocale(SplashScreen.this, "en");
+        }
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
 
         new Handler().postDelayed(new Runnable() {
             @Override

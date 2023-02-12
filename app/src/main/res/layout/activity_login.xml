@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_20"
                         android:layout_marginBottom="12dp"
-                        android:hint="Email"
+                        android:hint="@string/email"
                         app:boxBackgroundColor="#20D81B60"
                         app:boxCornerRadiusTopEnd="@dimen/dp_10"
                         app:boxCornerRadiusTopStart="@dimen/dp_10">

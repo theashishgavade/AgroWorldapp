@@ -17,10 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AgroWorld"
         tools:targetApi="31">
+        <activity android:name=".manufacture.ManufactureDataActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".transport.TransportDataActivity"
+            android:exported="false" />
         <activity
             android:name=".articles.ArticleDetailsActivity"
-            android:launchMode="singleTask"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask" />
         <activity
             android:name=".weather.WeatherForecastActivity"
             android:exported="false" />
@@ -48,7 +53,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".manufacture.ManufactureDataPost"
+            android:name=".manufacture.ManufactureActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

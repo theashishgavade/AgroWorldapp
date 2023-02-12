@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="tem_to_cart">ऐसा लगता है कि आपने अभी तक कार्ट में कुछ भी नहीं जोड़ा है।</string>
-    <string name="add_address">Add Address</string>
-    <string name="total">Total:</string>
+    <string name="app_name">एग्रो वर्ल्ड</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">अगला</string>
+    <string name="previous">पहले का</string>
+    <string name="agrowoprld">एग्रो वर्ल्ड</string>
+    <string name="quote1">"किसी भी किसान के लिए सर्वश्रेष्ठ मार्गदर्शक और सहायक। एक ही स्थान पर विभिन्न सुविधाएँ प्रदान करता है!"</string>
+    <string name="log_in">लॉग इन करें</string>
+    <string name="sign_up">साइन अप करें</string>
+    <string name="register">पंजीकरण</string>
+    <string name="new_user_register_now">नए उपयोगकर्ता? अभी पंजीकरण करें</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="proceed">आगे बढ़ें</string>
+    <string name="enable_gps_service">अपना सटीक स्थान दिखाने के लिए कृपया अपनी GPS सेवा सक्षम करें</string>
+    <string name="check_internet_connection">इंटरनेट कनेक्शन जांचें कृपया अपना सटीक स्थान दिखाने के लिए अपनी इंटरनेट सेवा को सक्षम करें</string>
+    <string name="please_wait">कृपया प्रतीक्षा करें</string>
+    <string name="label">title</string>
+    <string name="username">बीज खरीदारी</string>
+    <string name="seed_title">Seed Title</string>
+    <string name="price">कीमत</string>
+    <string name="description">उत्पाद वर्णन</string>
+    <string name="benefits">विवरण</string>
+    <string name="BuyNow">अभी खरीदें</string>
+    <string name="transport">बुक व्हीकल</string>
+    <string name="no_data_found">ऐसा लगता है कि एडमिन ने अभी तक कोई आइटम नहीं जोड़ा है।</string>
+    <string name="vehicle_remove_message">यहां से हटने पर वाहन किसान डैशबोर्ड से हट जाएगा</string>
+    <string name="product_remove_message">यहां से हटाने पर उत्पाद किसान डैशबोर्ड से हट जाएगा</string>
+    <string name="title_activity_methods">MethodsActivity</string>
+    <string name="add_to_cart">कार्ट में जोड़ें</string>
+    <string name="add_address" translatable="false">पता जोड़ें</string>
+    <string name="total" translatable="false">संपूर्ण:</string>
     <string name="_456_88">456.88</string>
-    <string name="proceed_to_payment">Proceed To Payment</string>
-    <string name="already_nhave_an_naccount">Already \nhave an \nAccount?</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot Password</string>
-    <string name="login">Login</string>
-    <string name="use_other_methods">Use other Methods</string>
-    <string name="logout">Logout</string>
+    <string name="proceed_to_payment">भुगतान के लिए आगे बढ़ें</string>
+    <string name="already_nhave_an_naccount">क्या आपके पास\nपहले से एक खाता\nमौजूद है?</string>
+    <string name="password">पासवर्ड</string>
+    <string name="forgot_password">पासवर्ड भूल गए</string>
+    <string name="login">लॉग इन करें</string>
+    <string name="use_other_methods">अन्य तरीकों का प्रयोग करें</string>
+    <string name="logout">लॉग आउट</string>
+    <string name="something_wrong_err">कुछ गलत हो गया</string>
+    <string name="loader_message">कृपया प्रतीक्षा करें..हम आपके अनुरोध चला रहे हैं</string>
+    <string name="crops_information">फसलों की जानकारी</string>
+    <string name="irrigation">सिंचाई</string>
+    <string name="land_preparation">भूमि की तैयारी</string>
+    <string name="harvesting">संचयन</string>
+    <string name="post_harvest">कटाई के बाद</string>
+    <string name="email">ई-मेल</string>
+    <string name="add_product_to_agro_world_store">उत्पाद को एग्रो वर्ल्ड स्टोर में जोड़ें।</string>
+    <string name="title">title</string>
+    <string name="update_product">अद्यतन उत्पाद</string>
+    <string name="here_s_nyour_first_nstep_with_nagro_world">एग्रो वर्ल्ड के साथ\nआपका पहला कदम\n यहां है!</string>
+    <string name="name">नाम</string>
+    <string name="crops">फसलें</string>
+    <string name="flowers">पुष्प</string>
+    <string name="fruits">फल</string>
+    <string name="education">शिक्षा</string>
+    <string name="number">नंबर</string>
+    <string name="articles">लेख</string>
+    <string name="already_have_an_account">क्या आपके पास पहले से एक खाता मौजूद है?</string>
+    <string name="add_vehicle_to_agro_world_store">एग्रो वर्ल्ड स्टोर में वाहन जोड़ें।</string>
+    <string name="model">नमूना</string>
+    <string name="address">पता</string>
+    <string name="contact">संपर्क</string>
+    <string name="update_vehicle">अद्यतन वाहन</string>
+    <string name="sunrise">सूर्योदय</string>
+    <string name="sunset">सूर्यास्त</string>
+    <string name="pressure">दबाव</string>
+    <string name="wind">हवा</string>
+    <string name="latitude">अक्षांश</string>
+    <string name="longitude">देशान्तर</string>
+    <string name="provide_permission">कृपया आवश्यक अनुमति प्रदान करें</string>
+    <string name="manufacture_panel">निर्माता पैनल</string>
+    <string name="all_field_required">सभी क्षेत्रों को भरना आवश्यक है।</string>
+    <string name="go_to_cart">कार्ट में जाओ</string>
+    <string name="current_weather">मौजूदा मौसम</string>
+    <string name="forecast_weather">हर घंटे मौसम का पूर्वानुमान</string>
+    <string name="yojanas">योजनाएँ</string>
+    <string name="diseases">रोग</string>
+    <string name="vehicle">वाहन</string>
+    <string name="products">उत्पादों</string>
+    <string name="how_to_expand">विस्तार कैसे करें</string>
+
 </resources>

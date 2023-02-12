@@ -48,4 +48,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> {
         productModelList = searchProductList;
         notifyDataSetChanged();
     }
+
+    public void removeItem(int position) {
+        productModelList.remove(position);
+        notifyItemRangeChanged(position, productModelList.size());
+    }
 }

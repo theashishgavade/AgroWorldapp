@@ -42,4 +42,8 @@ public class AgroViewModel extends ViewModel {
         return repository.getVehicleListFromFirebase();
     }
 
+    public void removeProductFromFirebase(String title){
+        repository.removeProductFromFirebase(title);
+    }
+
 }

@@ -46,4 +46,9 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleViewHolder> {
         vehicleItemList = searchProductList;
         notifyDataSetChanged();
     }
+
+    public void removeItem(int position) {
+        vehicleItemList.remove(position);
+        notifyItemRemoved(position);
+    }
 }

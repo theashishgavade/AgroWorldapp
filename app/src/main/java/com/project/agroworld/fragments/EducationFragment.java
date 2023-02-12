@@ -58,16 +58,13 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        progressBar = new CustomMultiColorProgressBar(getContext(), "Please Wait..\nWe're running your request.");
+        progressBar = new CustomMultiColorProgressBar(getContext(), getString(R.string.loader_message));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         viewModel.init();
-        actionBar.setTitle("Education");
+        actionBar.setTitle(getString(R.string.education));
         getCropsListFromApi();
         getFruitsListFromApi();
         getFlowersListFromApi();
-
-        binding.rvHowToExpandEd.setVisibility(View.GONE);
-        binding.tvHowToExpandEd.setText("How to expand data not found");
     }
 
     private void getCropsListFromApi() {
@@ -77,7 +74,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                 case ERROR:
                     binding.rvCropsEd.setVisibility(View.GONE);
                     binding.tvCropsEd.setVisibility(View.VISIBLE);
-                    binding.tvCropsEd.setText(resource.message);
+                    binding.tvCropsEd.setText(getString(R.string.something_wrong_err));
                     break;
                 case LOADING:
                     break;
@@ -89,7 +86,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                         setRecyclerView();
                     } else {
                         binding.tvCropsEd.setVisibility(View.VISIBLE);
-                        binding.tvCropsEd.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvCropsEd.setText(getString(R.string.loader_message));
                     }
                     break;
             }
@@ -104,7 +101,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                     progressBar.hideProgressBar();
                     binding.rvFlowersEd.setVisibility(View.GONE);
                     binding.tvFlowersEd.setVisibility(View.VISIBLE);
-                    binding.tvFlowersEd.setText(resource.message);
+                    binding.tvFlowersEd.setText(R.string.something_wrong_err);
                     break;
                 case LOADING:
                     break;
@@ -117,7 +114,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                         setFlowersRecyclerView();
                     } else {
                         binding.tvFlowersEd.setVisibility(View.VISIBLE);
-                        binding.tvFlowersEd.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvFlowersEd.setText(getString(R.string.loader_message));
                     }
                     break;
             }
@@ -130,7 +127,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                 case ERROR:
                     binding.rvFruitsEd.setVisibility(View.GONE);
                     binding.tvFruitsEd.setVisibility(View.VISIBLE);
-                    binding.tvFruitsEd.setText(resource.message);
+                    binding.tvFruitsEd.setText(getString(R.string.something_wrong_err));
                     break;
                 case LOADING:
                     break;
@@ -142,7 +139,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                         setFruitsRecyclerView();
                     } else {
                         binding.tvFruitsEd.setVisibility(View.VISIBLE);
-                        binding.tvFruitsEd.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvFruitsEd.setText(getString(R.string.loader_message));
                     }
                     break;
             }

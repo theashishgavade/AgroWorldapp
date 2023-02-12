@@ -108,7 +108,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
                         setRecyclerView();
                     } else {
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                        binding.tvNoDataFoundErr.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
                     }
                     break;
             }
@@ -130,7 +130,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
             }
         }
         if (vehicleItemList.isEmpty()) {
-            Constants.showToast(requireContext(), "No product found");
+            Constants.showToast(requireContext(), getString(R.string.no_data_found));
         } else {
             vehicleAdapter.searchInVehicleList(searchProductList);
         }

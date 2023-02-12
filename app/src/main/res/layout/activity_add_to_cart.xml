@@ -18,7 +18,7 @@
             android:layout_marginEnd="@dimen/dp_20"
             android:fontFamily="@font/fredoka_one"
             android:gravity="center"
-            android:text="@string/tem_to_cart"
+            android:text="@string/add_to_cart"
             android:textColor="@color/cardview_dark_background"
             android:textSize="@dimen/size_20sp"
             android:visibility="gone" />

@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -40,6 +43,9 @@ public class TransportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transport);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Transport Panel");
+        actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, "Please wait\nWe're running your request...");
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
             selectImage();
@@ -51,10 +57,10 @@ public class TransportActivity extends AppCompatActivity {
             String address = binding.etVehicleAddress.getText().toString();
             String contact = binding.etVehicleContact.getText().toString();
 
-            if (!model.isEmpty() && !rate.isEmpty() && !address.isEmpty() && !contact.isEmpty()) {
+            if (!model.isEmpty() && !rate.isEmpty() && !address.isEmpty() && Constants.contactValidation(contact)) {
                 uploadImageToFirebase(model, rate, address, contact);
             } else {
-                Constants.showToast(this, "All fields are required to fill.");
+                Constants.showToast(this, "Please check given data once, Make sure all fields are filled out accurately");
             }
         });
     }
@@ -62,57 +68,40 @@ public class TransportActivity extends AppCompatActivity {
     private void uploadImageToFirebase(String model, String rates, String address, String contact) {
         progressBar.showProgressBar();
         storage = FirebaseStorage.getInstance().getReference("vehicle");
-        storage.child(model).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Constants.showToast(TransportActivity.this, "Image uploaded successfully");
-                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        String imageUrl = task.getResult().toString();
-                        Log.d("fileLink", imageUrl);
-                        uploadDataToFirebase(model, rates, address, contact, imageUrl);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Constants.showToast(TransportActivity.this, "Failed to generate Image url");
-                    }
-                });
+        storage.child(model).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.hideProgressBar();
-                Log.d("onFailureImageUpload", e.getLocalizedMessage());
-                Constants.showToast(TransportActivity.this, "Failed to upload image");
-            }
+            Constants.showToast(TransportActivity.this, "Image uploaded successfully");
+            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener( task -> {
+
+                String imageUrl = task.getResult().toString();
+                Log.d("fileLink", imageUrl);
+                uploadDataToFirebase(model, rates, address, contact, imageUrl);
+            }).addOnFailureListener(e -> Constants.showToast(TransportActivity.this, "Failed to generate Image url"));
+
+        }).addOnFailureListener( e -> {
+            progressBar.hideProgressBar();
+            Log.d("onFailureImageUpload", e.getLocalizedMessage());
+            Constants.showToast(TransportActivity.this, "Failed to upload image");
         });
     }
-
 
     private void uploadDataToFirebase(String model, String rates, String address, String contact, String imageUrl) {
         firebaseStorage = FirebaseDatabase.getInstance().getReference("vehicle");
         VehicleModel vehicleModel = new VehicleModel(model, address, rates, contact, imageUrl);
-        firebaseStorage.child(model).setValue(vehicleModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                binding.ivVehicleSelected.setImageResource(R.color.colorPrimary);
-                binding.ivVehicleUploadIcon.setVisibility(View.VISIBLE);
-                binding.etVehicleModel.setText(null);
-                binding.etVehicleAddress.setText(null);
-                binding.etVehicleRate.setText(null);
-                binding.etVehicleContact.setText(null);
-                progressBar.hideProgressBar();
-                Constants.showToast(TransportActivity.this, "Vehicle updated successfully");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.hideProgressBar();
-                Constants.showToast(TransportActivity.this, "Failed to update vehicle details");
-            }
+        firebaseStorage.child(model).setValue(vehicleModel).addOnSuccessListener(unused -> {
+
+            binding.ivVehicleSelected.setImageResource(R.color.colorPrimary);
+            binding.ivVehicleUploadIcon.setVisibility(View.VISIBLE);
+            binding.etVehicleModel.setText(null);
+            binding.etVehicleAddress.setText(null);
+            binding.etVehicleRate.setText(null);
+            binding.etVehicleContact.setText(null);
+            progressBar.hideProgressBar();
+            Constants.showToast(TransportActivity.this, "Vehicle updated successfully");
+
+        }).addOnFailureListener(e -> {
+            progressBar.hideProgressBar();
+            Constants.showToast(TransportActivity.this, "Failed to update vehicle details");
         });
     }
 
@@ -122,6 +111,31 @@ public class TransportActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.transport_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.transport_list:
+                moveToTransportDataActivity();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void moveToTransportDataActivity() {
+        Intent intent = new Intent(TransportActivity.this, TransportDataActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.project.agroworld.ui.repository;
 
 import static com.project.agroworld.utils.Constants.BASE_URL_SHEET_DB;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -30,6 +32,7 @@ import retrofit2.Response;
 
 public class AgroWorldRepository {
     private DatabaseReference databaseReference;
+
 
     public LiveData<Resource<List<TechniquesResponse>>> getTechniques() {
         final MutableLiveData<Resource<List<TechniquesResponse>>> techniquesMutableLiveData = new MutableLiveData<>();
@@ -160,4 +163,15 @@ public class AgroWorldRepository {
         });
         return vehicleLiveData;
     }
+
+    public void removeProductFromFirebase(String title) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("product");
+        databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
+            Log.d("removeProduct", "onSuccess");
+        }).addOnFailureListener(command -> {
+            Log.d("removeProduct", command.getLocalizedMessage());
+
+        });
+    }
+
 }

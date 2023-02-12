@@ -115,7 +115,7 @@
             android:layout_marginBottom="@dimen/dp_20"
             android:background="@drawable/button_bgd"
             android:fontFamily="@font/fredoka_one"
-            android:text="@string/Add_to_cart"
+            android:text="@string/add_to_cart"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="22sp"

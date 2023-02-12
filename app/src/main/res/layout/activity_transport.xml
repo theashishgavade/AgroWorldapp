@@ -11,7 +11,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".manufacture.ManufactureDataPost">
+            tools:context=".manufacture.ManufactureActivity">
 
             <TextView
                 android:id="@+id/tvUploadNewVehicle"
@@ -22,7 +22,7 @@
                 android:layout_marginEnd="@dimen/dp_30"
                 android:fontFamily="@font/fredoka_one"
                 android:gravity="center"
-                android:text="Add vehicle to Agro World store."
+                android:text="@string/add_vehicle_to_agro_world_store"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/sp_25" />
@@ -64,7 +64,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_20"
-                android:hint="model"
+                android:hint="@string/model"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
                 app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -86,7 +86,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
-                android:hint="address"
+                android:hint="@string/address"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
                 app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -130,7 +130,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
-                android:hint="contact"
+                android:hint="@string/contact"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
                 app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -157,7 +157,7 @@
                 android:layout_marginBottom="@dimen/dp_20"
                 android:background="@drawable/button_bgd"
                 android:fontFamily="@font/fredoka_one"
-                android:text="Update Vehicle"
+                android:text="@string/update_vehicle"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_20sp" />

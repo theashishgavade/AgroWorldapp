@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait...\nWe're running your request");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         loginWithGoogle();
         initViews();
     }

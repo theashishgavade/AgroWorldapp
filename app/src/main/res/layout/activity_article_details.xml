@@ -30,7 +30,6 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/fredoka_one"
-                android:text="article Title"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_20sp" />
 
@@ -42,7 +41,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/poppins_medium"
-                android:text="available state"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_15sp" />
 
@@ -66,7 +64,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text="available state"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_15sp" />
 
@@ -83,7 +80,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text="available state"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_15sp" />
             </LinearLayout>
@@ -109,7 +105,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text="available state"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_15sp" />
 
@@ -126,7 +121,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="center"
-                    android:text="available state"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/size_15sp" />
             </LinearLayout>
@@ -141,7 +135,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/lexend_bold"
-                android:text="Crops Information"
+                android:text="@string/crops_information"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_18sp" />
 
@@ -155,7 +149,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/average_sans"
-                android:text="available state"
                 android:textColor="@color/fontColor"
                 android:textSize="@dimen/size_16sp" />
 
@@ -169,7 +162,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/lexend_bold"
-                android:text="Irrigation"
+                android:text="@string/irrigation"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_18sp" />
 
@@ -183,7 +176,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/average_sans"
-                android:text="available state"
                 android:textColor="@color/fontColor"
                 android:textSize="@dimen/size_16sp" />
 
@@ -197,7 +189,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/lexend_bold"
-                android:text="Land Preparation"
+                android:text="@string/land_preparation"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_18sp" />
 
@@ -211,7 +203,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/average_sans"
-                android:text="available state"
                 android:textColor="@color/fontColor"
                 android:textSize="@dimen/size_16sp" />
 
@@ -225,7 +216,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/lexend_bold"
-                android:text="Harvesting"
+                android:text="@string/harvesting"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_18sp" />
 
@@ -239,7 +230,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/average_sans"
-                android:text="available state"
                 android:textColor="@color/fontColor"
                 android:textSize="@dimen/size_16sp" />
 
@@ -253,7 +243,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:fontFamily="@font/lexend_bold"
-                android:text="Post Harvest"
+                android:text="@string/post_harvest"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_18sp" />
 
@@ -267,7 +257,6 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:fontFamily="@font/average_sans"
-                android:text="available state"
                 android:textColor="@color/fontColor"
                 android:textSize="@dimen/size_16sp" />
 

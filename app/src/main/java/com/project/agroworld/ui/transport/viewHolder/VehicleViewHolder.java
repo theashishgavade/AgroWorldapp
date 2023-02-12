@@ -38,7 +38,7 @@ public class VehicleViewHolder extends RecyclerView.ViewHolder {
         tvVehicleName.setText(vehicleModel.getModel());
         tvVehicleLocation.setText(vehicleModel.getAddress());
         Glide.with(ivTransport).load(vehicleModel.getImageUrl()).into(ivTransport);
-        tvVehiclePrice.setText("price- ₹ " + vehicleModel.getRates());
+        tvVehiclePrice.setText(R.string.price +"- ₹ " + vehicleModel.getRates());
         crdVehicleCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,8 +2,6 @@
     <string name="app_name">Agro World</string>
     <string name="title_activity_login">LoginActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -29,18 +27,61 @@
     <string name="benefits">Description</string>
     <string name="BuyNow">Buy Now</string>
     <string name="transport">Book Vehicle</string>
+    <string name="no_data_found">Looks like Admin haven\'t added any item yet.</string>
+    <string name="vehicle_remove_message"> Upon removal from here, the vehicle will be removed from farmer dashboard</string>
+    <string name="product_remove_message"> Upon removal from here, the product will be removed from farmer dashboard</string>
     <string name="title_activity_methods">MethodsActivity</string>
-    <string name="Add_to_cart">Add to cart</string>
-    <string name="tem_to_cart" translatable="false">Look\'s like you haven\'t add any item to cart.</string>
     <string name="add_address" translatable="false">Add Address</string>
     <string name="total" translatable="false">Total:</string>
     <string name="_456_88">456.88</string>
     <string name="proceed_to_payment">Proceed To Payment</string>
-    <string name="fruitsactivity">FruitsActivity</string>
     <string name="already_nhave_an_naccount">Already \nhave an \nAccount?</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="login">Login</string>
     <string name="use_other_methods">Use other Methods</string>
     <string name="logout">Logout</string>
+    <string name="something_wrong_err">Something went wrong</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="loader_message">Please wait..We\'re running your requests</string>
+    <string name="crops_information">Crops Information</string>
+    <string name="irrigation">Irrigation</string>
+    <string name="land_preparation">Land Preparation</string>
+    <string name="harvesting">Harvesting</string>
+    <string name="post_harvest">Post Harvest</string>
+    <string name="email">Email</string>
+    <string name="add_product_to_agro_world_store">Add product to Agro World store.</string>
+    <string name="title">title</string>
+    <string name="update_product">Update Product</string>
+    <string name="here_s_nyour_first_nstep_with_nagro_world">Here’s\nyour first\nstep with \nAgro World!</string>
+    <string name="name">name</string>
+    <string name="crops">Crops</string>
+    <string name="flowers">Flowers</string>
+    <string name="fruits">Fruits</string>
+    <string name="education">Education</string>
+    <string name="number">Number</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="add_vehicle_to_agro_world_store">Add vehicle to Agro World store.</string>
+    <string name="model">model</string>
+    <string name="address">address</string>
+    <string name="contact">contact</string>
+    <string name="update_vehicle">Update Vehicle</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind">Wind</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="provide_permission">Please provide required permission</string>
+    <string name="manufacture_panel">Manufacture Panel</string>
+    <string name="all_field_required">All fields are required to fill.</string>
+    <string name="go_to_cart">Go to cart</string>
+    <string name="current_weather">Current Weather</string>
+    <string name="forecast_weather">Hourly Forecast weather</string>
+    <string name="yojanas">Yojanas</string>
+    <string name="diseases">Diseases</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="products">Products</string>
+    <string name="how_to_expand">How To Expand</string>
+    <string name="articles">Articles</string>
 </resources>

@@ -35,9 +35,9 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
         binding = DataBindingUtil.setContentView(this, R.layout.activity_fruits);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Fruits");
+        actionBar.setTitle(getString(R.string.fruits));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait..\nWe're running your request.");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.no_data_found));
         viewModel.init();
         getFruitsListFromApi();
     }
@@ -64,7 +64,7 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
                         setRecyclerView();
                     } else {
                         binding.tvNoFruitsDataFound.setVisibility(View.VISIBLE);
-                        binding.tvNoFruitsDataFound.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvNoFruitsDataFound.setText(getString(R.string.no_data_found));
                     }
                     break;
             }

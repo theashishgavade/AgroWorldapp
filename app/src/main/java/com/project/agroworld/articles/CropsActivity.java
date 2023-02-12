@@ -37,9 +37,9 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
         binding = DataBindingUtil.setContentView(this, R.layout.activity_crops);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Crops");
+        actionBar.setTitle(getString(R.string.crops));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait..\nWe're running your requests");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init();
         getCropsListFromApi();
     }
@@ -66,7 +66,7 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
                         setRecyclerView();
                     } else {
                         binding.tvNoCropsDataFound.setVisibility(View.VISIBLE);
-                        binding.tvNoCropsDataFound.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvNoCropsDataFound.setText(R.string.no_data_found);
                     }
                     break;
             }

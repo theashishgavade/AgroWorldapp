@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -104,8 +106,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.setTitle("Agro world");
         initViews(view);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
@@ -180,17 +180,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         binding.tvWeatherCity.setText(locality);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLastLocation();
-            } else {
-                Constants.showToast(requireContext(), "Please provide required permission");
-            }
-        }
-    }
+
 
     private void getProductListFromFirebase() {
         agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
@@ -279,6 +269,18 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private void askPermission() {
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_CODE);
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == Constants.REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            } else {
+                Constants.showToast(requireContext(), getString(R.string.provide_permission));
+            }
+        }
     }
 
     @Override

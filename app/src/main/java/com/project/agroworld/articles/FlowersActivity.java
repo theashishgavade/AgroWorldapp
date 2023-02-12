@@ -35,9 +35,9 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_flowers);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Flowers");
+        actionBar.setTitle(getString(R.string.flowers));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait..\nWe're running your request.");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init();
         getFlowersListFromApi();
     }

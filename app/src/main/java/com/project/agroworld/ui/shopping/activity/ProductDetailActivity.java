@@ -41,7 +41,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void updateUI(ProductModel productModel) {
         Glide.with(binding.ivProductDetailView).load(productModel.getImageUrl()).into(binding.ivProductDetailView);
-        binding.tvPriceDetail.setText("Price- ₹ " + productModel.getPrice());
+        binding.tvPriceDetail.setText(getString(R.string.price) +"- ₹ " + productModel.getPrice());
         binding.tvSeedTitleDetail.setText(productModel.getTitle());
         binding.tvPrice.setText("₹ " + productModel.getPrice());
         binding.tvProductDescription.setText(productModel.getDescription().replaceAll("~", "\n\n"));
@@ -49,10 +49,10 @@ public class ProductDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (doubleButtonTap % 2 == 0){
-                    binding.btnBuyNow.setText("Add To Cart");
+                    binding.btnBuyNow.setText(getString(R.string.add_to_cart));
                     addItemToCart(productModel);
                 }else {
-                    binding.btnBuyNow.setText("Go To Cart");
+                    binding.btnBuyNow.setText(R.string.go_to_cart);
                     startActivity(new Intent(ProductDetailActivity.this, AddToCartActivity.class));
                 }
                 doubleButtonTap++;

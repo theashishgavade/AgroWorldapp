@@ -4,29 +4,29 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
-public class ManufactureDataPost extends AppCompatActivity {
+public class ManufactureActivity extends AppCompatActivity {
     private ActivityManufactureDataPostBinding binding;
     private final int REQUEST_CODE = 99;
     private Uri imageUri;
@@ -38,7 +38,10 @@ public class ManufactureDataPost extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture_data_post);
-        progressBar = new CustomMultiColorProgressBar(this, "Uploading in progress...");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(getString(R.string.manufacture_panel));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         binding.crdUploadImage.setOnClickListener(v -> {
             selectImage();
         });
@@ -51,7 +54,7 @@ public class ManufactureDataPost extends AppCompatActivity {
             if (!title.isEmpty() && price != 0 && !description.isEmpty()) {
                 uploadImageToFirebase(title, price, description);
             } else {
-                Constants.showToast(this, "All fields are required to fill.");
+                Constants.showToast(this, getString(R.string.all_field_required));
             }
         });
 
@@ -60,38 +63,19 @@ public class ManufactureDataPost extends AppCompatActivity {
     private void uploadImageToFirebase(String title, double price, String description) {
         progressBar.showProgressBar();
         storage = FirebaseStorage.getInstance().getReference("product");
-        storage.child(title).putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                binding.ivProductSelected.setImageResource(R.color.colorPrimary);
-                Constants.showToast(ManufactureDataPost.this, "Image uploaded successfully");
-                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        String imageUrl = task.getResult().toString();
-                        Log.d("fileLink", imageUrl);
-                        uploadDataToFirebase(title, description, price, imageUrl);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Constants.showToast(ManufactureDataPost.this, "Failed to generate Image url");
-                    }
-                });
+        storage.child(title).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            binding.ivProductSelected.setImageResource(R.color.colorPrimary);
+            Constants.showToast(ManufactureActivity.this, "Image uploaded successfully");
+            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
+                String imageUrl = task.getResult().toString();
+                Log.d("fileLink", imageUrl);
+                uploadDataToFirebase(title, description, price, imageUrl);
+            }).addOnFailureListener(e -> Constants.showToast(ManufactureActivity.this, "Failed to generate Image url"));
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("onFailureImageUpload", e.getLocalizedMessage());
-                Constants.showToast(ManufactureDataPost.this, "Failed to upload image");
-            }
+        }).addOnFailureListener(e -> {
+            Log.d("onFailureImageUpload", e.getLocalizedMessage());
+            Constants.showToast(ManufactureActivity.this, "Failed to upload image");
         });
-    }
-
-    private void retrieveImageFromFirebase() {
-
-
     }
 
     private void selectImage() {
@@ -112,15 +96,34 @@ public class ManufactureDataPost extends AppCompatActivity {
                 binding.etProductPrice.setText(null);
                 binding.etProductTitle.setText(null);
                 progressBar.hideProgressBar();
-                Constants.showToast(ManufactureDataPost.this, "Product updated successfully");
+                Constants.showToast(ManufactureActivity.this, "Product updated successfully");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressBar.hideProgressBar();
-                Constants.showToast(ManufactureDataPost.this, "Failed to update product");
+                Constants.showToast(ManufactureActivity.this, "Failed to update product");
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.transport_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.transport_list:
+                startActivity(new Intent(ManufactureActivity.this, ManufactureDataActivity.class));
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

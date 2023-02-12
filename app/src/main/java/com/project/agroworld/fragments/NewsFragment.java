@@ -40,7 +40,7 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        actionBar.setTitle("Agro world");
+        actionBar.setTitle(getString(R.string.agrowoprld));
         WebView webView = view.findViewById(R.id.newsWebView);
         webView.setWebViewClient(new AgroNews());
         WebSettings settings = webView.getSettings();

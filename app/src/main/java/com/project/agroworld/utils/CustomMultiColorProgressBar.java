@@ -23,7 +23,6 @@ public class CustomMultiColorProgressBar extends Dialog {
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCancelable(false);
         setCanceledOnTouchOutside(false);
-//        ((TextView) findViewById(R.id.messg)).setTextColor(context.getResources().getColor(R.color.black));
         ((TextView) findViewById(R.id.messg)).setText(dialog_msg);
     }
 

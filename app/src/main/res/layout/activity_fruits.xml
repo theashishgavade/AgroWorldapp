@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_medium"
-            android:text="No data found"
+            android:text="@string/no_data_found"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:visibility="gone" />

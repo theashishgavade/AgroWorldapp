@@ -1,95 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".fragments.ProfileFragment">
 
-        <RelativeLayout
-            android:id="@+id/layoutUserData"
+        <LinearLayout
+            android:id="@+id/llMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_10">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/crdUserProfile"
+            <ImageView
+                android:id="@+id/ivSettingMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_70"
-                app:cardCornerRadius="14dp">
+                android:layout_margin="@dimen/dp_10"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_settings_24" />
 
-                <ImageView
-                    android:id="@+id/userImageUserFrag"
-                    android:layout_width="130dp"
-                    android:layout_height="130dp"
-                    android:scaleType="fitXY"
-                    android:src="@color/colorPrimary" />
-
-                <ProgressBar
-                    android:id="@+id/uploadProgressBarProfile"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center" />
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/tvProfileUserName"
+            <ImageView
+                android:id="@+id/ivLogoutMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/crdUserProfile"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/fredoka_one"
-                android:text="Het Suthar"
-                android:textAllCaps="true"
-                android:textColor="@color/fontColor"
-                android:textSize="21sp" />
+                android:layout_margin="@dimen/dp_10"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_logout_24" />
 
-            <TextView
-                android:id="@+id/tvProfileUserEmail"
+            <ImageView
+                android:id="@+id/ivSLanguageMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvProfileUserName"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="email"
-                android:textColor="@color/fontColor" />
+                android:layout_margin="@dimen/dp_10"
+                android:layout_weight="1"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_language_24" />
+        </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/layoutUserData"
-            android:layout_margin="@dimen/dp_10">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llMenu">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/userProfilePostsRecycler"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="7dp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvProfileNoDataFound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_10"
-                android:fontFamily="@font/fredoka_one"
-                android:text="Not found any notes.."
-                android:textAllCaps="true"
-                android:textColor="@color/fontColor"
-                android:textSize="21sp"
-                android:visibility="gone" />
+                <RelativeLayout
+                    android:id="@+id/layoutUserData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp_10">
 
-        </RelativeLayout>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/crdUserProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_30"
+                        app:cardCornerRadius="14dp">
+
+                        <ImageView
+                            android:id="@+id/userImageUserFrag"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitXY"
+                            android:src="@color/colorPrimary" />
+
+                        <ProgressBar
+                            android:id="@+id/uploadProgressBarProfile"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tvProfileUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/crdUserProfile"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:fontFamily="@font/fredoka_one"
+                        android:text="Het Suthar"
+                        android:textAllCaps="true"
+                        android:textColor="@color/fontColor"
+                        android:textSize="21sp" />
+
+                    <TextView
+                        android:id="@+id/tvProfileUserEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvProfileUserName"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="email"
+                        android:textColor="@color/fontColor" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/layoutUserData"
+                    android:layout_margin="@dimen/dp_10">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/userProfilePostsRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="7dp" />
+
+                    <TextView
+                        android:id="@+id/tvProfileNoDataFound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:fontFamily="@font/fredoka_one"
+                        android:text="@string/no_data_found"
+                        android:textAllCaps="true"
+                        android:textColor="@color/fontColor"
+                        android:textSize="21sp"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </ScrollView>
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_alarm_fab"
@@ -104,4 +155,6 @@
             app:fabSize="normal" />
 
     </RelativeLayout>
+
+
 </layout>
