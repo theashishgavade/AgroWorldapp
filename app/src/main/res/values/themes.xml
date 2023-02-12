@@ -14,12 +14,4 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.AgroWorld.NoActionBar">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.AgroWorld.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.AgroWorld.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

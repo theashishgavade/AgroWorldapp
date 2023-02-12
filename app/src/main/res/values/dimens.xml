@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_10">10dp</dimen>
     <dimen name="sp_30">30sp</dimen>
-    <dimen name="sp_17">17sp</dimen>
     <dimen name="dp_30">30dp</dimen>
     <dimen name="dp_15">15dp</dimen>
     <dimen name="sp_25">25sp</dimen>
@@ -20,7 +18,6 @@
     <dimen name="dp_60">60dp</dimen>
     <dimen name="dp_80">80dp</dimen>
     <dimen name="dp_200">200dp</dimen>
-    <dimen name="dp_220">220dp</dimen>
     <dimen name="sp_18">18sp</dimen>
     <dimen name="size_18sp">18sp</dimen>
     <dimen name="size_16sp">16sp</dimen>

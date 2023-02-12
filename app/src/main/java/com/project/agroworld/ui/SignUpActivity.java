@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,14 +53,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             String number = binding.etNumberUp.getText().toString();
             String name = binding.etNameUp.getText().toString();
 
-            if (!Constants.isValidEmail(email)){
+            if (!Constants.isValidEmail(email)) {
                 isEmailValid = false;
                 binding.etEmailSignUp.setError("This field is required");
             }
 
-            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()){
+            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
                 createUserWithEmailAndPassword(email, passwd);
-            }else {
+            } else {
                 Constants.showToast(this, getString(R.string.all_field_required));
             }
         });
