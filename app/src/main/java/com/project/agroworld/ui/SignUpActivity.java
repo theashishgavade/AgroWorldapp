@@ -1,9 +1,10 @@
 package com.project.agroworld.ui;
 
+import static com.project.agroworld.utils.Constants.showToast;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ import com.project.agroworld.databinding.ActivitySignUpBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
@@ -61,8 +62,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
                 createUserWithEmailAndPassword(email, passwd);
             } else {
-                Constants.showToast(this, getString(R.string.all_field_required));
+                showToast(this, getString(R.string.all_field_required));
             }
+        });
+
+        binding.ivFbSignup.setOnClickListener(v -> {
+            showToast(this, "Facebook login not available");
+        });
+        binding.ivGoogleSignup.setOnClickListener(v -> {
+            signIn();
+        });
+        binding.ivGithubSignup.setOnClickListener(v -> {
+            showToast(this, "Github login not available");
+        });
+        binding.ivInstaSignup.setOnClickListener(v -> {
+            showToast(this, "Instagram login not available");
         });
     }
 
@@ -114,13 +128,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                showToast("Google sign in successful");
+                showToast(this, "Google sign in successful");
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 progressBar.hideProgressBar();
                 // Google Sign In failed, update UI appropriately
-                showToast("Google sign in failed");
+                showToast(this, "Google sign in failed");
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -139,37 +153,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            showToast("signInWithCredential:success");
+                            showToast(SignUpActivity.this, "signInWithCredential:success");
                             Constants.identifyUser(user, SignUpActivity.this);
                         } else {
                             progressBar.hideProgressBar();
                             // If sign in fails, display a message to the user.
-                            showToast("signInWithCredential:failure");
+                            showToast(SignUpActivity.this, "signInWithCredential:failure");
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                         }
                     }
                 });
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ivFbSignup:
-                showToast("Facebook login not available");
-                break;
-            case R.id.ivGithubSignup:
-                showToast("GitHub login not available");
-                break;
-            case R.id.ivInstaSignup:
-                showToast("Instagram login not available");
-                break;
-            case R.id.ivGoogleSignup:
-                signIn();
-                break;
-        }
-    }
-
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
 }
