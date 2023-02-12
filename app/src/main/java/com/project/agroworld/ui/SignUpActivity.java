@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.project.agroworld.R;
+import com.project.agroworld.databinding.ActivitySignUpBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
@@ -34,36 +36,59 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
     private CustomMultiColorProgressBar progressBar;
-    ImageView ivFbSignup, ivGithubSignup, ivInstaSignup, ivGoogleSignup;
-    TextView tvHaveAnAccountUp;
-    Button btnSignup;
     FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+
+    private ActivitySignUpBinding binding;
+    boolean isEmailValid = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         loginWithGoogle();
-        initViews();
+
+        binding.btnSignup.setOnClickListener(v -> {
+            String email = binding.etEmailSignUp.getText().toString();
+            String passwd = binding.etPasswdUp.getText().toString();
+            String number = binding.etNumberUp.getText().toString();
+            String name = binding.etNameUp.getText().toString();
+
+            if (!Constants.isValidEmail(email)){
+                isEmailValid = false;
+                binding.etEmailSignUp.setError("This field is required");
+            }
+
+            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()){
+                createUserWithEmailAndPassword(email, passwd);
+            }else {
+                Constants.showToast(this, getString(R.string.all_field_required));
+            }
+        });
     }
 
-    private void initViews() {
-        ivFbSignup = findViewById(R.id.ivFbSignup);
-        ivGithubSignup = findViewById(R.id.ivGithubSignup);
-        ivInstaSignup = findViewById(R.id.ivInstaSignup);
-        ivGoogleSignup = findViewById(R.id.ivGoogleSignup);
-        tvHaveAnAccountUp = findViewById(R.id.tvHaveAnAccountUp);
-        btnSignup = findViewById(R.id.btnSignup);
 
-        ivFbSignup.setOnClickListener(SignUpActivity.this);
-        ivGithubSignup.setOnClickListener(SignUpActivity.this);
-        ivInstaSignup.setOnClickListener(SignUpActivity.this);
-        ivGoogleSignup.setOnClickListener(SignUpActivity.this);
-
-
+    private void createUserWithEmailAndPassword(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Toast.makeText(SignUpActivity.this, "createUserWithEmail:success",
+                                    Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void loginWithGoogle() {

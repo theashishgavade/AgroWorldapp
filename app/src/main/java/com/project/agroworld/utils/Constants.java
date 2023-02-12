@@ -3,7 +3,9 @@ package com.project.agroworld.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -60,7 +62,9 @@ public class Constants {
         context.createConfigurationContext(config);
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
-
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }

@@ -36,11 +36,11 @@ public class SplashScreen extends AppCompatActivity {
             setAppLocale(SplashScreen.this, "en");
         }
         setContentView(R.layout.activity_main);
+
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
 
         new Handler().postDelayed(new Runnable() {
             @Override
