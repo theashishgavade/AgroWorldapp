@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class FruitsActivity extends AppCompatActivity implements FruitsClickListener {
 
-    private ArrayList<FruitsResponse> fruitsList = new ArrayList<>();
+    private final ArrayList<FruitsResponse> fruitsList = new ArrayList<>();
     private FruitsAdapter fruitsAdapter;
     private AgroViewModel viewModel;
     private ActivityFruitsBinding binding;

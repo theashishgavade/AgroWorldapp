@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class PreferenceHelper {
     private static PreferenceHelper yourPreference;
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     public static PreferenceHelper getInstance(Context context) {
         if (yourPreference == null) {

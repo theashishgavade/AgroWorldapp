@@ -15,8 +15,8 @@ import com.project.agroworld.databinding.ArticleItemLayoutBinding;
 import java.util.ArrayList;
 
 public class CropsAdapter extends RecyclerView.Adapter<ArticleListViewHolder> {
-    private ArrayList<CropsResponse> cropsResponseArrayList;
-    private CropsClickListener listener;
+    private final ArrayList<CropsResponse> cropsResponseArrayList;
+    private final CropsClickListener listener;
 
     public CropsAdapter(ArrayList<CropsResponse> cropsResponseArrayList, CropsClickListener listener) {
         this.cropsResponseArrayList = cropsResponseArrayList;

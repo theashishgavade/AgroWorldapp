@@ -113,13 +113,13 @@ public class WeatherActivity extends AppCompatActivity {
         String iconUrl = "http://openweathermap.org/img/wn/" + it.getWeather().get(0).getIcon() + "@4x.png";
         Glide.with(this).load(iconUrl).placeholder(R.drawable.weather).dontAnimate().into(binding.weatherPNG);
 
-        String mainTemp = String.format("%.0f", (it.getMain().getTemp() + 0.01) - 273.15).toString();
+        String mainTemp = String.format("%.0f", (it.getMain().getTemp() + 0.01) - 273.15);
         double minTemp = Double.parseDouble(String.format("%.2f", it.getMain().getTempMin() - 273.15));
         double maxTemp = Double.parseDouble(String.format("%.2f", it.getMain().getTempMax() - 273.15));
         String sunrise = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(it.getSys().getSunrise() * 1000L));
         String sunset = new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(new Date(it.getSys().getSunset() * 1000L));
         String pressure = String.valueOf(it.getMain().getPressure());
-        String wind = String.valueOf(it.getWind().getSpeed().toString());
+        String wind = it.getWind().getSpeed().toString();
         binding.temp.setText(mainTemp + "°C");
         binding.tempMin.setText(minTemp + "°C");
         binding.tempMax.setText(maxTemp + "°C");

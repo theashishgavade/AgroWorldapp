@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class FlowersActivity extends AppCompatActivity implements FlowerClickListener {
     private ActivityFlowersBinding binding;
     private FlowersAdapter flowersAdapter;
-    private ArrayList<FlowersResponse> flowersResponsesList = new ArrayList<>();
+    private final ArrayList<FlowersResponse> flowersResponsesList = new ArrayList<>();
     private CustomMultiColorProgressBar progressBar;
     private AgroViewModel viewModel;
 

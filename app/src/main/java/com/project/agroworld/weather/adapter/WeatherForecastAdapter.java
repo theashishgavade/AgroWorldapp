@@ -15,8 +15,8 @@ import java.util.List;
 
 public class WeatherForecastAdapter extends RecyclerView.Adapter<WeatherForecastViewHolder> {
 
-    private List<ListItem> weatherForecastItemList;
-    private WeatherForecastListener listener;
+    private final List<ListItem> weatherForecastItemList;
+    private final WeatherForecastListener listener;
 
     public WeatherForecastAdapter(List<ListItem> weatherForecastItemList, WeatherForecastListener listener) {
         this.weatherForecastItemList = weatherForecastItemList;

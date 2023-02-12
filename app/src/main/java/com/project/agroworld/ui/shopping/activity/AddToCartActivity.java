@@ -41,7 +41,7 @@ import java.util.Locale;
 public class AddToCartActivity extends AppCompatActivity implements ItemCartActionListener {
 
     private ActivityAddToCartBinding binding;
-    private ArrayList<ProductModel> productCartList = new ArrayList<>();
+    private final ArrayList<ProductModel> productCartList = new ArrayList<>();
     private DatabaseReference databaseReference;
     private ProductCartAdapter productAdapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -130,7 +130,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                         List<Address> addresses = null;
                         try {
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            String addressLine = addresses.get(0).getAddressLine(0).toString();
+                            String addressLine = addresses.get(0).getAddressLine(0);
                             binding.tvAddAddress.setText(addressLine);
                         } catch (IOException e) {
                             e.printStackTrace();

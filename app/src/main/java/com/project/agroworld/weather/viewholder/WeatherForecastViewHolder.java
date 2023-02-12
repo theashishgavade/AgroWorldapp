@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
-    private ForecastItemLayoutBinding binding;
+    private final ForecastItemLayoutBinding binding;
 
     public WeatherForecastViewHolder(@NonNull ForecastItemLayoutBinding binding) {
         super(binding.getRoot());
@@ -25,7 +25,7 @@ public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
 
     public void bindForecastData(ListItem item, WeatherForecastListener listener) {
         String iconUrl = "http://openweathermap.org/img/wn/" + item.getWeather().get(0).getIcon() + "@4x.png";
-        String mainTemp = String.format("%.0f", (item.getMain().getTemp() + 0.01) - 273.15).toString();
+        String mainTemp = String.format("%.0f", (item.getMain().getTemp() + 0.01) - 273.15);
         String [] dates = item.getDtTxt().split(" ");
         binding.tvForecastDate.setText(dates[0] + "\n" + dates[1]);
         binding.tvForecastTemp.setText(mainTemp + "°C");

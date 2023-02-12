@@ -13,7 +13,7 @@ import com.project.agroworld.utils.Constants;
 
 public class CartViewHolder extends RecyclerView.ViewHolder{
 
-    private CartItemLayoutBinding binding;
+    private final CartItemLayoutBinding binding;
     private int itemCount  = 1;
     public CartViewHolder(@NonNull CartItemLayoutBinding binding) {
         super(binding.getRoot());

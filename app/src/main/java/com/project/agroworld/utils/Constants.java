@@ -70,10 +70,7 @@ public class Constants {
     }
 
     public static boolean contactValidation(String contact) {
-        if (contact.length() == 10) {
-            return true;
-        }
-        return false;
+        return contact.length() == 10;
     }
 
 }

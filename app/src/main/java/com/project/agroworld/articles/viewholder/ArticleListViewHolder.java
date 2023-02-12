@@ -13,7 +13,7 @@ import com.project.agroworld.utils.Constants;
 
 public class ArticleListViewHolder extends RecyclerView.ViewHolder {
 
-    private ArticleItemLayoutBinding binding;
+    private final ArticleItemLayoutBinding binding;
 
     public ArticleListViewHolder(ArticleItemLayoutBinding binding) {
         super(binding.getRoot());

@@ -41,9 +41,9 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     private FruitsAdapter fruitsAdapter;
     private AgroViewModel viewModel;
     private CustomMultiColorProgressBar progressBar;
-    private ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
-    private ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
-    private ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
+    private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
+    private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
+    private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
 
 
     @Override

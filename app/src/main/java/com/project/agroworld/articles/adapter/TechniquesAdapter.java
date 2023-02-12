@@ -15,8 +15,8 @@ import com.project.agroworld.databinding.ArticleItemLayoutBinding;
 import java.util.ArrayList;
 
 public class TechniquesAdapter extends RecyclerView.Adapter<ArticleListViewHolder> {
-    private ArrayList<TechniquesResponse> techniquesResponseArrayList;
-    private FruitsClickListener listener;
+    private final ArrayList<TechniquesResponse> techniquesResponseArrayList;
+    private final FruitsClickListener listener;
     Context context;
 
     public TechniquesAdapter(ArrayList<TechniquesResponse> techniquesResponseArrayList, FruitsClickListener listener) {

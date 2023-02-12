@@ -29,7 +29,7 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
     private CropsAdapter cropsAdapter;
     private AgroViewModel viewModel;
     private CustomMultiColorProgressBar progressBar;
-    private ArrayList<CropsResponse> cropsResponseArrayList =new ArrayList<>();
+    private final ArrayList<CropsResponse> cropsResponseArrayList =new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
