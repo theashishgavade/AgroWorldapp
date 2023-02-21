@@ -1,5 +1,6 @@
 package com.project.agroworld.weather;
 
+import static com.project.agroworld.utils.Constants.API_KEY;
 import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.annotation.SuppressLint;
@@ -14,15 +15,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityWeatherBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.weather.adapter.WeatherForecastAdapter;
+import com.project.agroworld.weather.listener.WeatherForecastListener;
 import com.project.agroworld.weather.model.weather_data.WeatherResponse;
+import com.project.agroworld.weather.model.weatherlist.ListItem;
+import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,12 +39,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class WeatherActivity extends AppCompatActivity {
+public class WeatherActivity extends AppCompatActivity implements WeatherForecastListener {
 
     // initialize all buttons, textView, etc:
     double latitude, longitude;
     private ActivityWeatherBinding binding;
     private CustomMultiColorProgressBar progressBar;
+    private final ArrayList<ListItem> forecastItemArrayList = new ArrayList<>();
+    private WeatherForecastAdapter forecastAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +60,14 @@ public class WeatherActivity extends AppCompatActivity {
         latitude = intent.getDoubleExtra("latitude", 0.0);
         longitude = intent.getDoubleExtra("longitude", 0.0);
         Log.d("getIntent", "latitude " + latitude + " , " + "longitude" + longitude);
-        callApiService(latitude, longitude);
+        if (Permissions.checkConnection(this)) {
+            callForecastApiService(latitude, longitude);
+            callApiService(latitude, longitude);
+        }else {
+            binding.mainContainer.setVisibility(View.GONE);
+            binding.errorText.setVisibility(View.VISIBLE);
+            binding.errorText.setText(getString(R.string.something_wrong_err));
+        }
     }
 
     private void callApiService(Double lat, Double lon) {
@@ -73,6 +91,37 @@ public class WeatherActivity extends AppCompatActivity {
                 Constants.printLog(t.getLocalizedMessage());
             }
         });
+    }
+
+    private void callForecastApiService(double lat, double lon) {
+        binding.forecastProgressBar.setVisibility(View.VISIBLE);
+        binding.tvForecastNoDataFound.setVisibility(View.GONE);
+        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
+        apiService.getWeatherForecastData(lat, lon, API_KEY).enqueue(new Callback<WeatherDatesResponse>() {
+            @Override
+            public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {
+                binding.forecastProgressBar.setVisibility(View.GONE);
+                if (response.body() != null) {
+                    forecastItemArrayList.clear();
+                    forecastItemArrayList.addAll(response.body().getList());
+                    setUpRecyclerView();
+                }
+                Log.d("forecastItemArrayList ", String.valueOf(forecastItemArrayList.size()));
+            }
+
+            @Override
+            public void onFailure(Call<WeatherDatesResponse> call, Throwable t) {
+                binding.forecastProgressBar.setVisibility(View.GONE);
+                binding.tvForecastNoDataFound.setVisibility(View.VISIBLE);
+                binding.tvForecastNoDataFound.setText(t.getLocalizedMessage());
+                Constants.showToast(WeatherActivity.this, t.getLocalizedMessage());
+            }
+        });
+    }
+    private void setUpRecyclerView() {
+        forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
+        binding.recyclerViewForecast.setAdapter(forecastAdapter);
+        binding.recyclerViewForecast.setLayoutManager(new LinearLayoutManager(WeatherActivity.this, LinearLayoutManager.HORIZONTAL, false));
     }
 
     @Override
@@ -135,5 +184,10 @@ public class WeatherActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onForecastWeatherCardClick(ListItem listItem, int position) {
+        Constants.showToast(WeatherActivity.this, "Status - " + listItem.getWeather().get(position).getDescription());
     }
 }

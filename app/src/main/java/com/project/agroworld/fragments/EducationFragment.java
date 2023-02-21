@@ -17,15 +17,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.ArticleDetailsActivity;
+import com.project.agroworld.articles.HowToExpandActivity;
 import com.project.agroworld.articles.adapter.CropsAdapter;
 import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.adapter.FruitsAdapter;
+import com.project.agroworld.articles.adapter.HowToExpandAdapter;
 import com.project.agroworld.articles.listener.CropsClickListener;
+import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.listener.FlowerClickListener;
 import com.project.agroworld.articles.listener.FruitsClickListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.FragmentEducationBinding;
 import com.project.agroworld.ui.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
@@ -33,17 +37,20 @@ import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import java.util.ArrayList;
 
 
-public class EducationFragment extends Fragment implements CropsClickListener, FruitsClickListener, FlowerClickListener {
+public class EducationFragment extends Fragment implements CropsClickListener, FruitsClickListener, FlowerClickListener, ExpandClickListener {
 
     private FragmentEducationBinding binding;
     private CropsAdapter cropsAdapter;
     private FlowersAdapter flowersAdapter;
     private FruitsAdapter fruitsAdapter;
+    private HowToExpandAdapter expandAdapter;
     private AgroViewModel viewModel;
     private CustomMultiColorProgressBar progressBar;
     private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
     private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
     private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
+    private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
+
 
 
     @Override
@@ -65,6 +72,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         getCropsListFromApi();
         getFruitsListFromApi();
         getFlowersListFromApi();
+        getExpandListFromApi();
     }
 
     private void getCropsListFromApi() {
@@ -146,6 +154,34 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         });
     }
 
+    private void getExpandListFromApi() {
+        viewModel.getHowToExpandResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case ERROR:
+                    progressBar.hideProgressBar();
+                    binding.rvHowToExpandEd.setVisibility(View.GONE);
+                    binding.rvHowToExpandEd.setVisibility(View.VISIBLE);
+                    binding.tvHowToExpandEd.setText(R.string.something_wrong_err);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (resource.data != null) {
+                        expandResponseArrayList.clear();
+                        expandResponseArrayList.addAll(resource.data);
+                        progressBar.hideProgressBar();
+                        binding.rvHowToExpandEd.setVisibility(View.VISIBLE);
+                        setExpandRecyclerView();
+                    } else {
+                        binding.rvHowToExpandEd.setVisibility(View.VISIBLE);
+                        binding.tvHowToExpandEd.setText(getString(R.string.loader_message));
+                    }
+                    break;
+            }
+        });
+    }
+
+
     private void setRecyclerView() {
         cropsAdapter = new CropsAdapter(cropsResponseArrayList, this);
         binding.rvCropsEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -164,6 +200,11 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         binding.rvFlowersEd.setAdapter(flowersAdapter);
     }
 
+    private void setExpandRecyclerView() {
+        expandAdapter = new HowToExpandAdapter(expandResponseArrayList, this);
+        binding.rvHowToExpandEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvHowToExpandEd.setAdapter(expandAdapter);
+    }
     @Override
     public void onCropsClick(CropsResponse response) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
@@ -185,6 +226,14 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
         intent.putExtra("fruitItemResponse", response);
         intent.putExtra("isFruitResponse", true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onExpandItemClick(HowToExpandResponse response) {
+        Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);
+        intent.putExtra("expandItemResponse", response);
+        intent.putExtra("isExpandResponse", true);
         startActivity(intent);
     }
 }

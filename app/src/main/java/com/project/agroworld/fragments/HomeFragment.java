@@ -36,6 +36,7 @@ import com.project.agroworld.R;
 import com.project.agroworld.articles.CropsActivity;
 import com.project.agroworld.articles.FlowersActivity;
 import com.project.agroworld.articles.FruitsActivity;
+import com.project.agroworld.articles.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
@@ -127,6 +128,10 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
             startActivity(new Intent(requireContext(), FlowersActivity.class));
         });
 
+        binding.crdHowToExpand.setOnClickListener(v -> {
+            startActivity(new Intent(requireContext(), HowToExpandActivity.class));
+
+        });
 
     }
 
@@ -134,10 +139,14 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         binding.weatherCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), WeatherActivity.class);
-                intent.putExtra("latitude", latitude);
-                intent.putExtra("longitude", longitude);
-                startActivity(intent);
+                if (latitude != 0.0 && longitude != 0.0) {
+                    Intent intent = new Intent(getContext(), WeatherActivity.class);
+                    intent.putExtra("latitude", latitude);
+                    intent.putExtra("longitude", longitude);
+                    startActivity(intent);
+                }else {
+                    Constants.showToast(getContext(), getString(R.string.something_wrong_err));
+                }
             }
         });
     }

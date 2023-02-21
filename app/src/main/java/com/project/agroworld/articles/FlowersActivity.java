@@ -64,7 +64,7 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
                         setRecyclerView();
                     } else {
                         binding.tvNoFlowersDataFound.setVisibility(View.VISIBLE);
-                        binding.tvNoFlowersDataFound.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvNoFlowersDataFound.setText(getString(R.string.no_data_found));
                     }
                     break;
             }

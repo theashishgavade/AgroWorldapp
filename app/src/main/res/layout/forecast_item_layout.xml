@@ -10,15 +10,15 @@
         app:cardCornerRadius="@dimen/dp_10">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="230dp"
             android:padding="@dimen/dp_10"
-            android:background="@drawable/gradient_bg">
+            android:background="@drawable/markus">
 
             <ImageView
                 android:id="@+id/ivForecastIcon"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/weather" />
@@ -62,7 +62,7 @@
                 android:fontFamily="@font/rowdies"
                 android:text="2023-01-29 15:00:00"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp" />
 
         </RelativeLayout>

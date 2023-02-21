@@ -60,6 +60,7 @@ public class DashboardActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         viewPager.setEnabled(false);
         viewPager.setNestedScrollingEnabled(false);
+        viewPager.beginFakeDrag();
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_home_24);

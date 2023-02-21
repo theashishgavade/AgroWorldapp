@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">एग्रो वर्ल्ड</string>
-    <string name="title_activity_login">LoginActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="next">अगला</string>
-    <string name="previous">पहले का</string>
     <string name="agrowoprld">एग्रो वर्ल्ड</string>
     <string name="quote1">"किसी भी किसान के लिए सर्वश्रेष्ठ मार्गदर्शक और सहायक। एक ही स्थान पर विभिन्न सुविधाएँ प्रदान करता है!"</string>
-    <string name="log_in">लॉग इन करें</string>
-    <string name="sign_up">साइन अप करें</string>
     <string name="register">पंजीकरण</string>
     <string name="new_user_register_now">नए उपयोगकर्ता? अभी पंजीकरण करें</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="proceed">आगे बढ़ें</string>
     <string name="enable_gps_service">अपना सटीक स्थान दिखाने के लिए कृपया अपनी GPS सेवा सक्षम करें</string>
     <string name="check_internet_connection">इंटरनेट कनेक्शन जांचें कृपया अपना सटीक स्थान दिखाने के लिए अपनी इंटरनेट सेवा को सक्षम करें</string>
     <string name="please_wait">कृपया प्रतीक्षा करें</string>
-    <string name="label">title</string>
     <string name="username">बीज खरीदारी</string>
     <string name="seed_title">Seed Title</string>
     <string name="price">कीमत</string>
     <string name="description">उत्पाद वर्णन</string>
     <string name="benefits">विवरण</string>
-    <string name="BuyNow">अभी खरीदें</string>
     <string name="transport">बुक व्हीकल</string>
     <string name="no_data_found">ऐसा लगता है कि एडमिन ने अभी तक कोई आइटम नहीं जोड़ा है।</string>
     <string name="vehicle_remove_message">यहां से हटने पर वाहन किसान डैशबोर्ड से हट जाएगा</string>
     <string name="product_remove_message">यहां से हटाने पर उत्पाद किसान डैशबोर्ड से हट जाएगा</string>
-    <string name="title_activity_methods">MethodsActivity</string>
     <string name="add_to_cart">कार्ट में जोड़ें</string>
     <string name="add_address" translatable="false">पता जोड़ें</string>
     <string name="total" translatable="false">संपूर्ण:</string>
@@ -39,7 +30,6 @@
     <string name="forgot_password">पासवर्ड भूल गए</string>
     <string name="login">लॉग इन करें</string>
     <string name="use_other_methods">अन्य तरीकों का प्रयोग करें</string>
-    <string name="logout">लॉग आउट</string>
     <string name="something_wrong_err">कुछ गलत हो गया</string>
     <string name="loader_message">कृपया प्रतीक्षा करें..हम आपके अनुरोध चला रहे हैं</string>
     <string name="crops_information">फसलों की जानकारी</string>

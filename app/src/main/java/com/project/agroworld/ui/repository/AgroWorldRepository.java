@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
@@ -32,11 +33,10 @@ import retrofit2.Response;
 
 public class AgroWorldRepository {
     private DatabaseReference databaseReference;
-
+    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
 
     public LiveData<Resource<List<TechniquesResponse>>> getTechniques() {
         final MutableLiveData<Resource<List<TechniquesResponse>>> techniquesMutableLiveData = new MutableLiveData<>();
-        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
         apiService.getTechniquesList().enqueue(new Callback<List<TechniquesResponse>>() {
             @Override
             public void onResponse(Call<List<TechniquesResponse>> call, Response<List<TechniquesResponse>> response) {
@@ -55,7 +55,6 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<FlowersResponse>>> getFlowersResponse() {
         final MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
-        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
         apiService.getFlowersList().enqueue(new Callback<List<FlowersResponse>>() {
             @Override
             public void onResponse(Call<List<FlowersResponse>> call, Response<List<FlowersResponse>> response) {
@@ -75,7 +74,6 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<CropsResponse>>> getCropsResponse() {
         final MutableLiveData<Resource<List<CropsResponse>>> cropsMutableLiveData = new MutableLiveData<>();
-        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
         apiService.getListOfCrops().enqueue(new Callback<List<CropsResponse>>() {
             @Override
             public void onResponse(Call<List<CropsResponse>> call, Response<List<CropsResponse>> response) {
@@ -94,7 +92,6 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<FruitsResponse>>> getFruitsResponse() {
         final MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
-        APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
         apiService.getFruitsFromDB().enqueue(new Callback<List<FruitsResponse>>() {
             @Override
             public void onResponse(Call<List<FruitsResponse>> call, Response<List<FruitsResponse>> response) {
@@ -111,6 +108,23 @@ public class AgroWorldRepository {
         return fruitsMutableLiveData;
     }
 
+    public LiveData<Resource<List<HowToExpandResponse>>> getHowToExpandResponse() {
+        final MutableLiveData<Resource<List<HowToExpandResponse>>> howToExpandLivedata = new MutableLiveData<>();
+        apiService.getListOfHowToExpandData().enqueue(new Callback<List<HowToExpandResponse>>() {
+            @Override
+            public void onResponse(Call<List<HowToExpandResponse>> call, Response<List<HowToExpandResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    howToExpandLivedata.setValue(Resource.success(response.body()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HowToExpandResponse>> call, Throwable t) {
+                howToExpandLivedata.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return howToExpandLivedata;
+    }
 
     public LiveData<Resource<List<ProductModel>>> getProductListFromFirebase() {
         final MutableLiveData<Resource<List<ProductModel>>> productLiveData = new MutableLiveData<>();

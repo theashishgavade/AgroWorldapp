@@ -47,6 +47,7 @@ public class TransportActivity extends AppCompatActivity {
         actionBar.setTitle("Transport Panel");
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, "Please wait\nWe're running your request...");
+
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
             selectImage();
         });
@@ -69,10 +70,8 @@ public class TransportActivity extends AppCompatActivity {
         progressBar.showProgressBar();
         storage = FirebaseStorage.getInstance().getReference("vehicle");
         storage.child(model).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
-
             Constants.showToast(TransportActivity.this, "Image uploaded successfully");
             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener( task -> {
-
                 String imageUrl = task.getResult().toString();
                 Log.d("fileLink", imageUrl);
                 uploadDataToFirebase(model, rates, address, contact, imageUrl);

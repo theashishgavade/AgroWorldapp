@@ -13,6 +13,7 @@ import com.project.agroworld.R;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ActivityArticleDetailsBinding;
 import com.project.agroworld.utils.Constants;
 
@@ -33,13 +34,16 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         boolean isFruitResponse = intent.getBooleanExtra("isFruitResponse", false);
         FlowersResponse flowersResponse = ((FlowersResponse) intent.getSerializableExtra("flowerItemResponse"));
         boolean isFlowersResponse = intent.getBooleanExtra("isFlowersResponse", false);
-
+        HowToExpandResponse expandItemResponse = ((HowToExpandResponse) intent.getSerializableExtra("expandItemResponse"));
+        boolean isExpandResponse = intent.getBooleanExtra("isExpandResponse", false);
         if (isCropResponse) {
             updateUIForCropsData(cropsResponse);
         } else if (isFruitResponse) {
             updateUIForFruitsData(fruitsResponse);
         } else if (isFlowersResponse) {
             updateUIForFlowersData(flowersResponse);
+        }else if (isExpandResponse){
+            updateUIForExpandData(expandItemResponse);
         }
 
     }
@@ -71,6 +75,23 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         binding.tvLandPrepInfoTxt.setText(response.getLandPreparation());
         binding.tvHarvestingInfoTxt.setText(response.getHarvesting());
         binding.tvPostHarvestingInfoTxt.setText(response.getPostHarvest());
+    }
+
+    private void updateUIForExpandData(HowToExpandResponse response) {
+        actionBar.setTitle(response.getCropName());
+        binding.llTimeFertilize.setVisibility(View.GONE);
+        Constants.bindImage(binding.ivItemPicture, response.getImageLink(), binding.ivItemPicture);
+        binding.tvTitleArtDetailTxt.setText(response.getCropName());
+        binding.tvStateArtDetailTxt.setVisibility(View.GONE);
+        binding.tvSeasonTxt.setText(response.getSeason());
+        binding.tvReqTempTxt.setText(response.getRequiredTemperature());
+        binding.tvArticleInfoTxt.setText(response.getCropInfo());
+        binding.tvIrrigationInfoTxt.setText(response.getIrrigation());
+        binding.tvLandPrepInfoTxt.setVisibility(View.GONE);
+        binding.tvLandPrep.setVisibility(View.GONE);
+        binding.tvHarvestingInfoTxt.setText(response.getHarvesting());
+        binding.tvPostHarvestingInfoTxt.setVisibility(View.GONE);
+        binding.tvPostHarvesting.setVisibility(View.GONE);
     }
 
     private void updateUIForCropsData(CropsResponse response) {

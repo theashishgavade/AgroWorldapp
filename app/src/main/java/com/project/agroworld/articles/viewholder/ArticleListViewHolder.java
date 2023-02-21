@@ -3,11 +3,13 @@ package com.project.agroworld.articles.viewholder;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.articles.listener.CropsClickListener;
+import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.listener.FlowerClickListener;
 import com.project.agroworld.articles.listener.FruitsClickListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ArticleItemLayoutBinding;
 import com.project.agroworld.utils.Constants;
 
@@ -36,6 +38,15 @@ public class ArticleListViewHolder extends RecyclerView.ViewHolder {
         Constants.bindImage(binding.getRoot(), responses.getImageLink(), binding.ivArticleItem);
         binding.crdArticleItem.setOnClickListener(v -> {
             listener.onCropsClick(responses);
+        });
+    }
+
+    public void bindHowToExpandData(HowToExpandResponse responses, ExpandClickListener listener) {
+        binding.tvTitleArticleItem.setText(responses.getCropName());
+        binding.tvSeasonArticleItem.setText(responses.getSeason());
+        Constants.bindImage(binding.getRoot(), responses.getImageLink(), binding.ivArticleItem);
+        binding.crdArticleItem.setOnClickListener(v -> {
+            listener.onExpandItemClick(responses);
         });
     }
 
