@@ -18,6 +18,9 @@
         android:theme="@style/Theme.AgroWorld"
         tools:targetApi="31">
         <activity
+            android:name=".ui.payment.PaymentDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".articles.HowToExpandActivity"
             android:exported="false" />
         <activity

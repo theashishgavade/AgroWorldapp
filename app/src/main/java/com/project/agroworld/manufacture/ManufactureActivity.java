@@ -87,7 +87,7 @@ public class ManufactureActivity extends AppCompatActivity {
 
     private void uploadDataToFirebase(String title, String description, Double price, String imageUrl) {
         firebaseStorage = FirebaseDatabase.getInstance().getReference("product");
-        ProductModel productModel = new ProductModel(title, description, price, imageUrl);
+        ProductModel productModel = new ProductModel(title, description, price, imageUrl, 0);
         firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

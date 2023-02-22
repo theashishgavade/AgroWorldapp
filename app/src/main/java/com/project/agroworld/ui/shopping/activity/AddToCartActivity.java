@@ -2,12 +2,14 @@ package com.project.agroworld.ui.shopping.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -27,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddToCartBinding;
+import com.project.agroworld.ui.payment.PaymentDetailsActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductCartAdapter;
 import com.project.agroworld.ui.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
@@ -47,7 +50,9 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     private FusedLocationProviderClient fusedLocationProviderClient;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     ActionBar actionBar;
+    private String addressLine;
     private double totalItemAmount = 0.0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,20 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                 } else {
                     getLastLocation();
                 }
+            }
+        });
+
+        binding.btnProceedToPayment.setOnClickListener(v -> {
+            String value = binding.tvTotalAmount.getText().toString();
+            Log.d("valueInit", "size " + productCartList.size() + "value " + value.toString());
+            if (addressLine != null && !value.contains("₹0.0") && !productCartList.isEmpty()) {
+                Intent intent = new Intent(this, PaymentDetailsActivity.class);
+                intent.putExtra("productItemList", productCartList);
+                intent.putExtra("address", addressLine);
+                intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
+                startActivity(intent);
+            } else {
+                Constants.showToast(this, "Something is missing");
             }
         });
     }
@@ -85,9 +104,11 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                     binding.tvTotalAmount.setText("₹" + df.format(totalItemAmount));
                     setRecyclerView();
                 } else {
+                    totalItemAmount = 0.0;
+                    productCartList.clear();
                     binding.recyclerViewCrtList.setVisibility(View.GONE);
                     binding.tvNoCartDataFound.setVisibility(View.VISIBLE);
-                    binding.tvTotalAmount.setText("₹" + 0.0);
+                    binding.tvTotalAmount.setText("₹" + totalItemAmount);
                 }
             }
 
@@ -106,14 +127,16 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     }
 
     @Override
-    public void onIncreaseItemClick(ProductModel productModel) {
+    public void onIncreaseItemClick(ProductModel productModel, int quantity) {
+        productModel.setQuantity(quantity);
         String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
         double currentDoubleValue = Double.valueOf(currentValue[1]) + productModel.getPrice();
         binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
     }
 
     @Override
-    public void onDecreaseItemClick(ProductModel productModel) {
+    public void onDecreaseItemClick(ProductModel productModel, int quantity) {
+        productModel.setQuantity(quantity);
         String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
         double currentDoubleValue = Double.valueOf(currentValue[1]) - productModel.getPrice();
         binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
@@ -130,7 +153,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                         List<Address> addresses = null;
                         try {
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            String addressLine = addresses.get(0).getAddressLine(0);
+                            addressLine = addresses.get(0).getAddressLine(0);
                             binding.tvAddAddress.setText(addressLine);
                         } catch (IOException e) {
                             e.printStackTrace();

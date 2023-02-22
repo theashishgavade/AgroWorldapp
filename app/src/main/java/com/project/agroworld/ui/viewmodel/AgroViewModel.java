@@ -1,6 +1,7 @@
 package com.project.agroworld.ui.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.project.agroworld.articles.model.CropsResponse;
@@ -17,37 +18,55 @@ import java.util.List;
 
 public class AgroViewModel extends ViewModel {
     private AgroWorldRepository repository;
+
     public void init() {
         repository = new AgroWorldRepository();
     }
+
+    private MutableLiveData<Double> totalAmount = new MutableLiveData<>();
+
+    public Double itemAmountState(Double amount) {
+        totalAmount.setValue(amount);
+        return amount;
+    }
+
+    public LiveData<Double> totalAmountLivedata() {
+        if (totalAmount == null) {
+            totalAmount = new MutableLiveData<>();
+            totalAmount.setValue(0.0);
+        }
+        return totalAmount;
+    }
+
     public LiveData<Resource<List<TechniquesResponse>>> getTechniqueResponseLivedata() {
         return repository.getTechniques();
     }
 
-    public LiveData<Resource<List<FruitsResponse>>> getFruitsResponseLivedata(){
+    public LiveData<Resource<List<FruitsResponse>>> getFruitsResponseLivedata() {
         return repository.getFruitsResponse();
     }
 
-    public LiveData<Resource<List<HowToExpandResponse>>> getHowToExpandResponseLivedata(){
+    public LiveData<Resource<List<HowToExpandResponse>>> getHowToExpandResponseLivedata() {
         return repository.getHowToExpandResponse();
     }
 
-    public LiveData<Resource<List<CropsResponse>>> getCropsResponseLivedata(){
+    public LiveData<Resource<List<CropsResponse>>> getCropsResponseLivedata() {
         return repository.getCropsResponse();
     }
-    public LiveData<Resource<List<FlowersResponse>>> getFlowersResponseLivedata(){
+
+    public LiveData<Resource<List<FlowersResponse>>> getFlowersResponseLivedata() {
         return repository.getFlowersResponse();
     }
 
-    public LiveData<Resource<List<ProductModel>>> getProductModelLivedata(){
+    public LiveData<Resource<List<ProductModel>>> getProductModelLivedata() {
         return repository.getProductListFromFirebase();
     }
 
-    public LiveData<Resource<List<VehicleModel>>> getVehicleModelLivedata(){
+    public LiveData<Resource<List<VehicleModel>>> getVehicleModelLivedata() {
         return repository.getVehicleListFromFirebase();
     }
 
-    public void removeProductFromFirebase(String title){
+    public void removeProductFromFirebase(String title) {
         repository.removeProductFromFirebase(title);
     }
 

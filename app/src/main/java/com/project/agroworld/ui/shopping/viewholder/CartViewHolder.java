@@ -30,7 +30,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder{
                 }else{
                     itemCount++;
                     binding.tvItemCount.setText(String.valueOf(itemCount));
-                    listener.onIncreaseItemClick(productModel);
+                    listener.onIncreaseItemClick(productModel, itemCount);
                 }
 
             }
@@ -44,7 +44,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder{
                 }else  {
                     itemCount--;
                     binding.tvItemCount.setText(String.valueOf(itemCount));
-                    listener.onDecreaseItemClick(productModel);
+                    listener.onDecreaseItemClick(productModel, itemCount);
                 }
             }
         });
