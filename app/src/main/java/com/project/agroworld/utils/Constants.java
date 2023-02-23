@@ -23,9 +23,13 @@ public class Constants {
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
     public static String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
+
+    public static int GOOGLE_PAY_REQ_CODE = 123;
+    public static String NAME = "Agro World";
+    public static String UPI_ID = "bhavesh.patil0325-3@okaxis";
+    public static String TRANSACTION_NOTE = "Seeds Shopping";
     public static int REQUEST_CODE = 99;
     public static int GPS_REQUEST_CODE = 999;
-
     public static String ENGLISH_KEY = "EnglishLang";
     public static String HINDI_KEY = "HindiLang";
 
@@ -62,9 +66,11 @@ public class Constants {
         context.createConfigurationContext(config);
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
     }
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
+
     public static void showToast(Context context, String msg) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
     }

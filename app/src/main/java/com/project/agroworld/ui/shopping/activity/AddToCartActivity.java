@@ -101,14 +101,14 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                         productCartList.add(productItem);
                         totalItemAmount += productItem.getPrice();
                     }
-                    binding.tvTotalAmount.setText("₹" + df.format(totalItemAmount));
+                    binding.tvTotalAmount.setText("₹ " + df.format(totalItemAmount));
                     setRecyclerView();
                 } else {
                     totalItemAmount = 0.0;
                     productCartList.clear();
                     binding.recyclerViewCrtList.setVisibility(View.GONE);
                     binding.tvNoCartDataFound.setVisibility(View.VISIBLE);
-                    binding.tvTotalAmount.setText("₹" + totalItemAmount);
+                    binding.tvTotalAmount.setText("₹ " + totalItemAmount);
                 }
             }
 
@@ -131,7 +131,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         productModel.setQuantity(quantity);
         String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
         double currentDoubleValue = Double.valueOf(currentValue[1]) + productModel.getPrice();
-        binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
+        binding.tvTotalAmount.setText("₹ " + df.format(currentDoubleValue));
     }
 
     @Override
@@ -139,7 +139,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         productModel.setQuantity(quantity);
         String[] currentValue = binding.tvTotalAmount.getText().toString().split("₹");
         double currentDoubleValue = Double.valueOf(currentValue[1]) - productModel.getPrice();
-        binding.tvTotalAmount.setText("₹" + df.format(currentDoubleValue));
+        binding.tvTotalAmount.setText("₹ " + df.format(currentDoubleValue));
     }
 
     private void getLastLocation() {
