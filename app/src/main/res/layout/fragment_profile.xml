@@ -113,8 +113,10 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/layoutUserData"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_margin="@dimen/dp_10">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -129,12 +131,11 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="@dimen/dp_10"
-                        android:fontFamily="@font/fredoka_one"
-                        android:text="@string/no_data_found"
-                        android:textAllCaps="true"
+                        android:text="@string/no_cart_data_found"
+                        android:textAllCaps="false"
                         android:textColor="@color/fontColor"
-                        android:textSize="21sp"
+                        android:fontFamily="@font/average_sans"
+                        android:textSize="16sp"
                         android:visibility="gone" />
 
                 </RelativeLayout>

@@ -2,46 +2,50 @@ package com.project.agroworld.fragments;
 
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.opengl.Visibility;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
+import com.project.agroworld.db.FarmerModel;
+import com.project.agroworld.db.FarmerViewModel;
+import com.project.agroworld.db.adapter.FarmerAdapter;
+import com.project.agroworld.db.listener.OnItemClickListener;
+import com.project.agroworld.ui.taskManager.AddTaskActivity;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.PreferenceHelper;
 
-import java.util.Locale;
+import java.util.List;
 
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements OnItemClickListener {
+    private final int REQUEST_CODE = 6124;
     private FragmentProfileBinding dataBinding;
-    RecyclerView userProfilePostsRecycler;
-
     PreferenceHelper preferenceHelper;
+    FarmerViewModel viewModel;
+    FarmerAdapter farmerAdapter;
     FirebaseAuth auth;
     FirebaseUser user;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +65,16 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         preferenceHelper = PreferenceHelper.getInstance(getContext());
+        viewModel = ViewModelProviders.of(requireActivity()).get(FarmerViewModel.class);
         updateUI(user);
-
-        dataBinding.ivSLanguageMenu .setOnClickListener(new View.OnClickListener() {
+        setUpRecyclerView();
+        viewModel.getAllCourses().observe(getViewLifecycleOwner(), new Observer<List<FarmerModel>>() {
+            @Override
+            public void onChanged(List<FarmerModel> farmerModels) {
+                updateTaskUI(farmerModels);
+            }
+        });
+        dataBinding.ivSLanguageMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivSettingMenu);
@@ -74,7 +85,7 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         // Toast message on menu item clicked
-                        switch (menuItem.getItemId()){
+                        switch (menuItem.getItemId()) {
                             case R.id.menu_english_lng:
                                 setAppLocale(getContext(), "en");
                                 preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
@@ -93,15 +104,52 @@ public class ProfileFragment extends Fragment {
                 popupMenu.show();
             }
         });
+
+        dataBinding.addAlarmFab.setOnClickListener(v -> {
+            startActivityForResult(new Intent(requireContext(), AddTaskActivity.class), REQUEST_CODE);
+        });
+    }
+
+    private void updateTaskUI(List<FarmerModel> farmerModels) {
+        if (farmerModels.isEmpty()){
+            dataBinding.userProfilePostsRecycler.setVisibility(View.GONE);
+            dataBinding.tvProfileNoDataFound.setVisibility(View.VISIBLE);
+        }else {
+            farmerAdapter.submitList(farmerModels);
+        }
+    }
+
+    private void setUpRecyclerView() {
+        farmerAdapter = new FarmerAdapter(requireContext(), this);
+        dataBinding.userProfilePostsRecycler.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
+        dataBinding.userProfilePostsRecycler.setAdapter(farmerAdapter);
     }
 
     private void updateUI(FirebaseUser user) {
         dataBinding.uploadProgressBarProfile.setVisibility(View.GONE);
-
-        if (user != null){
+        if (user != null) {
             Glide.with(requireContext()).load(user.getPhotoUrl()).into(dataBinding.userImageUserFrag);
             dataBinding.tvProfileUserName.setText(user.getDisplayName());
             dataBinding.tvProfileUserEmail.setText(user.getEmail());
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE){
+            viewModel.getAllCourses().observe(getViewLifecycleOwner(), this::updateTaskUI);
+        }
+    }
+
+    @Override
+    public void markTaskCompleted(FarmerModel model) {
+        viewModel.delete(model);
+        Constants.showToast(requireContext(), "Task Completed");
+    }
+    @Override
+    public void onDeleteClick(FarmerModel model) {
+        viewModel.delete(model);
+        Constants.showToast(requireContext(), "Item deleted successfully");
     }
 }

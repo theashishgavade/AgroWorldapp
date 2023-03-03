@@ -29,7 +29,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddToCartBinding;
-import com.project.agroworld.ui.payment.PaymentDetailsActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductCartAdapter;
 import com.project.agroworld.ui.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
@@ -74,17 +73,17 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         });
 
         binding.btnProceedToPayment.setOnClickListener(v -> {
-            String value = binding.tvTotalAmount.getText().toString();
-            Log.d("valueInit", "size " + productCartList.size() + "value " + value.toString());
-            if (addressLine != null && !value.contains("₹0.0") && !productCartList.isEmpty()) {
-                Intent intent = new Intent(this, PaymentDetailsActivity.class);
-                intent.putExtra("productItemList", productCartList);
-                intent.putExtra("address", addressLine);
-                intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
-                startActivity(intent);
-            } else {
-                Constants.showToast(this, "Something is missing");
-            }
+//            String value = binding.tvTotalAmount.getText().toString();
+//            Log.d("valueInit", "size " + productCartList.size() + "value " + value.toString());
+//            if (addressLine != null && !value.contains("₹0.0") && !productCartList.isEmpty()) {
+//                Intent intent = new Intent(this, PaymentDetailsActivity.class);
+//                intent.putExtra("productItemList", productCartList);
+//                intent.putExtra("address", addressLine);
+//                intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
+//                startActivity(intent);
+//            } else {
+//                Constants.showToast(this, "Something is missing");
+//            }
         });
     }
 

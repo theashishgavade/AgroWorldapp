@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E5FAF4"
+        tools:context=".ui.taskManager.AddTaskActivity">
+
+        <RelativeLayout
+            android:id="@+id/layoutInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/layoutIcons"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            tools:context=".ui.CreateTask">
+
+            <TextView
+                android:id="@+id/tvRoutinesCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="Create new Task"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRoutinesCreate"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Date"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRoutinesCreate"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_toEndOf="@id/tvDate"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Time"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvPriority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRoutinesCreate"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_toEndOf="@id/tvTime"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Priority"
+                android:padding="15dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/etRoutine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDate"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="Enter title"
+                android:padding="15dp"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/etDecs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etRoutine"
+                android:layout_margin="@dimen/dp_10"
+                android:fontFamily="@font/poppins_medium"
+                android:hint="description"
+                android:minHeight="@dimen/dp_100"
+                android:padding="15dp"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/layoutIcons"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true">
+
+            <ImageView
+                android:id="@+id/ivSelectDate"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_calendar_month_24" />
+
+            <ImageView
+                android:id="@+id/ivSelectTime"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_toEndOf="@id/ivSelectDate"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_access_time_filled_24" />
+
+            <ImageView
+                android:id="@+id/ivPriority"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_toEndOf="@id/ivSelectTime"
+                android:padding="@dimen/dp_10"
+                android:src="@drawable/baseline_flag_24" />
+
+            <Button
+                android:id="@+id/btnTaskDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:background="@drawable/side_white_panel"
+                android:text="Done" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

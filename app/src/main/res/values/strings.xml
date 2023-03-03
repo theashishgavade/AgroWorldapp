@@ -72,6 +72,8 @@
     <string name="products">Products</string>
     <string name="how_to_expand">How To Expand</string>
     <string name="articles">Articles</string>
-    <string name="no_cart_data_found">Look\'s like you haven\'t add anyting to cart list</string>
+    <string name="no_cart_data_found">Look\'s like you haven\'t add anything to cart list</string>
+    <string name="no_task_data_found">Look\'s like you haven\'t add anything to routine list</string>
     <string name="next">Proceed</string>
+    <string name="this_field_required">This field is required</string>
 </resources>
