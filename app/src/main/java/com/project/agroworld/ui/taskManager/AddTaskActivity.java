@@ -126,7 +126,7 @@ public class AddTaskActivity extends AppCompatActivity {
         intent.putExtra("desc", desc);
         intent.putExtra("date", date);
         Log.d("date", date + "timeToNotify " + timeToNotify);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String datetime = date + " " + timeToNotify;
         DateFormat formatter = new SimpleDateFormat("d-M-yyyy hh:mm");
         try {
