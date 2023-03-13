@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,6 +29,7 @@ import com.project.agroworld.databinding.ActivityTransportBinding;
 import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 public class TransportActivity extends AppCompatActivity {
 
@@ -37,6 +39,7 @@ public class TransportActivity extends AppCompatActivity {
     private DatabaseReference firebaseStorage;
     private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
+    private AgroViewModel agroViewModel;
 
 
     @Override
@@ -47,7 +50,8 @@ public class TransportActivity extends AppCompatActivity {
         actionBar.setTitle("Transport Panel");
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, "Please wait\nWe're running your request...");
-
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel.init();
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
             selectImage();
         });

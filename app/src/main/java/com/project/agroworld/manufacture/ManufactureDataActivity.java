@@ -26,7 +26,7 @@ import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
 import com.project.agroworld.ui.shopping.listener.OnProductListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.ArrayList;

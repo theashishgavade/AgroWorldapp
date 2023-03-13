@@ -1,4 +1,4 @@
-package com.project.agroworld.ui.viewmodel;
+package com.project.agroworld.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +9,7 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
+import com.project.agroworld.ui.payment.model.PaymentModel;
 import com.project.agroworld.ui.repository.AgroWorldRepository;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
@@ -68,6 +69,14 @@ public class AgroViewModel extends ViewModel {
 
     public void removeProductFromFirebase(String title) {
         repository.removeProductFromFirebase(title);
+    }
+
+    public void uploadTransaction(PaymentModel paymentModel, String productTitle){
+        repository.uploadTransactionDetail(paymentModel, productTitle);
+    }
+
+    public LiveData<String> checkLoadingStatus(){
+        return repository.getRequestErrorLivedata();
     }
 
 }

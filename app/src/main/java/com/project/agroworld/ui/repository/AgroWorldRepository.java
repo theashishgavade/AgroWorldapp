@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +20,7 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
+import com.project.agroworld.ui.payment.model.PaymentModel;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.ui.transport.model.VehicleModel;
 import com.project.agroworld.utils.Resource;
@@ -34,6 +37,11 @@ import retrofit2.Response;
 public class AgroWorldRepository {
     private DatabaseReference databaseReference;
     APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
+    public MutableLiveData<String> requestStatus = new MutableLiveData<>();
+
+    public LiveData<String> getRequestErrorLivedata() {
+        return requestStatus;
+    }
 
     public LiveData<Resource<List<TechniquesResponse>>> getTechniques() {
         final MutableLiveData<Resource<List<TechniquesResponse>>> techniquesMutableLiveData = new MutableLiveData<>();
@@ -188,4 +196,18 @@ public class AgroWorldRepository {
         });
     }
 
+    public void uploadTransactionDetail(PaymentModel paymentModel, String productTitle) {
+        databaseReference = FirebaseDatabase.getInstance().getReference("transaction");
+        databaseReference.child(productTitle).setValue(paymentModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                requestStatus.postValue(e.getLocalizedMessage());
+            }
+        });
+    }
 }

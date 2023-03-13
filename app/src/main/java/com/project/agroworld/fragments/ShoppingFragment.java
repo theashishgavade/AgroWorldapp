@@ -3,9 +3,13 @@ package com.project.agroworld.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,14 +23,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.firebase.database.DatabaseReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
+import com.project.agroworld.ui.payment.PaymentHistoryActivity;
+import com.project.agroworld.ui.shopping.activity.AddToCartActivity;
 import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
 import com.project.agroworld.ui.shopping.listener.OnProductListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
-import com.project.agroworld.utils.Constants;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
@@ -55,26 +62,15 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
         getProductListFromFirebase();
-        binding.ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.tvUsername.setVisibility(View.GONE);
-                binding.ivSearch.setVisibility(View.GONE);
-                binding.searchBar.setVisibility(View.VISIBLE);
-            }
-        });
-
-        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.searchBar.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                binding.searchBar.setVisibility(View.GONE);
-                binding.tvUsername.setVisibility(View.VISIBLE);
-                binding.ivSearch.setVisibility(View.VISIBLE);
+                searchProduct(query);
                 return false;
             }
 
@@ -83,6 +79,59 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                 searchProduct(newText);
                 return false;
             }
+        });
+
+        binding.ivMoreOption.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivMoreOption);
+
+            // Inflating popup menu from popup_menu.xml file
+            popupMenu.getMenuInflater().inflate(R.menu.shopping_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                // Toast message on menu item clicked
+                switch (menuItem.getItemId()) {
+                    case R.id.menuLowToHigh:
+                        Comparator<ProductModel> lowComparator = new Comparator<ProductModel>() {
+                            @Override
+                            public int compare(ProductModel item1, ProductModel item2) {
+                                if (item1.getPrice() < item2.getPrice()) {
+                                    return -1;
+                                } else if (item1.getPrice() > item2.getPrice()) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        };
+                        Collections.sort(productModelArrayList, lowComparator);
+                        productAdapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.menuHighToLow:
+                        Comparator<ProductModel> highComparator = new Comparator<ProductModel>() {
+                            @Override
+                            public int compare(ProductModel item1, ProductModel item2) {
+                                if (item1.getPrice() > item2.getPrice()) {
+                                    return -1;
+                                } else if (item1.getPrice() < item2.getPrice()) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        };
+                        Collections.sort(productModelArrayList, highComparator);
+                        productAdapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.menuCartActivity:
+                        startActivity(new Intent(getContext(), AddToCartActivity.class));
+                         return true;
+                    case R.id.menuHistoryActivity:
+                        startActivity(new Intent(getContext(), PaymentHistoryActivity.class));
+                        return true;
+                }
+                return true;
+            });
+            // Showing the popup menu
+            popupMenu.show();
         });
 
     }
@@ -131,11 +180,39 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                 searchProductList.add(productModelArrayList.get(i));
             }
         }
-        if (productModelArrayList.isEmpty()) {
-            Constants.showToast(requireContext(), "No product found");
+        if (searchProductList.isEmpty()) {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
         } else {
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.tvNoDataFoundErr.setVisibility(View.GONE);
             productAdapter.searchInProductList(searchProductList);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.priority_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.high: {
+                Toast.makeText(getContext(), "High  ", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.medium: {
+                Toast.makeText(getContext(), "medium  ", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            case R.id.low: {
+                Toast.makeText(getContext(), "Low  ", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

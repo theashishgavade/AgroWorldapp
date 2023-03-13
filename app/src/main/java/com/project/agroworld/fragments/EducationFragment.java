@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.ArticleDetailsActivity;
-import com.project.agroworld.articles.HowToExpandActivity;
 import com.project.agroworld.articles.adapter.CropsAdapter;
 import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.adapter.FruitsAdapter;
@@ -31,7 +30,7 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.FragmentEducationBinding;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;

@@ -33,6 +33,9 @@ public class Constants {
     public static String ENGLISH_KEY = "EnglishLang";
     public static String HINDI_KEY = "HindiLang";
 
+    public static final String RAZORPAY_KEY_ID = "rzp_test_RRBbG8wGxAa23c";
+    public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
+
 
     public static void printLog(String message) {
         Log.d("AgroWorldUser", message);

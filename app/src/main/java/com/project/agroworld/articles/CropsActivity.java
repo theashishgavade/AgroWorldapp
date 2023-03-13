@@ -13,11 +13,10 @@ import android.view.View;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.CropsAdapter;
-import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.listener.CropsClickListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.databinding.ActivityCropsBinding;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;

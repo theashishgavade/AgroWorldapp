@@ -1,47 +1,53 @@
 package com.project.agroworld.ui.payment;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityPaymentDetailsBinding;
+import com.project.agroworld.ui.payment.model.PaymentModel;
 import com.project.agroworld.ui.shopping.model.ProductModel;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.viewmodel.AgroViewModel;
+import com.razorpay.Checkout;
+import com.razorpay.ExternalWalletListener;
+import com.razorpay.PaymentData;
+import com.razorpay.PaymentResultWithDataListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
-import dev.shreyaspatil.easyupipayment.EasyUpiPayment;
-import dev.shreyaspatil.easyupipayment.exception.AppNotFoundException;
-import dev.shreyaspatil.easyupipayment.listener.PaymentStatusListener;
-import dev.shreyaspatil.easyupipayment.model.PaymentApp;
-import dev.shreyaspatil.easyupipayment.model.TransactionDetails;
-
-public class PaymentDetailsActivity extends AppCompatActivity implements PaymentStatusListener {
+public class PaymentDetailsActivity extends AppCompatActivity implements PaymentResultWithDataListener, ExternalWalletListener {
 
     ActivityPaymentDetailsBinding binding;
     private ArrayList<ProductModel> productCartList = new ArrayList<>();
-    String uniqueID = UUID.randomUUID().toString();
-
     String address;
     String totalAmount;
     StringBuilder stringBuilder = new StringBuilder();
-    String status;
-    private EasyUpiPayment easyUpiPayment;
+    private AlertDialog.Builder alertDialogBuilder;
+    private DatabaseReference firebaseDatabase;
+    private AgroViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_details);
+        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel.init();
+        Checkout.preload(getApplicationContext());
         Intent intent = getIntent();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         productCartList = (ArrayList<ProductModel>) intent.getSerializableExtra("productItemList");
@@ -55,80 +61,112 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         binding.tvPaymentDate.setText("Date- " + date);
         binding.tvTotalPayAmt.setText("Total- " + totalAmount);
 
+        alertDialogBuilder = new AlertDialog.Builder(PaymentDetailsActivity.this);
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setTitle("Payment Result");
+        alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
+            //do nothing
+        });
+
+        viewModel.checkLoadingStatus().observe(this, s -> {
+            Constants.showToast(this, s);
+        });
 
         binding.btnProceed.setOnClickListener(v -> {
-            pay();
+            startPayment();
         });
     }
 
-    private void pay() {
-        PaymentApp
-                paymentApp = PaymentApp.ALL;
-        // START PAYMENT INITIALIZATION
-        EasyUpiPayment.Builder builder = new EasyUpiPayment.Builder(this)
-                .with(paymentApp)
-                .setPayeeVpa("7558618896@yapl")
-                .setPayeeName("Agro World")
-                .setTransactionId(uniqueID.toLowerCase().toString())
-                .setTransactionRefId(uniqueID.toLowerCase().toString())
-                .setPayeeMerchantCode("5411")
-                .setDescription("Paying seeds amount")
-                .setAmount("2.0");
-        // END INITIALIZATION
+    public void startPayment() {
+        /*
+          You need to pass current activity in order to let Razorpay create CheckoutActivity
+         */
+        final Activity activity = this;
 
+        final Checkout checkout = new Checkout();
+        checkout.setKeyID(Constants.RAZORPAY_KEY_ID);
         try {
-            easyUpiPayment = builder.build();
-            easyUpiPayment.setPaymentStatusListener(this);
-            easyUpiPayment.startPayment();
-        } catch (
-                Exception exception) {
-            exception.printStackTrace();
-            toast("Error: " + exception.getMessage());
-        }
+            JSONObject options = new JSONObject();
+            options.put("name", "Agro World");
+            options.put("description", "Seeds shopping");
+            options.put("send_sms_hash", true);
+            options.put("allow_rotation", true);
+            //You can omit the image option to fetch the image from dashboard
+            options.put("image", Constants.APP_ICON_LINK);
+            options.put("currency", "INR");
+            options.put("amount", "100");
 
-    }
+            JSONObject preFill = new JSONObject();
+            preFill.put("email", "bhavesh.patil0325@gmail.com");
+            preFill.put("contact", "8591347448");
 
-    @Override
-    public void onTransactionCompleted(TransactionDetails transactionDetails) {
-        // Transaction Completed
-        Log.d("TransactionDetails", transactionDetails.toString());
-        binding.tvPaymentStatus.setText(transactionDetails.getTransactionStatus().toString());
+            options.put("prefill", preFill);
 
-        switch (transactionDetails.getTransactionStatus()) {
-            case SUCCESS:
-                onTransactionSuccess();
-                break;
-            case FAILURE:
-                onTransactionFailed();
-                break;
-            case SUBMITTED:
-                onTransactionSubmitted();
-                break;
+            checkout.open(activity, options);
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
+                    .show();
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void onTransactionCancelled() {
-        // Payment Cancelled by User
-        toast("Cancelled by user");
+    public void onExternalWalletSelected(String s, PaymentData paymentData) {
+        try {
+            uploadTransactionDetailToFirebase(paymentData);
+            showAlertMessageWithStatus(paymentData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void onTransactionSuccess() {
-        // Payment Success
-        toast("Success");
+    @Override
+    public void onPaymentSuccess(String s, PaymentData paymentData) {
+        try {
+            uploadTransactionDetailToFirebase(paymentData);
+            showAlertMessageWithStatus(paymentData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void onTransactionSubmitted() {
-        // Payment Pending
-        toast("Pending | Submitted");
+    @Override
+    public void onPaymentError(int i, String s, PaymentData paymentData) {
+        try {
+            uploadTransactionDetailToFirebase(paymentData);
+            showAlertMessageWithStatus(paymentData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void onTransactionFailed() {
-        // Payment Failed
-        toast("Failed");
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 
-    private void toast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    private void uploadTransactionDetailToFirebase(PaymentData paymentData) throws JSONException {
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference("transaction");
+        PaymentModel paymentModel;
+        for (int product = 0; product < productCartList.size(); product++) {
+            paymentModel = new PaymentModel(productCartList.get(product).getTitle(),
+                    String.valueOf(productCartList.get(product).getPrice()),
+                    paymentData.getData().get("_silent").toString(),
+                    paymentData.getPaymentId(),
+                    paymentData.getExternalWallet()
+            );
+            viewModel.uploadTransaction(paymentModel, productCartList.get(product).getTitle());
+        }
+    }
+
+    public void showAlertMessageWithStatus(PaymentData paymentData) throws JSONException {
+        boolean isSuccess = (boolean) paymentData.getData().get("_silent");
+        if (isSuccess) {
+            alertDialogBuilder.setMessage("Payment successful :\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
+            alertDialogBuilder.show();
+        } else {
+            alertDialogBuilder.setMessage("Payment failed :\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
+            alertDialogBuilder.show();
+        }
     }
 }

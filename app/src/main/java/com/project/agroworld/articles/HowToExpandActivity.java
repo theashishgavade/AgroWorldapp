@@ -12,13 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.project.agroworld.R;
-import com.project.agroworld.articles.adapter.FruitsAdapter;
 import com.project.agroworld.articles.adapter.HowToExpandAdapter;
 import com.project.agroworld.articles.listener.ExpandClickListener;
-import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ActivityHowToExpandBinding;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;

@@ -16,7 +16,7 @@ import com.project.agroworld.articles.adapter.FruitsAdapter;
 import com.project.agroworld.articles.listener.FruitsClickListener;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.databinding.ActivityFruitsBinding;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;

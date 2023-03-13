@@ -34,6 +34,7 @@ import com.project.agroworld.ui.shopping.adapter.ProductCartAdapter;
 import com.project.agroworld.ui.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.ui.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -52,6 +53,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     ActionBar actionBar;
     private String addressLine;
     private double totalItemAmount = 0.0;
+    private CustomMultiColorProgressBar progressBar;
 
 
     @Override
@@ -60,6 +62,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_cart);
         actionBar = getSupportActionBar();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         actionBar.hide();
         getProductListFromFirebase();
         binding.tvAddAddress.setOnClickListener(new View.OnClickListener() {
@@ -89,10 +92,12 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     }
 
     private void getProductListFromFirebase() {
+        progressBar.showProgressBar();
         databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                progressBar.hideProgressBar();
                 totalItemAmount = 0.0;
                 if (snapshot.exists()) {
                     productCartList.clear();
@@ -114,6 +119,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+                progressBar.hideProgressBar();
                 Constants.showToast(AddToCartActivity.this, error.toString());
             }
         });

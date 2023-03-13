@@ -22,7 +22,7 @@ import com.project.agroworld.databinding.FragmentTransportBinding;
 import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
 import com.project.agroworld.ui.transport.model.VehicleModel;
-import com.project.agroworld.ui.viewmodel.AgroViewModel;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.ArrayList;
