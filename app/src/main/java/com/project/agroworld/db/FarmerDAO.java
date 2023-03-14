@@ -27,4 +27,7 @@ public interface FarmerDAO {
 
     @Query("SELECT * FROM farmer_table ORDER BY id DESC")
     LiveData<List<FarmerModel>> getFarmerRoutines();
+
+    @Query("SELECT MAX(id) FROM farmer_table")
+    LiveData<Integer> getMaxCount();
 }

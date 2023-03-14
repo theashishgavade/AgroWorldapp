@@ -21,18 +21,12 @@ public class Constants {
 
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
-    public static String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
-    public static String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
-
-    public static int GOOGLE_PAY_REQ_CODE = 123;
-    public static String NAME = "Agro World";
-    public static String UPI_ID = "bhavesh.patil0325-3@okaxis";
-    public static String TRANSACTION_NOTE = "Seeds Shopping";
-    public static int REQUEST_CODE = 99;
-    public static int GPS_REQUEST_CODE = 999;
-    public static String ENGLISH_KEY = "EnglishLang";
-    public static String HINDI_KEY = "HindiLang";
-
+    public static final String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
+    public static final String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
+    public static final int REQUEST_CODE = 99;
+    public static final int GPS_REQUEST_CODE = 999;
+    public static final String ENGLISH_KEY = "EnglishLang";
+    public static final String HINDI_KEY = "HindiLang";
     public static final String RAZORPAY_KEY_ID = "rzp_test_RRBbG8wGxAa23c";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
 

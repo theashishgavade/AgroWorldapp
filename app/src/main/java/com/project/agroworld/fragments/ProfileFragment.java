@@ -17,9 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +37,8 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment implements OnItemClickListener {
     private final int REQUEST_CODE = 6124;
+
+    private int maxIdCount;
     private FragmentProfileBinding dataBinding;
     PreferenceHelper preferenceHelper;
     FarmerViewModel viewModel;
@@ -74,47 +74,55 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                 updateTaskUI(farmerModels);
             }
         });
-        dataBinding.ivSLanguageMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivSettingMenu);
 
-                // Inflating popup menu from popup_menu.xml file
-                popupMenu.getMenuInflater().inflate(R.menu.home_menu, popupMenu.getMenu());
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        // Toast message on menu item clicked
-                        switch (menuItem.getItemId()) {
-                            case R.id.menu_english_lng:
-                                setAppLocale(getContext(), "en");
-                                preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
-                                preferenceHelper.saveData(Constants.HINDI_KEY, false);
-                                return true;
-                            case R.id.menu_hindi_lng:
-                                setAppLocale(getContext(), "hi");
-                                preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
-                                preferenceHelper.saveData(Constants.HINDI_KEY, true);
-                                return true;
-                        }
-                        return true;
-                    }
-                });
-                // Showing the popup menu
-                popupMenu.show();
+        viewModel.getMaxIDCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer != null) {
+                    maxIdCount = integer;
+                }
             }
         });
 
+
+        dataBinding.ivSLanguageMenu.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivSettingMenu);
+
+            // Inflating popup menu from popup_menu.xml file
+            popupMenu.getMenuInflater().inflate(R.menu.home_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                // Toast message on menu item clicked
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_english_lng:
+                        setAppLocale(getContext(), "en");
+                        preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
+                        preferenceHelper.saveData(Constants.HINDI_KEY, false);
+                        return true;
+                    case R.id.menu_hindi_lng:
+                        setAppLocale(getContext(), "hi");
+                        preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
+                        preferenceHelper.saveData(Constants.HINDI_KEY, true);
+                        return true;
+                }
+                return true;
+            });
+            // Showing the popup menu
+            popupMenu.show();
+        });
+
         dataBinding.addAlarmFab.setOnClickListener(v -> {
-            startActivityForResult(new Intent(requireContext(), AddTaskActivity.class), REQUEST_CODE);
+            printLog(maxIdCount + "");
+            Intent intent = new Intent(getContext(), AddTaskActivity.class);
+            intent.putExtra("maxIDCount", maxIdCount);
+            startActivityForResult(intent, REQUEST_CODE);
         });
     }
 
     private void updateTaskUI(List<FarmerModel> farmerModels) {
-        if (farmerModels.isEmpty()){
+        if (farmerModels.isEmpty()) {
             dataBinding.userProfilePostsRecycler.setVisibility(View.GONE);
             dataBinding.tvProfileNoDataFound.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             farmerAdapter.submitList(farmerModels);
         }
     }
@@ -137,9 +145,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE){
-            viewModel.getAllCourses().observe(getViewLifecycleOwner(), this::updateTaskUI);
-        }
+        viewModel.getAllCourses().observe(getViewLifecycleOwner(), this::updateTaskUI);
     }
 
     @Override
@@ -147,9 +153,14 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         viewModel.delete(model);
         Constants.showToast(requireContext(), "Task Completed");
     }
+
     @Override
     public void onDeleteClick(FarmerModel model) {
         viewModel.delete(model);
         Constants.showToast(requireContext(), "Item deleted successfully");
+    }
+
+    private void printLog(String message) {
+        Log.d("ProfileFragment", message);
     }
 }

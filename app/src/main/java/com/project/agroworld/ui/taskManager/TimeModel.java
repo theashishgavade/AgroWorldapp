@@ -6,12 +6,12 @@ public class TimeModel implements Serializable {
 
     private int hour;
     private int minute;
-    private int am_pm;
+    private String timeToNotify;
 
-    public TimeModel(int hour, int minute, int am_pm){
+    public TimeModel(int hour, int minute, String timeToNotify){
         this.hour = hour;
         this.minute = minute;
-        this.am_pm = am_pm;
+        this.timeToNotify = timeToNotify;
     }
 
     public int getHour() {
@@ -30,11 +30,11 @@ public class TimeModel implements Serializable {
         this.minute = minute;
     }
 
-    public int getAm_pm() {
-        return am_pm;
+    public String getTimeToNotify() {
+        return timeToNotify;
     }
 
-    public void setAm_pm(int am_pm) {
-        this.am_pm = am_pm;
+    public void setTimeToNotify(String timeToNotify) {
+        this.timeToNotify = timeToNotify;
     }
 }

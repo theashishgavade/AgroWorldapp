@@ -7,21 +7,27 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.project.agroworld.utils.NotificationHelper;
 
 public class EventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Bundle bundle = intent.getExtras();
-        String task = bundle.getString("task");
-        String desc = bundle.getString("desc");
-        String date = bundle.getString("date");
-        NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification(task, desc);
-        notificationHelper.getManager().notify(1, nb.build());
-        Notification notification = nb.build();
-        notification.defaults |= Notification.DEFAULT_SOUND;
-
+        if (intent.getAction().equalsIgnoreCase("com.agroworld.co")) {
+            Bundle bundle = intent.getExtras();
+            String task = bundle.getString("task");
+            String desc = bundle.getString("desc");
+            String date = bundle.getString("date");
+            String time = bundle.getString("time");
+            int maxIDCount = bundle.getInt("maxIDCount", 0);
+            MusicControl.getInstance(context).playMusic();
+            NotificationHelper notificationHelper = new NotificationHelper(context);
+            NotificationCompat.Builder nb = notificationHelper.getChannelNotification(context, task, desc, date, time, maxIDCount);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(maxIDCount, nb.build());
+//            Notification notification = nb.build();
+//            notification.defaults |= Notification.DEFAULT_SOUND;
+        }
     }
 }

@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
@@ -40,11 +43,16 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     private AlertDialog.Builder alertDialogBuilder;
     private DatabaseReference firebaseDatabase;
     private AgroViewModel viewModel;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_payment_details);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         viewModel.init();
         Checkout.preload(getApplicationContext());
@@ -73,16 +81,15 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         });
 
         binding.btnProceed.setOnClickListener(v -> {
-            startPayment();
+            String [] amount = totalAmount.split(" ");
+            double value = Double.parseDouble(amount[1]) * 100;
+            Toast.makeText(this, String.valueOf(value), Toast.LENGTH_SHORT).show();
+            startPayment(value);
         });
     }
 
-    public void startPayment() {
-        /*
-          You need to pass current activity in order to let Razorpay create CheckoutActivity
-         */
+    public void startPayment(double amount) {
         final Activity activity = this;
-
         final Checkout checkout = new Checkout();
         checkout.setKeyID(Constants.RAZORPAY_KEY_ID);
         try {
@@ -94,14 +101,12 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
             //You can omit the image option to fetch the image from dashboard
             options.put("image", Constants.APP_ICON_LINK);
             options.put("currency", "INR");
-            options.put("amount", "100");
-
+            options.put("amount", amount);
+            options.put("payment_capture", 1);
             JSONObject preFill = new JSONObject();
-            preFill.put("email", "bhavesh.patil0325@gmail.com");
-            preFill.put("contact", "8591347448");
-
+            preFill.put("email", user.getEmail());
+            preFill.put("contact", user.getPhoneNumber());
             options.put("prefill", preFill);
-
             checkout.open(activity, options);
         } catch (Exception e) {
             Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT)
@@ -113,6 +118,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     @Override
     public void onExternalWalletSelected(String s, PaymentData paymentData) {
         try {
+            printLog(paymentData.getData().toString());
             uploadTransactionDetailToFirebase(paymentData);
             showAlertMessageWithStatus(paymentData);
         } catch (Exception e) {
@@ -123,6 +129,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     @Override
     public void onPaymentSuccess(String s, PaymentData paymentData) {
         try {
+            printLog(paymentData.getData().toString());
             uploadTransactionDetailToFirebase(paymentData);
             showAlertMessageWithStatus(paymentData);
         } catch (Exception e) {
@@ -133,6 +140,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     @Override
     public void onPaymentError(int i, String s, PaymentData paymentData) {
         try {
+            printLog(paymentData.getData().toString());
             uploadTransactionDetailToFirebase(paymentData);
             showAlertMessageWithStatus(paymentData);
         } catch (Exception e) {
@@ -162,11 +170,14 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     public void showAlertMessageWithStatus(PaymentData paymentData) throws JSONException {
         boolean isSuccess = (boolean) paymentData.getData().get("_silent");
         if (isSuccess) {
-            alertDialogBuilder.setMessage("Payment successful :\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
+            alertDialogBuilder.setMessage("Payment successful\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
             alertDialogBuilder.show();
         } else {
-            alertDialogBuilder.setMessage("Payment failed :\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
+            alertDialogBuilder.setMessage("Payment failed\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
             alertDialogBuilder.show();
         }
+    }
+    private void printLog(String message){
+        Log.d("paymentActivity", message);
     }
 }

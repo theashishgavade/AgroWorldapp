@@ -4,14 +4,11 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.DatePicker;
 import android.widget.PopupMenu;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -23,11 +20,7 @@ import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.db.FarmerViewModel;
 import com.project.agroworld.utils.Constants;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class AddTaskActivity extends AppCompatActivity {
     private ActivityAddTaskBinding binding;
@@ -35,24 +28,26 @@ public class AddTaskActivity extends AppCompatActivity {
     private TimeModel timeModel;
     private DateModel dateModel;
     String timeToNotify;
+    int maxIDCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
         viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
+        Intent intent = getIntent();
+        maxIDCount = intent.getIntExtra("maxIDCount", 0);
+        printLog(maxIDCount + "");
         binding.ivSelectTime.setOnClickListener(v -> {
             Calendar currentTime = Calendar.getInstance();
             int hour = currentTime.get(Calendar.HOUR_OF_DAY);
             int minute = currentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
-                @Override
-                public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                    timeToNotify = selectedHour + ":" + selectedMinute;
-                    timeModel = new TimeModel(hour, minute, selectedHour);
-                    binding.tvTime.setText(FormatTime(selectedHour, selectedMinute));
-                }
-            }, hour, minute, false);
+            TimePickerDialog mTimePicker = new TimePickerDialog(this, (timePicker, selectedHour, selectedMinute) -> {
+                printLog("selectedTime " + selectedHour + ":" + selectedMinute);
+                timeToNotify = selectedHour + ":" + selectedMinute;
+                timeModel = new TimeModel(selectedHour, selectedMinute, timeToNotify);
+                binding.tvTime.setText(FormatTime(selectedHour, selectedMinute));
+            }, hour, minute, true);
             mTimePicker.setTitle("Select Time");
             mTimePicker.show();
         });
@@ -62,12 +57,10 @@ public class AddTaskActivity extends AppCompatActivity {
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                    dateModel = new DateModel(year, month, day);
-                    binding.tvDate.setText(day + "-" + (month + 1) + "-" + year);
-                }
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (datePicker, year1, month1, day1) -> {
+                dateModel = new DateModel(year1, month1 + 1, day1);
+                printLog("selectedDate " + day1 + "-" + month1 + "-" + year1);
+                binding.tvDate.setText(day1 + "-" + (month1 + 1) + "-" + year1);
             }, year, month, day);
             datePickerDialog.show();
         });
@@ -75,13 +68,10 @@ public class AddTaskActivity extends AppCompatActivity {
         binding.ivPriority.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, binding.ivPriority);
             popupMenu.getMenuInflater().inflate(R.menu.priority_menu, popupMenu.getMenu());
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    binding.tvPriority.setText(menuItem.getTitle());
-                    Constants.showToast(AddTaskActivity.this, menuItem.getTitle().toString());
-                    return true;
-                }
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                binding.tvPriority.setText(menuItem.getTitle());
+                Constants.showToast(AddTaskActivity.this, menuItem.getTitle().toString());
+                return true;
             });
             popupMenu.show();
         });
@@ -111,36 +101,15 @@ public class AddTaskActivity extends AppCompatActivity {
                 farmerModel.setDate(date);
                 farmerModel.setTime(time);
                 viewModel.insert(farmerModel);
-//                setTaskRemainder(task, desc);
-                setAlarm(task, desc, date);
+                setTaskRemainder(task, desc);
                 Constants.showToast(AddTaskActivity.this, "Routine added successfully");
                 finish();
             }
         });
     }
 
-    private void setAlarm(String task, String desc, String date) {
-        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
-        intent.putExtra("event", task);
-        intent.putExtra("desc", desc);
-        intent.putExtra("date", date);
-        Log.d("date", date + "timeToNotify " + timeToNotify);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        String datetime = date + " " + timeToNotify;
-        DateFormat formatter = new SimpleDateFormat("d-M-yyyy hh:mm");
-        try {
-            Date date1 = formatter.parse(datetime);
-            am.set(AlarmManager.RTC_WAKEUP, date1.getTime(), pendingIntent);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        finish();
-    }
-
     public String FormatTime(int hour, int minute) {
         String time;
-        time = "";
         String formattedMinute;
         if (minute / 10 == 0) {
             formattedMinute = "0" + minute;
@@ -161,26 +130,39 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void setTaskRemainder(String task, String desc) {
+        printLog("date " + dateModel.getMonth() + " " + dateModel.getDay() + " time " + timeModel.getHour() + ":" + timeModel.getMinute());
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, dateModel.getYear());
-        calendar.set(Calendar.MONTH, dateModel.getMonth());
+        calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);
         calendar.set(Calendar.DAY_OF_MONTH, dateModel.getDay());
         calendar.set(Calendar.HOUR_OF_DAY, timeModel.getHour());
         calendar.set(Calendar.MINUTE, timeModel.getMinute());
-        calendar.set(Calendar.AM_PM, Calendar.PM);
-        Log.d("modelData", dateModel.getMonth() + " " + timeModel.getHour());
-//        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
+        intent.setAction("com.agroworld.co");
         intent.putExtra("task", task);
         intent.putExtra("desc", desc);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 123, intent, PendingIntent.FLAG_IMMUTABLE);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        intent.putExtra("date", binding.tvDate.getText().toString());
+        intent.putExtra("time", binding.tvTime.getText().toString());
+        intent.putExtra("maxIDCount", maxIDCount);
+        intent.putExtra("SetNotify", "SetNotification");
+        printLog(calendar.toString());
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, maxIDCount, intent, PendingIntent.FLAG_IMMUTABLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
     }
 
     @Override
     public void onBackPressed() {
         finish();
         super.onBackPressed();
+    }
+
+    private void printLog(String message) {
+        Log.d("AddTaskActivity", message);
     }
 }
