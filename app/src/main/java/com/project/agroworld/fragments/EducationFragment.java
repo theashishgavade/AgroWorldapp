@@ -30,6 +30,8 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.FragmentEducationBinding;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
@@ -63,11 +65,15 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         progressBar = new CustomMultiColorProgressBar(getContext(), getString(R.string.loader_message));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         viewModel.init();
-        actionBar.setTitle(getString(R.string.education));
+        if (Permissions.checkConnection(getContext())){
+            checkPermissionCallApi();
+        }
+    }
+
+    private void checkPermissionCallApi(){
         getCropsListFromApi();
         getFruitsListFromApi();
         getFlowersListFromApi();
@@ -204,6 +210,15 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         binding.rvHowToExpandEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvHowToExpandEd.setAdapter(expandAdapter);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE){
+            checkPermissionCallApi();
+        }
+    }
+
     @Override
     public void onCropsClick(CropsResponse response) {
         Intent intent = new Intent(getContext(), ArticleDetailsActivity.class);

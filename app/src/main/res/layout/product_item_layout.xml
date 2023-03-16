@@ -72,7 +72,7 @@
                 android:background="@drawable/item_view_bgd"
                 android:fontFamily="@font/fredoka_one"
                 android:padding="8dp"
-                android:text="Buy Now"
+                android:text="@string/buy_now"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_15sp" />

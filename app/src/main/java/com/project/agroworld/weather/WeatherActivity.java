@@ -15,12 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityWeatherBinding;
+import com.project.agroworld.networkManager.APIService;
+import com.project.agroworld.networkManager.Network;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;

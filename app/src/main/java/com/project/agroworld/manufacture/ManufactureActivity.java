@@ -22,7 +22,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
-import com.project.agroworld.ui.shopping.model.ProductModel;
+import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 

@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.shopping.activity.AddToCartActivity">
+        tools:context=".shopping.activity.AddToCartActivity">
 
         <TextView
             android:id="@+id/tvNoCartDataFound"

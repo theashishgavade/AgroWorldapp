@@ -37,6 +37,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/dp_10"
+                android:padding="@dimen/dp_10"
                 android:fontFamily="@font/fredoka_one"
                 android:src="@drawable/ic_baseline_cancel_24"
                 android:textSize="@dimen/size_15sp" />

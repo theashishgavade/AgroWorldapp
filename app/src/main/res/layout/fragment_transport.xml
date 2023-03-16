@@ -22,8 +22,8 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/crd_profile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_margin="@dimen/dp_10"
                     app:cardCornerRadius="30dp">
 
@@ -37,14 +37,28 @@
 
                 <TextView
                     android:id="@+id/tvUsername"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
+                    android:layout_toStartOf="@id/ivSearch"
                     android:layout_toEndOf="@id/crd_profile"
                     android:fontFamily="@font/fredoka_one"
                     android:text="@string/transport"
                     android:textSize="@dimen/sp_25" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/crd_profile"
+                    android:layout_margin="@dimen/dp_10"
+                    android:layout_toStartOf="@id/ivSearch"
+                    android:background="@drawable/search_bgd"
+                    android:queryHint="search product here.."
+                    android:visibility="gone" />
 
                 <ImageView
                     android:id="@+id/ivSearch"
@@ -55,17 +69,7 @@
                     android:layout_margin="@dimen/dp_20"
                     android:src="@drawable/ic_baseline_search_24" />
 
-                <SearchView
-                    android:id="@+id/search_bar"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="@dimen/dp_10"
-                    android:layout_toEndOf="@id/crd_profile"
-                    android:background="@drawable/search_bgd"
-                    android:queryHint="search product here.."
-                    android:visibility="gone" />
+
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -76,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_medium"
-            android:text="No Data Found"
+            android:text="@string/no_data_found"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:visibility="gone" />
@@ -125,7 +129,6 @@
                     <include layout="@layout/vehicle_shimmer" />
 
                     <include layout="@layout/vehicle_shimmer" />
-
 
                 </LinearLayout>
             </LinearLayout>

@@ -9,48 +9,52 @@
         android:layout_height="wrap_content"
         tools:context=".fragments.ProfileFragment">
 
-        <LinearLayout
-            android:id="@+id/llMenu"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_margin="@dimen/dp_10"
+            android:backgroundTint="@color/colorPrimary"
+            app:cardCornerRadius="@dimen/dp_10">
 
-            <ImageView
-                android:id="@+id/ivSettingMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
-                android:layout_weight="1"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/baseline_settings_24" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/ivLogoutMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
-                android:layout_weight="1"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/baseline_logout_24" />
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/crd_profile"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="@dimen/dp_10"
+                    app:cardCornerRadius="30dp">
 
-            <ImageView
-                android:id="@+id/ivSLanguageMenu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_10"
-                android:layout_weight="1"
-                android:padding="@dimen/dp_10"
-                android:src="@drawable/baseline_language_24" />
-        </LinearLayout>
+                    <ImageView
+                        android:id="@+id/ivProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/app_icon4" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_toEndOf="@id/crd_profile"
+                    android:fontFamily="@font/fredoka_one"
+                    android:text="@string/profile"
+                    android:textSize="@dimen/sp_25" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/llMenu">
+            android:layout_below="@id/crdHeader">
 
             <RelativeLayout
                 android:layout_width="match_parent"

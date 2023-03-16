@@ -62,9 +62,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_medium"
-            android:text="No Data Found for this search"
+            android:text="@string/no_data_found_for_this_search"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
+            android:textAlignment="center"
+            android:layout_margin="@dimen/dp_10"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView

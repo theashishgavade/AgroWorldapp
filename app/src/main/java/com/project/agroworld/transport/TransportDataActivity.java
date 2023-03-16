@@ -22,9 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityTransportDataBinding;
-import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
-import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
-import com.project.agroworld.ui.transport.model.VehicleModel;
+import com.project.agroworld.transport.adapter.OnVehicleCallClick;
+import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 

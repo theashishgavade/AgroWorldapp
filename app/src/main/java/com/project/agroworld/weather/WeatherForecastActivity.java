@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityWeatherForecastBinding;
+import com.project.agroworld.networkManager.APIService;
+import com.project.agroworld.networkManager.Network;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.weather.adapter.WeatherForecastAdapter;

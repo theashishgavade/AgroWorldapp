@@ -37,25 +37,17 @@ public class DialogUtils {
         ivDialogStatus.setImageResource(R.drawable.ic_baseline_warning_24);
 
         txt_msg.setText(message);
-        tvDismiss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
+        tvDismiss.setOnClickListener(view -> dialog.dismiss());
+
+        btn_ok.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (message.equalsIgnoreCase(context.getString(R.string.enable_gps_service))) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                ((Activity) context).startActivityForResult(intent, Constants.GPS_REQUEST_CODE);
             }
-        });
-
-        btn_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (message.equalsIgnoreCase(context.getString(R.string.enable_gps_service))) {
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    ((Activity) context).startActivityForResult(intent, Constants.GPS_REQUEST_CODE);
-                }
-                if (message.equalsIgnoreCase(context.getString(R.string.check_internet_connection))) {
-                    Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-                    ((Activity) context).startActivityForResult(intent, Constants.GPS_REQUEST_CODE);
-                }
-
+            if (message.equalsIgnoreCase(context.getString(R.string.check_internet_connection))) {
+                Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                ((Activity) context).startActivityForResult(intent, Constants.REQUEST_CODE);
             }
         });
         dialog.show();

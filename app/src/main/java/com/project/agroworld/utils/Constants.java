@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.agroworld.R;
 import com.project.agroworld.ui.DashboardActivity;
 import com.project.agroworld.ui.UserProfileActivity;
 
@@ -27,7 +28,7 @@ public class Constants {
     public static final int GPS_REQUEST_CODE = 999;
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
-    public static final String RAZORPAY_KEY_ID = "rzp_test_RRBbG8wGxAa23c";
+    public static final String RAZORPAY_KEY_ID = "rzp_test_EiRsRSgdsLrkVI";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
 
 

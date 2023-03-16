@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +18,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentTransportBinding;
-import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
-import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
-import com.project.agroworld.ui.transport.model.VehicleModel;
-import com.project.agroworld.viewmodel.AgroViewModel;
+import com.project.agroworld.transport.adapter.OnVehicleCallClick;
+import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
@@ -55,18 +55,20 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
-        getVehicleListFromFirebase();
+        if (Permissions.checkConnection(getContext())) {
+            getVehicleListFromFirebase();
+        } else {
+            binding.shimmer.setVisibility(View.GONE);
+            binding.recyclerViewVehicle.setVisibility(View.GONE);
+        }
 
-        binding.ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.tvUsername.setVisibility(View.GONE);
-                binding.ivSearch.setVisibility(View.GONE);
-                binding.searchBar.setVisibility(View.VISIBLE);
-            }
+        binding.ivSearch.setOnClickListener(v -> {
+            binding.tvUsername.setVisibility(View.GONE);
+            binding.ivSearch.setVisibility(View.GONE);
+            binding.searchBar.setVisibility(View.VISIBLE);
         });
 
-        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.searchBar.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 binding.searchBar.setVisibility(View.GONE);
@@ -85,6 +87,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     private void getVehicleListFromFirebase() {
+        binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
         agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
             switch (vehicleModelResource.status) {
@@ -141,5 +144,13 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + vehicleModel.getContact()));
         startActivity(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE && Permissions.checkConnection(getContext())) {
+            getVehicleListFromFirebase();
+        }
     }
 }

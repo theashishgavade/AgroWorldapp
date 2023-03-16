@@ -20,15 +20,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DatabaseReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
-import com.project.agroworld.ui.payment.PaymentHistoryActivity;
-import com.project.agroworld.ui.shopping.activity.AddToCartActivity;
-import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
-import com.project.agroworld.ui.shopping.listener.OnProductListener;
-import com.project.agroworld.ui.shopping.model.ProductModel;
+import com.project.agroworld.payment.PaymentHistoryActivity;
+import com.project.agroworld.shopping.activity.AddToCartActivity;
+import com.project.agroworld.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.shopping.adapter.ProductAdapter;
+import com.project.agroworld.shopping.listener.OnProductListener;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
@@ -39,16 +40,9 @@ import java.util.Comparator;
 public class ShoppingFragment extends Fragment implements OnProductListener {
 
     private FragmentShoppingBinding binding;
-    private DatabaseReference databaseReference;
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +60,16 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
         agroViewModel.init();
-        getProductListFromFirebase();
+
+        if (Permissions.checkConnection(getContext())) {
+            binding.tvNoDataFoundErr.setVisibility(View.GONE);
+            getProductListFromFirebase();
+        }else {
+            binding.recyclerView.setVisibility(View.GONE);
+            binding.shimmer.setVisibility(View.GONE);
+            binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+            binding.tvNoDataFoundErr.setText(getString(R.string.check_internet_connection));
+        }
         binding.searchBar.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -123,9 +126,9 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                         return true;
                     case R.id.menuCartActivity:
                         startActivity(new Intent(getContext(), AddToCartActivity.class));
-                         return true;
+                        return true;
                     case R.id.menuHistoryActivity:
-                        startActivity(new Intent(getContext(), PaymentHistoryActivity.class));
+                        startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
                         return true;
                 }
                 return true;
@@ -137,6 +140,8 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     }
 
     private void getProductListFromFirebase() {
+        binding.shimmer.setVisibility(View.VISIBLE);
+        binding.shimmer.startShimmer();
         agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
@@ -147,7 +152,6 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                     binding.tvNoDataFoundErr.setText(productModelResource.message);
                     break;
                 case LOADING:
-                    binding.shimmer.startShimmer();
                     break;
                 case SUCCESS:
                     if (productModelResource.data != null) {
@@ -159,7 +163,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                         setRecyclerView();
                     } else {
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                        binding.tvNoDataFoundErr.setText("Looks like Admin haven't added any item yet.");
+                        binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
                     }
                     break;
             }
@@ -191,6 +195,14 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE){
+            getProductListFromFirebase();
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         getActivity().getMenuInflater().inflate(R.menu.priority_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -198,7 +210,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.high: {
                 Toast.makeText(getContext(), "High  ", Toast.LENGTH_SHORT).show();
                 return true;

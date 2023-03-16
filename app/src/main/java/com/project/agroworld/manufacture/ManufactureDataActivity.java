@@ -22,10 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataBinding;
-import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
-import com.project.agroworld.ui.shopping.listener.OnProductListener;
-import com.project.agroworld.ui.shopping.model.ProductModel;
+import com.project.agroworld.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.shopping.adapter.ProductAdapter;
+import com.project.agroworld.shopping.listener.OnProductListener;
+import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
 

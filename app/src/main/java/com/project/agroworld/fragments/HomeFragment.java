@@ -11,7 +11,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +33,18 @@ import com.project.agroworld.articles.FlowersActivity;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.articles.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
-import com.project.agroworld.ui.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.ui.shopping.adapter.ProductAdapter;
-import com.project.agroworld.ui.shopping.listener.OnProductListener;
-import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.transport.adapter.OnVehicleCallClick;
-import com.project.agroworld.ui.transport.adapter.VehicleAdapter;
-import com.project.agroworld.ui.transport.model.VehicleModel;
-import com.project.agroworld.viewmodel.AgroViewModel;
+import com.project.agroworld.networkManager.APIService;
+import com.project.agroworld.networkManager.Network;
+import com.project.agroworld.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.shopping.adapter.ProductAdapter;
+import com.project.agroworld.shopping.listener.OnProductListener;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.transport.adapter.OnVehicleCallClick;
+import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
-import com.project.agroworld.weather.APIService;
-import com.project.agroworld.weather.Network;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.weather.WeatherActivity;
 import com.project.agroworld.weather.model.weather_data.WeatherResponse;
 
@@ -88,9 +87,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     @Override
     public void onStart() {
         super.onStart();
-        if (Permissions.checkConnection(getContext()) && Permissions.isGpsEnable(getContext())) {
-            getLastLocation();
-        }
+        checkPermissionCallApi();
     }
 
     @Override
@@ -106,15 +103,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         initViews(view);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
-        getProductListFromFirebase();
-        getVehicleListFromFirebase();
 
-        binding.crdFruits.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(requireContext(), FruitsActivity.class));
-            }
-        });
+        binding.crdFruits.setOnClickListener(v -> startActivity(new Intent(requireContext(), FruitsActivity.class)));
 
         binding.crdCrops.setOnClickListener(v -> {
             startActivity(new Intent(requireContext(), CropsActivity.class));
@@ -140,7 +130,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                     intent.putExtra("latitude", latitude);
                     intent.putExtra("longitude", longitude);
                     startActivity(intent);
-                }else {
+                } else {
                     Constants.showToast(getContext(), getString(R.string.something_wrong_err));
                 }
             }
@@ -168,15 +158,13 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void updateUI(WeatherResponse response) {
-
         String temp = String.format("%.0f", (response.getMain().getTemp() + 0.01) - 273.15);
         String date = new SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(new Date(response.getDt() * 1000L));
         String status = response.getWeather().get(0).getDescription();
         String wind = response.getWind().getSpeed().toString();
         String humidity = String.valueOf(response.getMain().getHumidity());
         String iconUrl = "http://openweathermap.org/img/wn/" + response.getWeather().get(0).getIcon() + "@4x.png";
-        Log.d("IconURL", iconUrl);
-        Glide.with(requireContext()).load(iconUrl).placeholder(R.drawable.weather).dontAnimate().into(binding.ivWeatherIconHome);
+        Glide.with(binding.ivWeatherIconHome).load(iconUrl).placeholder(R.drawable.weather).dontAnimate().into(binding.ivWeatherIconHome);
         binding.tvWeatherDate.setText(date);
         binding.tvWeatherHumidity.setText("Humidity:" + humidity);
         binding.tvWeatherStatus.setText(status);
@@ -184,7 +172,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         binding.tvWeatherWind.setText("Wind:" + wind);
         binding.tvWeatherCity.setText(locality);
     }
-
 
 
     private void getProductListFromFirebase() {
@@ -276,15 +263,32 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     }
 
+
+    private void checkPermissionCallApi() {
+        if (Permissions.checkConnection(getContext()) && Permissions.isGpsEnable(getContext())) {
+            getLastLocation();
+            getProductListFromFirebase();
+            getVehicleListFromFirebase();
+        }
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == Constants.REQUEST_CODE) {
+        if (requestCode == Constants.GPS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation();
             } else {
                 Constants.showToast(requireContext(), getString(R.string.provide_permission));
             }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE || requestCode == Constants.GPS_REQUEST_CODE) {
+            checkPermissionCallApi();
         }
     }
 

@@ -9,10 +9,10 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.articles.model.TechniquesResponse;
-import com.project.agroworld.ui.payment.model.PaymentModel;
-import com.project.agroworld.ui.repository.AgroWorldRepository;
-import com.project.agroworld.ui.shopping.model.ProductModel;
-import com.project.agroworld.ui.transport.model.VehicleModel;
+import com.project.agroworld.payment.model.PaymentModel;
+import com.project.agroworld.repository.AgroWorldRepository;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Resource;
 
 import java.util.List;
@@ -67,12 +67,16 @@ public class AgroViewModel extends ViewModel {
         return repository.getVehicleListFromFirebase();
     }
 
+    public LiveData<Resource<List<PaymentModel>>> getTransactionList(){
+        return  repository.getTransactionList();
+    }
+
     public void removeProductFromFirebase(String title) {
         repository.removeProductFromFirebase(title);
     }
 
-    public void uploadTransaction(PaymentModel paymentModel, String productTitle){
-        repository.uploadTransactionDetail(paymentModel, productTitle);
+    public void uploadTransaction(PaymentModel paymentModel){
+        repository.uploadTransactionDetail(paymentModel);
     }
 
     public LiveData<String> checkLoadingStatus(){

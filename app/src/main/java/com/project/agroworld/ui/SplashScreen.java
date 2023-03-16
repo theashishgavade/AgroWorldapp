@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.PreferenceHelper;
+import com.project.agroworld.db.PreferenceHelper;
 
 public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mAuth;

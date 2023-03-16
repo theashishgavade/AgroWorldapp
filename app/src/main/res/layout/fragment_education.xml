@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,10 +12,54 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/crdHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_10"
+                android:backgroundTint="@color/colorPrimary"
+                app:cardCornerRadius="@dimen/dp_10">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/crd_profile"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_margin="@dimen/dp_10"
+                        app:cardCornerRadius="30dp">
+
+                        <ImageView
+                            android:id="@+id/ivProfile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/app_icon4" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp_20"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:layout_toEndOf="@id/crd_profile"
+                        android:fontFamily="@font/fredoka_one"
+                        android:text="@string/read_articles"
+                        android:textSize="@dimen/sp_25" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
             <LinearLayout xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/llDataLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/crdHeader"
                 android:orientation="vertical"
                 tools:context=".fragments.EducationFragment">
 

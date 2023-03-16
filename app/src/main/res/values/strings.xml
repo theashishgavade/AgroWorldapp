@@ -9,7 +9,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="proceed">Proceed</string>
     <string name="enable_gps_service">Please enable your GPS service to show your exact location</string>
-    <string name="check_internet_connection">Check Internet Connection\nPlease enable your Internet service to show your exact location</string>
+    <string name="check_internet_connection">Check Internet Connection\nPlease enable your Internet service to get the data</string>
     <string name="please_wait">Please Wait</string>
     <string name="username">Seeds Shopping</string>
     <string name="seed_title">Seed Title</string>
@@ -76,4 +76,17 @@
     <string name="no_task_data_found">Look\'s like you haven\'t add anything to routine list</string>
     <string name="next">Proceed</string>
     <string name="this_field_required">This field is required</string>
+    <string name="create_new_routine">Create new routine</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="priority">Priority</string>
+    <string name="done">done</string>
+    <string name="vehicle_name">vehicle name</string>
+    <string name="location">location</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="no_data_found_for_this_search">No Data Found for this search</string>
+    <string name="call">Call</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="read_articles">Read Articles</string>
+    <string name="profile">Profile</string>
 </resources>
