@@ -1,20 +1,25 @@
-package com.project.agroworld.ui.payment.model;
+package com.project.agroworld.payment.model;
 
 public class PaymentModel {
 
     private String productName;
-    private String productPrice;
+
+    private String productImage;
+    private double productPrice;
     private String paymentStatus;
     private String paymentID;
     private String paymentData;
-    private String orderID;
 
-    public PaymentModel(String productName, String productPrice, String paymentStatus, String paymentID, String orderID) {
+    public PaymentModel(){
+
+    }
+
+    public PaymentModel(String productName, String productImage, double productPrice, String paymentStatus, String paymentID) {
         this.productName = productName;
+        this.productImage = productImage;
         this.productPrice = productPrice;
         this.paymentStatus = paymentStatus;
         this.paymentID = paymentID;
-        this.orderID = orderID;
     }
 
     public String getProductName() {
@@ -25,11 +30,11 @@ public class PaymentModel {
         this.productName = productName;
     }
 
-    public String getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(double productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -57,11 +62,11 @@ public class PaymentModel {
         this.paymentData = paymentData;
     }
 
-    public String getOrderID() {
-        return orderID;
+    public String getProductImage() {
+        return productImage;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 }

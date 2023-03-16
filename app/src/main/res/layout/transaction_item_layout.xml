@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:layout_margin="@dimen/dp_10">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdHistoryBanner"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            app:cardCornerRadius="35dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivHistoryProduct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvTransTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toEndOf="@id/crdHistoryBanner"
+            android:fontFamily="@font/averia_libre_bold"
+            android:text="title"
+            android:textSize="@dimen/size_16sp" />
+
+        <TextView
+            android:id="@+id/tvTransID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransTitle"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toEndOf="@id/crdHistoryBanner"
+            android:fontFamily="@font/averia_libre_bold"
+            android:text="title"
+            android:textSize="@dimen/size_16sp" />
+
+        <TextView
+            android:id="@+id/tvTransStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransID"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_toEndOf="@id/crdHistoryBanner"
+            android:fontFamily="@font/averia_libre_bold"
+            android:text="title"
+            android:textSize="@dimen/size_16sp" />
+
+        <TextView
+            android:id="@+id/tvTransPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTransID"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_toEndOf="@id/tvTransStatus"
+            android:fontFamily="@font/averia_libre_bold"
+            android:text="title"
+            android:textSize="@dimen/size_16sp" />
+    </RelativeLayout>
+
+</layout>
