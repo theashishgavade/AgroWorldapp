@@ -2,7 +2,6 @@ package com.project.agroworld.utils;
 
 
 import android.annotation.TargetApi;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,8 +15,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.project.agroworld.R;
-import com.project.agroworld.ui.taskManager.AddTaskActivity;
-import com.project.agroworld.ui.taskManager.SnoozeReceiver;
+import com.project.agroworld.taskmanager.AddTaskActivity;
+import com.project.agroworld.taskmanager.SnoozeReceiver;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "AgroWorld";
@@ -48,14 +47,15 @@ public class NotificationHelper extends ContextWrapper {
 
     public NotificationCompat.Builder getChannelNotification(Context context, String title, String desc, String date, String time, int maxIDCount) {
         Intent newIntent = new Intent(context, AddTaskActivity.class);
-        PendingIntent pendingIntent1 = PendingIntent.getActivity(context, maxIDCount, newIntent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent1 = PendingIntent.getActivity(context, maxIDCount, newIntent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         Intent snoozeButton = new Intent(context, SnoozeReceiver.class);
         snoozeButton.setAction("com.agroworld.SnoozeReceiver");
-        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, maxIDCount, snoozeButton, PendingIntent.FLAG_IMMUTABLE);
+        snoozeButton.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent pendingSwitchIntent = PendingIntent.getBroadcast(context, maxIDCount, snoozeButton, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Action action =
                 new NotificationCompat.Action.Builder(R.drawable.app_icon4,
-                        "Cancel", pendingSwitchIntent)
+                        "NOTED", pendingSwitchIntent)
                         .build();
 
         return new NotificationCompat.Builder(getApplicationContext(), channelID)

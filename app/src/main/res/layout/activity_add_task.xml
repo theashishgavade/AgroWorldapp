@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E5FAF4"
-        tools:context=".ui.taskManager.AddTaskActivity">
+        tools:context=".taskmanager.AddTaskActivity">
 
         <RelativeLayout
             android:id="@+id/layoutInput"
@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
-                android:text="Create new Task"
+                android:text="@string/create_new_routine"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -43,7 +43,7 @@
                 android:layout_marginBottom="@dimen/dp_10"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="Date"
+                android:hint="@string/date"
                 android:padding="15dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp" />
@@ -57,7 +57,7 @@
                 android:layout_toEndOf="@id/tvDate"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="Time"
+                android:hint="@string/time"
                 android:padding="15dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp" />
@@ -71,7 +71,7 @@
                 android:layout_toEndOf="@id/tvTime"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="Priority"
+                android:hint="@string/priority"
                 android:padding="15dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp" />
@@ -84,7 +84,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="Enter title"
+                android:hint="@string/title"
                 android:padding="15dp"
                 android:textSize="20sp" />
 
@@ -95,7 +95,7 @@
                 android:layout_below="@id/etRoutine"
                 android:layout_margin="@dimen/dp_10"
                 android:fontFamily="@font/poppins_medium"
-                android:hint="description"
+                android:hint="@string/description"
                 android:minHeight="@dimen/dp_100"
                 android:padding="15dp"
                 android:textSize="15sp" />
@@ -146,7 +146,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:background="@drawable/side_white_panel"
-                android:text="Done" />
+                android:text="@string/done" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -2,11 +2,13 @@ package com.project.agroworld.fragments;
 
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
@@ -15,41 +17,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
-import com.project.agroworld.db.FarmerViewModel;
-import com.project.agroworld.db.adapter.FarmerAdapter;
-import com.project.agroworld.db.listener.OnItemClickListener;
-import com.project.agroworld.ui.taskManager.AddTaskActivity;
+import com.project.agroworld.taskmanager.FarmerViewModel;
+import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
+import com.project.agroworld.taskmanager.listener.OnItemClickListener;
+import com.project.agroworld.taskmanager.AddTaskActivity;
+import com.project.agroworld.taskmanager.EventReceiver;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.PreferenceHelper;
+import com.project.agroworld.db.PreferenceHelper;
 
 import java.util.List;
 
 
 public class ProfileFragment extends Fragment implements OnItemClickListener {
-    private final int REQUEST_CODE = 6124;
-
-    private int maxIdCount;
+    private final static int REQUEST_CODE = 6124;
     private FragmentProfileBinding dataBinding;
     PreferenceHelper preferenceHelper;
     FarmerViewModel viewModel;
     FarmerAdapter farmerAdapter;
     FirebaseAuth auth;
     FirebaseUser user;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,24 +62,9 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         viewModel = ViewModelProviders.of(requireActivity()).get(FarmerViewModel.class);
         updateUI(user);
         setUpRecyclerView();
-        viewModel.getAllCourses().observe(getViewLifecycleOwner(), new Observer<List<FarmerModel>>() {
-            @Override
-            public void onChanged(List<FarmerModel> farmerModels) {
-                updateTaskUI(farmerModels);
-            }
-        });
+        viewModel.getRoutineList().observe(getViewLifecycleOwner(), farmerModels -> updateTaskUI(farmerModels));
 
-        viewModel.getMaxIDCount().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                if (integer != null) {
-                    maxIdCount = integer;
-                }
-            }
-        });
-
-
-        dataBinding.ivSLanguageMenu.setOnClickListener(v -> {
+/*        dataBinding.ivSLanguageMenu.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivSettingMenu);
 
             // Inflating popup menu from popup_menu.xml file
@@ -108,12 +87,10 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
             });
             // Showing the popup menu
             popupMenu.show();
-        });
+        });*/
 
         dataBinding.addAlarmFab.setOnClickListener(v -> {
-            printLog(maxIdCount + "");
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
-            intent.putExtra("maxIDCount", maxIdCount);
             startActivityForResult(intent, REQUEST_CODE);
         });
     }
@@ -123,6 +100,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
             dataBinding.userProfilePostsRecycler.setVisibility(View.GONE);
             dataBinding.tvProfileNoDataFound.setVisibility(View.VISIBLE);
         } else {
+            dataBinding.userProfilePostsRecycler.setVisibility(View.VISIBLE);
+            dataBinding.tvProfileNoDataFound.setVisibility(View.GONE);
             farmerAdapter.submitList(farmerModels);
         }
     }
@@ -136,7 +115,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     private void updateUI(FirebaseUser user) {
         dataBinding.uploadProgressBarProfile.setVisibility(View.GONE);
         if (user != null) {
-            Glide.with(requireContext()).load(user.getPhotoUrl()).into(dataBinding.userImageUserFrag);
+            Constants.bindImage(dataBinding.userImageUserFrag, String.valueOf(user.getPhotoUrl()), dataBinding.userImageUserFrag);
             dataBinding.tvProfileUserName.setText(user.getDisplayName());
             dataBinding.tvProfileUserEmail.setText(user.getEmail());
         }
@@ -145,19 +124,37 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        viewModel.getAllCourses().observe(getViewLifecycleOwner(), this::updateTaskUI);
+        viewModel.getRoutineList().observe(getViewLifecycleOwner(), farmerModels -> updateTaskUI(farmerModels));
     }
 
     @Override
     public void markTaskCompleted(FarmerModel model) {
+        deactivateAlarm(model.getId());
         viewModel.delete(model);
         Constants.showToast(requireContext(), "Task Completed");
     }
 
     @Override
     public void onDeleteClick(FarmerModel model) {
+        deactivateAlarm(model.getId());
         viewModel.delete(model);
-        Constants.showToast(requireContext(), "Item deleted successfully");
+        Constants.showToast(requireContext(), "Task deleted successfully");
+    }
+
+    public void deactivateAlarm(int id){
+        AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(requireContext(), EventReceiver.class);
+        intent.setAction("com.project.agroworld");
+        intent.putExtra("maxIDCount",id);
+        intent.putExtra("task","ignore");
+        intent.putExtra("desc","ignore");
+        intent.putExtra("time","ignore");
+        intent.putExtra("date","ignore");
+        intent.putExtra("setNotify","SetNotificationNot");
+        PendingIntent pi = PendingIntent.getBroadcast(requireActivity(), id, intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        assert am != null;
+        am.cancel(pi);
+        printLog("Alarm deactivated for " + id);
     }
 
     private void printLog(String message) {

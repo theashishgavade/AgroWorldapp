@@ -1,4 +1,4 @@
-package com.project.agroworld.ui.taskManager;
+package com.project.agroworld.taskmanager;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -17,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddTaskBinding;
 import com.project.agroworld.db.FarmerModel;
-import com.project.agroworld.db.FarmerViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.Calendar;
@@ -35,34 +34,20 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
         viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
-        Intent intent = getIntent();
-        maxIDCount = intent.getIntExtra("maxIDCount", 0);
-        printLog(maxIDCount + "");
         binding.ivSelectTime.setOnClickListener(v -> {
-            Calendar currentTime = Calendar.getInstance();
-            int hour = currentTime.get(Calendar.HOUR_OF_DAY);
-            int minute = currentTime.get(Calendar.MINUTE);
-            TimePickerDialog mTimePicker = new TimePickerDialog(this, (timePicker, selectedHour, selectedMinute) -> {
-                printLog("selectedTime " + selectedHour + ":" + selectedMinute);
-                timeToNotify = selectedHour + ":" + selectedMinute;
-                timeModel = new TimeModel(selectedHour, selectedMinute, timeToNotify);
-                binding.tvTime.setText(FormatTime(selectedHour, selectedMinute));
-            }, hour, minute, true);
-            mTimePicker.setTitle("Select Time");
-            mTimePicker.show();
+           showTimerPickerDialog();
         });
 
         binding.ivSelectDate.setOnClickListener(v -> {
-            Calendar calendar = Calendar.getInstance();
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (datePicker, year1, month1, day1) -> {
-                dateModel = new DateModel(year1, month1 + 1, day1);
-                printLog("selectedDate " + day1 + "-" + month1 + "-" + year1);
-                binding.tvDate.setText(day1 + "-" + (month1 + 1) + "-" + year1);
-            }, year, month, day);
-            datePickerDialog.show();
+          showDatePickerDialog();
+        });
+
+        binding.tvDate.setOnClickListener(v -> {
+            showDatePickerDialog();
+        });
+
+        binding.tvTime.setOnClickListener(v -> {
+            showTimerPickerDialog();
         });
 
         binding.ivPriority.setOnClickListener(v -> {
@@ -108,7 +93,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
     }
 
-    public String FormatTime(int hour, int minute) {
+    public String formatTime(int hour, int minute) {
         String time;
         String formattedMinute;
         if (minute / 10 == 0) {
@@ -130,31 +115,67 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void setTaskRemainder(String task, String desc) {
-        printLog("date " + dateModel.getMonth() + " " + dateModel.getDay() + " time " + timeModel.getHour() + ":" + timeModel.getMinute());
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, dateModel.getYear());
-        calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, dateModel.getDay());
-        calendar.set(Calendar.HOUR_OF_DAY, timeModel.getHour());
-        calendar.set(Calendar.MINUTE, timeModel.getMinute());
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
-        intent.setAction("com.agroworld.co");
-        intent.putExtra("task", task);
-        intent.putExtra("desc", desc);
-        intent.putExtra("date", binding.tvDate.getText().toString());
-        intent.putExtra("time", binding.tvTime.getText().toString());
-        intent.putExtra("maxIDCount", maxIDCount);
-        intent.putExtra("SetNotify", "SetNotification");
-        printLog(calendar.toString());
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, maxIDCount, intent, PendingIntent.FLAG_IMMUTABLE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }
+        viewModel.getMaxIDCount().observe(this, integer -> {
+            if (integer != null) {
+                maxIDCount = integer;
+                printLog("maxIdCountViewModel " + maxIDCount);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.YEAR, dateModel.getYear());
+                calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);
+                calendar.set(Calendar.DAY_OF_MONTH, dateModel.getDay());
+                calendar.set(Calendar.HOUR_OF_DAY, timeModel.getHour());
+                calendar.set(Calendar.MINUTE, timeModel.getMinute());
+                calendar.set(Calendar.SECOND, 0);
+                calendar.set(Calendar.MILLISECOND, 0);
+
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
+                intent.setAction("com.project.agroworld");
+                intent.putExtra("task", task);
+                intent.putExtra("desc", desc);
+                intent.putExtra("date", binding.tvDate.getText().toString());
+                intent.putExtra("time", binding.tvTime.getText().toString());
+                intent.putExtra("maxIDCount", maxIDCount);
+                intent.putExtra("setNotify", "SetNotification");
+                printLog(calendar.toString());
+                printLog("setTaskRemainder " + maxIDCount);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, maxIDCount, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                }
+            }
+        });
     }
+
+    private void showTimerPickerDialog(){
+        Calendar currentTime = Calendar.getInstance();
+        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = currentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker = new TimePickerDialog(this, (timePicker, selectedHour, selectedMinute) -> {
+            printLog("selectedTime " + selectedHour + ":" + selectedMinute);
+            timeToNotify = selectedHour + ":" + selectedMinute;
+            timeModel = new TimeModel(selectedHour, selectedMinute, timeToNotify);
+            binding.tvTime.setText(formatTime(selectedHour, selectedMinute));
+        }, hour, minute, true);
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+    }
+
+    private void showDatePickerDialog(){
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (datePicker, year1, month1, day1) -> {
+            dateModel = new DateModel(year1, month1 + 1, day1);
+            printLog("selectedDate " + day1 + "-" + month1 + "-" + year1);
+            binding.tvDate.setText(day1 + "-" + (month1 + 1) + "-" + year1);
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
 
     @Override
     public void onBackPressed() {
