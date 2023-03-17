@@ -25,6 +25,7 @@ import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
 
 public class ManufactureActivity extends AppCompatActivity {
     private ActivityManufactureDataPostBinding binding;
@@ -33,6 +34,8 @@ public class ManufactureActivity extends AppCompatActivity {
     private DatabaseReference firebaseStorage;
     private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
+
+    private boolean isImageSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class ManufactureActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         binding.crdUploadImage.setOnClickListener(v -> {
+            isImageSelected = true;
             selectImage();
         });
 
@@ -51,10 +55,14 @@ public class ManufactureActivity extends AppCompatActivity {
             double price = Double.parseDouble(binding.etProductPrice.getText().toString());
             String description = binding.etProductDescription.getText().toString();
 
-            if (!title.isEmpty() && price != 0 && !description.isEmpty()) {
+            if (Permissions.checkConnection(this) &&
+                    !title.isEmpty() &&
+                    price != 0 &&
+                    !description.isEmpty() &&
+                    isImageSelected) {
                 uploadImageToFirebase(title, price, description);
             } else {
-                Constants.showToast(this, getString(R.string.all_field_required));
+                Constants.showToast(this, getString(R.string.requiredDataChecks));
             }
         });
 
@@ -65,12 +73,12 @@ public class ManufactureActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance().getReference("product");
         storage.child(title).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             binding.ivProductSelected.setImageResource(R.color.colorPrimary);
-            Constants.showToast(ManufactureActivity.this, "Image uploaded successfully");
+            Constants.showToast(ManufactureActivity.this, getString(R.string.image_uploaded));
             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
                 String imageUrl = task.getResult().toString();
                 Log.d("fileLink", imageUrl);
                 uploadDataToFirebase(title, description, price, imageUrl);
-            }).addOnFailureListener(e -> Constants.showToast(ManufactureActivity.this, "Failed to generate Image url"));
+            }).addOnFailureListener(e -> Constants.showToast(ManufactureActivity.this, getString(R.string.failed_to_generate_url)));
 
         }).addOnFailureListener(e -> {
             Log.d("onFailureImageUpload", e.getLocalizedMessage());
@@ -88,22 +96,17 @@ public class ManufactureActivity extends AppCompatActivity {
     private void uploadDataToFirebase(String title, String description, Double price, String imageUrl) {
         firebaseStorage = FirebaseDatabase.getInstance().getReference("product");
         ProductModel productModel = new ProductModel(title, description, price, imageUrl, 0);
-        firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                binding.ivProductUploadIcon.setVisibility(View.VISIBLE);
-                binding.etProductDescription.setText(null);
-                binding.etProductPrice.setText(null);
-                binding.etProductTitle.setText(null);
-                progressBar.hideProgressBar();
-                Constants.showToast(ManufactureActivity.this, "Product updated successfully");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar.hideProgressBar();
-                Constants.showToast(ManufactureActivity.this, "Failed to update product");
-            }
+        firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(unused -> {
+            binding.ivProductUploadIcon.setVisibility(View.VISIBLE);
+            binding.etProductDescription.setText(null);
+            binding.etProductPrice.setText(null);
+            binding.etProductTitle.setText(null);
+            progressBar.hideProgressBar();
+            Constants.showToast(ManufactureActivity.this, getString(R.string.product_updated));
+            startActivity(new Intent(ManufactureActivity.this, ManufactureDataActivity.class));
+        }).addOnFailureListener(e -> {
+            progressBar.hideProgressBar();
+            Constants.showToast(ManufactureActivity.this, "Failed to update product");
         });
     }
 

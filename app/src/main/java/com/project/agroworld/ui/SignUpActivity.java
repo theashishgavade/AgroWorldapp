@@ -58,7 +58,6 @@ public class SignUpActivity extends AppCompatActivity {
                 isEmailValid = false;
                 binding.etEmailSignUp.setError("This field is required");
             }
-
             if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
                 createUserWithEmailAndPassword(email, passwd);
             } else {
@@ -82,33 +81,30 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void createUserWithEmailAndPassword(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignUpActivity.this, "createUserWithEmail:success",
-                                    Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        progressBar.showProgressBar();
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressBar.hideProgressBar();
+                    // Sign in success, update UI with the signed-in user's information
+                    Constants.showToast(SignUpActivity.this, "createUserWithEmail:success");
+                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                    finish();
+                } else {
+                    progressBar.hideProgressBar();
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void loginWithGoogle() {
         // Configure Google Sign In
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -132,9 +128,8 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                progressBar.hideProgressBar();
                 // Google Sign In failed, update UI appropriately
-                showToast(this, "Google sign in failed");
+                showToast(this, "Google sign in failed.\n" + e.getLocalizedMessage());
                 Log.w(TAG, "Google sign in failed", e);
             }
         }
@@ -144,25 +139,24 @@ public class SignUpActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(String idToken) {
         progressBar.showProgressBar();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            progressBar.hideProgressBar();
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            showToast(SignUpActivity.this, "signInWithCredential:success");
-                            Constants.identifyUser(user, SignUpActivity.this);
-                        } else {
-                            progressBar.hideProgressBar();
-                            // If sign in fails, display a message to the user.
-                            showToast(SignUpActivity.this, "signInWithCredential:failure");
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        }
-                    }
-                });
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    progressBar.hideProgressBar();
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    showToast(SignUpActivity.this, "signInWithCredential:success");
+                    Constants.identifyUser(user, SignUpActivity.this);
+                } else {
+                    progressBar.hideProgressBar();
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                }
+            }
+        });
     }
 
 }

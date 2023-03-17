@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreferenceHelper {
-    private static PreferenceHelper yourPreference;
+    private static PreferenceHelper preferenceHelper;
     private final SharedPreferences sharedPreferences;
 
     public static PreferenceHelper getInstance(Context context) {
-        if (yourPreference == null) {
-            yourPreference = new PreferenceHelper(context);
+        if (preferenceHelper == null) {
+            preferenceHelper = new PreferenceHelper(context);
         }
-        return yourPreference;
+        return preferenceHelper;
     }
 
     private PreferenceHelper(Context context) {
@@ -21,7 +21,7 @@ public class PreferenceHelper {
     public void saveData(String key, boolean value) {
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
         prefsEditor.putBoolean(key, value);
-        prefsEditor.commit();
+        prefsEditor.apply();
     }
 
     public boolean getData(String key) {
@@ -29,5 +29,11 @@ public class PreferenceHelper {
             return sharedPreferences.getBoolean(key, false);
         }
         return false;
+    }
+
+    public void clearData(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 }

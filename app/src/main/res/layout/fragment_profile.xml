@@ -38,7 +38,7 @@
 
                 <TextView
                     android:id="@+id/tvUsername"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
@@ -47,6 +47,25 @@
                     android:fontFamily="@font/fredoka_one"
                     android:text="@string/profile"
                     android:textSize="@dimen/sp_25" />
+
+                <ImageView
+                    android:id="@+id/ivLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp_8"
+                    android:layout_toStartOf="@id/ivMenuOption"
+                    android:src="@drawable/baseline_logout_24" />
+
+                <ImageView
+                    android:id="@+id/ivMenuOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="@dimen/dp_8"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/baseline_more_vert_24" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -135,10 +154,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/average_sans"
                         android:text="@string/no_cart_data_found"
                         android:textAllCaps="false"
                         android:textColor="@color/fontColor"
-                        android:fontFamily="@font/average_sans"
                         android:textSize="16sp"
                         android:visibility="gone" />
 

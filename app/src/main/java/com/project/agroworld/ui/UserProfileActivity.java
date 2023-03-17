@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
@@ -44,9 +46,9 @@ public class UserProfileActivity extends AppCompatActivity {
         if (intent != null) {
             userType = intent.getStringExtra("manufacturerUser");
             if (Objects.equals(userType, "manufacturer")) {
-                binding.tvUserType.setText("Manufacturer Panel");
+                binding.tvUserType.setText(getString(R.string.manufacture_panel));
             } else {
-                binding.tvUserType.setText("Transport Panel");
+                binding.tvUserType.setText(getString(R.string.transport_panel));
             }
         }
 
@@ -87,18 +89,6 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void logoutUser() {
-        new AlertDialog.Builder(this)
-                .setTitle("Logout")
-                .setIcon(R.drawable.app_icon4)
-                .setMessage("Are you sure you want to logout?")
-                .setCancelable(true)
-                .setNegativeButton(android.R.string.no, null)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        auth.signOut();
-                        startActivity(new Intent(UserProfileActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                }).create().show();
+        Constants.logoutAlertMessage(UserProfileActivity.this, auth);
     }
 }

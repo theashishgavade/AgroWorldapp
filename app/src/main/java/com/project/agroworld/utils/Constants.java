@@ -1,5 +1,6 @@
 package com.project.agroworld.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,10 +11,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.ui.DashboardActivity;
+import com.project.agroworld.ui.LoginActivity;
 import com.project.agroworld.ui.UserProfileActivity;
 
 import java.util.Locale;
@@ -26,6 +33,8 @@ public class Constants {
     public static final String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static final int REQUEST_CODE = 99;
     public static final int GPS_REQUEST_CODE = 999;
+    public static final int LOGOUT_REQUEST_CODE = 129;
+
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
     public static final String RAZORPAY_KEY_ID = "rzp_test_EiRsRSgdsLrkVI";
@@ -38,12 +47,12 @@ public class Constants {
 
     public static void identifyUser(FirebaseUser user, Context context) {
         if (user != null) {
-            if (user.getEmail().equals("devdeveloper66@gmail.com")) {
+            if (user.getEmail().contains("devdeveloper66@gmail.com") || user.getEmail().contains("theashishgavade@gmail.com")) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
-            } else if (user.getEmail().equals("nap.napster08@gmail.com")) {
+            } else if (user.getEmail().equals("nap.napster08@gmail.com") || user.getEmail().equals("devenpadhye.dp@gmail.com")) {
                 //transport user
                 Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
@@ -79,6 +88,26 @@ public class Constants {
 
     public static boolean contactValidation(String contact) {
         return contact.length() == 10;
+    }
+
+    public static void logoutAlertMessage(Activity context, FirebaseAuth auth) {
+        new AlertDialog.Builder(context)
+                .setTitle("Logout")
+                .setIcon(R.drawable.app_icon4)
+                .setMessage("Are you sure you want to logout?")
+                .setCancelable(true)
+                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+                    auth.signOut();
+                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
+                    GoogleSignIn.getClient(context, gso).revokeAccess();
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivityForResult(intent, Constants.LOGOUT_REQUEST_CODE);
+                    context.finish();
+                }).create().show();
     }
 
 }

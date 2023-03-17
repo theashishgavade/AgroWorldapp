@@ -3,6 +3,7 @@ package com.project.agroworld.fragments;
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -20,18 +21,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
+import com.project.agroworld.db.PreferenceHelper;
+import com.project.agroworld.taskmanager.AddTaskActivity;
+import com.project.agroworld.taskmanager.EventReceiver;
 import com.project.agroworld.taskmanager.FarmerViewModel;
 import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
 import com.project.agroworld.taskmanager.listener.OnItemClickListener;
-import com.project.agroworld.taskmanager.AddTaskActivity;
-import com.project.agroworld.taskmanager.EventReceiver;
+import com.project.agroworld.ui.LoginActivity;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.db.PreferenceHelper;
 
 import java.util.List;
 
@@ -40,14 +44,14 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     private final static int REQUEST_CODE = 6124;
     private FragmentProfileBinding dataBinding;
     PreferenceHelper preferenceHelper;
+
     FarmerViewModel viewModel;
     FarmerAdapter farmerAdapter;
     FirebaseAuth auth;
     FirebaseUser user;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         return dataBinding.getRoot();
@@ -64,10 +68,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         setUpRecyclerView();
         viewModel.getRoutineList().observe(getViewLifecycleOwner(), farmerModels -> updateTaskUI(farmerModels));
 
-/*        dataBinding.ivSLanguageMenu.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivSettingMenu);
-
-            // Inflating popup menu from popup_menu.xml file
+        dataBinding.ivMenuOption.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivMenuOption);
             popupMenu.getMenuInflater().inflate(R.menu.home_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 // Toast message on menu item clicked
@@ -87,11 +89,15 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
             });
             // Showing the popup menu
             popupMenu.show();
-        });*/
+        });
 
         dataBinding.addAlarmFab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
+        });
+
+        dataBinding.ivLogout.setOnClickListener(v -> {
+        Constants.logoutAlertMessage(getActivity(), auth);
         });
     }
 
@@ -141,17 +147,17 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         Constants.showToast(requireContext(), "Task deleted successfully");
     }
 
-    public void deactivateAlarm(int id){
-        AlarmManager am = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+    public void deactivateAlarm(int id) {
+        AlarmManager am = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(requireContext(), EventReceiver.class);
         intent.setAction("com.project.agroworld");
-        intent.putExtra("maxIDCount",id);
-        intent.putExtra("task","ignore");
-        intent.putExtra("desc","ignore");
-        intent.putExtra("time","ignore");
-        intent.putExtra("date","ignore");
-        intent.putExtra("setNotify","SetNotificationNot");
-        PendingIntent pi = PendingIntent.getBroadcast(requireActivity(), id, intent,PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra("maxIDCount", id);
+        intent.putExtra("task", "ignore");
+        intent.putExtra("desc", "ignore");
+        intent.putExtra("time", "ignore");
+        intent.putExtra("date", "ignore");
+        intent.putExtra("setNotify", "SetNotificationNot");
+        PendingIntent pi = PendingIntent.getBroadcast(requireActivity(), id, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         assert am != null;
         am.cancel(pi);
         printLog("Alarm deactivated for " + id);

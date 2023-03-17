@@ -116,6 +116,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Constants.showToast(this, "Google sign in failed");
                 Log.w(TAG, "Google sign in failed", e);
             }
+        }else if (requestCode == Constants.LOGOUT_REQUEST_CODE){
+            mAuth.signOut();
+            mGoogleSignInClient.revokeAccess();
         }
     }
 

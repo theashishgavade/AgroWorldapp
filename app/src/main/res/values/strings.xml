@@ -89,4 +89,11 @@
     <string name="transaction_history">Transaction History</string>
     <string name="read_articles">Read Articles</string>
     <string name="profile">Profile</string>
+    <string name="hindi">Hindi</string>
+    <string name="english">English</string>
+    <string name="requiredDataChecks">Please check given data once, Make sure all fields are filled out accurately</string>
+    <string name="image_uploaded">Image uploaded successfully</string>
+    <string name="failed_to_generate_url">Failed to generate Image url</string>
+    <string name="product_updated">Product updated successfully</string>
+    <string name="transport_panel">Transport Panel</string>
 </resources>

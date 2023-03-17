@@ -86,4 +86,9 @@
     <string name="buy_now">अभी खरीदें</string>
     <string name="no_data_found_for_this_search">इस खोज के लिए कोई डेटा नहीं मिला</string>
     <string name="call">कॉल</string>
+    <string name="transaction_history">ट्रांजेक्शन इतिहास</string>
+    <string name="read_articles">लेख पढ़ें</string>
+    <string name="profile">प्रोफ़ाइल</string>
+    <string name="hindi">हिन्दी भाषा</string>
+    <string name="english">अंग्रेजी भाषा</string>
 </resources>

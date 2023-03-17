@@ -56,8 +56,6 @@ public class DashboardActivity extends AppCompatActivity {
         FragmentAdapter pagerAdapter = new FragmentAdapter(getSupportFragmentManager(), getApplicationContext(), fragments);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setEnabled(false);
-        viewPager.setNestedScrollingEnabled(false);
-        viewPager.beginFakeDrag();
         tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_home_24);
@@ -101,6 +99,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

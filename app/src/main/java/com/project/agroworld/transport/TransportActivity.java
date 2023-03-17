@@ -24,6 +24,7 @@ import com.project.agroworld.databinding.ActivityTransportBinding;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 public class TransportActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class TransportActivity extends AppCompatActivity {
     private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
     private AgroViewModel agroViewModel;
+    private boolean isImageSelected = false;
 
 
     @Override
@@ -48,6 +50,7 @@ public class TransportActivity extends AppCompatActivity {
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
+            isImageSelected = true;
             selectImage();
         });
 
@@ -57,10 +60,15 @@ public class TransportActivity extends AppCompatActivity {
             String address = binding.etVehicleAddress.getText().toString();
             String contact = binding.etVehicleContact.getText().toString();
 
-            if (!model.isEmpty() && !rate.isEmpty() && !address.isEmpty() && Constants.contactValidation(contact)) {
+            if (Permissions.checkConnection(this)
+                    && !model.isEmpty()
+                    && !rate.isEmpty()
+                    && !address.isEmpty()
+                    && Constants.contactValidation(contact)
+                    && isImageSelected) {
                 uploadImageToFirebase(model, rate, address, contact);
             } else {
-                Constants.showToast(this, "Please check given data once, Make sure all fields are filled out accurately");
+                Constants.showToast(this, getString(R.string.requiredDataChecks));
             }
         });
     }
@@ -69,14 +77,14 @@ public class TransportActivity extends AppCompatActivity {
         progressBar.showProgressBar();
         storage = FirebaseStorage.getInstance().getReference("vehicle");
         storage.child(model).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
-            Constants.showToast(TransportActivity.this, "Image uploaded successfully");
-            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener( task -> {
+            Constants.showToast(TransportActivity.this, getString(R.string.image_uploaded));
+            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
                 String imageUrl = task.getResult().toString();
                 Log.d("fileLink", imageUrl);
                 uploadDataToFirebase(model, rates, address, contact, imageUrl);
-            }).addOnFailureListener(e -> Constants.showToast(TransportActivity.this, "Failed to generate Image url"));
+            }).addOnFailureListener(e -> Constants.showToast(TransportActivity.this, getString(R.string.failed_to_generate_url)));
 
-        }).addOnFailureListener( e -> {
+        }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();
             Log.d("onFailureImageUpload", e.getLocalizedMessage());
             Constants.showToast(TransportActivity.this, "Failed to upload image");
@@ -96,6 +104,7 @@ public class TransportActivity extends AppCompatActivity {
             binding.etVehicleContact.setText(null);
             progressBar.hideProgressBar();
             Constants.showToast(TransportActivity.this, "Vehicle updated successfully");
+            startActivity(new Intent(TransportActivity.this, TransportDataActivity.class));
 
         }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();
@@ -146,6 +155,4 @@ public class TransportActivity extends AppCompatActivity {
             binding.ivVehicleSelected.setImageURI(imageUri);
         }
     }
-
-
 }
