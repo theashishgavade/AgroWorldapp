@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,16 +56,20 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     private String addressLine;
     private double totalItemAmount = 0.0;
     private CustomMultiColorProgressBar progressBar;
-
+    private FirebaseAuth auth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_cart);
         actionBar = getSupportActionBar();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         actionBar.hide();
+        setRecyclerView();
         getProductListFromFirebase();
         binding.tvAddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +100,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
     private void getProductListFromFirebase() {
         progressBar.showProgressBar();
-        databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
+        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,7 +114,6 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                         totalItemAmount += productItem.getPrice();
                     }
                     binding.tvTotalAmount.setText("₹ " + df.format(totalItemAmount));
-                    setRecyclerView();
                 } else {
                     totalItemAmount = 0.0;
                     productCartList.clear();
@@ -201,5 +206,11 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
             productAdapter.notifyDataSetChanged();
             Constants.showToast(AddToCartActivity.this, "Item removed successfully price " + productModel.getPrice());
         }).addOnFailureListener(e -> Constants.showToast(AddToCartActivity.this, "Failed to  removed item"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishActivity(120);
+        super.onBackPressed();
     }
 }

@@ -38,7 +38,7 @@ public class Constants {
 
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
-    public static final String RAZORPAY_KEY_ID = "rzp_test_EiRsRSgdsLrkVI";
+    public static final String RAZORPAY_KEY_ID = "rzp_test_jx2bOJysbxVioo";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
 
 
@@ -101,6 +101,7 @@ public class Constants {
                     dialog.dismiss();
                 })
                 .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+
                     auth.signOut();
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
                     GoogleSignIn.getClient(context, gso).revokeAccess();
@@ -109,6 +110,14 @@ public class Constants {
                     context.startActivityForResult(intent, Constants.LOGOUT_REQUEST_CODE);
                     context.finish();
                 }).create().show();
+    }
+
+    public static String plainStringEmail(String email) {
+        String userName = email.replaceAll("\\.", "");
+        userName.replaceAll("@", "");
+        userName.replaceAll("#", "");
+        userName.replaceAll("$", "");
+        return userName;
     }
 
 }

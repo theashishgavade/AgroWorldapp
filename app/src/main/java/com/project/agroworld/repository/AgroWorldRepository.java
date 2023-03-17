@@ -16,10 +16,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.networkManager.APIService;
 import com.project.agroworld.networkManager.Network;
 import com.project.agroworld.payment.model.PaymentModel;
@@ -43,22 +43,22 @@ public class AgroWorldRepository {
         return requestStatus;
     }
 
-    public LiveData<Resource<List<TechniquesResponse>>> getTechniques() {
-        final MutableLiveData<Resource<List<TechniquesResponse>>> techniquesMutableLiveData = new MutableLiveData<>();
-        apiService.getTechniquesList().enqueue(new Callback<List<TechniquesResponse>>() {
+    public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponse() {
+        final MutableLiveData<Resource<List<DiseasesResponse>>> diseasesMutableLiveData = new MutableLiveData<>();
+        apiService.getDiseasesList().enqueue(new Callback<List<DiseasesResponse>>() {
             @Override
-            public void onResponse(Call<List<TechniquesResponse>> call, Response<List<TechniquesResponse>> response) {
+            public void onResponse(Call<List<DiseasesResponse>> call, Response<List<DiseasesResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    techniquesMutableLiveData.setValue(Resource.success(response.body()));
+                    diseasesMutableLiveData.setValue(Resource.success(response.body()));
                 }
             }
 
             @Override
-            public void onFailure(Call<List<TechniquesResponse>> call, Throwable t) {
-                techniquesMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            public void onFailure(Call<List<DiseasesResponse>> call, Throwable t) {
+                diseasesMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
-        return techniquesMutableLiveData;
+        return diseasesMutableLiveData;
     }
 
     public LiveData<Resource<List<FlowersResponse>>> getFlowersResponse() {
@@ -196,8 +196,8 @@ public class AgroWorldRepository {
         });
     }
 
-    public void uploadTransactionDetail(PaymentModel paymentModel) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("transaction");
+    public void uploadTransactionDetail(PaymentModel paymentModel, String email) {
+        databaseReference = FirebaseDatabase.getInstance().getReference(email + "-transaction");
         databaseReference.child(paymentModel.getPaymentID()).setValue(paymentModel).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -211,9 +211,19 @@ public class AgroWorldRepository {
         });
     }
 
-    public LiveData<Resource<List<PaymentModel>>> getTransactionList() {
+    public void deleteCartData(String email) {
+        databaseReference = FirebaseDatabase.getInstance().getReference(email + "-CartItems");
+        databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("removeValue", "Cart node deleted successfully");
+            }
+        });
+    }
+
+    public LiveData<Resource<List<PaymentModel>>> getTransactionList(String email) {
         final MutableLiveData<Resource<List<PaymentModel>>> historyLivedata = new MutableLiveData<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("transaction");
+        databaseReference = FirebaseDatabase.getInstance().getReference(email + "-transaction");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -226,6 +236,8 @@ public class AgroWorldRepository {
                         }
                     }
                     historyLivedata.setValue(Resource.success(paymentModelArrayList));
+                }else {
+                    historyLivedata.setValue(Resource.error("Look's like you haven't made any transaction yet.", null));
                 }
             }
 

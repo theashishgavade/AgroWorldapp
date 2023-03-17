@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.payment.model.PaymentModel;
 import com.project.agroworld.repository.AgroWorldRepository;
 import com.project.agroworld.shopping.model.ProductModel;
@@ -39,8 +39,8 @@ public class AgroViewModel extends ViewModel {
         return totalAmount;
     }
 
-    public LiveData<Resource<List<TechniquesResponse>>> getTechniqueResponseLivedata() {
-        return repository.getTechniques();
+    public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponseLivedata() {
+        return repository.getDiseasesResponse();
     }
 
     public LiveData<Resource<List<FruitsResponse>>> getFruitsResponseLivedata() {
@@ -67,19 +67,23 @@ public class AgroViewModel extends ViewModel {
         return repository.getVehicleListFromFirebase();
     }
 
-    public LiveData<Resource<List<PaymentModel>>> getTransactionList(){
-        return  repository.getTransactionList();
+    public LiveData<Resource<List<PaymentModel>>> getTransactionList(String email) {
+        return repository.getTransactionList(email);
     }
 
     public void removeProductFromFirebase(String title) {
         repository.removeProductFromFirebase(title);
     }
 
-    public void uploadTransaction(PaymentModel paymentModel){
-        repository.uploadTransactionDetail(paymentModel);
+    public void uploadTransaction(PaymentModel paymentModel, String email) {
+        repository.uploadTransactionDetail(paymentModel, email);
     }
 
-    public LiveData<String> checkLoadingStatus(){
+    public void deleteCartData(String email){
+        repository.deleteCartData(email);
+    }
+
+    public LiveData<String> checkLoadingStatus() {
         return repository.getRequestErrorLivedata();
     }
 

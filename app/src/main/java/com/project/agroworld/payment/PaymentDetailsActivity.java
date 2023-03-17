@@ -36,9 +36,6 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     ActivityPaymentDetailsBinding binding;
     private ArrayList<ProductModel> productCartList = new ArrayList<>();
     String address;
-    String totalAmount;
-
-    String productUrl;
     StringBuilder stringBuilder = new StringBuilder();
     private AlertDialog.Builder alertDialogBuilder;
     private AgroViewModel viewModel;
@@ -61,7 +58,11 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
         productCartList = (ArrayList<ProductModel>) intent.getSerializableExtra("productItemList");
         address = intent.getStringExtra("address");
-        totalAmount = intent.getStringExtra("totalAmount");
+
+        String totalAmount = intent.getStringExtra("totalAmount");
+        String[] amountArr = totalAmount.split(" ");
+        double amount = Double.parseDouble(amountArr[1]);
+
         for (int product = 0; product < productCartList.size(); product++) {
             stringBuilder.append(productCartList.get(product).getTitle()).append(" ₹ ").append(productCartList.get(product).getPrice()).append(" Q ").append(productCartList.get(product).getQuantity()).append("\n");
         }
@@ -74,7 +75,10 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         alertDialogBuilder.setCancelable(false);
         alertDialogBuilder.setTitle("Payment Result");
         alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
-            //do nothing
+            finishActivity(289);
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
         });
 
         viewModel.checkLoadingStatus().observe(this, s -> {
@@ -82,10 +86,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         });
 
         binding.btnProceed.setOnClickListener(v -> {
-            String[] amount = totalAmount.split(" ");
-            double value = Double.parseDouble(amount[1]) * 100;
-            Toast.makeText(this, String.valueOf(value), Toast.LENGTH_SHORT).show();
-            startPayment(value);
+            startPayment(amount * 100);
         });
     }
 
@@ -156,32 +157,40 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
 
     private void uploadTransactionDetailToFirebase(PaymentData paymentData) {
         PaymentModel paymentModel;
-        for (int product = 0; product < productCartList.size(); product++) {
-            paymentModel = new PaymentModel(
-                    productCartList.get(product).getTitle(),
-                    productCartList.get(product).getImageUrl(),
-                    productCartList.get(product).getPrice(),
-                    "false",
-                    paymentData.getPaymentId() + "-" + product
-            );
-            viewModel.uploadTransaction(paymentModel);
+        if (paymentData.getPaymentId() != null) {
+            for (int product = 0; product < productCartList.size(); product++) {
+                paymentModel = new PaymentModel(
+                        productCartList.get(product).getTitle(),
+                        productCartList.get(product).getImageUrl(),
+                        productCartList.get(product).getPrice(),
+                        "false",
+                        paymentData.getPaymentId() + "-" + product
+                );
+                viewModel.uploadTransaction(paymentModel, Constants.plainStringEmail(user.getEmail()));
+            }
         }
     }
 
     public void showAlertMessageWithStatus(PaymentData paymentData) {
-        boolean isSuccess = false;
-        if (isSuccess) {
-            alertDialogBuilder.setMessage("Payment successful\nPayment ID: " + paymentData.getPaymentId() + "\nPayment Data: " + paymentData.getData());
-            alertDialogBuilder.show();
-        } else {
+        if (paymentData.getPaymentId() != null) {
+            viewModel.deleteCartData(Constants.plainStringEmail(user.getEmail()));
             alertDialogBuilder.setMessage(
-                    "Payment failed"
+                    "Payment Success"
                             + "\nPayment ID: " + paymentData.getPaymentId()
                             + "\nSignature: " + paymentData.getSignature()
                             + "\nContact: " + paymentData.getUserContact()
                             + "\nEmail: " + paymentData.getUserEmail()
                             + "\nExternalWallet: " + paymentData.getExternalWallet()
                             + "\nPayment Data: " + paymentData.getData()
+            );
+            alertDialogBuilder.show();
+        } else {
+            alertDialogBuilder.setMessage(
+                    "Payment Failed"
+                            + "\nPayment ID: " + paymentData.getPaymentId()
+                            + "\nSignature: " + paymentData.getSignature()
+                            + "\nPayment Data: " + paymentData.getData()
+
             );
             alertDialogBuilder.show();
         }
