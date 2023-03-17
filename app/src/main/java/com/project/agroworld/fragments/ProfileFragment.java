@@ -78,11 +78,13 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                         setAppLocale(getContext(), "en");
                         preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
                         preferenceHelper.saveData(Constants.HINDI_KEY, false);
+                        Constants.showToast(getContext(), "Language updated to english");
                         return true;
                     case R.id.menu_hindi_lng:
                         setAppLocale(getContext(), "hi");
                         preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
                         preferenceHelper.saveData(Constants.HINDI_KEY, true);
+                        Constants.showToast(getContext(), "Language updated to hindi");
                         return true;
                 }
                 return true;

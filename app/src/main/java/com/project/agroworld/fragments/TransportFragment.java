@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class TransportFragment extends Fragment implements OnVehicleCallClick {
@@ -62,26 +65,49 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
             binding.recyclerViewVehicle.setVisibility(View.GONE);
         }
 
-        binding.ivSearch.setOnClickListener(v -> {
-            binding.tvUsername.setVisibility(View.GONE);
-            binding.ivSearch.setVisibility(View.GONE);
-            binding.searchBar.setVisibility(View.VISIBLE);
-        });
+        binding.ivFilterData.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivFilterData);
 
-        binding.searchBar.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                binding.searchBar.setVisibility(View.GONE);
-                binding.tvUsername.setVisibility(View.VISIBLE);
-                binding.ivSearch.setVisibility(View.VISIBLE);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchProduct(newText);
-                return false;
-            }
+            // Inflating popup menu from popup_menu.xml file
+            popupMenu.getMenuInflater().inflate(R.menu.filter_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                switch (menuItem.getItemId()) {
+                    case R.id.mnLowToHigh:
+                        Comparator<VehicleModel> lowComparator = new Comparator<VehicleModel>() {
+                            @Override
+                            public int compare(VehicleModel item1, VehicleModel item2) {
+                                if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
+                                    return -1;
+                                } else if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        };
+                        Collections.sort(vehicleItemList, lowComparator);
+                        vehicleAdapter.notifyDataSetChanged();
+                        return true;
+                    case R.id.mnHighToLow:
+                        Comparator<VehicleModel> highComparator = new Comparator<VehicleModel>() {
+                            @Override
+                            public int compare(VehicleModel item1, VehicleModel item2) {
+                                if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
+                                    return -1;
+                                } else if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        };
+                        Collections.sort(vehicleItemList, highComparator);
+                        vehicleAdapter.notifyDataSetChanged();
+                        return true;
+                }
+                return true;
+            });
+            popupMenu.show();
         });
 
     }
@@ -123,20 +149,6 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         binding.recyclerViewVehicle.setAdapter(vehicleAdapter);
         binding.recyclerViewVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewVehicle.setHasFixedSize(true);
-    }
-
-    private void searchProduct(String query) {
-        ArrayList<VehicleModel> searchProductList = new ArrayList<VehicleModel>();
-        for (int i = 0; i < vehicleItemList.size(); i++) {
-            if (vehicleItemList.get(i).getModel().toLowerCase().contains(query.toLowerCase())) {
-                searchProductList.add(vehicleItemList.get(i));
-            }
-        }
-        if (vehicleItemList.isEmpty()) {
-            Constants.showToast(requireContext(), getString(R.string.no_data_found));
-        } else {
-            vehicleAdapter.searchInVehicleList(searchProductList);
-        }
     }
 
     @Override

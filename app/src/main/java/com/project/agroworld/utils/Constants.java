@@ -34,6 +34,7 @@ public class Constants {
     public static final int REQUEST_CODE = 99;
     public static final int GPS_REQUEST_CODE = 999;
     public static final int LOGOUT_REQUEST_CODE = 129;
+    public static final int LANGUAGE_REQUEST_CODE = 129;
 
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";

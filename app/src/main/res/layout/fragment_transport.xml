@@ -41,33 +41,22 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_20"
-                    android:layout_toStartOf="@id/ivSearch"
+                    android:layout_toStartOf="@id/ivFilterData"
                     android:layout_toEndOf="@id/crd_profile"
                     android:fontFamily="@font/fredoka_one"
                     android:text="@string/transport"
                     android:textSize="@dimen/sp_25" />
 
-                <androidx.appcompat.widget.SearchView
-                    android:id="@+id/search_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:layout_toEndOf="@id/crd_profile"
-                    android:layout_margin="@dimen/dp_10"
-                    android:layout_toStartOf="@id/ivSearch"
-                    android:background="@drawable/search_bgd"
-                    android:queryHint="search product here.."
-                    android:visibility="gone" />
 
                 <ImageView
-                    android:id="@+id/ivSearch"
+                    android:id="@+id/ivFilterData"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_margin="@dimen/dp_20"
-                    android:src="@drawable/ic_baseline_search_24" />
+                    android:layout_margin="@dimen/dp_10"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/baseline_more_vert_24" />
 
 
 

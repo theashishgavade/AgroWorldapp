@@ -51,7 +51,7 @@
             android:exported="false" />
         <activity android:name=".shopping.activity.AddToCartActivity" />
         <activity
-            android:name=".articles.YojanasActivity"
+            android:name=".articles.DiseasesActivity"
             android:exported="false" />
         <activity
             android:name=".articles.FlowersActivity"
