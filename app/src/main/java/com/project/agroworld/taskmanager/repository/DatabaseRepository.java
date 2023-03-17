@@ -16,8 +16,6 @@ public class DatabaseRepository {
     private LiveData<List<FarmerModel>> farmerRoutines;
     private LiveData<Integer> maxIdCount;
 
-    // creating a constructor for our variables
-    // and passing the variables to it.
     public DatabaseRepository(Application application) {
         FarmerDatabase database = FarmerDatabase.getInstance(application);
         dao = database.taskDao();
@@ -25,26 +23,29 @@ public class DatabaseRepository {
         maxIdCount = dao.getMaxCount();
     }
 
-    // creating a method to insert the data to our database.
     public void insert(FarmerModel model) {
-        new InsertCourseAsyncTask(dao).execute(model);
+        new InsertRoutineAsyncTask(dao).execute(model);
     }
     public void update(FarmerModel model) {
-        new UpdateCourseAsyncTask(dao).execute(model);
+        new UpdateRoutineAsyncTask(dao).execute(model);
+    }
+
+    public void deleteAllCourses() {
+        new DeleteAllCoursesAsyncTask(dao).execute();
     }
 
     public void delete(FarmerModel model) {
-        new DeleteCourseAsyncTask(dao).execute(model);
+        new DeleteRoutineAsyncTask(dao).execute(model);
     }
     public LiveData<List<FarmerModel>> getFarmerRoutines() {
         return farmerRoutines;
     }
 
     public LiveData<Integer> getMaxIdCount() {return maxIdCount;}
-    private static class InsertCourseAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
+    private static class InsertRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
         private FarmerDAO dao;
 
-        private InsertCourseAsyncTask(FarmerDAO dao) {
+        private InsertRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
         }
 
@@ -56,10 +57,10 @@ public class DatabaseRepository {
         }
     }
 
-    private static class UpdateCourseAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
+    private static class UpdateRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
         private FarmerDAO dao;
 
-        private UpdateCourseAsyncTask(FarmerDAO dao) {
+        private UpdateRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
         }
 
@@ -70,16 +71,32 @@ public class DatabaseRepository {
         }
     }
 
-    private static class DeleteCourseAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
+    private static class DeleteRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
         private FarmerDAO dao;
 
-        private DeleteCourseAsyncTask(FarmerDAO dao) {
+        private DeleteRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
         }
 
         @Override
         protected Void doInBackground(FarmerModel... models) {
             dao.delete(models[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllCoursesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private FarmerDAO dao;
+
+        private DeleteAllCoursesAsyncTask(FarmerDAO dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            // on below line calling method
+            // to delete all courses.
+            dao.deleteRoutines();
             return null;
         }
     }

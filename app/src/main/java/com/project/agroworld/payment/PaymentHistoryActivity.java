@@ -1,7 +1,6 @@
 package com.project.agroworld.payment;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,6 +11,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityPaymentHistoryBinding;
 import com.project.agroworld.payment.adapter.HistoryAdapter;
@@ -29,6 +30,8 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
     private final ArrayList<PaymentModel> paymentModelArrayList = new ArrayList<>();
     private HistoryAdapter historyAdapter;
     private AgroViewModel agroViewModel;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,11 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
         actionBar.setDisplayHomeAsUpEnabled(true);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         if (Permissions.checkConnection(this)) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
-            getTransactionHistoryList();
+            getTransactionHistoryList(Constants.plainStringEmail(user.getEmail()));
         } else {
             binding.recyclerView.setVisibility(View.GONE);
             binding.shimmer.setVisibility(View.GONE);
@@ -51,10 +56,10 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
 
     }
 
-    private void getTransactionHistoryList() {
+    private void getTransactionHistoryList(String email) {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
-        agroViewModel.getTransactionList().observe(this, paymentModelList -> {
+        agroViewModel.getTransactionList(email).observe(this, paymentModelList -> {
             switch (paymentModelList.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -75,7 +80,7 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
                         setRecyclerView();
                     } else {
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                        binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
+                        binding.tvNoDataFoundErr.setText(getString(R.string.no_transaction_found));
                     }
                     break;
             }

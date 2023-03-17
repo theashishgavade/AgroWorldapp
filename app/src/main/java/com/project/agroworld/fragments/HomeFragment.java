@@ -29,6 +29,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.project.agroworld.R;
 import com.project.agroworld.articles.CropsActivity;
+import com.project.agroworld.articles.DiseasesActivity;
 import com.project.agroworld.articles.FlowersActivity;
 import com.project.agroworld.articles.FruitsActivity;
 import com.project.agroworld.articles.HowToExpandActivity;
@@ -104,18 +105,24 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
 
-        binding.crdFruits.setOnClickListener(v -> startActivity(new Intent(requireContext(), FruitsActivity.class)));
+        binding.crdFruits.setOnClickListener(v -> {
+            startActivityForResult(new Intent(requireContext(), FruitsActivity.class), Constants.REQUEST_CODE);
+        });
 
         binding.crdCrops.setOnClickListener(v -> {
-            startActivity(new Intent(requireContext(), CropsActivity.class));
+            startActivityForResult(new Intent(requireContext(), CropsActivity.class), Constants.REQUEST_CODE);
         });
 
         binding.crdFlowers.setOnClickListener(v -> {
-            startActivity(new Intent(requireContext(), FlowersActivity.class));
+            startActivityForResult(new Intent(requireContext(), FlowersActivity.class), Constants.REQUEST_CODE);
         });
 
         binding.crdHowToExpand.setOnClickListener(v -> {
-            startActivity(new Intent(requireContext(), HowToExpandActivity.class));
+            startActivityForResult(new Intent(requireContext(), HowToExpandActivity.class), Constants.REQUEST_CODE);
+        });
+
+        binding.crdDiseases.setOnClickListener(v -> {
+            startActivityForResult(new Intent(requireContext(), DiseasesActivity.class), Constants.REQUEST_CODE);
 
         });
 
@@ -262,7 +269,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_CODE);
 
     }
-
 
     private void checkPermissionCallApi() {
         if (Permissions.checkConnection(getContext()) && Permissions.isGpsEnable(getContext())) {

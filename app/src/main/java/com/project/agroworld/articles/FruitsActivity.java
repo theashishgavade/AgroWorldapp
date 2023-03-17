@@ -37,7 +37,7 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.fruits));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.no_data_found));
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init();
         getFruitsListFromApi();
     }

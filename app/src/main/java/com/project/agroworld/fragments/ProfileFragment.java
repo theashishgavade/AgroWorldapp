@@ -100,6 +100,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.ivLogout.setOnClickListener(v -> {
         Constants.logoutAlertMessage(getActivity(), auth);
+
         });
     }
 

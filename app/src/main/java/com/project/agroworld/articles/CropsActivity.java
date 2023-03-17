@@ -1,23 +1,24 @@
 package com.project.agroworld.articles;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.CropsAdapter;
 import com.project.agroworld.articles.listener.CropsClickListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.databinding.ActivityCropsBinding;
-import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
     private CropsAdapter cropsAdapter;
     private AgroViewModel viewModel;
     private CustomMultiColorProgressBar progressBar;
-    private final ArrayList<CropsResponse> cropsResponseArrayList =new ArrayList<>();
+    private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,9 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init();
-        getCropsListFromApi();
+        if (Permissions.checkConnection(this)) {
+            getCropsListFromApi();
+        }
     }
 
     private void getCropsListFromApi() {
@@ -73,7 +76,7 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
     }
 
     private void setRecyclerView() {
-        cropsAdapter= new CropsAdapter(cropsResponseArrayList, this);
+        cropsAdapter = new CropsAdapter(cropsResponseArrayList, this);
         binding.rvCrops.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvCrops.setAdapter(cropsAdapter);
     }

@@ -3,13 +3,9 @@ package com.project.agroworld.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +34,6 @@ import java.util.Comparator;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
-
     private FragmentShoppingBinding binding;
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
     private ProductAdapter productAdapter;
@@ -56,15 +51,15 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
 
         if (Permissions.checkConnection(getContext())) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
             getProductListFromFirebase();
-        }else {
+        } else {
             binding.recyclerView.setVisibility(View.GONE);
             binding.shimmer.setVisibility(View.GONE);
             binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
@@ -86,8 +81,6 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
 
         binding.ivMoreOption.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivMoreOption);
-
-            // Inflating popup menu from popup_menu.xml file
             popupMenu.getMenuInflater().inflate(R.menu.shopping_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 // Toast message on menu item clicked
@@ -125,7 +118,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                         productAdapter.notifyDataSetChanged();
                         return true;
                     case R.id.menuCartActivity:
-                        startActivity(new Intent(getContext(), AddToCartActivity.class));
+                        startActivityForResult(new Intent(getContext(), AddToCartActivity.class), Constants.REQUEST_CODE);
                         return true;
                     case R.id.menuHistoryActivity:
                         startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
@@ -197,40 +190,15 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CODE){
+        if (requestCode == Constants.REQUEST_CODE) {
             getProductListFromFirebase();
         }
-    }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.priority_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.high: {
-                Toast.makeText(getContext(), "High  ", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            case R.id.medium: {
-                Toast.makeText(getContext(), "medium  ", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            case R.id.low: {
-                Toast.makeText(getContext(), "Low  ", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onProductClick(ProductModel productModel) {
         Intent intent = new Intent(requireContext(), ProductDetailActivity.class);
         intent.putExtra("productModel", productModel);
-        startActivity(intent);
+        startActivityForResult(intent, Constants.REQUEST_CODE);
     }
 }

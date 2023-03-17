@@ -30,4 +30,6 @@ public interface FarmerDAO {
 
     @Query("SELECT MAX(id) FROM farmer_table")
     LiveData<Integer> getMaxCount();
+
+
 }

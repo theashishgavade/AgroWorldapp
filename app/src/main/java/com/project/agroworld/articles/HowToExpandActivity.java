@@ -35,9 +35,9 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
         binding = DataBindingUtil.setContentView(this, R.layout.activity_how_to_expand);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(getString(R.string.fruits));
+        actionBar.setTitle(getString(R.string.how_to_expand));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.no_data_found));
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init();
         getExpandListFromApi();
     }

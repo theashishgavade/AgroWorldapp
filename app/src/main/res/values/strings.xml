@@ -31,7 +31,7 @@
     <string name="use_other_methods">Use other Methods</string>
     <string name="something_wrong_err">Something went wrong</string>
     <string name="add_to_cart">Add to cart</string>
-    <string name="loader_message">Please wait..We\'re running your requests</string>
+    <string name="loader_message">Please wait..we\'re running your requests</string>
     <string name="crops_information">Crops Information</string>
     <string name="irrigation">Irrigation</string>
     <string name="land_preparation">Land Preparation</string>
@@ -96,4 +96,6 @@
     <string name="failed_to_generate_url">Failed to generate Image url</string>
     <string name="product_updated">Product updated successfully</string>
     <string name="transport_panel">Transport Panel</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="no_transaction_found">Look\'s like you haven\'t made any transaction yet.</string>
 </resources>

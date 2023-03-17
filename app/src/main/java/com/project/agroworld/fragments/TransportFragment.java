@@ -67,8 +67,6 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
 
         binding.ivFilterData.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivFilterData);
-
-            // Inflating popup menu from popup_menu.xml file
             popupMenu.getMenuInflater().inflate(R.menu.filter_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 switch (menuItem.getItemId()) {

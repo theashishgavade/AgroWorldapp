@@ -31,6 +31,10 @@ public class FarmerViewModel extends AndroidViewModel {
         repository.delete(model);
     }
 
+    public void deleteAllData(){
+        repository.deleteAllCourses();
+    }
+
     public LiveData<List<FarmerModel>> getRoutineList() {
         return farmerRoutines;
     }

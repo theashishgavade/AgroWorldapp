@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".articles.HowToExpandActivity">
+        tools:context=".adapter.FragmentAdapter$HowToExpandActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_how_to_expand"
