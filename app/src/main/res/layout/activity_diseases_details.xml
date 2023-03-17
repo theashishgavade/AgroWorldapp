@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".articles.DiseasesDetailsActivity">
+
+            <ImageView
+                android:id="@+id/ivItemPicture"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_200"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvPlantName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivItemPicture"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvDiseaseTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPlantName"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+
+            <TextView
+                android:id="@+id/tvDetailSymptoms"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDiseaseTitle"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="@string/symptoms"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvSymptoms_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvDetailSymptoms"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+
+            <TextView
+                android:id="@+id/tvProtect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvSymptoms_txt"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:fontFamily="@font/lexend_bold"
+                android:text="@string/irrigation"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/size_18sp" />
+
+            <TextView
+                android:id="@+id/tvProtectInfo_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvProtect"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:fontFamily="@font/average_sans"
+                android:textColor="@color/fontColor"
+                android:textSize="@dimen/size_16sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</layout>

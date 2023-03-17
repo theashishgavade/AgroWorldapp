@@ -1,10 +1,10 @@
 package com.project.agroworld.networkManager;
 
 import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.articles.model.TechniquesResponse;
 import com.project.agroworld.weather.model.weather_data.WeatherResponse;
 import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
@@ -30,17 +30,18 @@ public interface APIService {
             @Query("lon") Double lon,
             @Query("appid") String apiKey);
 
-    @GET("4hm2n4jziczjy")
-    Call<List<TechniquesResponse>> getTechniquesList();
+    @GET("n79017ltxsonb")
+    Call<List<DiseasesResponse>> getDiseasesList();
 
     @GET("r4wu8rpk45yu6")
     Call<List<FruitsResponse>> getFruitsFromDB();
 
     @GET("93yx6646p49z4")
     Call<List<FlowersResponse>> getFlowersList();
-
-    @GET("uh8m39eqk27y8")
+//https://sheetdb.io/api/v1/krs0kbpmodi8d
+    @GET("krs0kbpmodi8d")
     Call<List<CropsResponse>> getListOfCrops();
+
     @GET("xhuy8scok80dz")
     Call<List<HowToExpandResponse>> getListOfHowToExpandData();
 
