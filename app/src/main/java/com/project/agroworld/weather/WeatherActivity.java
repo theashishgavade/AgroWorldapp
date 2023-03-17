@@ -188,7 +188,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     }
 
     @Override
-    public void onForecastWeatherCardClick(ListItem listItem, int position) {
-        Constants.showToast(WeatherActivity.this, "Status - " + listItem.getWeather().get(position).getDescription());
+    public void onForecastWeatherCardClick(String description) {
+        Constants.showToast(WeatherActivity.this, description);
     }
 }

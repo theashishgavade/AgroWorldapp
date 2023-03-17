@@ -24,7 +24,7 @@ public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindForecastData(ListItem item, WeatherForecastListener listener) {
-        String iconUrl = "http://openweathermap.org/img/wn/" + item.getWeather().get(0).getIcon() + "@4x.png";
+        String iconUrl = "http://openweathermap.org/img/wn/" + item.getWeather().get(0).getIcon() + "@2x.png";
         String mainTemp = String.format("%.0f", (item.getMain().getTemp() + 0.01) - 273.15);
         String [] dates = item.getDtTxt().split(" ");
         binding.tvForecastDate.setText(dates[0] + "\n" + dates[1]);
@@ -35,7 +35,7 @@ public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
         binding.crdForecast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onForecastWeatherCardClick(item, getAbsoluteAdapterPosition());
+                listener.onForecastWeatherCardClick(item.getWeather().get(0).getDescription());
             }
         });
 
