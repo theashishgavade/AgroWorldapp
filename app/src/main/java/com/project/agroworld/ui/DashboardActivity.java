@@ -1,11 +1,9 @@
 package com.project.agroworld.ui;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -15,22 +13,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.project.agroworld.R;
-import com.project.agroworld.adapter.FragmentAdapter;
 import com.project.agroworld.fragments.EducationFragment;
 import com.project.agroworld.fragments.HomeFragment;
 import com.project.agroworld.fragments.NewsFragment;
 import com.project.agroworld.fragments.ProfileFragment;
 import com.project.agroworld.fragments.ShoppingFragment;
 import com.project.agroworld.fragments.TransportFragment;
+import com.project.agroworld.ui.adapter.FragmentAdapter;
+import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
 
 import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity {
+    long back_pressed;
 
     ViewPager viewPager;
     TabLayout tabLayout;
     ArrayList<Fragment> fragments;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,12 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (back_pressed + 1000 > System.currentTimeMillis()) {
+            finishAffinity();
+            super.onBackPressed();
+        } else {
+            Constants.showToast(this, "Press once again to exit!");
+        }
+        back_pressed = System.currentTimeMillis();
     }
 }

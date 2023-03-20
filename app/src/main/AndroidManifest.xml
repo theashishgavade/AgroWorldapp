@@ -27,45 +27,45 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".articles.DiseasesDetailsActivity"
+            android:name=".articles.activity.DiseasesDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".payment.PaymentHistoryActivity"
+            android:name=".payment.activities.PaymentHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".payment.PaymentDetailsActivity"
+            android:name=".payment.activities.PaymentDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".taskmanager.AddTaskActivity"
+            android:name=".taskmanager.activity.AddTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.HowToExpandActivity"
+            android:name=".articles.activity.HowToExpandActivity"
             android:exported="false" />
         <activity
             android:name=".manufacture.ManufactureDataActivity"
             android:exported="false" />
         <activity
-            android:name=".transport.TransportDataActivity"
+            android:name=".transport.activity.TransportDataActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.ArticleDetailsActivity"
+            android:name=".articles.activity.ArticleDetailsActivity"
             android:exported="false"
             android:launchMode="singleTask" />
         <activity
-            android:name=".weather.WeatherForecastActivity"
+            android:name=".weather.activity.WeatherForecastActivity"
             android:exported="false" />
         <activity android:name=".shopping.activity.AddToCartActivity" />
         <activity
-            android:name=".articles.DiseasesActivity"
+            android:name=".articles.activity.DiseasesActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.FlowersActivity"
+            android:name=".articles.activity.FlowersActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.FruitsActivity"
+            android:name=".articles.activity.FruitsActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.CropsActivity"
+            android:name=".articles.activity.CropsActivity"
             android:exported="false" />
         <activity
             android:name=".shopping.activity.ProductDetailActivity"
@@ -82,7 +82,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".transport.TransportActivity"
+            android:name=".transport.activity.TransportActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -96,7 +96,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".weather.WeatherActivity"
+            android:name=".weather.activity.WeatherActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -138,7 +138,7 @@
         </activity>
 
         <receiver
-            android:name=".taskmanager.SnoozeReceiver"
+            android:name=".taskmanager.receiver.SnoozeReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -146,7 +146,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".taskmanager.EventReceiver"
+            android:name=".taskmanager.receiver.EventReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>

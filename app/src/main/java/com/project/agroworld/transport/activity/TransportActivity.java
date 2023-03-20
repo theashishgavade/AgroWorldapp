@@ -1,4 +1,4 @@
-package com.project.agroworld.transport;
+package com.project.agroworld.transport.activity;
 
 import android.content.Intent;
 import android.net.Uri;

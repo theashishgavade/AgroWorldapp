@@ -8,7 +8,7 @@
         android:background="@drawable/spiske"
         android:orientation="vertical"
         android:padding="@dimen/dp_20"
-        tools:context=".weather.WeatherActivity">
+        tools:context=".weather.activity.WeatherActivity">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

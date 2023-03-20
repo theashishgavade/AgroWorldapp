@@ -15,8 +15,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.project.agroworld.R;
-import com.project.agroworld.taskmanager.AddTaskActivity;
-import com.project.agroworld.taskmanager.SnoozeReceiver;
+import com.project.agroworld.taskmanager.activity.AddTaskActivity;
+import com.project.agroworld.taskmanager.receiver.SnoozeReceiver;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "AgroWorld";
@@ -62,7 +62,7 @@ public class NotificationHelper extends ContextWrapper {
                 .setContentTitle(title)
                 .setContentText(desc)
                 .setSubText(date + ", " + time)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.app_icon4)
                 .setColor(ContextCompat.getColor(context, R.color.colorPrimaryDark))
                 .setStyle(new NotificationCompat.InboxStyle()
                         .addLine(desc)

@@ -1,4 +1,4 @@
-package com.project.agroworld.taskmanager;
+package com.project.agroworld.taskmanager.activity;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -17,6 +17,10 @@ import androidx.lifecycle.ViewModelProviders;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddTaskBinding;
 import com.project.agroworld.db.FarmerModel;
+import com.project.agroworld.taskmanager.model.DateModel;
+import com.project.agroworld.taskmanager.receiver.EventReceiver;
+import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
+import com.project.agroworld.taskmanager.model.TimeModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.Calendar;
@@ -34,21 +38,13 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
         viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
-        binding.ivSelectTime.setOnClickListener(v -> {
-           showTimerPickerDialog();
-        });
+        binding.ivSelectTime.setOnClickListener(v -> showTimerPickerDialog());
 
-        binding.ivSelectDate.setOnClickListener(v -> {
-          showDatePickerDialog();
-        });
+        binding.ivSelectDate.setOnClickListener(v -> showDatePickerDialog());
 
-        binding.tvDate.setOnClickListener(v -> {
-            showDatePickerDialog();
-        });
+        binding.tvDate.setOnClickListener(v -> showDatePickerDialog());
 
-        binding.tvTime.setOnClickListener(v -> {
-            showTimerPickerDialog();
-        });
+        binding.tvTime.setOnClickListener(v -> showTimerPickerDialog());
 
         binding.ivPriority.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(this, binding.ivPriority);

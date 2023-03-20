@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
-import com.project.agroworld.payment.PaymentHistoryActivity;
+import com.project.agroworld.payment.activities.PaymentHistoryActivity;
 import com.project.agroworld.shopping.activity.AddToCartActivity;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.shopping.adapter.ProductAdapter;

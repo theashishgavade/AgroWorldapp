@@ -1,4 +1,4 @@
-package com.project.agroworld.taskmanager;
+package com.project.agroworld.taskmanager.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.project.agroworld.taskmanager.MusicControl;
 import com.project.agroworld.utils.NotificationHelper;
 
 public class EventReceiver extends BroadcastReceiver {

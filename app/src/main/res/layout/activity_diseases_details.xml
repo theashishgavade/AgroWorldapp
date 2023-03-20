@@ -9,7 +9,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".articles.DiseasesDetailsActivity">
+            tools:context=".articles.activity.DiseasesDetailsActivity">
 
             <ImageView
                 android:id="@+id/ivItemPicture"

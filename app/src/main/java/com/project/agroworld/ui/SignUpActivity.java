@@ -1,14 +1,17 @@
 package com.project.agroworld.ui;
 
+import static com.project.agroworld.utils.Constants.contactValidation;
 import static com.project.agroworld.utils.Constants.showToast;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -29,6 +32,9 @@ import com.project.agroworld.databinding.ActivitySignUpBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 99;
@@ -46,6 +52,8 @@ public class SignUpActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         loginWithGoogle();
 
         binding.btnSignup.setOnClickListener(v -> {
@@ -56,13 +64,25 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (!Constants.isValidEmail(email)) {
                 isEmailValid = false;
-                binding.etEmailSignUp.setError("This field is required");
+                binding.etEmailSignUp.setError("Email not valid");
+                return;
             }
-            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
-                createUserWithEmailAndPassword(email, passwd);
-            } else {
-                showToast(this, getString(R.string.all_field_required));
+            if (!contactValidation(number)) {
+                binding.etNumberUp.setError("should be 10 digits");
+                return;
             }
+
+            if (!isPasswordValid(passwd)) {
+                binding.etPasswdUp.setError("should be greater than six char include symbols");
+                return;
+            }
+
+            createUserWithEmailAndPassword(email, passwd);
+
+//            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
+//            } else {
+//                showToast(this, getString(R.string.all_field_required));
+//            }
         });
 
         binding.ivFbSignup.setOnClickListener(v -> {
@@ -159,4 +179,21 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isPasswordValid(String passwd) {
+        Pattern pattern;
+        Matcher matcher;
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(passwd);
+
+        return matcher.matches();
+    }
 }

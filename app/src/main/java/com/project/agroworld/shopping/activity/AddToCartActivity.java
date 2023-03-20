@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddToCartBinding;
-import com.project.agroworld.payment.PaymentDetailsActivity;
+import com.project.agroworld.payment.activities.PaymentDetailsActivity;
 import com.project.agroworld.shopping.adapter.ProductCartAdapter;
 import com.project.agroworld.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.shopping.model.ProductModel;
@@ -71,14 +71,11 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         actionBar.hide();
         setRecyclerView();
         getProductListFromFirebase();
-        binding.tvAddAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ((ContextCompat.checkSelfPermission(AddToCartActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-                    askPermission();
-                } else {
-                    getLastLocation();
-                }
+        binding.tvAddAddress.setOnClickListener(v -> {
+            if ((ContextCompat.checkSelfPermission(AddToCartActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+                askPermission();
+            } else {
+                getLastLocation();
             }
         });
 
@@ -170,8 +167,6 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {
-
                     }
                 }
             });

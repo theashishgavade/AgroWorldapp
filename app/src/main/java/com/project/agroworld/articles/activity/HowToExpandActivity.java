@@ -1,4 +1,4 @@
-package com.project.agroworld.articles;
+package com.project.agroworld.articles.activity;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;

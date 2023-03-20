@@ -1,4 +1,4 @@
-package com.project.agroworld.articles;
+package com.project.agroworld.articles.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

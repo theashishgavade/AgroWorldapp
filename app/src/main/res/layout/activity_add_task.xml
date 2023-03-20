@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E5FAF4"
-        tools:context=".taskmanager.AddTaskActivity">
+        tools:context=".taskmanager.activity.AddTaskActivity">
 
         <RelativeLayout
             android:id="@+id/layoutInput"

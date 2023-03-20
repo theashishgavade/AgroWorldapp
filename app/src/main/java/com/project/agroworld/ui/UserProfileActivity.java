@@ -1,24 +1,20 @@
 package com.project.agroworld.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureBinding;
 import com.project.agroworld.manufacture.ManufactureActivity;
-import com.project.agroworld.transport.TransportActivity;
+import com.project.agroworld.transport.activity.TransportActivity;
 import com.project.agroworld.utils.Constants;
 
 import java.util.Objects;

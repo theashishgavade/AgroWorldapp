@@ -8,15 +8,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
-import com.project.agroworld.articles.ArticleDetailsActivity;
+import com.project.agroworld.articles.activity.ArticleDetailsActivity;
 import com.project.agroworld.articles.adapter.CropsAdapter;
 import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.adapter.FruitsAdapter;

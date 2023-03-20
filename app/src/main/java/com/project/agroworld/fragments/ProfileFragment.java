@@ -3,7 +3,6 @@ package com.project.agroworld.fragments;
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -21,20 +20,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.db.PreferenceHelper;
-import com.project.agroworld.taskmanager.AddTaskActivity;
-import com.project.agroworld.taskmanager.EventReceiver;
-import com.project.agroworld.taskmanager.FarmerViewModel;
+import com.project.agroworld.taskmanager.activity.AddTaskActivity;
+import com.project.agroworld.taskmanager.receiver.EventReceiver;
+import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
 import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
 import com.project.agroworld.taskmanager.listener.OnItemClickListener;
-import com.project.agroworld.ui.LoginActivity;
 import com.project.agroworld.utils.Constants;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.project.agroworld.taskmanager;
+package com.project.agroworld.taskmanager.model;
 
 import java.io.Serializable;
 

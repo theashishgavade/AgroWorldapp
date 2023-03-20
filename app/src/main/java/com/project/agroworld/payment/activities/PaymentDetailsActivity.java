@@ -1,4 +1,4 @@
-package com.project.agroworld.payment;
+package com.project.agroworld.payment.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
