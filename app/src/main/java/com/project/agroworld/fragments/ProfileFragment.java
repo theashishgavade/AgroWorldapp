@@ -97,16 +97,18 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                 // Toast message on menu item clicked
                 switch (menuItem.getItemId()) {
                     case R.id.mnAboutUs:
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.ABOUT_US_PAGE));
-                        startActivity(intent);
+                        openUri(Constants.ABOUT_US_PAGE);
                         return true;
                     case R.id.mnContactUs:
                         Intent intent1 = new Intent(Intent.ACTION_DIAL);
-                        intent1.setData(Uri.parse("tel:" + "+918591347448"));
+                        intent1.setData(Uri.parse("tel:" + "+918087477015"));
                         startActivity(intent1);
                         return true;
+                    case R.id.mnPrivacyPolicy:
+                        openUri(Constants.PRIVACY_POLICY);
+                        return true;
                     case R.id.mnAppVersion:
-                        Constants.showToast(getContext(), BuildConfig.VERSION_NAME + "-" + BuildConfig.VERSION_CODE);
+                        Constants.showToast(getContext(), "App Version " + BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
                         return true;
                 }
                 return true;
@@ -124,6 +126,11 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
             Constants.logoutAlertMessage(getActivity(), auth);
 
         });
+    }
+
+    private void openUri(String uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        startActivity(intent);
     }
 
     private void updateTaskUI(List<FarmerModel> farmerModels) {

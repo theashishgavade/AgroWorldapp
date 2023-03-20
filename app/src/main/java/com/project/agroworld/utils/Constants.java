@@ -36,7 +36,8 @@ public class Constants {
     public static final String RAZORPAY_KEY_ID = "rzp_test_jx2bOJysbxVioo";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
-    public static final String ABOUT_US_PAGE = "https://github.com/bhaveshppatil/AgroWorld#readme";
+    public static final String ABOUT_US_PAGE = "https://bhaveshppatil.notion.site/Agro-World-753fa8281ccc4b68a5508f0179f05295";
+    public static final String PRIVACY_POLICY = "https://www.freeprivacypolicy.com/live/7de1b1a3-b257-4e98-b2ab-ed989935719b";
     public static final String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
 
