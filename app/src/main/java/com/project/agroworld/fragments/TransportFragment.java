@@ -71,32 +71,26 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
             popupMenu.setOnMenuItemClickListener(menuItem -> {
                 switch (menuItem.getItemId()) {
                     case R.id.mnLowToHigh:
-                        Comparator<VehicleModel> lowComparator = new Comparator<VehicleModel>() {
-                            @Override
-                            public int compare(VehicleModel item1, VehicleModel item2) {
-                                if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
-                                    return -1;
-                                } else if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
+                        Comparator<VehicleModel> lowComparator = (item1, item2) -> {
+                            if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
+                                return -1;
+                            } else if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
+                                return 1;
+                            } else {
+                                return 0;
                             }
                         };
                         Collections.sort(vehicleItemList, lowComparator);
                         vehicleAdapter.notifyDataSetChanged();
                         return true;
                     case R.id.mnHighToLow:
-                        Comparator<VehicleModel> highComparator = new Comparator<VehicleModel>() {
-                            @Override
-                            public int compare(VehicleModel item1, VehicleModel item2) {
-                                if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
-                                    return -1;
-                                } else if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
+                        Comparator<VehicleModel> highComparator = (item1, item2) -> {
+                            if (Double.parseDouble(item1.getRates()) > Double.parseDouble(item2.getRates())) {
+                                return -1;
+                            } else if (Double.parseDouble(item1.getRates()) < Double.parseDouble(item2.getRates())) {
+                                return 1;
+                            } else {
+                                return 0;
                             }
                         };
                         Collections.sort(vehicleItemList, highComparator);

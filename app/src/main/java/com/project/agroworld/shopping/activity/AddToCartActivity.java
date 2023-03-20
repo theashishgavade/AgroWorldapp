@@ -199,8 +199,8 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         databaseReference.child(productModel.getTitle()).removeValue().addOnSuccessListener(unused -> {
             totalItemAmount -= productModel.getPrice();
             productAdapter.notifyDataSetChanged();
-            Constants.showToast(AddToCartActivity.this, "Item removed successfully price " + productModel.getPrice());
-        }).addOnFailureListener(e -> Constants.showToast(AddToCartActivity.this, "Failed to  removed item"));
+            Constants.showToast(AddToCartActivity.this, getString(R.string.item_removed_from_cart) + productModel.getPrice());
+        }).addOnFailureListener(e -> Constants.showToast(AddToCartActivity.this, getString(R.string.failed_to_remove_cart_item)));
     }
 
     @Override

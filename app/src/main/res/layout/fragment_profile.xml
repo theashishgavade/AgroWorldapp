@@ -54,8 +54,18 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:padding="@dimen/dp_8"
-                    android:layout_toStartOf="@id/ivMenuOption"
+                    android:layout_toStartOf="@id/ivLanguage"
                     android:src="@drawable/baseline_logout_24" />
+
+                <ImageView
+                    android:id="@+id/ivLanguage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_toStartOf="@id/ivMenuOption"
+                    android:src="@drawable/baseline_language_24" />
 
                 <ImageView
                     android:id="@+id/ivMenuOption"

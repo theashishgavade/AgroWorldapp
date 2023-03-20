@@ -19,7 +19,6 @@ public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     PreferenceHelper preferenceHelper;
-
     @Override
     protected void onStart() {
         super.onStart();

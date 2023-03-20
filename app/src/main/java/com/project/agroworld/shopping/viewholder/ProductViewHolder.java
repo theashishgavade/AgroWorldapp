@@ -25,7 +25,6 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         initViews(itemView);
     }
-
     private void initViews(View itemView) {
         tvProductName = itemView.findViewById(R.id.tvProductName);
         tvProductPrice = itemView.findViewById(R.id.tvProductPrice);
@@ -34,19 +33,13 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
         btnBuyNow = itemView.findViewById(R.id.btnViewMore);
 
     }
-
     public void setData(ProductModel productModel, OnProductListener clickListener) {
 
         tvProductName.setText(productModel.getTitle());
         tvProductPrice.setText("₹" + productModel.getPrice());
 
         Glide.with(ivProductImage).load(productModel.getImageUrl()).into(ivProductImage);
-        crdProductView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.onProductClick(productModel);
-            }
-        });
+        crdProductView.setOnClickListener(v -> clickListener.onProductClick(productModel));
 
     }
 }

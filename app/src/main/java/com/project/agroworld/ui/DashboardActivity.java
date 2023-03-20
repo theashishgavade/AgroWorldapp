@@ -41,7 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         Permissions.isGpsEnable(this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Agro World");
+        actionBar.setTitle(getString(R.string.app_name));
 
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);

@@ -21,7 +21,6 @@ import java.util.Objects;
 
 public class DialogUtils {
 
-
     public static void showAlertDialog(Context context, String message) {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

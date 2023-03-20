@@ -143,7 +143,7 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
 
     private void onVehicleCardSwiped(int position) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(TransportDataActivity.this);
-        alertDialog.setTitle("Are you sure,you want to remove vehicle??");
+        alertDialog.setTitle(getString(R.string.remove_vehicle_message));
         alertDialog.setMessage(getString(R.string.vehicle_remove_message));
         alertDialog.setIcon(R.drawable.app_icon4);
 
@@ -157,7 +157,7 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
                     binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
                     binding.recyclerViewVehicle.setVisibility(View.GONE);
                 }
-            }).addOnFailureListener(e -> Constants.showToast(TransportDataActivity.this, "Failed to  removed Vehicle"));
+            }).addOnFailureListener(e -> Constants.showToast(TransportDataActivity.this, getString(R.string.failed_to_remove_vehicle)));
         });
 
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

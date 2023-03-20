@@ -83,7 +83,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 farmerModel.setTime(time);
                 viewModel.insert(farmerModel);
                 setTaskRemainder(task, desc);
-                Constants.showToast(AddTaskActivity.this, "Routine added successfully");
+                Constants.showToast(AddTaskActivity.this, getString(R.string.routine_added));
                 finish();
             }
         });

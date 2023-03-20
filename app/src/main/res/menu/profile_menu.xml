@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mnSetting"
+        android:title="Setting" />
+
+    <item
+        android:id="@+id/mnAboutUs"
+        android:title="About Us" />
+
+    <item
+        android:id="@+id/mnContactUs"
+        android:title="Contact Us" />
+
+    <item
+        android:id="@+id/mnAppVersion"
+        android:title="App Version" />
+
+</menu>

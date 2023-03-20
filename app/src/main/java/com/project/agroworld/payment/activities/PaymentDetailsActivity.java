@@ -158,6 +158,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     private void uploadTransactionDetailToFirebase(PaymentData paymentData) {
         PaymentModel paymentModel;
         if (paymentData.getPaymentId() != null) {
+            binding.tvPaymentStatus.setText(getString(R.string.payment_success));
             for (int product = 0; product < productCartList.size(); product++) {
                 paymentModel = new PaymentModel(
                         productCartList.get(product).getTitle(),
@@ -168,6 +169,9 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
                 );
                 viewModel.uploadTransaction(paymentModel, Constants.plainStringEmail(user.getEmail()));
             }
+        }else {
+            binding.tvPaymentStatus.setText(getString(R.string.payment_failed));
+
         }
     }
 
@@ -200,7 +204,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
     public void onBackPressed() {
         countBackPressed++;
         if (countBackPressed == 1) {
-            Constants.showToast(this, "Please press again to exit.");
+            Constants.showToast(this, getString(R.string.exit_message));
         } else {
             finish();
             countBackPressed = 0;

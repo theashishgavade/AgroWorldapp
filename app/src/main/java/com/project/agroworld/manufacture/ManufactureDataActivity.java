@@ -157,12 +157,9 @@ public class ManufactureDataActivity extends AppCompatActivity implements OnProd
 
     private void removeProductFromCartIfAdded(int position) {
         databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
-        databaseReference.child(productModelArrayList.get(position).getTitle()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("removeCartItemTransport", "onSuccess");
-                databaseReference = null;
-            }
+        databaseReference.child(productModelArrayList.get(position).getTitle()).removeValue().addOnSuccessListener(unused -> {
+            Log.d("removeCartItemTransport", "onSuccess");
+            databaseReference = null;
         }).addOnFailureListener(command -> {
             Log.d("removeCartItemTransport", command.getLocalizedMessage());
             databaseReference = null;

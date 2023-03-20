@@ -46,7 +46,7 @@ public class TransportActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Transport Panel");
         actionBar.setDisplayHomeAsUpEnabled(true);
-        progressBar = new CustomMultiColorProgressBar(this, "Please wait\nWe're running your request...");
+        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
@@ -103,12 +103,12 @@ public class TransportActivity extends AppCompatActivity {
             binding.etVehicleRate.setText(null);
             binding.etVehicleContact.setText(null);
             progressBar.hideProgressBar();
-            Constants.showToast(TransportActivity.this, "Vehicle updated successfully");
+            Constants.showToast(TransportActivity.this, getString(R.string.vehicle_updated));
             startActivity(new Intent(TransportActivity.this, TransportDataActivity.class));
 
         }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();
-            Constants.showToast(TransportActivity.this, "Failed to update vehicle details");
+            Constants.showToast(TransportActivity.this, getString(R.string.failed_to_update_vehicle));
         });
     }
 

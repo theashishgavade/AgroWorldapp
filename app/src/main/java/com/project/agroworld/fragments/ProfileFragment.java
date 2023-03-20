@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,15 +23,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.agroworld.BuildConfig;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.taskmanager.activity.AddTaskActivity;
-import com.project.agroworld.taskmanager.receiver.EventReceiver;
-import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
 import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
 import com.project.agroworld.taskmanager.listener.OnItemClickListener;
+import com.project.agroworld.taskmanager.receiver.EventReceiver;
+import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.List;
@@ -38,13 +40,12 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment implements OnItemClickListener {
     private final static int REQUEST_CODE = 6124;
-    private FragmentProfileBinding dataBinding;
     PreferenceHelper preferenceHelper;
-
     FarmerViewModel viewModel;
     FarmerAdapter farmerAdapter;
     FirebaseAuth auth;
     FirebaseUser user;
+    private FragmentProfileBinding dataBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         setUpRecyclerView();
         viewModel.getRoutineList().observe(getViewLifecycleOwner(), farmerModels -> updateTaskUI(farmerModels));
 
-        dataBinding.ivMenuOption.setOnClickListener(v -> {
+        dataBinding.ivLanguage.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivMenuOption);
             popupMenu.getMenuInflater().inflate(R.menu.home_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
@@ -89,13 +90,38 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
             popupMenu.show();
         });
 
+        dataBinding.ivMenuOption.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), dataBinding.ivMenuOption);
+            popupMenu.getMenuInflater().inflate(R.menu.profile_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                // Toast message on menu item clicked
+                switch (menuItem.getItemId()) {
+                    case R.id.mnAboutUs:
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Constants.ABOUT_US_PAGE));
+                        startActivity(intent);
+                        return true;
+                    case R.id.mnContactUs:
+                        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+                        intent1.setData(Uri.parse("tel:" + "+918591347448"));
+                        startActivity(intent1);
+                        return true;
+                    case R.id.mnAppVersion:
+                        Constants.showToast(getContext(), BuildConfig.VERSION_NAME + "-" + BuildConfig.VERSION_CODE);
+                        return true;
+                }
+                return true;
+            });
+            // Showing the popup menu
+            popupMenu.show();
+        });
+
         dataBinding.addAlarmFab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         });
 
         dataBinding.ivLogout.setOnClickListener(v -> {
-        Constants.logoutAlertMessage(getActivity(), auth);
+            Constants.logoutAlertMessage(getActivity(), auth);
 
         });
     }
@@ -136,14 +162,14 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     public void markTaskCompleted(FarmerModel model) {
         deactivateAlarm(model.getId());
         viewModel.delete(model);
-        Constants.showToast(requireContext(), "Task Completed");
+        Constants.showToast(requireContext(), getString(R.string.task_completed));
     }
 
     @Override
     public void onDeleteClick(FarmerModel model) {
         deactivateAlarm(model.getId());
         viewModel.delete(model);
-        Constants.showToast(requireContext(), "Task deleted successfully");
+        Constants.showToast(requireContext(), getString(R.string.task_deleted));
     }
 
     public void deactivateAlarm(int id) {

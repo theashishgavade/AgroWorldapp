@@ -28,11 +28,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private DatabaseReference database;
     private ProductModel productModel;
     private int doubleButtonTap = 0;
-
     FirebaseAuth auth;
     FirebaseUser user;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,32 +49,21 @@ public class ProductDetailActivity extends AppCompatActivity {
         binding.tvSeedTitleDetail.setText(productModel.getTitle());
         binding.tvPrice.setText("₹ " + productModel.getPrice());
         binding.tvProductDescription.setText(productModel.getDescription().replaceAll("~", "\n\n"));
-        binding.btnBuyNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (binding.btnBuyNow.getText().toString().contains(getString(R.string.add_to_cart))) {
-                    addItemToCart(productModel);
-                } else {
-                    startActivityForResult(new Intent(ProductDetailActivity.this, AddToCartActivity.class), 120);
-                }
+        binding.btnBuyNow.setOnClickListener(v -> {
+            if (binding.btnBuyNow.getText().toString().contains(getString(R.string.add_to_cart))) {
+                addItemToCart(productModel);
+            } else {
+                startActivityForResult(new Intent(ProductDetailActivity.this, AddToCartActivity.class), 120);
             }
         });
     }
 
     private void addItemToCart(ProductModel productModel) {
         database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
-        database.child(productModel.getTitle()).setValue(productModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Constants.showToast(ProductDetailActivity.this, "Item added to cart");
-                binding.btnBuyNow.setText(getString(R.string.go_to_cart));
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Constants.showToast(ProductDetailActivity.this, "Failed to add item");
-            }
-        });
+        database.child(productModel.getTitle()).setValue(productModel).addOnSuccessListener(unused -> {
+            Constants.showToast(ProductDetailActivity.this, "Item added to cart");
+            binding.btnBuyNow.setText(getString(R.string.go_to_cart));
+        }).addOnFailureListener(e -> Constants.showToast(ProductDetailActivity.this, "Failed to add item"));
     }
 
     @Override

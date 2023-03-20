@@ -86,32 +86,26 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                 // Toast message on menu item clicked
                 switch (menuItem.getItemId()) {
                     case R.id.menuLowToHigh:
-                        Comparator<ProductModel> lowComparator = new Comparator<ProductModel>() {
-                            @Override
-                            public int compare(ProductModel item1, ProductModel item2) {
-                                if (item1.getPrice() < item2.getPrice()) {
-                                    return -1;
-                                } else if (item1.getPrice() > item2.getPrice()) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
+                        Comparator<ProductModel> lowComparator = (item1, item2) -> {
+                            if (item1.getPrice() < item2.getPrice()) {
+                                return -1;
+                            } else if (item1.getPrice() > item2.getPrice()) {
+                                return 1;
+                            } else {
+                                return 0;
                             }
                         };
                         Collections.sort(productModelArrayList, lowComparator);
                         productAdapter.notifyDataSetChanged();
                         return true;
                     case R.id.menuHighToLow:
-                        Comparator<ProductModel> highComparator = new Comparator<ProductModel>() {
-                            @Override
-                            public int compare(ProductModel item1, ProductModel item2) {
-                                if (item1.getPrice() > item2.getPrice()) {
-                                    return -1;
-                                } else if (item1.getPrice() < item2.getPrice()) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
+                        Comparator<ProductModel> highComparator = (item1, item2) -> {
+                            if (item1.getPrice() > item2.getPrice()) {
+                                return -1;
+                            } else if (item1.getPrice() < item2.getPrice()) {
+                                return 1;
+                            } else {
+                                return 0;
                             }
                         };
                         Collections.sort(productModelArrayList, highComparator);

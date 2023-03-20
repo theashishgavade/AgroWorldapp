@@ -8,8 +8,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.widget.TextView;
 
 import com.project.agroworld.R;
-
-
 public class CustomMultiColorProgressBar extends Dialog {
     CircleProgressBar circle_multicolor_progressbar;
     public static CustomMultiColorProgressBar progressBarObj;

@@ -21,39 +21,28 @@ public class CartViewHolder extends RecyclerView.ViewHolder{
 
     public void bindItemData(ProductModel productModel, ItemCartActionListener listener){
 
-        binding.ivIncreaseCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemCount == 20){
-                    Constants.showToast(v.getContext(), "Can't order more than 20 items at a time");
-                }else{
-                    itemCount++;
-                    binding.tvItemCount.setText(String.valueOf(itemCount));
-                    listener.onIncreaseItemClick(productModel, itemCount);
-                }
+        binding.ivIncreaseCount.setOnClickListener(v -> {
+            if (itemCount == 20){
+                Constants.showToast(v.getContext(), "Can't order more than 20 items at a time");
+            }else{
+                itemCount++;
+                binding.tvItemCount.setText(String.valueOf(itemCount));
+                listener.onIncreaseItemClick(productModel, itemCount);
+            }
 
+        });
+
+        binding.ivDecreaseCount.setOnClickListener(v -> {
+            if (itemCount == 1){
+                Constants.showToast(v.getContext(), "Default value");
+            }else  {
+                itemCount--;
+                binding.tvItemCount.setText(String.valueOf(itemCount));
+                listener.onDecreaseItemClick(productModel, itemCount);
             }
         });
 
-        binding.ivDecreaseCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemCount == 1){
-                    Constants.showToast(v.getContext(), "Default value");
-                }else  {
-                    itemCount--;
-                    binding.tvItemCount.setText(String.valueOf(itemCount));
-                    listener.onDecreaseItemClick(productModel, itemCount);
-                }
-            }
-        });
-
-        binding.ivRemoveItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onRemovedItemClick(productModel, getAbsoluteAdapterPosition());
-            }
-        });
+        binding.ivRemoveItem.setOnClickListener(v -> listener.onRemovedItemClick(productModel, getAbsoluteAdapterPosition()));
 
         binding.tvProductPrice.setText("₹" + productModel.getPrice());
         binding.tvProductName.setText(productModel.getTitle());

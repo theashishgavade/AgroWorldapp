@@ -26,19 +26,18 @@ import com.project.agroworld.ui.UserProfileActivity;
 import java.util.Locale;
 
 public class Constants {
-
-    public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
-    public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
-    public static final String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static final int REQUEST_CODE = 99;
     public static final int GPS_REQUEST_CODE = 999;
     public static final int LOGOUT_REQUEST_CODE = 129;
     public static final int LANGUAGE_REQUEST_CODE = 129;
-
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
     public static final String RAZORPAY_KEY_ID = "rzp_test_jx2bOJysbxVioo";
+    public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
+    public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
+    public static final String ABOUT_US_PAGE = "https://github.com/bhaveshppatil/AgroWorld#readme";
+    public static final String NEWS_WEB_URL = "https://krishijagran.com/feeds/?utm_source=homepage&utm_medium=browse&utm_campaign=home_browse&utm_id=homepage_browse";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
 
 
@@ -48,12 +47,14 @@ public class Constants {
 
     public static void identifyUser(FirebaseUser user, Context context) {
         if (user != null) {
-            if (user.getEmail().contains("devdeveloper66@gmail.com") || user.getEmail().contains("theashishgavade@gmail.com")) {
+            if (user.getEmail().contains("devdeveloper66@gmail.com")
+                    || user.getEmail().contains("theashishgavade@gmail.com")) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
-            } else if (user.getEmail().equals("nap.napster08@gmail.com") || user.getEmail().equals("devenpadhye.dp@gmail.com")) {
+            } else if (user.getEmail().equals("nap.napster08@gmail.com")
+                    || user.getEmail().equals("devenpadhye.dp@gmail.com")) {
                 //transport user
                 Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
@@ -93,9 +94,9 @@ public class Constants {
 
     public static void logoutAlertMessage(Activity context, FirebaseAuth auth) {
         new AlertDialog.Builder(context)
-                .setTitle("Logout")
+                .setTitle(context.getString(R.string.logout))
                 .setIcon(R.drawable.app_icon4)
-                .setMessage("Are you sure you want to logout?")
+                .setMessage(context.getString(R.string.logout_alert_message))
                 .setCancelable(true)
                 .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
                     dialog.dismiss();

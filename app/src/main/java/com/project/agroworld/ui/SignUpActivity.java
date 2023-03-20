@@ -31,6 +31,7 @@ import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivitySignUpBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,38 +65,34 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (!Constants.isValidEmail(email)) {
                 isEmailValid = false;
-                binding.etEmailSignUp.setError("Email not valid");
+                binding.etEmailSignUp.setError(getString(R.string.email_valid));
                 return;
             }
             if (!contactValidation(number)) {
-                binding.etNumberUp.setError("should be 10 digits");
+                binding.etNumberUp.setError(getString(R.string.contact_valid));
                 return;
             }
 
             if (!isPasswordValid(passwd)) {
-                binding.etPasswdUp.setError("should be greater than six char include symbols");
+                binding.etPasswdUp.setError(getString(R.string.password_valid));
                 return;
             }
-
-            createUserWithEmailAndPassword(email, passwd);
-
-//            if (isEmailValid && passwd.length() >= 6 && number.length() == 10 && !name.isEmpty()) {
-//            } else {
-//                showToast(this, getString(R.string.all_field_required));
-//            }
+            if (Permissions.checkConnection(this)) {
+                createUserWithEmailAndPassword(email, passwd);
+            }
         });
 
         binding.ivFbSignup.setOnClickListener(v -> {
-            showToast(this, "Facebook login not available");
+            showToast(this, getString(R.string.facebook_login));
         });
         binding.ivGoogleSignup.setOnClickListener(v -> {
             signIn();
         });
         binding.ivGithubSignup.setOnClickListener(v -> {
-            showToast(this, "Github login not available");
+            showToast(this, getString(R.string.github_login));
         });
         binding.ivInstaSignup.setOnClickListener(v -> {
-            showToast(this, "Instagram login not available");
+            showToast(this, getString(R.string.instagram_login));
         });
     }
 
@@ -123,9 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void loginWithGoogle() {
         // Configure Google Sign In
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
-
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
@@ -144,7 +139,7 @@ public class SignUpActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                showToast(this, "Google sign in successful");
+                showToast(this, getString(R.string.google_signIn_success));
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
@@ -159,22 +154,19 @@ public class SignUpActivity extends AppCompatActivity {
     private void firebaseAuthWithGoogle(String idToken) {
         progressBar.showProgressBar();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    progressBar.hideProgressBar();
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "");
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    showToast(SignUpActivity.this, "signInWithCredential:success");
-                    Constants.identifyUser(user, SignUpActivity.this);
-                } else {
-                    progressBar.hideProgressBar();
-                    // If sign in fails, display a message to the user.
-                    Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
-                    Log.w(TAG, "signInWithCredential:failure", task.getException());
-                }
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                progressBar.hideProgressBar();
+                // Sign in success, update UI with the signed-in user's information
+                Log.d(TAG, "");
+                FirebaseUser user = mAuth.getCurrentUser();
+                showToast(SignUpActivity.this, getString(R.string.google_signIn_success));
+                Constants.identifyUser(user, SignUpActivity.this);
+            } else {
+                progressBar.hideProgressBar();
+                // If sign in fails, display a message to the user.
+                Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
+                Log.w(TAG, "signInWithCredential:failure", task.getException());
             }
         });
     }

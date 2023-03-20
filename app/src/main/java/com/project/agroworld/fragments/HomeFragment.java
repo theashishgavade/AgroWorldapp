@@ -129,17 +129,14 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void initViews(View view) {
-        binding.weatherCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (latitude != 0.0 && longitude != 0.0) {
-                    Intent intent = new Intent(getContext(), WeatherActivity.class);
-                    intent.putExtra("latitude", latitude);
-                    intent.putExtra("longitude", longitude);
-                    startActivity(intent);
-                } else {
-                    Constants.showToast(getContext(), getString(R.string.something_wrong_err));
-                }
+        binding.weatherCard.setOnClickListener(view1 -> {
+            if (latitude != 0.0 && longitude != 0.0) {
+                Intent intent = new Intent(getContext(), WeatherActivity.class);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
+                startActivity(intent);
+            } else {
+                Constants.showToast(getContext(), getString(R.string.something_wrong_err));
             }
         });
     }
