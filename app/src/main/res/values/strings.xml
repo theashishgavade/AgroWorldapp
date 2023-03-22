@@ -119,4 +119,19 @@
     <string name="facebook_login">Facebook login not available.</string>
     <string name="github_login">Github login not available.</string>
     <string name="instagram_login">Instagram login not available.</string>
+    <string name="required_location">Location is required</string>
+    <string name="launguage_updated">Language updated to english</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="app_version">App Version</string>
+    <string name="low_to_high">Low To High</string>
+    <string name="high_to_low">High To Low</string>
+    <string name="forecast">Forecast</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="medium">Medium</string>
+    <string name="cart_list">Cart List</string>
+    <string name="history">History</string>
+    <string name="show_list">Show list</string>
 </resources>

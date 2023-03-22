@@ -46,13 +46,13 @@ import java.util.Locale;
 
 public class AddToCartActivity extends AppCompatActivity implements ItemCartActionListener {
 
-    private ActivityAddToCartBinding binding;
+    private static final DecimalFormat df = new DecimalFormat("0.00");
     private final ArrayList<ProductModel> productCartList = new ArrayList<>();
+    ActionBar actionBar;
+    private ActivityAddToCartBinding binding;
     private DatabaseReference databaseReference;
     private ProductCartAdapter productAdapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private static final DecimalFormat df = new DecimalFormat("0.00");
-    ActionBar actionBar;
     private String addressLine;
     private double totalItemAmount = 0.0;
     private CustomMultiColorProgressBar progressBar;
@@ -66,6 +66,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         actionBar = getSupportActionBar();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
+        Log.d("customProgressCycle", "AddToCartActivity- onCreate");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         actionBar.hide();
@@ -82,16 +83,22 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         binding.btnProceedToPayment.setOnClickListener(v -> {
             String value = binding.tvTotalAmount.getText().toString();
             Log.d("valueInit", "size " + productCartList.size() + "value " + value.toString());
-            if (addressLine != null && !value.contains("₹0.0") && !productCartList.isEmpty()) {
-                Intent intent = new Intent(this, PaymentDetailsActivity.class);
-                intent.putExtra("productItemList", productCartList);
-                intent.putExtra("address", addressLine);
-                intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
-                startActivity(intent);
-                finish();
-            } else {
-                Constants.showToast(this, "Something is missing");
+
+            if (productCartList.isEmpty()) {
+                Constants.showToast(this, getString(R.string.no_cart_data_found));
+                return;
             }
+            if (addressLine == null) {
+                binding.tvAddAddress.setError(getString(R.string.required_location));
+                return;
+            }
+            Intent intent = new Intent(this, PaymentDetailsActivity.class);
+            intent.putExtra("productItemList", productCartList);
+            intent.putExtra("address", addressLine);
+            intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
+            startActivity(intent);
+            finish();
+
         });
     }
 

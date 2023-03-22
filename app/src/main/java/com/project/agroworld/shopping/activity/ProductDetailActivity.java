@@ -2,6 +2,7 @@ package com.project.agroworld.shopping.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        Log.d("customProgressCycle", "ProductDetailActivity- onCreate");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Intent intent = getIntent();

@@ -3,10 +3,10 @@
 
     <item
         android:id="@+id/mnLowToHigh"
-        android:title="Low To High" />
+        android:title="@string/low_to_high" />
 
     <item
         android:id="@+id/mnHighToLow"
-        android:title="High To Low" />
+        android:title="@string/high_to_low" />
 
 </menu>

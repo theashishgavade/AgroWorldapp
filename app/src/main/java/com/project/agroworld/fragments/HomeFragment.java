@@ -65,10 +65,10 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private FusedLocationProviderClient fusedLocationProviderClient;
     private FragmentHomeBinding binding;
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
-    private ProductAdapter productAdapter;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
     private AgroViewModel agroViewModel;
     private VehicleAdapter vehicleAdapter;
+    private ProductAdapter productAdapter;
     private String locality;
     double latitude, longitude;
 

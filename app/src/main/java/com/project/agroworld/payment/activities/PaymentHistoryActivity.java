@@ -1,6 +1,7 @@
 package com.project.agroworld.payment.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -40,6 +41,7 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Transaction History");
         actionBar.setDisplayHomeAsUpEnabled(true);
+        Log.d("customProgressCycle", "PaymentHistoryActivity- onCreate");
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
         auth = FirebaseAuth.getInstance();

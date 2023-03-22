@@ -21,17 +21,16 @@ import com.project.agroworld.fragments.ShoppingFragment;
 import com.project.agroworld.fragments.TransportFragment;
 import com.project.agroworld.ui.adapter.FragmentAdapter;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 
 import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity {
     long back_pressed;
-
     ViewPager viewPager;
     TabLayout tabLayout;
     ArrayList<Fragment> fragments;
-    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
         Permissions.checkConnection(this);
         Permissions.isGpsEnable(this);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle(getString(R.string.app_name));
+        actionBar.hide();
 
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);

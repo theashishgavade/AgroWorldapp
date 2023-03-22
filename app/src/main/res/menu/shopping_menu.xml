@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/menuCartActivity"
-        android:title="Cart List"/>
+        android:title="@string/cart_list"/>
     <item android:id="@+id/menuLowToHigh"
-        android:title="Low To High"/>
+        android:title="@string/low_to_high"/>
 
     <item android:id="@+id/menuHighToLow"
-        android:title="High To Low"/>
+        android:title="@string/high_to_low"/>
     <item android:id="@+id/menuHistoryActivity"
-        android:title="History"/>
+        android:title="@string/history"/>
 
 </menu>

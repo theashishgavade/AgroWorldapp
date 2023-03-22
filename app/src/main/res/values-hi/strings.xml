@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">एग्रो वर्ल्ड</string>
+    <string name="app_name">कृषि दुनिया</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="agrowoprld">एग्रो वर्ल्ड</string>
+    <string name="agrowoprld">कृषि दुनिया</string>
     <string name="quote1">"किसी भी किसान के लिए सर्वश्रेष्ठ मार्गदर्शक और सहायक। एक ही स्थान पर विभिन्न सुविधाएँ प्रदान करता है!"</string>
     <string name="register">पंजीकरण</string>
     <string name="new_user_register_now">नए उपयोगकर्ता? अभी पंजीकरण करें</string>
@@ -31,7 +31,7 @@
     <string name="login">लॉग इन करें</string>
     <string name="use_other_methods">अन्य तरीकों का प्रयोग करें</string>
     <string name="something_wrong_err">कुछ गलत हो गया</string>
-    <string name="loader_message">कृपया प्रतीक्षा करें..हम आपके अनुरोध चला रहे हैं</string>
+    <string name="loader_message">कृपया प्रतीक्षा करें…\nहम आपके अनुरोध पर कार्रवाई कर रहे हैं</string>
     <string name="crops_information">फसलों की जानकारी</string>
     <string name="irrigation">सिंचाई</string>
     <string name="land_preparation">भूमि की तैयारी</string>
@@ -119,4 +119,19 @@
     <string name="facebook_login">फेसबुक लॉगिन उपलब्ध नहीं है.</string>
     <string name="github_login">जीथब लॉगिन उपलब्ध नहीं है.</string>
     <string name="instagram_login">इंस्टाग्राम लॉगिन उपलब्ध नहीं है.</string>
+    <string name="required_location">स्थान आवश्यक है</string>
+    <string name="launguage_updated">भाषा को अद्यतन किया गया</string>
+    <string name="about_us">हमारे बारे में</string>
+    <string name="contact_us">संपर्क करें</string>
+    <string name="privacy_policy">निजता नीति</string>
+    <string name="app_version">ऐप संस्करण</string>
+    <string name="low_to_high">निम्न से उच्च</string>
+    <string name="high_to_low">उच्च से निम्न</string>
+    <string name="forecast">पूर्वानुमान</string>
+    <string name="high">उच्च</string>
+    <string name="low">कम</string>
+    <string name="medium">मध्यम</string>
+    <string name="cart_list">कार्ट सूची</string>
+    <string name="history">इतिहास</string>
+    <string name="show_list">सूची दिखाएं</string>
 </resources>

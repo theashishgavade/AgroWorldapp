@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/high"
-        android:title="High"/>
+        android:title="@string/high"/>
 
     <item android:id="@+id/low"
-        android:title="Low"/>
+        android:title="@string/low"/>
 
     <item android:id="@+id/medium"
-        android:title="Medium"/>
+        android:title="@string/medium"/>
 
 </menu>

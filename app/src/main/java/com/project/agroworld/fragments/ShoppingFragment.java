@@ -2,6 +2,7 @@ package com.project.agroworld.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.project.agroworld.shopping.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
@@ -51,8 +53,6 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init();
 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragments.ShoppingFragment">
+        tools:context=".payment.activities.PaymentHistoryActivity">
 
         <TextView
             android:id="@+id/tvNoDataFoundErr"
@@ -25,7 +25,6 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/crdHeader"
             android:layout_margin="10dp"
             android:visibility="gone" />
 
@@ -33,7 +32,6 @@
             android:id="@+id/shimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/crdHeader"
             android:layout_margin="@dimen/dp_10"
             android:orientation="vertical">
 

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menu_logout"
-        android:title="Logout"
+        android:title="@string/logout"
         app:showAsAction="collapseActionView" />
 
 </menu>
