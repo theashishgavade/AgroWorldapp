@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/spiske"
+        android:background="@drawable/sky2_bg"
         tools:context=".ui.UserProfileActivity">
 
         <TextView
@@ -76,6 +76,25 @@
             android:fontFamily="@font/poppins_medium"
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btnShowHistory"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/dp_70"
+            android:layout_marginEnd="@dimen/dp_70"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_above="@id/btnMfrProceed"
+            android:background="@drawable/button_bgd"
+            android:fontFamily="@font/fredoka_one"
+            android:text="Show Product"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/size_20sp" />
+
 
         <Button
             android:id="@+id/btnMfrProceed"

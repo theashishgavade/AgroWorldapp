@@ -16,9 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.project.agroworld.R;
+import com.project.agroworld.databinding.FragmentNewsBinding;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
@@ -26,27 +28,27 @@ import com.project.agroworld.utils.CustomMultiColorProgressBar;
 public class NewsFragment extends Fragment {
 
     PreferenceHelper preferenceHelper;
-    private CustomMultiColorProgressBar progressBar;
+    FragmentNewsBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progressBar = new CustomMultiColorProgressBar(getContext(), getString(R.string.loader_message));
         preferenceHelper = PreferenceHelper.getInstance(getContext());
-        progressBar.showProgressBar();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
+        return binding.getRoot();
 
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.newsProgressBar.setVisibility(View.VISIBLE);
         boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
         WebView webView = view.findViewById(R.id.newsWebView);
         webView.setWebViewClient(new AgroNews());
@@ -103,7 +105,7 @@ public class NewsFragment extends Fragment {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             if (view.getProgress() == 100){
-                progressBar.hideProgressBar();
+                binding.newsProgressBar.setVisibility(View.GONE);
             }
         }
     }
@@ -111,13 +113,12 @@ public class NewsFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        progressBar.hideProgressBar();
+        binding.newsProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        progressBar.hideProgressBar();
     }
 
 

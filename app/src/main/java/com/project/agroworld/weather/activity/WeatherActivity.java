@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityWeatherBinding;
-import com.project.agroworld.networkManager.APIService;
-import com.project.agroworld.networkManager.Network;
+import com.project.agroworld.network.APIService;
+import com.project.agroworld.network.Network;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
@@ -48,11 +48,14 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     private CustomMultiColorProgressBar progressBar;
     private final ArrayList<ListItem> forecastItemArrayList = new ArrayList<>();
     private WeatherForecastAdapter forecastAdapter;
+    APIService apiService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather);
+        apiService = Network.getInstance(BASE_URL_WEATHER);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.current_weather);
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -73,7 +76,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
 
     private void callApiService(Double lat, Double lon) {
         progressBar.showProgressBar();
-        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
         apiService.getWeatherData(lat, lon, Constants.API_KEY).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
@@ -97,7 +99,6 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     private void callForecastApiService(double lat, double lon) {
         binding.forecastProgressBar.setVisibility(View.VISIBLE);
         binding.tvForecastNoDataFound.setVisibility(View.GONE);
-        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
         apiService.getWeatherForecastData(lat, lon, API_KEY).enqueue(new Callback<WeatherDatesResponse>() {
             @Override
             public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {

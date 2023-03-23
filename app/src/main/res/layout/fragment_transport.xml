@@ -47,6 +47,15 @@
                     android:text="@string/transport"
                     android:textSize="@dimen/sp_25" />
 
+                <ImageView
+                    android:id="@+id/ivFilterLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp_8"
+                    android:layout_toStartOf="@id/ivFilterData"
+                    android:src="@drawable/baseline_my_location_24" />
+
 
                 <ImageView
                     android:id="@+id/ivFilterData"
@@ -55,9 +64,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/dp_10"
-                    android:padding="@dimen/dp_10"
+                    android:padding="@dimen/dp_8"
                     android:src="@drawable/baseline_more_vert_24" />
-
 
 
             </RelativeLayout>
@@ -70,6 +78,8 @@
             android:layout_centerInParent="true"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/no_data_found"
+            android:textAlignment="center"
+            android:layout_margin="@dimen/dp_10"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp"
             android:visibility="gone" />

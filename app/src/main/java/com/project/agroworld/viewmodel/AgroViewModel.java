@@ -1,5 +1,7 @@
 package com.project.agroworld.viewmodel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -19,24 +21,8 @@ import java.util.List;
 
 public class AgroViewModel extends ViewModel {
     private AgroWorldRepository repository;
-
-    public void init() {
-        repository = new AgroWorldRepository();
-    }
-
-    private MutableLiveData<Double> totalAmount = new MutableLiveData<>();
-
-    public Double itemAmountState(Double amount) {
-        totalAmount.setValue(amount);
-        return amount;
-    }
-
-    public LiveData<Double> totalAmountLivedata() {
-        if (totalAmount == null) {
-            totalAmount = new MutableLiveData<>();
-            totalAmount.setValue(0.0);
-        }
-        return totalAmount;
+    public void init(Context context) {
+        repository = new AgroWorldRepository(context);
     }
 
     public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponseLivedata() {

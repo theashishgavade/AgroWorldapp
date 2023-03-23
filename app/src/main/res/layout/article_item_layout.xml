@@ -28,7 +28,8 @@
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="season"
-                android:textColor="@color/colorPrimary" />
+                android:textSize="@dimen/sp_18"
+                android:textColor="@color/colorPrimaryDark" />
 
             <TextView
                 android:id="@+id/tvTitleArticleItem"
@@ -38,7 +39,7 @@
                 android:gravity="center"
                 android:text="article name"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/size_20sp" />
+                android:textSize="@dimen/size_16sp" />
 
         </LinearLayout>
 

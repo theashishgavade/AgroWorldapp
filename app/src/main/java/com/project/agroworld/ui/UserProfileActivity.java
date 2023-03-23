@@ -14,7 +14,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureBinding;
 import com.project.agroworld.manufacture.ManufactureActivity;
+import com.project.agroworld.manufacture.ManufactureDataActivity;
 import com.project.agroworld.transport.activity.TransportActivity;
+import com.project.agroworld.transport.activity.TransportDataActivity;
 import com.project.agroworld.utils.Constants;
 
 import java.util.Objects;
@@ -42,8 +44,10 @@ public class UserProfileActivity extends AppCompatActivity {
         if (intent != null) {
             userType = intent.getStringExtra("manufacturerUser");
             if (Objects.equals(userType, "manufacturer")) {
+                binding.tvUserType.setText(getString(R.string.show_product));
                 binding.tvUserType.setText(getString(R.string.manufacture_panel));
             } else {
+                binding.tvUserType.setText(getString(R.string.show_vehicles));
                 binding.tvUserType.setText(getString(R.string.transport_panel));
             }
         }
@@ -52,7 +56,7 @@ public class UserProfileActivity extends AppCompatActivity {
             Constants.bindImage(binding.ivMfrProfile, String.valueOf(user.getPhotoUrl()), binding.ivMfrProfile);
             binding.tvMfrName.setText(user.getDisplayName());
             binding.tvMfrEmail.setText(user.getEmail());
-            binding.tvMfrWelcomeMsg.setText("Welcome '" + user.getDisplayName() + "' to the Agro World team ");
+            binding.tvMfrWelcomeMsg.setText("Welcome '" + user.getDisplayName() + "' to the AgroWorld team ");
         }
 
         binding.btnMfrProceed.setOnClickListener(v -> {
@@ -61,6 +65,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 intent1 = new Intent(UserProfileActivity.this, ManufactureActivity.class);
             } else {
                 intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
+            }
+            startActivity(intent1);
+        });
+
+        binding.btnShowHistory.setOnClickListener(v -> {
+            Intent intent1;
+            if (Objects.equals(userType, "manufacturer")) {
+                intent1 = new Intent(UserProfileActivity.this, ManufactureDataActivity.class);
+            } else {
+                intent1 = new Intent(UserProfileActivity.this, TransportDataActivity.class);
             }
             startActivity(intent1);
         });

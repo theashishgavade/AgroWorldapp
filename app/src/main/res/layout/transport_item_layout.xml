@@ -51,7 +51,7 @@
                 android:gravity="center"
                 android:text="@string/location"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="15sp" />
+                android:textSize="@dimen/sp_18" />
 
             <TextView
                 android:id="@+id/tvVehiclePrice"

@@ -1,4 +1,7 @@
-package com.project.agroworld.networkManager;
+package com.project.agroworld.network;
+
+import com.project.agroworld.db.PreferenceHelper;
+import com.project.agroworld.utils.Constants;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,11 +18,15 @@ public class Network {
             .writeTimeout(60, TimeUnit.SECONDS)
             .addInterceptor(httpLoggingInterceptor)
             .build();
-    public static Retrofit getInstance(String baseURL) {
-        return new Retrofit.Builder()
+
+    public static APIService getInstance(String baseURL) {
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
+        return retrofit.create(APIService.class);
     }
+
+
 }

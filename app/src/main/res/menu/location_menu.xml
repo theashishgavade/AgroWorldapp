@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mnRaigad"
+        android:title="@string/raigad">
+        <menu>
+            <item
+                android:id="@+id/mnAlibag"
+                android:title="@string/alibag" />
+            <item
+                android:id="@+id/mnPanvel"
+                android:title="@string/panvel" />
+            <item
+                android:id="@+id/mnMurud"
+                android:title="@string/murud" />
+            <item
+                android:id="@+id/mnPen"
+                android:title="@string/pen" />
+            <item
+                android:id="@+id/mnUran"
+                android:title="@string/uran" />
+            <item
+                android:id="@+id/mnKarjat"
+                android:title="@string/karjat" />
+
+            <item
+                android:id="@+id/mnMangaon"
+                android:title="@string/mangaon" />
+            <item
+                android:id="@+id/mnRoha"
+                android:title="@string/roha" />
+            <item
+                android:id="@+id/mnShrivardhan"
+                android:title="@string/shrivardhan" />
+            <item
+                android:id="@+id/mnPoladpur"
+                android:title="@string/poladpur" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/mnPune"
+        android:title="@string/pune">
+        <menu>
+            <item
+                android:id="@+id/mnAundh"
+                android:title="@string/aundh" />
+            <item
+                android:id="@+id/mnBavdhan"
+                android:title="@string/bavdhan" />
+            <item
+                android:id="@+id/mnBalewadi"
+                android:title="@string/balewadi" />
+
+            <item
+                android:id="@+id/mnChinchwad"
+                android:title="@string/chinchwad" />
+            <item
+                android:id="@+id/mnDhankawadi"
+                android:title="@string/dhankawadi" />
+            <item
+                android:id="@+id/mnDhanori"
+                android:title="@string/dhanori" />
+            <item
+                android:id="@+id/mnHadapsar"
+                android:title="@string/hadapsar" />
+
+            <item
+                android:id="@+id/mnKatraj"
+                android:title="@string/katraj" />
+            <item
+                android:id="@+id/mnKharadi"
+                android:title="@string/kharadi" />
+            <item
+                android:id="@+id/mnKothrud"
+                android:title="@string/kothrud" />
+            <item
+                android:id="@+id/mnSwargate"
+                android:title="@string/swargate" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/mnRatnagiri"
+        android:title="@string/ratnagiri">
+        <menu>
+            <item
+                android:id="@+id/mnMandangad"
+                android:title="@string/mandangad" />
+            <item
+                android:id="@+id/mnDapoli"
+                android:title="@string/dapoli" />
+            <item
+                android:id="@+id/mnKhed"
+                android:title="@string/khed" />
+            <item
+                android:id="@+id/mnChiplun"
+                android:title="@string/chiplun" />
+            <item
+                android:id="@+id/mnGuhagar"
+                android:title="@string/guhagar" />
+            <item
+                android:id="@+id/mnSangameshwar"
+                android:title="@string/sangameshwar" />
+
+            <item
+                android:id="@+id/mnLanja"
+                android:title="@string/lanja" />
+            <item
+                android:id="@+id/mnRajapur"
+                android:title="@string/rajapur" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/mnParbhani"
+        android:title="@string/parbhani" />
+    <item
+        android:id="@+id/mnSangli"
+        android:title="@string/sangli" />
+    <item
+        android:id="@+id/mnSatara"
+        android:title="@string/satara" />
+    <item
+        android:id="@+id/mnSindhudurg"
+        android:title="@string/sindhudurg" />
+    <item
+        android:id="@+id/mnThane"
+        android:title="@string/thane" />
+
+</menu>

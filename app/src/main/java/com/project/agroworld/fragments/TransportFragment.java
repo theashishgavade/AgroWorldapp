@@ -33,8 +33,8 @@ import java.util.Comparator;
 
 public class TransportFragment extends Fragment implements OnVehicleCallClick {
 
-    private FragmentTransportBinding binding;
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
+    private FragmentTransportBinding binding;
     private VehicleAdapter vehicleAdapter;
     private AgroViewModel agroViewModel;
 
@@ -57,7 +57,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(getContext());
         if (Permissions.checkConnection(getContext())) {
             getVehicleListFromFirebase();
         } else {
@@ -102,6 +102,35 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
             popupMenu.show();
         });
 
+        binding.ivFilterLocation.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivFilterLocation);
+            popupMenu.getMenuInflater().inflate(R.menu.location_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                if (menuItem.getTitle() != null){
+                    searchVehicle(menuItem.getTitle().toString());
+                }
+                return true;
+            });
+            popupMenu.show();
+        });
+    }
+
+    private void searchVehicle(String location) {
+        ArrayList<VehicleModel> searchProductList = new ArrayList<>();
+        for (int i = 0; i < vehicleItemList.size(); i++) {
+            if (vehicleItemList.get(i).getAddress().toLowerCase().contains(location.toLowerCase())) {
+                searchProductList.add(vehicleItemList.get(i));
+            }
+        }
+        if (searchProductList.isEmpty()) {
+            binding.recyclerViewVehicle.setVisibility(View.GONE);
+            binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+            binding.tvNoDataFoundErr.setText(getString(R.string.vehicle_not_found_location) + " " + location + " Location" );
+        } else {
+            binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
+            binding.tvNoDataFoundErr.setVisibility(View.GONE);
+            vehicleAdapter.searchInVehicleList(searchProductList);
+        }
     }
 
     private void getVehicleListFromFirebase() {

@@ -2,6 +2,7 @@ package com.project.agroworld.repository;
 
 import static com.project.agroworld.utils.Constants.BASE_URL_SHEET_DB;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,11 +21,13 @@ import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.networkManager.APIService;
-import com.project.agroworld.networkManager.Network;
+import com.project.agroworld.db.PreferenceHelper;
+import com.project.agroworld.network.APIService;
+import com.project.agroworld.network.Network;
 import com.project.agroworld.payment.model.PaymentModel;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.transport.model.VehicleModel;
+import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Resource;
 
 import java.util.ArrayList;
@@ -35,9 +38,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AgroWorldRepository {
-    private DatabaseReference databaseReference;
-    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB).create(APIService.class);
     public MutableLiveData<String> requestStatus = new MutableLiveData<>();
+    Context context;
+    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
+    PreferenceHelper preferenceHelper = PreferenceHelper.getInstance(context);
+    private boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+    private DatabaseReference databaseReference;
+
+    public AgroWorldRepository(Context context) {
+        this.context = context;
+    }
 
     public LiveData<String> getRequestErrorLivedata() {
         return requestStatus;
@@ -63,7 +73,13 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<FlowersResponse>>> getFlowersResponse() {
         final MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
-        apiService.getFlowersList().enqueue(new Callback<List<FlowersResponse>>() {
+        Call<List<FlowersResponse>> flowerApi;
+        if (selectedLanguage) {
+            flowerApi = apiService.getLocalizedFlowersList();
+        } else {
+            flowerApi = apiService.getFlowersList();
+        }
+        flowerApi.enqueue(new Callback<List<FlowersResponse>>() {
             @Override
             public void onResponse(Call<List<FlowersResponse>> call, Response<List<FlowersResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -121,6 +137,7 @@ public class AgroWorldRepository {
         apiService.getListOfHowToExpandData().enqueue(new Callback<List<HowToExpandResponse>>() {
             @Override
             public void onResponse(Call<List<HowToExpandResponse>> call, Response<List<HowToExpandResponse>> response) {
+                Constants.printLog(response.body() + " getHowToExpandResponse");
                 if (response.isSuccessful() && response.body() != null) {
                     howToExpandLivedata.setValue(Resource.success(response.body()));
                 }
@@ -128,6 +145,7 @@ public class AgroWorldRepository {
 
             @Override
             public void onFailure(Call<List<HowToExpandResponse>> call, Throwable t) {
+                Constants.printLog(t.getMessage() + " getHowToExpandResponse");
                 howToExpandLivedata.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -236,7 +254,7 @@ public class AgroWorldRepository {
                         }
                     }
                     historyLivedata.setValue(Resource.success(paymentModelArrayList));
-                }else {
+                } else {
                     historyLivedata.setValue(Resource.error("Look's like you haven't made any transaction yet.", null));
                 }
             }

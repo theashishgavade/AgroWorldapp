@@ -45,7 +45,7 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(this);
         getVehicleListFromFirebase();
 
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {

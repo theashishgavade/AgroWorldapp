@@ -48,7 +48,7 @@ public class TransportActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(this);
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
             isImageSelected = true;
             selectImage();

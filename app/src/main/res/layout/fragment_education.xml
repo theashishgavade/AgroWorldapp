@@ -12,6 +12,7 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/crdHeader"
                 android:layout_width="match_parent"
@@ -53,6 +54,15 @@
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
+
+
+            <ProgressBar
+                android:id="@+id/articleProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/crdHeader"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
 
 
             <LinearLayout xmlns:tools="http://schemas.android.com/tools"

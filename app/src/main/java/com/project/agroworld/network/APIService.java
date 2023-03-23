@@ -1,4 +1,4 @@
-package com.project.agroworld.networkManager;
+package com.project.agroworld.network;
 
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.DiseasesResponse;
@@ -18,6 +18,7 @@ public interface APIService {
     //https://api.openweathermap.org/data/2.5/weather?lat=19.075975&lon=72.87738&appid=92f4e9a9c233be99f0b33d1c58c72386
     //https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=92f4e9a9c233be99f0b33d1c58c72386
     //https://sheetdb.io/api/v1/4hm2n4jziczjy
+
     @GET("weather")
     Call<WeatherResponse> getWeatherData(
             @Query("lat") Double lat,
@@ -38,11 +39,14 @@ public interface APIService {
 
     @GET("93yx6646p49z4")
     Call<List<FlowersResponse>> getFlowersList();
-//https://sheetdb.io/api/v1/krs0kbpmodi8d
+
+    @GET("r4wu8rpk45yu6")
+    Call<List<FlowersResponse>> getLocalizedFlowersList();
+
     @GET("krs0kbpmodi8d")
     Call<List<CropsResponse>> getListOfCrops();
 
-    @GET("xhuy8scok80dz")
+    @GET("ueeefqtydyw7l")
     Call<List<HowToExpandResponse>> getListOfHowToExpandData();
 
 }
