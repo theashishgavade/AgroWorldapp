@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">कृषि दुनिया</string>
+    <string name="app_name">कृषिदुनिया</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="agrowoprld">कृषि दुनिया</string>
+    <string name="agrowoprld">कृषिदुनिया</string>
     <string name="quote1">"किसी भी किसान के लिए सर्वश्रेष्ठ मार्गदर्शक और सहायक। एक ही स्थान पर विभिन्न सुविधाएँ प्रदान करता है!"</string>
     <string name="register">पंजीकरण</string>
     <string name="new_user_register_now">नए उपयोगकर्ता? अभी पंजीकरण करें</string>
@@ -38,10 +38,10 @@
     <string name="harvesting">संचयन</string>
     <string name="post_harvest">कटाई के बाद</string>
     <string name="email">ई-मेल</string>
-    <string name="add_product_to_agro_world_store">उत्पाद को एग्रो वर्ल्ड स्टोर में जोड़ें।</string>
+    <string name="add_product_to_agro_world_store">उत्पाद को कृषिदुनिया स्टोर में जोड़ें।</string>
     <string name="title">title</string>
     <string name="update_product">अद्यतन उत्पाद</string>
-    <string name="here_s_nyour_first_nstep_with_nagro_world">एग्रो वर्ल्ड के साथ\nआपका पहला कदम\n यहां है!</string>
+    <string name="here_s_nyour_first_nstep_with_nagro_world">कृषिदुनिया के साथ\nआपका पहला कदम\n यहां है!</string>
     <string name="name">नाम</string>
     <string name="crops">फसलें</string>
     <string name="flowers">पुष्प</string>
@@ -50,7 +50,7 @@
     <string name="number">नंबर</string>
     <string name="articles">लेख</string>
     <string name="already_have_an_account">क्या आपके पास पहले से एक खाता मौजूद है?</string>
-    <string name="add_vehicle_to_agro_world_store">एग्रो वर्ल्ड स्टोर में वाहन जोड़ें।</string>
+    <string name="add_vehicle_to_agro_world_store">कृषिदुनिया स्टोर में वाहन जोड़ें।</string>
     <string name="model">नमूना</string>
     <string name="address">पता</string>
     <string name="contact">संपर्क</string>
@@ -134,4 +134,46 @@
     <string name="cart_list">कार्ट सूची</string>
     <string name="history">इतिहास</string>
     <string name="show_list">सूची दिखाएं</string>
+    <string name="vehicle_not_found_location">ऐसा लगता है कि परिवहन समुदाय ने कोई आइटम नहीं जोड़ा है </string>
+    <string name="show_product">उत्पाद दिखाएं</string>
+    <string name="show_vehicles">वाहन दिखाएं</string>
+    <string name="alibag">अलीबाग</string>
+    <string name="panvel">पनवेल</string>
+    <string name="murud">मुरुड</string>
+    <string name="pen">पेन</string>
+    <string name="uran">उरण</string>
+    <string name="karjat">कर्जत</string>
+    <string name="khalapur">खालापुर</string>
+    <string name="mangaon">मनगांव</string>
+    <string name="roha">रोहा</string>
+    <string name="shrivardhan">श्रीवर्धन</string>
+    <string name="poladpur">पोलादपुर</string>
+    <string name="raigad">रायगड</string>
+    <string name="pune">पुणे</string>
+    <string name="aundh">औंध</string>
+    <string name="bavdhan">बावधन</string>
+    <string name="balewadi">बालेवाड़ी</string>
+    <string name="dhankawadi">धनकवडी</string>
+    <string name="dhanori">धनोरी</string>
+    <string name="hadapsar">हडपसर</string>
+    <string name="katraj">कात्रज</string>
+    <string name="kharadi">खराड़ी</string>
+    <string name="kothrud">कोथरुड</string>
+    <string name="chinchwad">चिंचवड</string>
+    <string name="swargate">स्वारगेट</string>
+    <string name="ratnagiri">रत्नागिरी</string>
+    <string name="dapoli">Dapoli</string>
+    <string name="mandangad">मंडनगढ़</string>
+    <string name="khed">खेड़</string>
+    <string name="chiplun">चिपलुन</string>
+    <string name="guhagar">गुहागर</string>
+    <string name="sangameshwar">संगमेश्वर</string>
+    <string name="lanja">लंजा</string>
+    <string name="rajapur">राजापुर</string>
+    <string name="parbhani">परभनी</string>
+    <string name="sangli">सांगली</string>
+    <string name="satara">सतारा</string>
+    <string name="sindhudurg">सिंधुदुर्ग</string>
+    <string name="thane">ठाणे</string>
+    <string name="google_sign_up">गूगल साइन इन</string>
 </resources>

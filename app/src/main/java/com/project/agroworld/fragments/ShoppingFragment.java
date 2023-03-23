@@ -111,12 +111,6 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                         Collections.sort(productModelArrayList, highComparator);
                         productAdapter.notifyDataSetChanged();
                         return true;
-                    case R.id.menuCartActivity:
-                        startActivityForResult(new Intent(getContext(), AddToCartActivity.class), Constants.REQUEST_CODE);
-                        return true;
-                    case R.id.menuHistoryActivity:
-                        startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
-                        return true;
                 }
                 return true;
             });
@@ -124,6 +118,13 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
             popupMenu.show();
         });
 
+        binding.ivCart.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getContext(), AddToCartActivity.class), Constants.REQUEST_CODE);
+        });
+
+        binding.ivHistoy.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
+        });
     }
 
     private void getProductListFromFirebase() {

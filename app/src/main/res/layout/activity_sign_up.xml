@@ -175,7 +175,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp_20"
+                                android:layout_marginTop="@dimen/dp_10"
                                 android:gravity="center"
                                 android:orientation="horizontal"
                                 android:weightSum="12">
@@ -206,34 +206,17 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/dp_20"
                                 android:gravity="center">
 
-                                <ImageView
-                                    android:id="@+id/ivGoogleSignup"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:src="@drawable/icons8_google_50" />
-
-                                <ImageView
-                                    android:id="@+id/ivFbSignup"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/icons8_facebook_50"
-                                    tools:ignore="ImageContrastCheck" />
-
-                                <ImageView
-                                    android:id="@+id/ivInstaSignup"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:src="@drawable/icons8_instagram_50" />
-
-                                <ImageView
-                                    android:id="@+id/ivGithubSignup"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/icons8_github_50" />
+                                <com.google.android.gms.common.SignInButton
+                                    android:id="@+id/btnGoogleSignIn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_50"
+                                    android:text="@string/google_sign_up"
+                                    android:layout_marginStart="@dimen/dp_70"
+                                    android:layout_marginEnd="@dimen/dp_70"
+                                    android:layout_gravity="center" />
 
                             </LinearLayout>
 
@@ -244,6 +227,16 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdminContactUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dp_20"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/baseline_email_24" />
 
     </RelativeLayout>
 

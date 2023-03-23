@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -164,40 +164,32 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center">
+                        android:layout_margin="@dimen/dp_20"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/ivGoogleLogin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/icons8_google_50" />
-
-                        <ImageView
-                            android:id="@+id/ivFacebookLogin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icons8_facebook_50" />
-
-                        <ImageView
-                            android:id="@+id/ivInstaLogin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:src="@drawable/icons8_instagram_50" />
-
-                        <ImageView
-                            android:id="@+id/ivGithubLogin"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/icons8_github_50" />
-
+                        <com.google.android.gms.common.SignInButton
+                            android:id="@+id/btnGoogleLogin"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/dp_70"
+                            android:layout_marginEnd="@dimen/dp_70"
+                            android:text="@string/google_sign_up" />
                     </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAdminContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/dp_20"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/baseline_email_24" />
     </RelativeLayout>
 </layout>

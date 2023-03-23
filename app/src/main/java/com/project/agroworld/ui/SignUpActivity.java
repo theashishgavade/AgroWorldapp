@@ -40,12 +40,11 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
-    private CustomMultiColorProgressBar progressBar;
     FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
-
-    private ActivitySignUpBinding binding;
     boolean isEmailValid = true;
+    private CustomMultiColorProgressBar progressBar;
+    private GoogleSignInClient mGoogleSignInClient;
+    private ActivitySignUpBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,38 +81,33 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        binding.ivFbSignup.setOnClickListener(v -> {
-            showToast(this, getString(R.string.facebook_login));
+        binding.btnGoogleSignIn.setOnClickListener(v -> {
+            if (Permissions.checkConnection(this)) {
+                signIn();
+            }
         });
-        binding.ivGoogleSignup.setOnClickListener(v -> {
-            signIn();
+
+        binding.fabAdminContactUp.setOnClickListener(v -> {
+            Constants.adminEmailContact(this);
         });
-        binding.ivGithubSignup.setOnClickListener(v -> {
-            showToast(this, getString(R.string.github_login));
-        });
-        binding.ivInstaSignup.setOnClickListener(v -> {
-            showToast(this, getString(R.string.instagram_login));
-        });
+
     }
 
 
     private void createUserWithEmailAndPassword(String email, String password) {
         progressBar.showProgressBar();
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    progressBar.hideProgressBar();
-                    // Sign in success, update UI with the signed-in user's information
-                    Constants.showToast(SignUpActivity.this, "createUserWithEmail:success");
-                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                    finish();
-                } else {
-                    progressBar.hideProgressBar();
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                    Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
-                }
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                progressBar.hideProgressBar();
+                // Sign in success, update UI with the signed-in user's information
+                Constants.showToast(SignUpActivity.this, "createUserWithEmail:success");
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                finish();
+            } else {
+                progressBar.hideProgressBar();
+                // If sign in fails, display a message to the user.
+                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                Toast.makeText(SignUpActivity.this, "Authentication failed\n" + task.getException(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,9 +18,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,11 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
-    ImageView ivGoogleLogin, ivFacebookLogin, ivGithubLogin, ivInstaLogin;
+    SignInButton ivGoogleLogin;
     TextView tvNewUser, tvForgetPasswd;
     Button btnLoginUp;
     FirebaseAuth mAuth;
     EditText etEmail, etPasswd;
+    FloatingActionButton floatingActionButton;
     private GoogleSignInClient mGoogleSignInClient;
     private CustomMultiColorProgressBar progressBar;
     private int backPressCount = 0;
@@ -62,24 +64,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
     private void initViews() {
-        ivGoogleLogin = findViewById(R.id.ivGoogleLogin);
-        ivFacebookLogin = findViewById(R.id.ivFacebookLogin);
-        ivGithubLogin = findViewById(R.id.ivGithubLogin);
-        ivInstaLogin = findViewById(R.id.ivInstaLogin);
+        ivGoogleLogin = findViewById(R.id.btnGoogleLogin);
         tvNewUser = findViewById(R.id.tvNewUser);
         tvForgetPasswd = findViewById(R.id.tvForgetPasswd);
         btnLoginUp = findViewById(R.id.btnLoginUp);
         etEmail = findViewById(R.id.etEmail);
         etPasswd = findViewById(R.id.etPasswd);
-
+        floatingActionButton = findViewById(R.id.fabAdminContact);
         ivGoogleLogin.setOnClickListener(LoginActivity.this);
-        ivFacebookLogin.setOnClickListener(LoginActivity.this);
-        ivGithubLogin.setOnClickListener(LoginActivity.this);
-        ivInstaLogin.setOnClickListener(LoginActivity.this);
         tvNewUser.setOnClickListener(LoginActivity.this);
         tvForgetPasswd.setOnClickListener(LoginActivity.this);
         btnLoginUp.setOnClickListener(LoginActivity.this);
-
+        floatingActionButton.setOnClickListener(LoginActivity.this);
     }
 
     private void loginWithGoogle() {
@@ -116,7 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Constants.showToast(this, "Google sign in failed");
                 Log.w(TAG, "Google sign in failed", e);
             }
-        }else if (requestCode == Constants.LOGOUT_REQUEST_CODE){
+        } else if (requestCode == Constants.LOGOUT_REQUEST_CODE) {
             mAuth.signOut();
             mGoogleSignInClient.revokeAccess();
         }
@@ -185,17 +181,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.ivFacebookLogin:
-                Constants.showToast(this, "Facebook login not available");
-
-                break;
-            case R.id.ivGithubLogin:
-                Constants.showToast(this, "GitHub login not available");
-                break;
-            case R.id.ivInstaLogin:
-                Constants.showToast(this, "Instagram login not available");
-                break;
-            case R.id.ivGoogleLogin:
+            case R.id.btnGoogleLogin:
                 signIn();
                 break;
             case R.id.tvForgetPasswd:
@@ -208,7 +194,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btnLoginUp:
                 checkDataValidOrNot();
                 break;
-
+            case R.id.fabAdminContact:
+                Constants.adminEmailContact(this);
+                break;
         }
     }
 

@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Agro World</string>
+    <string name="app_name">AgroWorld</string>
     <!-- Strings used for fragments for navigation -->
 
-    <string name="agrowoprld">Agro World</string>
+    <string name="agrowoprld">AgroWorld</string>
     <string name="quote1">"Best Guide and Helper for any Farmer. Provides various features at one place!"</string>
     <string name="register">Register</string>
     <string name="new_user_register_now">New user? Register Now</string>
@@ -38,10 +38,10 @@
     <string name="harvesting">Harvesting</string>
     <string name="post_harvest">Post Harvest</string>
     <string name="email">Email</string>
-    <string name="add_product_to_agro_world_store">Add product to Agro World store.</string>
+    <string name="add_product_to_agro_world_store">Add product to AgroWorld store.</string>
     <string name="title">title</string>
     <string name="update_product">Update Product</string>
-    <string name="here_s_nyour_first_nstep_with_nagro_world">Here’s\nyour first\nstep with \nAgro World!</string>
+    <string name="here_s_nyour_first_nstep_with_nagro_world">Here’s\nyour first\nstep with \nAgroWorld!</string>
     <string name="name">name</string>
     <string name="crops">Crops</string>
     <string name="flowers">Flowers</string>
@@ -49,7 +49,7 @@
     <string name="education">Education</string>
     <string name="number">Number</string>
     <string name="already_have_an_account">Already have an account?</string>
-    <string name="add_vehicle_to_agro_world_store">Add vehicle to Agro World store.</string>
+    <string name="add_vehicle_to_agro_world_store">Add vehicle to AgroWorld store.</string>
     <string name="model">model</string>
     <string name="address">address</string>
     <string name="contact">contact</string>
@@ -134,4 +134,46 @@
     <string name="cart_list">Cart List</string>
     <string name="history">History</string>
     <string name="show_list">Show list</string>
+    <string name="vehicle_not_found_location">Looks like Transport community haven\'t added any item for</string>
+    <string name="show_product">Show Products</string>
+    <string name="show_vehicles">Show Vehicles</string>
+    <string name="alibag">Alibag</string>
+    <string name="panvel">Panvel</string>
+    <string name="murud">Murud</string>
+    <string name="pen">Pen</string>
+    <string name="uran">Uran</string>
+    <string name="karjat">Karjat</string>
+    <string name="khalapur">Khalapur</string>
+    <string name="mangaon">Mangaon</string>
+    <string name="roha">Roha</string>
+    <string name="shrivardhan">Shrivardhan</string>
+    <string name="poladpur">Poladpur</string>
+    <string name="raigad">Raigad</string>
+    <string name="pune">Pune</string>
+    <string name="aundh">Aundh</string>
+    <string name="bavdhan">Bavdhan</string>
+    <string name="balewadi">Balewadi</string>
+    <string name="dhankawadi">Dhankawadi</string>
+    <string name="dhanori">Dhanori</string>
+    <string name="hadapsar">Hadapsar</string>
+    <string name="katraj">Katraj</string>
+    <string name="kharadi">Kharadi</string>
+    <string name="kothrud">Kothrud</string>
+    <string name="chinchwad">Chinchwad</string>
+    <string name="swargate">Swargate</string>
+    <string name="ratnagiri">Ratnagiri</string>
+    <string name="dapoli">Dapoli</string>
+    <string name="mandangad">Mandangad</string>
+    <string name="khed">Khed</string>
+    <string name="chiplun">Chiplun</string>
+    <string name="guhagar">Guhagar</string>
+    <string name="sangameshwar">Sangameshwar</string>
+    <string name="lanja">Lanja</string>
+    <string name="rajapur">Rajapur</string>
+    <string name="parbhani">Parbhani</string>
+    <string name="sangli">Sangli</string>
+    <string name="satara">Satara</string>
+    <string name="sindhudurg">Sindhudurg</string>
+    <string name="thane">Thane</string>
+    <string name="google_sign_up">Google Sign In</string>
 </resources>

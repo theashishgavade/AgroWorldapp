@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -41,7 +42,6 @@ public class Constants {
     public static final String ENGLISH_NEWS_WEB_URL = "https://krishijagran.com/news";
     public static final String HINDI_NEWS_WEB_URL = "https://hindi.krishijagran.com/news";
     public static final String APP_ICON_LINK = "https://firebasestorage.googleapis.com/v0/b/agro-world-55872.appspot.com/o/ic_launcher-playstore.png?alt=media&token=6f72edc5-6dc3-40b7-ac65-cdf1bada9532";
-
 
     public static void printLog(String message) {
         Log.d("AgroWorldUser", message);
@@ -121,6 +121,14 @@ public class Constants {
         userName.replaceAll("#", "");
         userName.replaceAll("$", "");
         return userName;
+    }
+
+    public static void adminEmailContact(Context context){
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"devdeveloper66@gmail.com", "theashishgavade@gmail.com"});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Enter your subject here..");
+        context.startActivity(Intent.createChooser(emailIntent, "Email via..."));
     }
 
 }

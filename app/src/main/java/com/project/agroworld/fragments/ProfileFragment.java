@@ -28,6 +28,7 @@ import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.db.PreferenceHelper;
+import com.project.agroworld.payment.activities.PaymentHistoryActivity;
 import com.project.agroworld.taskmanager.activity.AddTaskActivity;
 import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
 import com.project.agroworld.taskmanager.listener.OnItemClickListener;
@@ -124,7 +125,10 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.ivLogout.setOnClickListener(v -> {
             Constants.logoutAlertMessage(getActivity(), auth);
+        });
 
+        dataBinding.btnTransHistory.setOnClickListener(v -> {
+            startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
         });
     }
 
