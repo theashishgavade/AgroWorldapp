@@ -44,13 +44,10 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     private FruitsAdapter fruitsAdapter;
     private HowToExpandAdapter expandAdapter;
     private AgroViewModel viewModel;
-    private CustomMultiColorProgressBar progressBar;
     private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
     private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
     private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
     private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,9 +60,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = new CustomMultiColorProgressBar(getContext(), getString(R.string.loader_message));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        viewModel.init();
+        viewModel.init(getContext());
         if (Permissions.checkConnection(getContext())){
             checkPermissionCallApi();
         }
@@ -79,7 +75,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     }
 
     private void getCropsListFromApi() {
-        progressBar.showProgressBar();
+        binding.articleProgressbar.setVisibility(View.VISIBLE);
         viewModel.getCropsResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
@@ -109,7 +105,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         viewModel.getFlowersResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
-                    progressBar.hideProgressBar();
+                    binding.articleProgressbar.setVisibility(View.GONE);
                     binding.rvFlowersEd.setVisibility(View.GONE);
                     binding.tvFlowersEd.setVisibility(View.VISIBLE);
                     binding.tvFlowersEd.setText(R.string.something_wrong_err);
@@ -117,10 +113,10 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                 case LOADING:
                     break;
                 case SUCCESS:
+                    binding.articleProgressbar.setVisibility(View.GONE);
                     if (resource.data != null) {
                         flowersResponseArrayList.clear();
                         flowersResponseArrayList.addAll(resource.data);
-                        progressBar.hideProgressBar();
                         binding.rvFlowersEd.setVisibility(View.VISIBLE);
                         setFlowersRecyclerView();
                     } else {
@@ -161,7 +157,6 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         viewModel.getHowToExpandResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
-                    progressBar.hideProgressBar();
                     binding.rvHowToExpandEd.setVisibility(View.GONE);
                     binding.rvHowToExpandEd.setVisibility(View.VISIBLE);
                     binding.tvHowToExpandEd.setText(R.string.something_wrong_err);
@@ -172,7 +167,6 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
                     if (resource.data != null) {
                         expandResponseArrayList.clear();
                         expandResponseArrayList.addAll(resource.data);
-                        progressBar.hideProgressBar();
                         binding.rvHowToExpandEd.setVisibility(View.VISIBLE);
                         setExpandRecyclerView();
                     } else {

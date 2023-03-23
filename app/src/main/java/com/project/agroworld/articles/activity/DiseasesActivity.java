@@ -37,7 +37,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.diseases));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        viewModel.init();
+        viewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getDiseasesListFromAPI();
         }

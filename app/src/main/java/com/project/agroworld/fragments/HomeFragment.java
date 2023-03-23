@@ -34,8 +34,8 @@ import com.project.agroworld.articles.activity.FlowersActivity;
 import com.project.agroworld.articles.activity.FruitsActivity;
 import com.project.agroworld.articles.activity.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
-import com.project.agroworld.networkManager.APIService;
-import com.project.agroworld.networkManager.Network;
+import com.project.agroworld.network.APIService;
+import com.project.agroworld.network.Network;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.shopping.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(getContext());
 
         binding.crdFruits.setOnClickListener(v -> {
             startActivityForResult(new Intent(requireContext(), FruitsActivity.class), Constants.REQUEST_CODE);
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        APIService apiService = Network.getInstance(BASE_URL_WEATHER).create(APIService.class);
+        APIService apiService = Network.getInstance(BASE_URL_WEATHER);
         apiService.getWeatherData(lat, lon, Constants.API_KEY).enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
@@ -200,7 +200,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private void setRecyclerView() {
         productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this);
         binding.shoppingRecyclerView.setAdapter(productAdapter);
-        binding.shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.shoppingRecyclerView.setHasFixedSize(true);
     }
 

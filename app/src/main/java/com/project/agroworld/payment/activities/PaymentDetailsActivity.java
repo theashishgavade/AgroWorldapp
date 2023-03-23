@@ -52,7 +52,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        viewModel.init();
+        viewModel.init(this);
         Checkout.preload(getApplicationContext());
         Intent intent = getIntent();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());

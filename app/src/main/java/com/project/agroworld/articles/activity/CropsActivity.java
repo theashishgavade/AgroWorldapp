@@ -40,7 +40,7 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
         actionBar.setTitle(getString(R.string.crops));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        viewModel.init();
+        viewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getCropsListFromApi();
         }

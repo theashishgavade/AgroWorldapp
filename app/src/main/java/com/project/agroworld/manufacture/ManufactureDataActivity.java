@@ -47,7 +47,7 @@ public class ManufactureDataActivity extends AppCompatActivity implements OnProd
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(this);
         getProductListFromFirebase();
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override

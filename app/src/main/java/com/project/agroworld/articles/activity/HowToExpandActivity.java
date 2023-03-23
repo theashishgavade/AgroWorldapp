@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,6 +17,7 @@ import com.project.agroworld.articles.adapter.HowToExpandAdapter;
 import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ActivityHowToExpandBinding;
+import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
@@ -37,29 +39,29 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.how_to_expand));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        viewModel.init();
-        getExpandListFromApi();
+        viewModel.init(this);
+        if (Permissions.checkConnection(this)){
+            getExpandListFromApi();
+        }
     }
 
     private void getExpandListFromApi() {
-        progressBar.showProgressBar();
+        binding.expandProgressBar.setVisibility(View.VISIBLE);
         viewModel.getHowToExpandResponseLivedata().observe(this, resource -> {
             switch (resource.status) {
                 case ERROR:
-                    progressBar.hideProgressBar();
+                    binding.expandProgressBar.setVisibility(View.GONE);
                     binding.rvHowToExpand.setVisibility(View.GONE);
                     binding.tvNoExpandDataFound.setVisibility(View.VISIBLE);
                     binding.tvNoExpandDataFound.setText(resource.message);
                     break;
                 case LOADING:
-                    progressBar.showProgressBar();
                     break;
                 case SUCCESS:
+                    binding.expandProgressBar.setVisibility(View.GONE);
                     if (resource.data != null) {
                         howToExpandDataList.clear();
                         howToExpandDataList.addAll(resource.data);
-                        progressBar.hideProgressBar();
                         binding.rvHowToExpand.setVisibility(View.VISIBLE);
                         setRecyclerView();
                     } else {
@@ -94,5 +96,10 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

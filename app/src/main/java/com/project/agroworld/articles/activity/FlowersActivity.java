@@ -37,7 +37,7 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
         actionBar.setTitle(getString(R.string.flowers));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        viewModel.init();
+        viewModel.init(this);
         getFlowersListFromApi();
     }
 

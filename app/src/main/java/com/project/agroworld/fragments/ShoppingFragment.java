@@ -54,7 +54,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(getContext());
 
         if (Permissions.checkConnection(getContext())) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);

@@ -43,7 +43,7 @@ public class PaymentHistoryActivity extends AppCompatActivity implements History
         actionBar.setDisplayHomeAsUpEnabled(true);
         Log.d("customProgressCycle", "PaymentHistoryActivity- onCreate");
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init();
+        agroViewModel.init(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         if (Permissions.checkConnection(this)) {
