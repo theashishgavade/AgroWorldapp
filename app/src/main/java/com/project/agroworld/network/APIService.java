@@ -33,20 +33,28 @@ public interface APIService {
 
     @GET("n79017ltxsonb")
     Call<List<DiseasesResponse>> getDiseasesList();
+    @GET("e49zdqylo9c2q")
+    Call<List<DiseasesResponse>> getLocalizedDiseasesList();
 
     @GET("r4wu8rpk45yu6")
     Call<List<FruitsResponse>> getFruitsFromDB();
+    @GET("dywj6h1xvdo4e")
+    Call<List<FruitsResponse>> getLocalizedFruitsList();
 
     @GET("93yx6646p49z4")
     Call<List<FlowersResponse>> getFlowersList();
 
-    @GET("r4wu8rpk45yu6")
+    @GET("8uqwwa7qvueqf")
     Call<List<FlowersResponse>> getLocalizedFlowersList();
 
     @GET("krs0kbpmodi8d")
     Call<List<CropsResponse>> getListOfCrops();
 
-    @GET("ueeefqtydyw7l")
-    Call<List<HowToExpandResponse>> getListOfHowToExpandData();
+    @GET("gnmuv9wnwcawh")
+    Call<List<CropsResponse>> getLocalizedCropsList();
 
+    @GET("tsljs9opsrj4c")
+    Call<List<HowToExpandResponse>> getListOfHowToExpandData();
+    @GET("habebx59tfol4")
+    Call<List<HowToExpandResponse>> getLocalizedHowToExpandData();
 }

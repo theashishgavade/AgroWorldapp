@@ -36,6 +36,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         boolean isFlowersResponse = intent.getBooleanExtra("isFlowersResponse", false);
         HowToExpandResponse expandItemResponse = ((HowToExpandResponse) intent.getSerializableExtra("expandItemResponse"));
         boolean isExpandResponse = intent.getBooleanExtra("isExpandResponse", false);
+
         if (isCropResponse) {
             updateUIForCropsData(cropsResponse);
         } else if (isFruitResponse) {

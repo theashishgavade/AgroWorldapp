@@ -108,7 +108,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
-                android:hint="rate KM/L"
+                android:hint="amount"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
                 app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -122,11 +122,33 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/etLayoutContactVehicle"
+                android:id="@+id/etLayoutRateUnitVehicle"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/etLayoutKMRatesVehicle"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:hint="unit KM/Day/Hour"
+                app:boxBackgroundColor="#20D81B60"
+                app:boxCornerRadiusTopEnd="@dimen/dp_10"
+                app:boxCornerRadiusTopStart="@dimen/dp_10">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etVehicleRateUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etLayoutContactVehicle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/etLayoutRateUnitVehicle"
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"

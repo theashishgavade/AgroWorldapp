@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,7 +11,6 @@
             android:id="@+id/tvNoCartDataFound"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/crdPayment"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginStart="@dimen/dp_20"
@@ -26,89 +25,79 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_crt_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/crdPayment"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/crdPayment"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/dp_20"
+            android:background="@drawable/cart_bottom_bg">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvAddAddress"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200"
-                android:background="@drawable/cart_bottom_bg">
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/dp_80"
+                android:layout_above="@id/tvTotalTxt"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/dp_20"
+                android:drawablePadding="@dimen/dp_20"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical|end"
+                android:text="@string/add_address"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16sp"
+                app:drawableEndCompat="@drawable/baseline_add_location_alt_24" />
 
-                <TextView
-                    android:id="@+id/tvAddAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginEnd="@dimen/dp_20"
-                    android:drawableEnd="@drawable/baseline_add_location_alt_24"
-                    android:drawablePadding="@dimen/dp_20"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="end"
-                    android:text="@string/add_address"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_18" />
+            <TextView
+                android:id="@+id/tvTotalTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btnProceedToPayment"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:fontFamily="@font/fredoka_one"
+                android:text="@string/total"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tvTotalTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/btnProceedToPayment"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:fontFamily="@font/fredoka_one"
-                    android:text="@string/total"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tvTotalAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/btnProceedToPayment"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:fontFamily="@font/fredoka_one"
+                android:text="@string/_456_88"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/tvTotalAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_above="@id/btnProceedToPayment"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginEnd="@dimen/dp_20"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:fontFamily="@font/fredoka_one"
-                    android:text="@string/_456_88"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/btnProceedToPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_50"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="@dimen/dp_50"
-                    android:layout_marginEnd="@dimen/dp_50"
-                    android:layout_marginBottom="@dimen/dp_20"
-                    android:background="@drawable/all_buttons"
-                    android:fontFamily="@font/poppins_medium"
-                    android:text="@string/proceed_to_payment"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_18" />
-
-
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/btnProceedToPayment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dp_50"
+                android:layout_marginEnd="@dimen/dp_50"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:background="@drawable/all_buttons"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/proceed_to_payment"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18" />
+        </RelativeLayout>
     </RelativeLayout>
 </layout>

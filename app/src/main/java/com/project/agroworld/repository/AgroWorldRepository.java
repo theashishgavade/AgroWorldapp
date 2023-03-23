@@ -55,7 +55,13 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponse() {
         final MutableLiveData<Resource<List<DiseasesResponse>>> diseasesMutableLiveData = new MutableLiveData<>();
-        apiService.getDiseasesList().enqueue(new Callback<List<DiseasesResponse>>() {
+        Call<List<DiseasesResponse>> diseasesApiService;
+        if (selectedLanguage) {
+            diseasesApiService = apiService.getLocalizedDiseasesList();
+        } else {
+            diseasesApiService = apiService.getDiseasesList();
+        }
+        diseasesApiService.enqueue(new Callback<List<DiseasesResponse>>() {
             @Override
             public void onResponse(Call<List<DiseasesResponse>> call, Response<List<DiseasesResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -98,7 +104,13 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<CropsResponse>>> getCropsResponse() {
         final MutableLiveData<Resource<List<CropsResponse>>> cropsMutableLiveData = new MutableLiveData<>();
-        apiService.getListOfCrops().enqueue(new Callback<List<CropsResponse>>() {
+        Call<List<CropsResponse>> cropApiService;
+        if (selectedLanguage) {
+            cropApiService = apiService.getLocalizedCropsList();
+        } else {
+            cropApiService = apiService.getListOfCrops();
+        }
+        cropApiService.enqueue(new Callback<List<CropsResponse>>() {
             @Override
             public void onResponse(Call<List<CropsResponse>> call, Response<List<CropsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -116,7 +128,13 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<FruitsResponse>>> getFruitsResponse() {
         final MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
-        apiService.getFruitsFromDB().enqueue(new Callback<List<FruitsResponse>>() {
+        Call<List<FruitsResponse>> fruitsApiService;
+        if (selectedLanguage) {
+            fruitsApiService = apiService.getLocalizedFruitsList();
+        } else {
+            fruitsApiService = apiService.getFruitsFromDB();
+        }
+        fruitsApiService.enqueue(new Callback<List<FruitsResponse>>() {
             @Override
             public void onResponse(Call<List<FruitsResponse>> call, Response<List<FruitsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -134,7 +152,13 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<HowToExpandResponse>>> getHowToExpandResponse() {
         final MutableLiveData<Resource<List<HowToExpandResponse>>> howToExpandLivedata = new MutableLiveData<>();
-        apiService.getListOfHowToExpandData().enqueue(new Callback<List<HowToExpandResponse>>() {
+        Call<List<HowToExpandResponse>> howToExpandApiService;
+        if (selectedLanguage) {
+            howToExpandApiService = apiService.getLocalizedHowToExpandData();
+        } else {
+            howToExpandApiService = apiService.getListOfHowToExpandData();
+        }
+        howToExpandApiService.enqueue(new Callback<List<HowToExpandResponse>>() {
             @Override
             public void onResponse(Call<List<HowToExpandResponse>> call, Response<List<HowToExpandResponse>> response) {
                 Constants.printLog(response.body() + " getHowToExpandResponse");
@@ -216,27 +240,14 @@ public class AgroWorldRepository {
 
     public void uploadTransactionDetail(PaymentModel paymentModel, String email) {
         databaseReference = FirebaseDatabase.getInstance().getReference(email + "-transaction");
-        databaseReference.child(paymentModel.getPaymentID()).setValue(paymentModel).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
+        databaseReference.child(paymentModel.getPaymentID()).setValue(paymentModel).addOnSuccessListener(unused -> {
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                requestStatus.postValue(e.getLocalizedMessage());
-            }
-        });
+        }).addOnFailureListener(e -> requestStatus.postValue(e.getLocalizedMessage()));
     }
 
     public void deleteCartData(String email) {
         databaseReference = FirebaseDatabase.getInstance().getReference(email + "-CartItems");
-        databaseReference.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Log.d("removeValue", "Cart node deleted successfully");
-            }
-        });
+        databaseReference.removeValue().addOnSuccessListener(unused -> Log.d("removeValue", "Cart node deleted successfully"));
     }
 
     public LiveData<Resource<List<PaymentModel>>> getTransactionList(String email) {
