@@ -155,8 +155,11 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
                         binding.shimmer.stopShimmer();
                         binding.shimmer.setVisibility(View.GONE);
                         binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
+                        binding.tvNoDataFoundErr.setVisibility(View.GONE);
                         setRecyclerView();
                     } else {
+                        binding.shimmer.setVisibility(View.GONE);
+                        binding.recyclerViewVehicle.setVisibility(View.GONE);
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
                         binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
                     }
@@ -166,7 +169,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     private void setRecyclerView() {
-        vehicleAdapter = new VehicleAdapter(vehicleItemList, TransportFragment.this);
+        vehicleAdapter = new VehicleAdapter( vehicleItemList, TransportFragment.this, 1);
         binding.recyclerViewVehicle.setAdapter(vehicleAdapter);
         binding.recyclerViewVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewVehicle.setHasFixedSize(true);

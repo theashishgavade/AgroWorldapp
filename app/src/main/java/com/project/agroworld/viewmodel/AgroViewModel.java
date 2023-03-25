@@ -3,7 +3,6 @@ package com.project.agroworld.viewmodel;
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.project.agroworld.articles.model.CropsResponse;
@@ -21,6 +20,7 @@ import java.util.List;
 
 public class AgroViewModel extends ViewModel {
     private AgroWorldRepository repository;
+
     public void init(Context context) {
         repository = new AgroWorldRepository(context);
     }
@@ -61,11 +61,15 @@ public class AgroViewModel extends ViewModel {
         repository.removeProductFromFirebase(title);
     }
 
+    public LiveData<Resource<String>> performVehicleRemovalAction(String vehicleModel) {
+        return repository.performProductRemovalAction(vehicleModel);
+    }
+
     public void uploadTransaction(PaymentModel paymentModel, String email) {
         repository.uploadTransactionDetail(paymentModel, email);
     }
 
-    public void deleteCartData(String email){
+    public void deleteCartData(String email) {
         repository.deleteCartData(email);
     }
 

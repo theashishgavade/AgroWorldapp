@@ -91,6 +91,11 @@ public class SignUpActivity extends AppCompatActivity {
             Constants.adminEmailContact(this);
         });
 
+        binding.tvHaveAnAccountUp.setOnClickListener(v -> {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        });
+
     }
 
 

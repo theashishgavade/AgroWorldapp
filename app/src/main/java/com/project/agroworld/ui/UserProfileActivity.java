@@ -66,6 +66,7 @@ public class UserProfileActivity extends AppCompatActivity {
             } else {
                 intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
             }
+            intent1.putExtra("isActionWithData", false);
             startActivity(intent1);
         });
 

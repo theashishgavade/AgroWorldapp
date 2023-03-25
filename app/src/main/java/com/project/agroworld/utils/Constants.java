@@ -34,7 +34,7 @@ public class Constants {
     public static final int LANGUAGE_REQUEST_CODE = 129;
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
-    public static final String RAZORPAY_KEY_ID = "rzp_test_jx2bOJysbxVioo";
+    public static final String RAZORPAY_KEY_ID = "rzp_test_WOJv3yvX507r26";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
     public static final String ABOUT_US_PAGE = "https://bhaveshppatil.notion.site/Agro-World-753fa8281ccc4b68a5508f0179f05295";

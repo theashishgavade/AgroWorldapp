@@ -26,11 +26,13 @@
             android:id="@+id/recycler_view_crt_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/rlPayment"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
 
         <RelativeLayout
+            android:id="@+id/rlPayment"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_alignParentStart="true"

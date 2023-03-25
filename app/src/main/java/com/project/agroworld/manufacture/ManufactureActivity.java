@@ -111,17 +111,8 @@ public class ManufactureActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.transport_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.transport_list:
-                startActivity(new Intent(ManufactureActivity.this, ManufactureDataActivity.class));
-                return true;
             case android.R.id.home:
                 onBackPressed();
             default:

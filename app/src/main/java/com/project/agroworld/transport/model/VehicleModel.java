@@ -1,9 +1,12 @@
 package com.project.agroworld.transport.model;
 
-public class VehicleModel {
+import java.io.Serializable;
+
+public class VehicleModel implements Serializable {
     private String model;
     private String address;
     private String rates;
+    private String unit;
     private String contact;
     private String imageUrl;
 
@@ -11,10 +14,11 @@ public class VehicleModel {
 
     }
 
-    public VehicleModel(String model, String address, String rates, String contact, String imageUrl) {
+    public VehicleModel(String model, String address, String rates,String unit, String contact, String imageUrl) {
         this.model = model;
         this.address = address;
         this.rates = rates;
+        this.unit = unit;
         this.contact = contact;
         this.imageUrl = imageUrl;
     }
@@ -30,6 +34,10 @@ public class VehicleModel {
 
     public String getRates() {
         return rates;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 
     public String getAddress() {

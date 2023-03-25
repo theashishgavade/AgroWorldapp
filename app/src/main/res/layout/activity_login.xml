@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_50"
-                android:backgroundTint="#11CFC5"
+                android:backgroundTint="@color/colorPrimary"
                 app:cardCornerRadius="@dimen/dp_20">
 
                 <LinearLayout
@@ -115,7 +115,7 @@
                         android:fontFamily="@font/poppins_medium"
                         android:text="@string/login"
                         android:textAllCaps="false"
-                        android:textColor="@color/darkPink"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
 
                     <TextView

@@ -62,15 +62,15 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements OnProductListener, OnVehicleCallClick {
 
-    private FusedLocationProviderClient fusedLocationProviderClient;
-    private FragmentHomeBinding binding;
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
+    double latitude, longitude;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private FragmentHomeBinding binding;
     private AgroViewModel agroViewModel;
     private VehicleAdapter vehicleAdapter;
     private ProductAdapter productAdapter;
     private String locality;
-    double latitude, longitude;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -136,7 +136,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                 intent.putExtra("longitude", longitude);
                 startActivity(intent);
             } else {
-                Constants.showToast(getContext(), getString(R.string.something_wrong_err));
+                Constants.showToast(getContext(), getString(R.string.failed_to_fetch_location));
             }
         });
     }
@@ -191,6 +191,9 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                         productModelArrayList.clear();
                         productModelArrayList.addAll(productModelResource.data);
                         setRecyclerView();
+                    } else {
+                        binding.shoppingRecyclerView.setVisibility(View.GONE);
+                        binding.tvDashboardProduct.setVisibility(View.GONE);
                     }
                     break;
             }
@@ -218,6 +221,9 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                         vehicleItemList.clear();
                         vehicleItemList.addAll(vehicleModelResource.data);
                         setVehicleRecyclerView();
+                    } else {
+                        binding.transportRecyclerView.setVisibility(View.GONE);
+                        binding.tvDashboardVehicle.setVisibility(View.GONE);
                     }
                     break;
             }
@@ -225,7 +231,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setVehicleRecyclerView() {
-        vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this);
+        vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this, 1);
         binding.transportRecyclerView.setAdapter(vehicleAdapter);
         binding.transportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.transportRecyclerView.setHasFixedSize(true);

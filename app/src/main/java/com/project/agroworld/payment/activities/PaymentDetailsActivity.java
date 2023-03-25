@@ -86,11 +86,14 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         });
 
         binding.btnProceed.setOnClickListener(v -> {
-            startPayment(amount * 100);
+            if (amount != 0.0){
+                startPayment((int) (amount * 100));
+            }
         });
     }
 
-    public void startPayment(double amount) {
+    public void startPayment(int amount) {
+        printLog("Amount - " + amount);
         final Activity activity = this;
         final Checkout checkout = new Checkout();
         checkout.setKeyID(Constants.RAZORPAY_KEY_ID);

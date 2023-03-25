@@ -43,7 +43,7 @@
                     android:layout_marginStart="@dimen/dp_20"
                     android:layout_toEndOf="@id/crd_profile"
                     android:fontFamily="@font/fredoka_one"
-                    android:text="@string/transport"
+                    android:text="Admin Access"
                     android:textSize="@dimen/sp_25" />
 
                 <ImageView
@@ -55,7 +55,7 @@
                     android:layout_margin="@dimen/dp_20"
                     android:src="@drawable/ic_baseline_search_24" />
 
-                <SearchView
+                <androidx.appcompat.widget.SearchView
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

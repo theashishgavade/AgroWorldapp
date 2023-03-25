@@ -1,40 +1,34 @@
 package com.project.agroworld.transport.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.SearchView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityTransportDataBinding;
-import com.project.agroworld.transport.adapter.OnVehicleCallClick;
 import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.listener.TransportAdminListener;
 import com.project.agroworld.transport.model.VehicleModel;
-import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportDataActivity extends AppCompatActivity implements OnVehicleCallClick {
+public class TransportDataActivity extends AppCompatActivity implements TransportAdminListener {
+    private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private ActivityTransportDataBinding binding;
     private DatabaseReference databaseReference;
-    private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private VehicleAdapter vehicleAdapter;
     private AgroViewModel agroViewModel;
 
@@ -46,15 +40,13 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init(this);
-        getVehicleListFromFirebase();
-
-        binding.ivSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                binding.tvUsername.setVisibility(View.GONE);
-                binding.ivSearch.setVisibility(View.GONE);
-                binding.searchBar.setVisibility(View.VISIBLE);
-            }
+        if (Permissions.checkConnection(this)) {
+            getVehicleListFromFirebase();
+        }
+        binding.ivSearch.setOnClickListener(v -> {
+            binding.tvUsername.setVisibility(View.GONE);
+            binding.ivSearch.setVisibility(View.GONE);
+            binding.searchBar.setVisibility(View.VISIBLE);
         });
 
         binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -69,6 +61,7 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
             @Override
             public boolean onQueryTextChange(String newText) {
                 searchProduct(newText);
+
                 return false;
             }
         });
@@ -94,6 +87,7 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
                     } else {
                         binding.shimmer.stopShimmer();
                         binding.shimmer.setVisibility(View.GONE);
+                        binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
                     }
                     break;
             }
@@ -119,56 +113,12 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
     }
 
     private void setRecyclerView() {
-        vehicleAdapter = new VehicleAdapter(vehicleItemList, this);
+        vehicleAdapter = new VehicleAdapter(this, vehicleItemList, this, 0);
         binding.recyclerViewVehicle.setAdapter(vehicleAdapter);
         binding.recyclerViewVehicle.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewVehicle.setHasFixedSize(true);
-
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                Toast.makeText(TransportDataActivity.this, "On Move", Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAbsoluteAdapterPosition();
-                onVehicleCardSwiped(position);
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(binding.recyclerViewVehicle);
     }
 
-    private void onVehicleCardSwiped(int position) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(TransportDataActivity.this);
-        alertDialog.setTitle(getString(R.string.remove_vehicle_message));
-        alertDialog.setMessage(getString(R.string.vehicle_remove_message));
-        alertDialog.setIcon(R.drawable.app_icon4);
-
-        alertDialog.setPositiveButton("Remove", (dialog, which) -> {
-            databaseReference = FirebaseDatabase.getInstance().getReference("vehicle");
-            databaseReference.child(vehicleItemList.get(position).getModel()).removeValue().addOnSuccessListener(unused -> {
-                Constants.showToast(TransportDataActivity.this, "Vehicle removed");
-                vehicleAdapter.removeItem(position);
-                if (vehicleItemList.isEmpty()) {
-                    binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                    binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
-                    binding.recyclerViewVehicle.setVisibility(View.GONE);
-                }
-            }).addOnFailureListener(e -> Constants.showToast(TransportDataActivity.this, getString(R.string.failed_to_remove_vehicle)));
-        });
-
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                vehicleAdapter.notifyItemRemoved(position );
-                vehicleAdapter.notifyItemRangeChanged(position, vehicleAdapter.getItemCount());
-            }
-        });
-        alertDialog.show();
-    }
 
     private void searchProduct(String query) {
         ArrayList<VehicleModel> searchProductList = new ArrayList<VehicleModel>();
@@ -185,9 +135,38 @@ public class TransportDataActivity extends AppCompatActivity implements OnVehicl
     }
 
     @Override
-    public void callVehicleOwner(VehicleModel vehicleModel) {
+    public void performCallAction(VehicleModel vehicleModel) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:" + vehicleModel.getContact()));
         startActivity(intent);
+    }
+
+    @Override
+    public void performEditAction(VehicleModel vehicleModel) {
+        Intent intent = new Intent(this, TransportActivity.class);
+        intent.putExtra("vehicleModel", vehicleModel);
+        intent.putExtra("isActionWithData", true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void performDeleteAction(VehicleModel vehicleModel) {
+        agroViewModel.performVehicleRemovalAction(vehicleModel.getModel()).observe(this, stringResource -> {
+            switch (stringResource.status) {
+                case ERROR:
+                    Constants.showToast(this, stringResource.data);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    Constants.showToast(this, stringResource.data);
+                    if (vehicleItemList.isEmpty()) {
+                        binding.recyclerViewVehicle.setVisibility(View.GONE);
+                        binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
+                    }
+                    vehicleAdapter.notifyDataSetChanged();
+                    break;
+            }
+        });
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
-    <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/crdVehicleCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,11 +16,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/crdIvVehicle"
-                android:layout_width="@dimen/dp_150"
-                android:layout_height="120dp"
+                android:layout_width="140dp"
+                android:layout_height="110dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
                 app:cardCornerRadius="@dimen/dp_10">
 
                 <ImageView
@@ -31,18 +31,25 @@
 
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:id="@+id/tvVehiclePrice"
+            <ImageView
+                android:id="@+id/ivMoreOptionTransport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
+                android:src="@drawable/baseline_more_vert_24" />
+
+            <TextView
+                android:id="@+id/tvVehiclePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivMoreOptionTransport"
                 android:layout_marginStart="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
                 android:layout_toEndOf="@id/crdIvVehicle"
-                android:fontFamily="@font/lexend_bold"
+                android:fontFamily="@font/days_one"
                 android:gravity="start"
                 android:text="@string/price"
                 android:textColor="@color/colorPrimaryDark"
@@ -58,19 +65,20 @@
                 android:layout_toEndOf="@id/crdIvVehicle"
                 android:background="@drawable/button_bgd"
                 android:drawableStart="@drawable/ic_baseline_call_24"
-                android:fontFamily="@font/fredoka_one"
+                android:fontFamily="@font/lexend_bold"
+                android:gravity="center"
                 android:paddingStart="@dimen/dp_20"
                 android:text="@string/call"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/size_15sp" />
+                android:textSize="@dimen/size_16sp" />
 
             <TextView
                 android:id="@+id/tvVehicleName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/crdIvVehicle"
-                android:fontFamily="@font/lexend_bold"
+                android:layout_below="@id/btnVehicleOwnerCall"
+                android:fontFamily="@font/fredoka_one"
                 android:gravity="center"
                 android:text="@string/vehicle_name"
                 android:textColor="@color/colorPrimaryDark"
@@ -86,7 +94,6 @@
                 android:text="@string/location"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/sp_18" />
-
 
         </RelativeLayout>
 

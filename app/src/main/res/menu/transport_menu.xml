@@ -2,7 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/transport_list"
-        android:title="@string/show_list" />
+        android:id="@+id/editProductDetails"
+        android:title="@string/edit" />
+    <item
+        android:id="@+id/deleteProductDetails"
+        android:title="@string/delete" />
 
 </menu>

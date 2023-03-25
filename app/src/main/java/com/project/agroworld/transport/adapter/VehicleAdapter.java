@@ -1,38 +1,65 @@
 package com.project.agroworld.transport.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.project.agroworld.databinding.TransportAdminLayoutBinding;
 import com.project.agroworld.databinding.TransportItemLayoutBinding;
+import com.project.agroworld.transport.listener.TransportAdminListener;
 import com.project.agroworld.transport.model.VehicleModel;
+import com.project.agroworld.transport.viewHolder.VehicleAdminViewHolder;
 import com.project.agroworld.transport.viewHolder.VehicleViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VehicleAdapter extends RecyclerView.Adapter<VehicleViewHolder> {
-
+public class VehicleAdapter extends RecyclerView.Adapter {
+    private TransportAdminListener adminListener;
+    private OnVehicleCallClick listener;
     private List<VehicleModel> vehicleItemList;
-    private final OnVehicleCallClick listener;
+    private Context context;
+    private int type;
 
-    public VehicleAdapter(List<VehicleModel> vehicleItemList, OnVehicleCallClick clickListener) {
+    public VehicleAdapter(List<VehicleModel> vehicleItemList, OnVehicleCallClick clickListener, int type) {
         this.vehicleItemList = vehicleItemList;
         this.listener = clickListener;
+        this.type = type;
+    }
+
+    public VehicleAdapter(Context context, List<VehicleModel> vehicleModelList, TransportAdminListener adminListener, int type) {
+        this.context = context;
+        this.vehicleItemList = vehicleModelList;
+        this.adminListener = adminListener;
+        this.type = type;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return type;
     }
 
     @NonNull
     @Override
-    public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new VehicleViewHolder(TransportItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 0) {
+            return new VehicleAdminViewHolder(TransportAdminLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        } else {
+            return new VehicleViewHolder(TransportItemLayoutBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         VehicleModel vehicleModel = vehicleItemList.get(position);
-        holder.setData(vehicleModel, listener);
+        if (holder instanceof VehicleAdminViewHolder) {
+            ((VehicleAdminViewHolder) holder).setData(vehicleModel, adminListener, context);
+        } else {
+            ((VehicleViewHolder) holder).setData(vehicleModel, listener);
+        }
     }
 
     @Override

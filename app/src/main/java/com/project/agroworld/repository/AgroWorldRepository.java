@@ -9,8 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -191,6 +189,8 @@ public class AgroWorldRepository {
                         }
                     }
                     productLiveData.setValue(Resource.success(productModelArrayList));
+                }else {
+                    productLiveData.setValue(Resource.success(null));
                 }
             }
 
@@ -217,6 +217,8 @@ public class AgroWorldRepository {
                         }
                     }
                     vehicleLiveData.setValue(Resource.success(vehicleModelArrayList));
+                }else {
+                    vehicleLiveData.setValue(Resource.success(null));
                 }
             }
 
@@ -236,6 +238,17 @@ public class AgroWorldRepository {
             Log.d("removeProduct", command.getLocalizedMessage());
 
         });
+    }
+
+    public LiveData<Resource<String>> performProductRemovalAction(String vehicleModel) {
+        MutableLiveData<Resource<String>> productRemoveLivedata = new MutableLiveData<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("vehicle");
+        databaseReference.child(vehicleModel).removeValue().addOnSuccessListener(unused -> {
+            productRemoveLivedata.setValue(Resource.success("success"));
+        }).addOnFailureListener(e -> {
+            productRemoveLivedata.setValue(Resource.success(e.getLocalizedMessage()));
+        });
+        return productRemoveLivedata;
     }
 
     public void uploadTransactionDetail(PaymentModel paymentModel, String email) {

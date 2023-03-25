@@ -176,4 +176,7 @@
     <string name="sindhudurg">Sindhudurg</string>
     <string name="thane">Thane</string>
     <string name="google_sign_up">Google Sign In</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="failed_to_fetch_location"><![CDATA[Failed to fetch lattitude & longitude.]]></string>
 </resources>

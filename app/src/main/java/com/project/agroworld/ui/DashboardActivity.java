@@ -78,10 +78,10 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tabLayout.getTabAt(tab.getPosition()).getIcon().setColorFilter(getResources().getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_IN);
-                tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#5D1F91"));
+                tabLayout.getTabAt(tab.getPosition()).getIcon().setColorFilter(getResources().getColor(R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+                tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#0d0233"));
                 tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
-                tabLayout.setTabTextColors(Color.parseColor("#5D1F91"), Color.parseColor("#FF0000"));
+                tabLayout.setTabTextColors(Color.parseColor("#5D1F91"), Color.parseColor("#0d0233"));
             }
 
             @Override

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="#11CFC5"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         tools:context=".ui.SignUpActivity">
 
@@ -40,7 +40,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/fredoka_one"
                         android:text="@string/here_s_nyour_first_nstep_with_nagro_world"
-                        android:textColor="@color/darkPink"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/sp_25" />
 
                     <ImageView
@@ -158,7 +158,7 @@
                                 android:fontFamily="@font/poppins_medium"
                                 android:text="@string/register"
                                 android:textAllCaps="false"
-                                android:textColor="@color/darkPink"
+                                android:textColor="@color/colorPrimaryDark"
                                 android:textSize="20sp" />
 
                             <TextView
@@ -168,7 +168,7 @@
                                 android:layout_marginTop="@dimen/dp_20"
                                 android:text="@string/already_have_an_account"
                                 android:textAlignment="center"
-                                android:textColor="@color/darkPink"
+                                android:textColor="@color/colorPrimaryDark"
                                 android:textSize="17sp"
                                 android:textStyle="bold" />
 
