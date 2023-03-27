@@ -2,7 +2,6 @@ package com.project.agroworld.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,6 @@ import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -22,11 +19,10 @@ import com.project.agroworld.databinding.FragmentShoppingBinding;
 import com.project.agroworld.payment.activities.PaymentHistoryActivity;
 import com.project.agroworld.shopping.activity.AddToCartActivity;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.shopping.adapter.ProductAdapter;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
@@ -159,7 +155,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     }
 
     private void setRecyclerView() {
-        productAdapter = new ProductAdapter(productModelArrayList, ShoppingFragment.this);
+        productAdapter = new ProductAdapter(productModelArrayList, ShoppingFragment.this, 1);
         binding.recyclerView.setAdapter(productAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setHasFixedSize(true);

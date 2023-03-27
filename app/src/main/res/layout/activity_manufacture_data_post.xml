@@ -11,7 +11,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".manufacture.ManufactureActivity">
+            tools:context=".manufacture.activity.ManufactureActivity">
 
             <TextView
                 android:id="@+id/tvUploadNewProduct"

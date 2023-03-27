@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.databinding.TransportAdminLayoutBinding;
 import com.project.agroworld.databinding.TransportItemLayoutBinding;
-import com.project.agroworld.transport.listener.TransportAdminListener;
+import com.project.agroworld.transport.listener.AdminListener;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.transport.viewHolder.VehicleAdminViewHolder;
 import com.project.agroworld.transport.viewHolder.VehicleViewHolder;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VehicleAdapter extends RecyclerView.Adapter {
-    private TransportAdminListener adminListener;
+    private AdminListener adminListener;
     private OnVehicleCallClick listener;
     private List<VehicleModel> vehicleItemList;
     private Context context;
@@ -30,7 +30,7 @@ public class VehicleAdapter extends RecyclerView.Adapter {
         this.type = type;
     }
 
-    public VehicleAdapter(Context context, List<VehicleModel> vehicleModelList, TransportAdminListener adminListener, int type) {
+    public VehicleAdapter(Context context, List<VehicleModel> vehicleModelList, AdminListener adminListener, int type) {
         this.context = context;
         this.vehicleItemList = vehicleModelList;
         this.adminListener = adminListener;

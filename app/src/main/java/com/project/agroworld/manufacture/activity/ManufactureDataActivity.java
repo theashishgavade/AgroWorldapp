@@ -1,41 +1,36 @@
-package com.project.agroworld.manufacture;
+package com.project.agroworld.manufacture.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataBinding;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
+import com.project.agroworld.manufacture.listener.ManufactureAdminListener;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.shopping.adapter.ProductAdapter;
-import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
-import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class ManufactureDataActivity extends AppCompatActivity implements OnProductListener {
+public class ManufactureDataActivity extends AppCompatActivity implements ManufactureAdminListener {
 
+    private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
     private ActivityManufactureDataBinding binding;
     private DatabaseReference databaseReference;
-    private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
 
@@ -95,11 +90,15 @@ public class ManufactureDataActivity extends AppCompatActivity implements OnProd
                         productModelArrayList.addAll(productModelResource.data);
                         binding.shimmer.stopShimmer();
                         binding.shimmer.setVisibility(View.GONE);
+                        binding.tvNoDataFoundErr.setVisibility(View.GONE);
                         binding.recyclerView.setVisibility(View.VISIBLE);
                         setRecyclerView();
                     } else {
+                        binding.shimmer.stopShimmer();
+                        binding.shimmer.setVisibility(View.GONE);
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                        binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
+                        binding.tvNoDataFoundErr.setText(getText(R.string.no_data_found));
+                        binding.recyclerView.setVisibility(View.GONE);
                     }
                     break;
             }
@@ -107,62 +106,55 @@ public class ManufactureDataActivity extends AppCompatActivity implements OnProd
     }
 
     private void setRecyclerView() {
-        productAdapter = new ProductAdapter(productModelArrayList, ManufactureDataActivity.this);
+        productAdapter = new ProductAdapter(this, productModelArrayList, this, 0);
         binding.recyclerView.setAdapter(productAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setHasFixedSize(true);
-
-        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                Toast.makeText(ManufactureDataActivity.this, "On Move", Toast.LENGTH_LONG).show();
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAbsoluteAdapterPosition();
-
-                if (productModelArrayList.isEmpty()) {
-                    binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-                    binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
-                    binding.recyclerView.setVisibility(View.GONE);
-                }
-                onProductCardSwiped(position);
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
     }
 
-    private void onProductCardSwiped(int position) {
+    private void performProductRemovalAction(ProductModel productModel) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(ManufactureDataActivity.this);
-        alertDialog.setTitle("Are you sure,you want to remove product??");
+        alertDialog.setTitle(R.string.remove_product_dialog_msg);
         alertDialog.setMessage(getString(R.string.product_remove_message));
         alertDialog.setIcon(R.drawable.app_icon4);
 
-        alertDialog.setPositiveButton("Remove", (dialog, which) -> {
-            agroViewModel.removeProductFromFirebase(productModelArrayList.get(position).getTitle());
-            getProductListFromFirebase();
-            removeProductFromCartIfAdded(position);
-            productAdapter.notifyDataSetChanged();
+        alertDialog.setPositiveButton(R.string.remove, (dialog, which) -> {
+            agroViewModel.removeProductFromFirebase(productModel.getTitle()).observe(this, stringResource -> {
+                switch (stringResource.status) {
+                    case ERROR:
+                        Constants.showToast(this, getString(R.string.failed_to_remove_prodcut));
+                        break;
+                    case LOADING:
+                        break;
+                    case SUCCESS:
+                        Constants.showToast(this, "Successfully removed item from list.. wait few sec more");
+                        removeProductFromCartIfAdded(productModel);
+                        getProductListFromFirebase();
+                }
+            });
+
         });
 
-        alertDialog.setNegativeButton("Cancel", (dialog, which) -> {
-            productAdapter.notifyItemRemoved(position);
-            productAdapter.notifyItemRangeChanged(position, productAdapter.getItemCount());
+        alertDialog.setNegativeButton(R.string.cancel, (dialog, which) -> {
+            dialog.dismiss();
         });
         alertDialog.show();
     }
 
-    private void removeProductFromCartIfAdded(int position) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
-        databaseReference.child(productModelArrayList.get(position).getTitle()).removeValue().addOnSuccessListener(unused -> {
-            Log.d("removeCartItemTransport", "onSuccess");
-            databaseReference = null;
-        }).addOnFailureListener(command -> {
-            Log.d("removeCartItemTransport", command.getLocalizedMessage());
-            databaseReference = null;
+    private void removeProductFromCartIfAdded(ProductModel productModel) {
+        agroViewModel.performCartProductRemoveAction(productModel.getTitle()).observe(this, stringResource -> {
+            switch (stringResource.status) {
+                case ERROR:
+                    Constants.showToast(this, getString(R.string.failed_to_remove_prodcut));
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    if (Objects.equals(stringResource.data, "success")) {
+                        Constants.showToast(this, "Successfully removed product.");
+                    }
+                    getProductListFromFirebase();
+            }
         });
     }
 
@@ -181,9 +173,19 @@ public class ManufactureDataActivity extends AppCompatActivity implements OnProd
     }
 
     @Override
-    public void onProductClick(ProductModel productModel) {
+    public void performOnCardClickAction(ProductModel productModel) {
         Intent intent = new Intent(this, ProductDetailActivity.class);
         intent.putExtra("productModel", productModel);
         startActivity(intent);
+    }
+
+    @Override
+    public void performEditAction(ProductModel productModel, int position) {
+        Constants.showToast(this, "ready to delete product");
+    }
+
+    @Override
+    public void performDeleteAction(ProductModel productModel, int position) {
+        performProductRemovalAction(productModel);
     }
 }

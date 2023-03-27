@@ -45,7 +45,7 @@
             android:name=".articles.activity.HowToExpandActivity"
             android:exported="false" />
         <activity
-            android:name=".manufacture.ManufactureDataActivity"
+            android:name=".manufacture.activity.ManufactureDataActivity"
             android:exported="false" />
         <activity
             android:name=".transport.activity.TransportDataActivity"
@@ -78,7 +78,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".manufacture.ManufactureActivity"
+            android:name=".manufacture.activity.ManufactureActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

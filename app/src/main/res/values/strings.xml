@@ -180,4 +180,8 @@
     <string name="delete">Delete</string>
     <string name="failed_to_fetch_location"><![CDATA[Failed to fetch lattitude & longitude.]]></string>
     <string name="message">Message</string>
+    <string name="remove_product_dialog_msg">Are you sure,you want to remove product??</string>
+    <string name="remove">Remove</string>
+    <string name="cancel">Cancel</string>
+    <string name="failed_to_remove_prodcut">Failed to remove product.</string>
 </resources>

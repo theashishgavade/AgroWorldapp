@@ -42,7 +42,7 @@
                 android:layout_marginEnd="@dimen/dp_10"
                 android:layout_marginBottom="@dimen/dp_10"
                 android:layout_toEndOf="@id/crdIvVehicle"
-                android:fontFamily="@font/lexend_bold"
+                android:fontFamily="@font/days_one"
                 android:gravity="start"
                 android:text="@string/price"
                 android:textColor="@color/colorPrimaryDark"

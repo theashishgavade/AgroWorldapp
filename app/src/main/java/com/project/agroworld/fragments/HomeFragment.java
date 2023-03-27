@@ -37,7 +37,7 @@ import com.project.agroworld.databinding.FragmentHomeBinding;
 import com.project.agroworld.network.APIService;
 import com.project.agroworld.network.Network;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.shopping.adapter.ProductAdapter;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.transport.adapter.OnVehicleCallClick;
@@ -201,7 +201,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setRecyclerView() {
-        productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this);
+        productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this, 1);
         binding.shoppingRecyclerView.setAdapter(productAdapter);
         binding.shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.shoppingRecyclerView.setHasFixedSize(true);

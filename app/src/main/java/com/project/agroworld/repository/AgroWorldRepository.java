@@ -189,7 +189,7 @@ public class AgroWorldRepository {
                         }
                     }
                     productLiveData.setValue(Resource.success(productModelArrayList));
-                }else {
+                } else {
                     productLiveData.setValue(Resource.success(null));
                 }
             }
@@ -217,7 +217,7 @@ public class AgroWorldRepository {
                         }
                     }
                     vehicleLiveData.setValue(Resource.success(vehicleModelArrayList));
-                }else {
+                } else {
                     vehicleLiveData.setValue(Resource.success(null));
                 }
             }
@@ -230,14 +230,28 @@ public class AgroWorldRepository {
         return vehicleLiveData;
     }
 
-    public void removeProductFromFirebase(String title) {
+    public LiveData<Resource<String>> removeProductFromFirebase(String title) {
+        MutableLiveData<Resource<String>> productRemovalLiveStatus = new MutableLiveData<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("product");
         databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
-            Log.d("removeProduct", "onSuccess");
+            productRemovalLiveStatus.setValue(Resource.success("Success"));
         }).addOnFailureListener(command -> {
             Log.d("removeProduct", command.getLocalizedMessage());
-
+            productRemovalLiveStatus.setValue(Resource.error(command.getLocalizedMessage(), null));
         });
+        return productRemovalLiveStatus;
+    }
+
+    public LiveData<Resource<String>> performCartProductRemoveAction(String title) {
+        MutableLiveData<Resource<String>> cartProductRemoveStatus = new MutableLiveData<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
+        databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
+            cartProductRemoveStatus.setValue(Resource.success("success"));
+        }).addOnFailureListener(command -> {
+            Log.d("removeCartItemTransport", command.getLocalizedMessage());
+            cartProductRemoveStatus.setValue(Resource.error(command.getLocalizedMessage(), null));
+        });
+        return cartProductRemoveStatus;
     }
 
     public LiveData<Resource<String>> performProductRemovalAction(String vehicleModel) {

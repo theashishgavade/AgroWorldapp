@@ -1,5 +1,7 @@
 package com.project.agroworld.transport.viewHolder;
 
+import android.view.View;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.databinding.TransportItemLayoutBinding;
@@ -16,13 +18,12 @@ public class VehicleViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setData(VehicleModel vehicleModel, OnVehicleCallClick vehicleCallClick) {
-
         binding.tvVehicleName.setText(vehicleModel.getModel());
         binding.tvVehicleLocation.setText(vehicleModel.getAddress());
         Constants.bindImage(
                 binding.ivTransport, vehicleModel.getImageUrl(), binding.ivTransport
         );
-        binding.tvVehiclePrice.setText("₹ " + vehicleModel.getRates() + " " + vehicleModel.getUnit());
+        binding.tvVehiclePrice.setText("₹ " + vehicleModel.getRates() + "/" + vehicleModel.getUnit());
         binding.btnVehicleOwnerCall.setOnClickListener(v -> vehicleCallClick.callVehicleOwner(vehicleModel));
     }
 }

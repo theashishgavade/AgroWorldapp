@@ -2,9 +2,9 @@ package com.project.agroworld.transport.listener;
 
 import com.project.agroworld.transport.model.VehicleModel;
 
-public interface TransportAdminListener {
+public interface AdminListener {
 
-    void performCallAction(VehicleModel vehicleModel);
+    void performOnCardClickAction(VehicleModel vehicleModel);
 
     void performEditAction(VehicleModel vehicleModel);
 

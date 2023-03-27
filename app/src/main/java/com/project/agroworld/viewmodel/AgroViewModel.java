@@ -57,9 +57,14 @@ public class AgroViewModel extends ViewModel {
         return repository.getTransactionList(email);
     }
 
-    public void removeProductFromFirebase(String title) {
-        repository.removeProductFromFirebase(title);
+    public LiveData<Resource<String>> removeProductFromFirebase(String title) {
+        return repository.removeProductFromFirebase(title);
     }
+
+    public LiveData<Resource<String>> performCartProductRemoveAction(String title) {
+        return repository.performCartProductRemoveAction(title);
+    }
+
 
     public LiveData<Resource<String>> performVehicleRemovalAction(String vehicleModel) {
         return repository.performProductRemovalAction(vehicleModel);

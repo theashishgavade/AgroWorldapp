@@ -136,7 +136,7 @@ public class TransportActivity extends AppCompatActivity {
             progressBar.hideProgressBar();
             Constants.showToast(TransportActivity.this, getString(R.string.vehicle_updated));
             startActivity(new Intent(TransportActivity.this, TransportDataActivity.class));
-
+            finish();
         }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();
             Constants.showToast(TransportActivity.this, getString(R.string.failed_to_update_vehicle));

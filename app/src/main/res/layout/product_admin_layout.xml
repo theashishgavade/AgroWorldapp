@@ -19,6 +19,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp">
 
+                <ImageView
+                    android:id="@+id/ivProductMoreOption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:padding="@dimen/dp_10"
+                    android:src="@drawable/baseline_more_vert_24" />
+
                 <androidx.cardview.widget.CardView
                     android:id="@+id/crdProdctData"
                     android:layout_width="@dimen/dp_80"
@@ -44,6 +53,7 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dp_15"
                     android:layout_marginTop="8dp"
+                    android:layout_toStartOf="@id/ivProductMoreOption"
                     android:layout_toEndOf="@id/crdProdctData"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/darkPink"

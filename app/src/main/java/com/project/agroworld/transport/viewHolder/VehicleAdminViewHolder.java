@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.TransportAdminLayoutBinding;
-import com.project.agroworld.transport.listener.TransportAdminListener;
+import com.project.agroworld.transport.listener.AdminListener;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 
@@ -19,15 +19,15 @@ public class VehicleAdminViewHolder extends RecyclerView.ViewHolder {
         this.binding = binding;
     }
 
-    public void setData(VehicleModel vehicleModel, TransportAdminListener adminListener, Context context) {
+    public void setData(VehicleModel vehicleModel, AdminListener adminListener, Context context) {
 
         binding.tvVehicleName.setText(vehicleModel.getModel());
         binding.tvVehicleLocation.setText(vehicleModel.getAddress());
         Constants.bindImage(
                 binding.ivTransport, vehicleModel.getImageUrl(), binding.ivTransport
         );
-        binding.tvVehiclePrice.setText("₹ " + vehicleModel.getRates() + "" + vehicleModel.getUnit());
-        binding.btnVehicleOwnerCall.setOnClickListener(v -> adminListener.performCallAction(vehicleModel));
+        binding.tvVehiclePrice.setText("₹ " + vehicleModel.getRates() + "/" + vehicleModel.getUnit());
+        binding.btnVehicleOwnerCall.setOnClickListener(v -> adminListener.performOnCardClickAction(vehicleModel));
 
         binding.ivMoreOptionTransport.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(context, binding.ivMoreOptionTransport);
