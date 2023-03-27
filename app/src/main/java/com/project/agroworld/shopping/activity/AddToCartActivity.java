@@ -82,7 +82,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
         binding.btnProceedToPayment.setOnClickListener(v -> {
             String value = binding.tvTotalAmount.getText().toString();
-            Log.d("valueInit", "size " + productCartList.size() + "value " + value.toString());
+            Log.d("valueInit", "size " + productCartList.size() + "value " + value);
 
             if (productCartList.isEmpty()) {
                 Constants.showToast(this, getString(R.string.no_cart_data_found));

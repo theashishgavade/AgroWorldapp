@@ -18,20 +18,20 @@ import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddTaskBinding;
 import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.taskmanager.model.DateModel;
+import com.project.agroworld.taskmanager.model.TimeModel;
 import com.project.agroworld.taskmanager.receiver.EventReceiver;
 import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
-import com.project.agroworld.taskmanager.model.TimeModel;
 import com.project.agroworld.utils.Constants;
 
 import java.util.Calendar;
 
 public class AddTaskActivity extends AppCompatActivity {
+    String timeToNotify;
+    int maxIDCount;
     private ActivityAddTaskBinding binding;
     private FarmerViewModel viewModel;
     private TimeModel timeModel;
     private DateModel dateModel;
-    String timeToNotify;
-    int maxIDCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,7 +145,7 @@ public class AddTaskActivity extends AppCompatActivity {
         });
     }
 
-    private void showTimerPickerDialog(){
+    private void showTimerPickerDialog() {
         Calendar currentTime = Calendar.getInstance();
         int hour = currentTime.get(Calendar.HOUR_OF_DAY);
         int minute = currentTime.get(Calendar.MINUTE);
@@ -159,7 +159,7 @@ public class AddTaskActivity extends AppCompatActivity {
         mTimePicker.show();
     }
 
-    private void showDatePickerDialog(){
+    private void showDatePickerDialog() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);

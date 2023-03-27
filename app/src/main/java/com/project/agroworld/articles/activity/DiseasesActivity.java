@@ -24,10 +24,10 @@ import java.util.ArrayList;
 
 public class DiseasesActivity extends AppCompatActivity implements DiseasesListener {
 
-    private DiseaseAdapter diseaseAdapter;
-    ActivityDiseasesBinding binding;
-    private AgroViewModel viewModel;
     private final ArrayList<DiseasesResponse> diseasesResponseArrayList = new ArrayList<>();
+    ActivityDiseasesBinding binding;
+    private DiseaseAdapter diseaseAdapter;
+    private AgroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

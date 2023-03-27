@@ -14,25 +14,10 @@ import com.project.agroworld.R;
 import java.util.ArrayList;
 
 public class ChatBotAdapter extends RecyclerView.Adapter<ChatBotAdapter.MessageViewHolder> {
-    private ArrayList<ChatBotModel> chatBotModels;
+    private final ArrayList<ChatBotModel> chatBotModels;
 
-    public ChatBotAdapter(ArrayList<ChatBotModel> chatBotModels){
+    public ChatBotAdapter(ArrayList<ChatBotModel> chatBotModels) {
         this.chatBotModels = chatBotModels;
-    }
-
-    public class MessageViewHolder extends RecyclerView.ViewHolder {
-        private LinearLayout sentLayout;
-        private LinearLayout receivedLayout;
-        private TextView sentText;
-        private TextView receivedText;
-
-        public MessageViewHolder(final View itemView) {
-            super(itemView);
-            sentLayout = itemView.findViewById(R.id.sentLayout);
-            receivedLayout = itemView.findViewById(R.id.receivedLayout);
-            sentText = itemView.findViewById(R.id.sentTextView);
-            receivedText= itemView.findViewById(R.id.receivedTextView);
-        }
     }
 
     @NonNull
@@ -47,14 +32,13 @@ public class ChatBotAdapter extends RecyclerView.Adapter<ChatBotAdapter.MessageV
         String message = chatBotModels.get(position).getMessage();
         boolean type = chatBotModels.get(position).getType();
 
-        if(type){
+        if (type) {
             //If a message is sent
             holder.sentLayout.setVisibility(LinearLayout.VISIBLE);
             holder.sentText.setText(message);
             // Set visibility as GONE to remove the space taken up
             holder.receivedLayout.setVisibility(LinearLayout.GONE);
-        }
-        else{
+        } else {
             //Message is received
             holder.receivedLayout.setVisibility(LinearLayout.VISIBLE);
             holder.receivedText.setText(message);
@@ -66,5 +50,20 @@ public class ChatBotAdapter extends RecyclerView.Adapter<ChatBotAdapter.MessageV
     @Override
     public int getItemCount() {
         return chatBotModels.size();
+    }
+
+    public class MessageViewHolder extends RecyclerView.ViewHolder {
+        private final LinearLayout sentLayout;
+        private final LinearLayout receivedLayout;
+        private final TextView sentText;
+        private final TextView receivedText;
+
+        public MessageViewHolder(final View itemView) {
+            super(itemView);
+            sentLayout = itemView.findViewById(R.id.sentLayout);
+            receivedLayout = itemView.findViewById(R.id.receivedLayout);
+            sentText = itemView.findViewById(R.id.sentTextView);
+            receivedText = itemView.findViewById(R.id.receivedTextView);
+        }
     }
 }

@@ -8,9 +8,9 @@ public class DateModel implements Serializable {
     private int month;
     private int day;
 
-    public DateModel(int year, int month, int day){
+    public DateModel(int year, int month, int day) {
         this.year = year;
-        this.month= month;
+        this.month = month;
         this.day = day;
     }
 

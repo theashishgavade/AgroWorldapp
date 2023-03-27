@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,8 +14,6 @@ import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
@@ -23,7 +21,6 @@ import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentNewsBinding;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 public class NewsFragment extends Fragment {
 
@@ -84,6 +81,17 @@ public class NewsFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        binding.newsProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     private class AgroNews extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -104,21 +112,10 @@ public class NewsFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            if (view.getProgress() == 100){
+            if (view.getProgress() == 100) {
                 binding.newsProgressBar.setVisibility(View.GONE);
             }
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        binding.newsProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
 

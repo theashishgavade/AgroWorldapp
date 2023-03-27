@@ -8,7 +8,7 @@ public class TimeModel implements Serializable {
     private int minute;
     private String timeToNotify;
 
-    public TimeModel(int hour, int minute, String timeToNotify){
+    public TimeModel(int hour, int minute, String timeToNotify) {
         this.hour = hour;
         this.minute = minute;
         this.timeToNotify = timeToNotify;

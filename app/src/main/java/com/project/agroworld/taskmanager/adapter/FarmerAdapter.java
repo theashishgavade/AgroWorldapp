@@ -14,18 +14,12 @@ import com.project.agroworld.taskmanager.listener.OnItemClickListener;
 import com.project.agroworld.taskmanager.viewholder.FarmerViewHolder;
 
 public class FarmerAdapter extends ListAdapter<FarmerModel, FarmerViewHolder> {
-    private OnItemClickListener listener;
-    Context context;
-    public FarmerAdapter(Context context, OnItemClickListener listener) {
-        super(DIFF_CALLBACK);
-        this.context = context;
-        this.listener = listener;
-    }
     private static final DiffUtil.ItemCallback<FarmerModel> DIFF_CALLBACK = new DiffUtil.ItemCallback<FarmerModel>() {
         @Override
         public boolean areItemsTheSame(FarmerModel oldItem, FarmerModel newItem) {
             return oldItem.getId() == newItem.getId();
         }
+
         @Override
         public boolean areContentsTheSame(FarmerModel oldItem, FarmerModel newItem) {
             // below line is to check the course name, description and course duration.
@@ -33,6 +27,14 @@ public class FarmerAdapter extends ListAdapter<FarmerModel, FarmerViewHolder> {
                     oldItem.getDesc().equals(newItem.getDesc());
         }
     };
+    Context context;
+    private final OnItemClickListener listener;
+
+    public FarmerAdapter(Context context, OnItemClickListener listener) {
+        super(DIFF_CALLBACK);
+        this.context = context;
+        this.listener = listener;
+    }
 
     @NonNull
     @Override
@@ -45,6 +47,7 @@ public class FarmerAdapter extends ListAdapter<FarmerModel, FarmerViewHolder> {
         FarmerModel model = getCourseAt(position);
         holder.bindData(model, listener, context);
     }
+
     public FarmerModel getCourseAt(int position) {
         return getItem(position);
     }

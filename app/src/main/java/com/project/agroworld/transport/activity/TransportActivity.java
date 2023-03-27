@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
+
+import java.util.Locale;
 
 public class TransportActivity extends AppCompatActivity {
 
@@ -62,6 +65,18 @@ public class TransportActivity extends AppCompatActivity {
             selectImage();
         });
 
+        binding.etVehicleAddress.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(this, binding.etLayoutAddressVehicle);
+            popupMenu.getMenuInflater().inflate(R.menu.location_menu, popupMenu.getMenu());
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                if (menuItem.getTitle() != null) {
+                    binding.etVehicleAddress.setText(menuItem.getTitle() + ", Maharashtra");
+                }
+                return true;
+            });
+            popupMenu.show();
+        });
+
         binding.btnUpdateDataVehicle.setOnClickListener(v -> {
             String model = binding.etVehicleModel.getText().toString();
             String rate = binding.etVehicleRate.getText().toString();
@@ -77,7 +92,7 @@ public class TransportActivity extends AppCompatActivity {
                     !address.isEmpty() &&
                     Constants.contactValidation(contact) &&
                     isImageSelected) {
-                uploadImageToFirebase(model, rate, unit, address, contact);
+                uploadImageToFirebase(model, rate, unit.toUpperCase(Locale.ROOT), address, contact);
             } else {
                 Constants.showToast(this, getString(R.string.requiredDataChecks));
             }

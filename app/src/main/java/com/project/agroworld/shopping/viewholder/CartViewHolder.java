@@ -1,7 +1,5 @@
 package com.project.agroworld.shopping.viewholder;
 
-import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,21 +8,22 @@ import com.project.agroworld.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 
-public class CartViewHolder extends RecyclerView.ViewHolder{
+public class CartViewHolder extends RecyclerView.ViewHolder {
 
     private final CartItemLayoutBinding binding;
-    private int itemCount  = 1;
+    private int itemCount = 1;
+
     public CartViewHolder(@NonNull CartItemLayoutBinding binding) {
         super(binding.getRoot());
         this.binding = binding;
     }
 
-    public void bindItemData(ProductModel productModel, ItemCartActionListener listener){
+    public void bindItemData(ProductModel productModel, ItemCartActionListener listener) {
 
         binding.ivIncreaseCount.setOnClickListener(v -> {
-            if (itemCount == 20){
+            if (itemCount == 20) {
                 Constants.showToast(v.getContext(), "Can't order more than 20 items at a time");
-            }else{
+            } else {
                 itemCount++;
                 binding.tvItemCount.setText(String.valueOf(itemCount));
                 listener.onIncreaseItemClick(productModel, itemCount);
@@ -33,9 +32,9 @@ public class CartViewHolder extends RecyclerView.ViewHolder{
         });
 
         binding.ivDecreaseCount.setOnClickListener(v -> {
-            if (itemCount == 1){
+            if (itemCount == 1) {
                 Constants.showToast(v.getContext(), "Default value");
-            }else  {
+            } else {
                 itemCount--;
                 binding.tvItemCount.setText(String.valueOf(itemCount));
                 listener.onDecreaseItemClick(productModel, itemCount);

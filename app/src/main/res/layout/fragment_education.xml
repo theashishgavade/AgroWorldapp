@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/crdHeader"
                 android:orientation="vertical"
-                tools:context=".fragments.EducationFragment">
+                tools:context=".ui.fragments.EducationFragment">
 
                 <TextView
                     android:id="@+id/tvCropsEd"

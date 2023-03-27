@@ -1,30 +1,30 @@
 package com.project.agroworld.articles.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.listener.FlowerClickListener;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.databinding.ActivityFlowersBinding;
-import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
 public class FlowersActivity extends AppCompatActivity implements FlowerClickListener {
+    private final ArrayList<FlowersResponse> flowersResponsesList = new ArrayList<>();
     private ActivityFlowersBinding binding;
     private FlowersAdapter flowersAdapter;
-    private final ArrayList<FlowersResponse> flowersResponsesList = new ArrayList<>();
     private CustomMultiColorProgressBar progressBar;
     private AgroViewModel viewModel;
 
@@ -71,7 +71,7 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
     }
 
     private void setRecyclerView() {
-        flowersAdapter= new FlowersAdapter(flowersResponsesList, this);
+        flowersAdapter = new FlowersAdapter(flowersResponsesList, this);
         binding.rvFlowers.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvFlowers.setAdapter(flowersAdapter);
     }
@@ -83,6 +83,7 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
         intent.putExtra("isFlowersResponse", true);
         startActivity(intent);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

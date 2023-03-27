@@ -18,8 +18,8 @@ import com.project.agroworld.databinding.ActivityArticleDetailsBinding;
 import com.project.agroworld.utils.Constants;
 
 public class ArticleDetailsActivity extends AppCompatActivity {
-    private ActivityArticleDetailsBinding binding;
     ActionBar actionBar;
+    private ActivityArticleDetailsBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             updateUIForFruitsData(fruitsResponse);
         } else if (isFlowersResponse) {
             updateUIForFlowersData(flowersResponse);
-        }else if (isExpandResponse){
+        } else if (isExpandResponse) {
             updateUIForExpandData(expandItemResponse);
         }
 

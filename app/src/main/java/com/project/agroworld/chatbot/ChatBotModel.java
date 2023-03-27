@@ -15,12 +15,12 @@ public class ChatBotModel {
         return message;
     }
 
-    public boolean getType() {
-        return this.type;
-    }
-
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean getType() {
+        return this.type;
     }
 
     public void setType(boolean type) {

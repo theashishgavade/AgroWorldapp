@@ -13,8 +13,13 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 public abstract class FarmerDatabase extends RoomDatabase {
 
     private static FarmerDatabase instance;
-
-    public abstract FarmerDAO taskDao();
+    private static final RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
+    };
 
     public static synchronized FarmerDatabase getInstance(Context context) {
 
@@ -29,13 +34,7 @@ public abstract class FarmerDatabase extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
-            new PopulateDbAsyncTask(instance).execute();
-        }
-    };
+    public abstract FarmerDAO taskDao();
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
         PopulateDbAsyncTask(FarmerDatabase instance) {

@@ -1,25 +1,24 @@
 package com.project.agroworld.articles.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.HowToExpandAdapter;
 import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ActivityHowToExpandBinding;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;
 
@@ -40,7 +39,7 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
         actionBar.setTitle(getString(R.string.how_to_expand));
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         viewModel.init(this);
-        if (Permissions.checkConnection(this)){
+        if (Permissions.checkConnection(this)) {
             getExpandListFromApi();
         }
     }

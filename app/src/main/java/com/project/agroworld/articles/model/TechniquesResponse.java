@@ -24,52 +24,52 @@ public class TechniquesResponse implements Serializable {
     @SerializedName("technique_detail")
     private String techniqueDetail;
 
-    public void setAdvantages(String advantages) {
-        this.advantages = advantages;
-    }
-
     public String getAdvantages() {
         return advantages;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setAdvantages(String advantages) {
+        this.advantages = advantages;
     }
 
     public String getImageLink() {
         return imageLink;
     }
 
-    public void setReferenceLink(String referenceLink) {
-        this.referenceLink = referenceLink;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public String getReferenceLink() {
         return referenceLink;
     }
 
-    public void setNeedOfIt(String needOfIt) {
-        this.needOfIt = needOfIt;
+    public void setReferenceLink(String referenceLink) {
+        this.referenceLink = referenceLink;
     }
 
     public String getNeedOfIt() {
         return needOfIt;
     }
 
-    public void setTechniqueName(String techniqueName) {
-        this.techniqueName = techniqueName;
+    public void setNeedOfIt(String needOfIt) {
+        this.needOfIt = needOfIt;
     }
 
     public String getTechniqueName() {
         return techniqueName;
     }
 
-    public void setTechniqueDetail(String techniqueDetail) {
-        this.techniqueDetail = techniqueDetail;
+    public void setTechniqueName(String techniqueName) {
+        this.techniqueName = techniqueName;
     }
 
     public String getTechniqueDetail() {
         return techniqueDetail;
+    }
+
+    public void setTechniqueDetail(String techniqueDetail) {
+        this.techniqueDetail = techniqueDetail;
     }
 
     @Override

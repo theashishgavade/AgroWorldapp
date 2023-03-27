@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.project.agroworld.databinding.TransactionItemLayoutBinding;
 import com.project.agroworld.payment.model.PaymentModel;
 import com.project.agroworld.payment.viewholder.HistoryViewHolder;
-import com.project.agroworld.shopping.listener.OnProductListener;
-import com.project.agroworld.shopping.model.ProductModel;
 
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
-    private List<PaymentModel> paymentModelList;
     private final HistoryListener listener;
+    private final List<PaymentModel> paymentModelList;
 
     public HistoryAdapter(List<PaymentModel> paymentModelList, HistoryListener clickListener) {
         this.paymentModelList = paymentModelList;

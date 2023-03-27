@@ -92,7 +92,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.UserProfileActivity"
+            android:name=".ui.activity.UserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -106,28 +106,28 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.SignUpActivity"
+            android:name=".ui.activity.SignUpActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.DashboardActivity"
+            android:name=".ui.activity.DashboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.activity.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.SplashScreen"
+            android:name=".ui.activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

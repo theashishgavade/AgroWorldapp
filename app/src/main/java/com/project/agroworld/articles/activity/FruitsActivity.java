@@ -16,8 +16,8 @@ import com.project.agroworld.articles.adapter.FruitsAdapter;
 import com.project.agroworld.articles.listener.FruitsClickListener;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.databinding.ActivityFruitsBinding;
-import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
@@ -84,6 +84,7 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
         intent.putExtra("isFruitResponse", true);
         startActivity(intent);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

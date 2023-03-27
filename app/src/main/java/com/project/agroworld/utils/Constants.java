@@ -20,13 +20,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
-import com.project.agroworld.ui.DashboardActivity;
-import com.project.agroworld.ui.LoginActivity;
-import com.project.agroworld.ui.UserProfileActivity;
+import com.project.agroworld.ui.activity.DashboardActivity;
+import com.project.agroworld.ui.activity.LoginActivity;
+import com.project.agroworld.ui.activity.UserProfileActivity;
 
 import java.util.Locale;
-
-import retrofit2.http.PUT;
 
 public class Constants {
     public static final String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";

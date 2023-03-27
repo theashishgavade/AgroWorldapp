@@ -13,7 +13,7 @@ import com.project.agroworld.taskmanager.listener.OnItemClickListener;
 
 public class FarmerViewHolder extends RecyclerView.ViewHolder {
     // view holder class to create a variable for each view.
-    private FarmerItemLayoutBinding binding;
+    private final FarmerItemLayoutBinding binding;
 
     public FarmerViewHolder(FarmerItemLayoutBinding binding) {
         super(binding.getRoot());
@@ -39,7 +39,7 @@ public class FarmerViewHolder extends RecyclerView.ViewHolder {
                     if (i == 1) {
                         listener.onDeleteClick(model);
                         return true;
-                    } else if (i == 2){
+                    } else if (i == 2) {
                         listener.markTaskCompleted(model);
                         return true;
                     } else {

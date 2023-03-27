@@ -34,14 +34,14 @@ import java.util.Date;
 public class PaymentDetailsActivity extends AppCompatActivity implements PaymentResultWithDataListener, ExternalWalletListener {
 
     ActivityPaymentDetailsBinding binding;
-    private ArrayList<ProductModel> productCartList = new ArrayList<>();
     String address;
     StringBuilder stringBuilder = new StringBuilder();
-    private AlertDialog.Builder alertDialogBuilder;
-    private AgroViewModel viewModel;
     FirebaseAuth auth;
     FirebaseUser user;
     int countBackPressed;
+    private ArrayList<ProductModel> productCartList = new ArrayList<>();
+    private AlertDialog.Builder alertDialogBuilder;
+    private AgroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +86,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         });
 
         binding.btnProceed.setOnClickListener(v -> {
-            if (amount != 0.0){
+            if (amount != 0.0) {
                 startPayment((int) (amount * 100));
             }
         });
@@ -172,7 +172,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
                 );
                 viewModel.uploadTransaction(paymentModel, Constants.plainStringEmail(user.getEmail()));
             }
-        }else {
+        } else {
             binding.tvPaymentStatus.setText(getString(R.string.payment_failed));
 
         }

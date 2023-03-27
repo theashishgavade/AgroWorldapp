@@ -27,12 +27,12 @@ import java.util.ArrayList;
 
 public class PaymentHistoryActivity extends AppCompatActivity implements HistoryListener {
 
-    ActivityPaymentHistoryBinding binding;
     private final ArrayList<PaymentModel> paymentModelArrayList = new ArrayList<>();
-    private HistoryAdapter historyAdapter;
-    private AgroViewModel agroViewModel;
+    ActivityPaymentHistoryBinding binding;
     FirebaseAuth auth;
     FirebaseUser user;
+    private HistoryAdapter historyAdapter;
+    private AgroViewModel agroViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

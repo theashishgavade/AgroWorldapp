@@ -7,8 +7,9 @@ import com.project.agroworld.R;
 
 public class MusicControl {
     private static MusicControl sInstance;
-    private Context mContext;
+    private final Context mContext;
     private MediaPlayer mMediaPlayer;
+
     public MusicControl(Context context) {
         this.mContext = context;
     }
@@ -26,7 +27,7 @@ public class MusicControl {
     }
 
     public void stopMusic() {
-        if(mMediaPlayer != null) {
+        if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.seekTo(0);
         }

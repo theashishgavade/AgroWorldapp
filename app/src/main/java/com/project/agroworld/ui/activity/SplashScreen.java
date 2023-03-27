@@ -1,4 +1,4 @@
-package com.project.agroworld.ui;
+package com.project.agroworld.ui.activity;
 
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
@@ -12,13 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
-import com.project.agroworld.utils.Constants;
 import com.project.agroworld.db.PreferenceHelper;
+import com.project.agroworld.utils.Constants;
 
 public class SplashScreen extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser user;
     PreferenceHelper preferenceHelper;
+
     @Override
     protected void onStart() {
         super.onStart();

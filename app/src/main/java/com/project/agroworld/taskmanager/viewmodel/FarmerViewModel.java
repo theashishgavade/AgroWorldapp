@@ -12,9 +12,9 @@ import com.project.agroworld.taskmanager.repository.DatabaseRepository;
 import java.util.List;
 
 public class FarmerViewModel extends AndroidViewModel {
-    private DatabaseRepository repository;
-    private LiveData<List<FarmerModel>> farmerRoutines;
-    private LiveData<Integer> maxIDCount;
+    private final DatabaseRepository repository;
+    private final LiveData<List<FarmerModel>> farmerRoutines;
+    private final LiveData<Integer> maxIDCount;
 
     public FarmerViewModel(@NonNull Application application) {
         super(application);
@@ -31,7 +31,7 @@ public class FarmerViewModel extends AndroidViewModel {
         repository.delete(model);
     }
 
-    public void deleteAllData(){
+    public void deleteAllData() {
         repository.deleteAllCourses();
     }
 

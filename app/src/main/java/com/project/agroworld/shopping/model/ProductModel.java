@@ -10,7 +10,7 @@ public class ProductModel implements Serializable {
 
     private int quantity = 1;
 
-    public ProductModel(){
+    public ProductModel() {
 
     }
 
@@ -30,7 +30,9 @@ public class ProductModel implements Serializable {
         return description;
     }
 
-    public double getPrice() {return price;}
+    public double getPrice() {
+        return price;
+    }
 
     public String getImageUrl() {
         return imageUrl;

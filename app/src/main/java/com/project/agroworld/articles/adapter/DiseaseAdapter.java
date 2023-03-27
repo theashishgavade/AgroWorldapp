@@ -15,8 +15,8 @@ import java.util.List;
 
 public class DiseaseAdapter extends RecyclerView.Adapter<DiseasesViewHolder> {
 
-    private List<DiseasesResponse> diseasesResponseList;
-    private DiseasesListener listener;
+    private final List<DiseasesResponse> diseasesResponseList;
+    private final DiseasesListener listener;
 
     public DiseaseAdapter(List<DiseasesResponse> diseasesResponseList, DiseasesListener listener) {
         this.diseasesResponseList = diseasesResponseList;

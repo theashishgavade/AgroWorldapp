@@ -22,7 +22,7 @@ public class VehicleAdapter extends RecyclerView.Adapter {
     private OnVehicleCallClick listener;
     private List<VehicleModel> vehicleItemList;
     private Context context;
-    private int type;
+    private final int type;
 
     public VehicleAdapter(List<VehicleModel> vehicleItemList, OnVehicleCallClick clickListener, int type) {
         this.vehicleItemList = vehicleItemList;

@@ -40,7 +40,7 @@ public class AgroWorldRepository {
     Context context;
     APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
     PreferenceHelper preferenceHelper = PreferenceHelper.getInstance(context);
-    private boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+    private final boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
     private DatabaseReference databaseReference;
 
     public AgroWorldRepository(Context context) {

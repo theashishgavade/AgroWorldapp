@@ -30,7 +30,7 @@ public class EventReceiver extends BroadcastReceiver {
                 NotificationCompat.Builder nb = notificationHelper.getChannelNotification(context, task, desc, date, time, maxIDCount);
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
                 notificationManager.notify(maxIDCount, nb.build());
-            }else {
+            } else {
                 System.out.println("Notification also canceled for " + maxIDCount);
                 NotificationManagerCompat notificationManager1 = NotificationManagerCompat.from(context);
                 notificationManager1.cancel(maxIDCount);

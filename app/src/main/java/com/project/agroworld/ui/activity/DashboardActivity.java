@@ -1,4 +1,4 @@
-package com.project.agroworld.ui;
+package com.project.agroworld.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,15 +15,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.project.agroworld.R;
 import com.project.agroworld.chatbot.ChatBotActivity;
-import com.project.agroworld.fragments.EducationFragment;
-import com.project.agroworld.fragments.HomeFragment;
-import com.project.agroworld.fragments.NewsFragment;
-import com.project.agroworld.fragments.ProfileFragment;
-import com.project.agroworld.fragments.ShoppingFragment;
-import com.project.agroworld.fragments.TransportFragment;
 import com.project.agroworld.ui.adapter.FragmentAdapter;
+import com.project.agroworld.ui.fragments.EducationFragment;
+import com.project.agroworld.ui.fragments.HomeFragment;
+import com.project.agroworld.ui.fragments.NewsFragment;
+import com.project.agroworld.ui.fragments.ProfileFragment;
+import com.project.agroworld.ui.fragments.ShoppingFragment;
+import com.project.agroworld.ui.fragments.TransportFragment;
 import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class DashboardActivity extends AppCompatActivity {
     long back_pressed;
     ViewPager viewPager;
     TabLayout tabLayout;
-    FloatingActionButton fab;
     ArrayList<Fragment> fragments;
 
     @Override
@@ -46,7 +44,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
-        fab = findViewById(R.id.chat_bot);
 
         fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
@@ -78,10 +75,6 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#5D1F91"));
         tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#5D1F91"), Color.parseColor("#FF0000"));
-
-        fab.setOnClickListener(v -> {
-            startActivityForResult(new Intent(this, ChatBotActivity.class), Constants.REQUEST_CODE);
-        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.payment.activities.PaymentHistoryActivity;
 import com.project.agroworld.shopping.activity.AddToCartActivity;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
@@ -32,8 +32,8 @@ import java.util.Comparator;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
-    private FragmentShoppingBinding binding;
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+    private FragmentShoppingBinding binding;
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
 

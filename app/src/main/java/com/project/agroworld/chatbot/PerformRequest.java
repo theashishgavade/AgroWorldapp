@@ -14,9 +14,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class PerformRequest {
-    private RequestQueue queue;
+    private final RequestQueue queue;
     private String reply;
-    private char[] illegalChars = {'#', '<', '>', '$', '+', '%', '!', '`', '&',
+    private final char[] illegalChars = {'#', '<', '>', '$', '+', '%', '!', '`', '&',
             '*', '\'', '\"', '|', '{', '}', '/', '\\', ':', '@'};
 
     public PerformRequest(Context context) {

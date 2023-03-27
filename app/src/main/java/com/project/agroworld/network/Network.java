@@ -1,8 +1,5 @@
 package com.project.agroworld.network;
 
-import com.project.agroworld.db.PreferenceHelper;
-import com.project.agroworld.utils.Constants;
-
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

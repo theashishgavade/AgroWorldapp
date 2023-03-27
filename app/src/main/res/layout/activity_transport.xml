@@ -86,6 +86,7 @@
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
+                android:focusable="false"
                 android:hint="@string/address"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
@@ -95,6 +96,7 @@
                     android:id="@+id/etVehicleAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:inputType="textPostalAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +141,7 @@
                     android:id="@+id/etVehicleRateUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="true"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>

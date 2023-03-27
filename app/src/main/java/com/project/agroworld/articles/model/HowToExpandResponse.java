@@ -33,76 +33,76 @@ public class HowToExpandResponse implements Serializable {
     @SerializedName("fertilizer")
     private String fertilizer;
 
-    public void setIrrigation(String irrigation) {
-        this.irrigation = irrigation;
-    }
-
     public String getIrrigation() {
         return irrigation;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setIrrigation(String irrigation) {
+        this.irrigation = irrigation;
     }
 
     public String getImageLink() {
         return imageLink;
     }
 
-    public void setSeed(String seed) {
-        this.seed = seed;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public String getSeed() {
         return seed;
     }
 
-    public void setHarvesting(String harvesting) {
-        this.harvesting = harvesting;
+    public void setSeed(String seed) {
+        this.seed = seed;
     }
 
     public String getHarvesting() {
         return harvesting;
     }
 
-    public void setRequiredTemperature(String requiredTemperature) {
-        this.requiredTemperature = requiredTemperature;
+    public void setHarvesting(String harvesting) {
+        this.harvesting = harvesting;
     }
 
     public String getRequiredTemperature() {
         return requiredTemperature;
     }
 
-    public void setCropInfo(String cropInfo) {
-        this.cropInfo = cropInfo;
+    public void setRequiredTemperature(String requiredTemperature) {
+        this.requiredTemperature = requiredTemperature;
     }
 
     public String getCropInfo() {
         return cropInfo;
     }
 
-    public void setCropName(String cropName) {
-        this.cropName = cropName;
+    public void setCropInfo(String cropInfo) {
+        this.cropInfo = cropInfo;
     }
 
     public String getCropName() {
         return cropName;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
+    public void setCropName(String cropName) {
+        this.cropName = cropName;
     }
 
     public String getSeason() {
         return season;
     }
 
-    public void setFertilizer(String fertilizer) {
-        this.fertilizer = fertilizer;
+    public void setSeason(String season) {
+        this.season = season;
     }
 
     public String getFertilizer() {
         return fertilizer;
+    }
+
+    public void setFertilizer(String fertilizer) {
+        this.fertilizer = fertilizer;
     }
 
     @Override

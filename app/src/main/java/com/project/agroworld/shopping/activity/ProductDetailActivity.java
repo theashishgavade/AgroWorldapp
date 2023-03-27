@@ -3,17 +3,13 @@ package com.project.agroworld.shopping.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +21,13 @@ import com.project.agroworld.utils.Constants;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
+    FirebaseAuth auth;
+    FirebaseUser user;
     private ActivityProductDetailBinding binding;
     private DatabaseReference database;
     private ProductModel productModel;
-    private int doubleButtonTap = 0;
-    FirebaseAuth auth;
-    FirebaseUser user;
+    private final int doubleButtonTap = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

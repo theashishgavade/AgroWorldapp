@@ -1,7 +1,5 @@
 package com.project.agroworld.transport.viewHolder;
 
-import android.view.View;
-
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.databinding.TransportItemLayoutBinding;

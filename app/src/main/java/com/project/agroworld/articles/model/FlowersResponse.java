@@ -42,100 +42,100 @@ public class FlowersResponse implements Serializable {
     @SerializedName("land_preparation")
     private String landPreparation;
 
-    public void setIrrigation(String irrigation) {
-        this.irrigation = irrigation;
-    }
-
     public String getIrrigation() {
         return irrigation;
     }
 
-    public void setPropagation(String propagation) {
-        this.propagation = propagation;
+    public void setIrrigation(String irrigation) {
+        this.irrigation = irrigation;
     }
 
     public String getPropagation() {
         return propagation;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setPropagation(String propagation) {
+        this.propagation = propagation;
     }
 
     public String getImageLink() {
         return imageLink;
     }
 
-    public void setSeed(String seed) {
-        this.seed = seed;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     public String getSeed() {
         return seed;
     }
 
-    public void setHarvesting(String harvesting) {
-        this.harvesting = harvesting;
+    public void setSeed(String seed) {
+        this.seed = seed;
     }
 
     public String getHarvesting() {
         return harvesting;
     }
 
-    public void setPostHarvest(String postHarvest) {
-        this.postHarvest = postHarvest;
+    public void setHarvesting(String harvesting) {
+        this.harvesting = harvesting;
     }
 
     public String getPostHarvest() {
         return postHarvest;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
+    public void setPostHarvest(String postHarvest) {
+        this.postHarvest = postHarvest;
     }
 
     public String getSeason() {
         return season;
     }
 
-    public void setSoil(String soil) {
-        this.soil = soil;
+    public void setSeason(String season) {
+        this.season = season;
     }
 
     public String getSoil() {
         return soil;
     }
 
-    public void setBestTimeToGrow(String bestTimeToGrow) {
-        this.bestTimeToGrow = bestTimeToGrow;
+    public void setSoil(String soil) {
+        this.soil = soil;
     }
 
     public String getBestTimeToGrow() {
         return bestTimeToGrow;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setBestTimeToGrow(String bestTimeToGrow) {
+        this.bestTimeToGrow = bestTimeToGrow;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setFlowerInfo(String flowerInfo) {
-        this.flowerInfo = flowerInfo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFlowerInfo() {
         return flowerInfo;
     }
 
-    public void setLandPreparation(String landPreparation) {
-        this.landPreparation = landPreparation;
+    public void setFlowerInfo(String flowerInfo) {
+        this.flowerInfo = flowerInfo;
     }
 
     public String getLandPreparation() {
         return landPreparation;
+    }
+
+    public void setLandPreparation(String landPreparation) {
+        this.landPreparation = landPreparation;
     }
 
     @Override

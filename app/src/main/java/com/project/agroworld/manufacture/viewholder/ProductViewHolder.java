@@ -9,6 +9,7 @@ import com.project.agroworld.utils.Constants;
 
 public class ProductViewHolder extends RecyclerView.ViewHolder {
     ProductItemLayoutBinding binding;
+
     public ProductViewHolder(ProductItemLayoutBinding binding) {
         super(binding.getRoot());
         this.binding = binding;

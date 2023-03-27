@@ -23,7 +23,6 @@ import com.project.agroworld.utils.Constants;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ManufactureDataActivity extends AppCompatActivity implements ManufactureAdminListener {

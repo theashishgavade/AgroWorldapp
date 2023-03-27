@@ -1,4 +1,4 @@
-package com.project.agroworld.ui;
+package com.project.agroworld.ui.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;

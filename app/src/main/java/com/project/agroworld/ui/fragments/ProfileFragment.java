@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.BuildConfig;
 import com.project.agroworld.R;
+import com.project.agroworld.chatbot.ChatBotActivity;
 import com.project.agroworld.databinding.FragmentProfileBinding;
 import com.project.agroworld.db.FarmerModel;
 import com.project.agroworld.db.PreferenceHelper;
@@ -125,6 +126,10 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.ivLogout.setOnClickListener(v -> {
             Constants.logoutAlertMessage(getActivity(), auth);
+        });
+
+        dataBinding.ivQuickHelp.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), ChatBotActivity.class));
         });
 
         dataBinding.btnTransHistory.setOnClickListener(v -> {

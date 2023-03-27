@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -106,7 +106,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
             PopupMenu popupMenu = new PopupMenu(getContext(), binding.ivFilterLocation);
             popupMenu.getMenuInflater().inflate(R.menu.location_menu, popupMenu.getMenu());
             popupMenu.setOnMenuItemClickListener(menuItem -> {
-                if (menuItem.getTitle() != null){
+                if (menuItem.getTitle() != null) {
                     searchVehicle(menuItem.getTitle().toString());
                 }
                 return true;
@@ -125,7 +125,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         if (searchProductList.isEmpty()) {
             binding.recyclerViewVehicle.setVisibility(View.GONE);
             binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-            binding.tvNoDataFoundErr.setText(getString(R.string.vehicle_not_found_location) + " " + location + " Location" );
+            binding.tvNoDataFoundErr.setText(getString(R.string.vehicle_not_found_location) + " " + location + " Location");
         } else {
             binding.recyclerViewVehicle.setVisibility(View.VISIBLE);
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
@@ -169,7 +169,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     private void setRecyclerView() {
-        vehicleAdapter = new VehicleAdapter( vehicleItemList, TransportFragment.this, 1);
+        vehicleAdapter = new VehicleAdapter(vehicleItemList, TransportFragment.this, 1);
         binding.recyclerViewVehicle.setAdapter(vehicleAdapter);
         binding.recyclerViewVehicle.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewVehicle.setHasFixedSize(true);

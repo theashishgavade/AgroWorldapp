@@ -25,8 +25,8 @@ import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 
 public class ManufactureActivity extends AppCompatActivity {
-    private ActivityManufactureDataPostBinding binding;
     private final int REQUEST_CODE = 99;
+    private ActivityManufactureDataPostBinding binding;
     private Uri imageUri;
     private DatabaseReference firebaseStorage;
     private StorageReference storage;

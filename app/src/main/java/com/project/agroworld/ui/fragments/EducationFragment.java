@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,23 +31,22 @@ import com.project.agroworld.databinding.FragmentEducationBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 import java.util.ArrayList;
 
 
 public class EducationFragment extends Fragment implements CropsClickListener, FruitsClickListener, FlowerClickListener, ExpandClickListener {
 
+    private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
+    private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
+    private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
+    private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
     private FragmentEducationBinding binding;
     private CropsAdapter cropsAdapter;
     private FlowersAdapter flowersAdapter;
     private FruitsAdapter fruitsAdapter;
     private HowToExpandAdapter expandAdapter;
     private AgroViewModel viewModel;
-    private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
-    private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
-    private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
-    private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,12 +61,12 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         super.onViewCreated(view, savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         viewModel.init(getContext());
-        if (Permissions.checkConnection(getContext())){
+        if (Permissions.checkConnection(getContext())) {
             checkPermissionCallApi();
         }
     }
 
-    private void checkPermissionCallApi(){
+    private void checkPermissionCallApi() {
         getCropsListFromApi();
         getFruitsListFromApi();
         getFlowersListFromApi();
@@ -206,7 +205,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_CODE){
+        if (requestCode == Constants.REQUEST_CODE) {
             checkPermissionCallApi();
         }
     }

@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.agroworld.articles.listener.FlowerClickListener;
-import com.project.agroworld.articles.listener.FruitsClickListener;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.viewholder.ArticleListViewHolder;
 import com.project.agroworld.databinding.ArticleItemLayoutBinding;

@@ -9,7 +9,7 @@
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        tools:context=".ui.SignUpActivity">
+        tools:context=".ui.activity.SignUpActivity">
 
         <ProgressBar
             android:id="@+id/signUpProgressbar"

@@ -9,7 +9,7 @@ import com.project.agroworld.taskmanager.MusicControl;
 public class SnoozeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent.getAction().equalsIgnoreCase("com.agroworld.SnoozeReceiver")) {
+        if (intent.getAction().equalsIgnoreCase("com.agroworld.SnoozeReceiver")) {
             MusicControl.getInstance(context).stopMusic();
         }
     }

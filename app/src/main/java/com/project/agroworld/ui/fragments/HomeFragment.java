@@ -1,4 +1,4 @@
-package com.project.agroworld.fragments;
+package com.project.agroworld.ui.fragments;
 
 import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
@@ -34,10 +34,10 @@ import com.project.agroworld.articles.activity.FlowersActivity;
 import com.project.agroworld.articles.activity.FruitsActivity;
 import com.project.agroworld.articles.activity.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.network.APIService;
 import com.project.agroworld.network.Network;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.transport.adapter.OnVehicleCallClick;

@@ -10,7 +10,7 @@ public class PaymentModel {
     private String paymentID;
     private String paymentData;
 
-    public PaymentModel(){
+    public PaymentModel() {
 
     }
 

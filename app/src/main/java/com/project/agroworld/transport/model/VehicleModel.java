@@ -10,11 +10,11 @@ public class VehicleModel implements Serializable {
     private String contact;
     private String imageUrl;
 
-    public VehicleModel(){
+    public VehicleModel() {
 
     }
 
-    public VehicleModel(String model, String address, String rates,String unit, String contact, String imageUrl) {
+    public VehicleModel(String model, String address, String rates, String unit, String contact, String imageUrl) {
         this.model = model;
         this.address = address;
         this.rates = rates;

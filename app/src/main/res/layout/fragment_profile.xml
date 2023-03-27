@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".fragments.ProfileFragment">
+        tools:context=".ui.fragments.ProfileFragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdHeader"
@@ -63,9 +63,19 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/dp_8"
-                    android:layout_toStartOf="@id/ivMenuOption"
+                    android:layout_toStartOf="@id/ivQuickHelp"
                     android:padding="@dimen/dp_8"
                     android:src="@drawable/baseline_language_24" />
+
+                <ImageView
+                    android:id="@+id/ivQuickHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_toStartOf="@id/ivMenuOption"
+                    android:padding="@dimen/dp_8"
+                    android:src="@drawable/baseline_live_help_24" />
 
                 <ImageView
                     android:id="@+id/ivMenuOption"

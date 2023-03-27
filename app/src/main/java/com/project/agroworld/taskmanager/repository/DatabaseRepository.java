@@ -12,9 +12,9 @@ import com.project.agroworld.db.FarmerModel;
 import java.util.List;
 
 public class DatabaseRepository {
-    private FarmerDAO dao;
-    private LiveData<List<FarmerModel>> farmerRoutines;
-    private LiveData<Integer> maxIdCount;
+    private final FarmerDAO dao;
+    private final LiveData<List<FarmerModel>> farmerRoutines;
+    private final LiveData<Integer> maxIdCount;
 
     public DatabaseRepository(Application application) {
         FarmerDatabase database = FarmerDatabase.getInstance(application);
@@ -26,6 +26,7 @@ public class DatabaseRepository {
     public void insert(FarmerModel model) {
         new InsertRoutineAsyncTask(dao).execute(model);
     }
+
     public void update(FarmerModel model) {
         new UpdateRoutineAsyncTask(dao).execute(model);
     }
@@ -37,13 +38,17 @@ public class DatabaseRepository {
     public void delete(FarmerModel model) {
         new DeleteRoutineAsyncTask(dao).execute(model);
     }
+
     public LiveData<List<FarmerModel>> getFarmerRoutines() {
         return farmerRoutines;
     }
 
-    public LiveData<Integer> getMaxIdCount() {return maxIdCount;}
+    public LiveData<Integer> getMaxIdCount() {
+        return maxIdCount;
+    }
+
     private static class InsertRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
-        private FarmerDAO dao;
+        private final FarmerDAO dao;
 
         private InsertRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
@@ -58,7 +63,7 @@ public class DatabaseRepository {
     }
 
     private static class UpdateRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
-        private FarmerDAO dao;
+        private final FarmerDAO dao;
 
         private UpdateRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
@@ -72,7 +77,7 @@ public class DatabaseRepository {
     }
 
     private static class DeleteRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {
-        private FarmerDAO dao;
+        private final FarmerDAO dao;
 
         private DeleteRoutineAsyncTask(FarmerDAO dao) {
             this.dao = dao;
@@ -86,7 +91,7 @@ public class DatabaseRepository {
     }
 
     private static class DeleteAllCoursesAsyncTask extends AsyncTask<Void, Void, Void> {
-        private FarmerDAO dao;
+        private final FarmerDAO dao;
 
         private DeleteAllCoursesAsyncTask(FarmerDAO dao) {
             this.dao = dao;
