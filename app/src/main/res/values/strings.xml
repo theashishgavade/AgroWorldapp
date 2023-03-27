@@ -179,4 +179,5 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="failed_to_fetch_location"><![CDATA[Failed to fetch lattitude & longitude.]]></string>
+    <string name="message">Message</string>
 </resources>

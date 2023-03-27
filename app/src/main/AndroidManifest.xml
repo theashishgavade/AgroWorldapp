@@ -27,6 +27,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".chatbot.ChatBotActivity"
+            android:exported="false" />
+        <activity
             android:name=".articles.activity.DiseasesDetailsActivity"
             android:exported="false" />
         <activity

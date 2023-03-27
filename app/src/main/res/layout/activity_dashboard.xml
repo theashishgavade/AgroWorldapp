@@ -30,6 +30,18 @@
         android:pointerIcon="cell"
         app:tabGravity="fill"
         app:tabIconTint="@color/colorPrimaryDark"
-        app:tabMode= "fixed" />
+        app:tabMode="fixed" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chat_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tabs"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_margin="@dimen/dp_20"
+        android:src="@mipmap/ic_launcher_round"
+        app:fabSize="normal" />
+
 
 </RelativeLayout>

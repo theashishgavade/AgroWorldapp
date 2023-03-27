@@ -11,8 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.project.agroworld.R;
+import com.project.agroworld.chatbot.ChatBotActivity;
 import com.project.agroworld.fragments.EducationFragment;
 import com.project.agroworld.fragments.HomeFragment;
 import com.project.agroworld.fragments.NewsFragment;
@@ -30,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
     long back_pressed;
     ViewPager viewPager;
     TabLayout tabLayout;
+    FloatingActionButton fab;
     ArrayList<Fragment> fragments;
 
     @Override
@@ -43,8 +46,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.tabs);
-        fragments = new ArrayList<>();
+        fab = findViewById(R.id.chat_bot);
 
+        fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new ShoppingFragment());
         fragments.add(new EducationFragment());
@@ -74,6 +78,10 @@ public class DashboardActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#5D1F91"));
         tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#5D1F91"), Color.parseColor("#FF0000"));
+
+        fab.setOnClickListener(v -> {
+            startActivityForResult(new Intent(this, ChatBotActivity.class), Constants.REQUEST_CODE);
+        });
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
