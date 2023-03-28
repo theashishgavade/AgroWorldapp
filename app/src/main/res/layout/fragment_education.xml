@@ -114,11 +114,11 @@
                         android:layout_below="@id/tvCropsEd"
                         android:layout_centerInParent="true"
                         android:layout_margin="@dimen/dp_10"
-                        android:fontFamily="@font/lexend_bold"
+                        android:fontFamily="@font/average_sans"
                         android:text="@string/no_data_found"
                         android:textAlignment="center"
-                        android:textColor="@color/darkPink"
-                        android:textSize="@dimen/sp_18"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_16sp"
                         android:visibility="gone" />
 
                 </RelativeLayout>
@@ -162,12 +162,11 @@
                         android:layout_below="@id/tvFruits_Ed"
                         android:layout_centerInParent="true"
                         android:layout_margin="@dimen/dp_10"
-                        android:fontFamily="@font/lexend_bold"
+                        android:fontFamily="@font/average_sans"
                         android:text="@string/no_data_found"
                         android:textAlignment="center"
-                        android:textColor="@color/darkPink"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_16sp"
                         android:visibility="gone" />
 
                 </RelativeLayout>
@@ -208,14 +207,14 @@
                         android:id="@+id/tvFlowerError"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/tvFlowers_Ed"
                         android:layout_centerInParent="true"
                         android:layout_margin="@dimen/dp_10"
-                        android:fontFamily="@font/lexend_bold"
+                        android:fontFamily="@font/average_sans"
                         android:text="@string/no_data_found"
                         android:textAlignment="center"
-                        android:textColor="@color/darkPink"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_16sp"
                         android:visibility="gone" />
 
                 </RelativeLayout>
@@ -259,12 +258,11 @@
                         android:layout_below="@id/tvHow_To_Expand_Ed"
                         android:layout_centerInParent="true"
                         android:layout_margin="@dimen/dp_10"
-                        android:fontFamily="@font/lexend_bold"
+                        android:fontFamily="@font/average_sans"
                         android:text="@string/no_data_found"
                         android:textAlignment="center"
-                        android:textColor="@color/darkPink"
-                        android:textSize="@dimen/sp_18"
-                        android:textStyle="bold"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/size_16sp"
                         android:visibility="gone" />
 
                 </RelativeLayout>

@@ -15,7 +15,7 @@ import com.project.agroworld.databinding.ActivityChatbotBinding;
 
 import java.util.ArrayList;
 
-public class ChatBotActivity extends AppCompatActivity {
+public class ChatBotActivity extends AppCompatActivity implements View.OnClickListener {
 
     ActivityChatbotBinding binding;
     private ArrayList<ChatBotModel> chatBotModels;
@@ -37,22 +37,35 @@ public class ChatBotActivity extends AppCompatActivity {
         chatBotModels = new ArrayList<>();
         chatBotAdapter = new ChatBotAdapter(chatBotModels);
         binding.recyclerView.setAdapter(chatBotAdapter);
-
+        sendMessage("Hello");
         binding.msgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String message = binding.msgInput.getText().toString();
-                if (message.length() != 0) {
-                    chatBotModels.add(new ChatBotModel(true, message));
-                    int newPosition = chatBotModels.size() - 1;
-                    chatBotAdapter.notifyItemInserted(newPosition);
-                    binding.recyclerView.scrollToPosition(newPosition);
-                    binding.msgInput.setText("");
-                    getReply(message);
-                }
+                sendMessage(message);
             }
         });
 
+        binding.tvAboutQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvContactQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvLanguageQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvAlarmQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvHistoryQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvWeatherQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvNewsQuery.setOnClickListener(ChatBotActivity.this);
+        binding.tvOtherQuery.setOnClickListener(ChatBotActivity.this);
+
+    }
+
+    private void sendMessage(String message) {
+        if (!message.isEmpty()) {
+            chatBotModels.add(new ChatBotModel(true, message));
+            int newPosition = chatBotModels.size() - 1;
+            chatBotAdapter.notifyItemInserted(newPosition);
+            binding.recyclerView.scrollToPosition(newPosition);
+            binding.msgInput.setText("");
+            getReply(message);
+        }
     }
 
     private void getReply(String message) {
@@ -68,8 +81,42 @@ public class ChatBotActivity extends AppCompatActivity {
                 int newPosition = chatBotModels.size() - 1;
                 chatBotAdapter.notifyItemInserted(newPosition);
                 binding.recyclerView.scrollToPosition(newPosition);
+                binding.rlQueries.setVisibility(View.VISIBLE);
             }
         });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        binding.rlQueries.setVisibility(View.GONE);
+        switch (v.getId()) {
+            case R.id.tvAboutQuery:
+                sendMessage("About");
+                break;
+            case R.id.tvAlarmQuery:
+                sendMessage("Alarm");
+                break;
+            case R.id.tvContactQuery:
+                sendMessage("Contact");
+                break;
+            case R.id.tvHistoryQuery:
+                sendMessage("History");
+                break;
+            case R.id.tvWeatherQuery:
+                sendMessage("Weather");
+                break;
+            case R.id.tvLanguageQuery:
+                sendMessage("Language");
+                break;
+            case R.id.tvNewsQuery:
+                sendMessage("News");
+                break;
+            case R.id.tvOtherQuery:
+                sendMessage("Other");
+                break;
+            default:
+
+        }
     }
 }

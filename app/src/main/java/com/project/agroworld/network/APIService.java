@@ -36,7 +36,7 @@ public interface APIService {
     @GET("e49zdqylo9c2q")
     Call<List<DiseasesResponse>> getLocalizedDiseasesList();
 
-    @GET("r4wu8rpk45yu6")
+    @GET("vbw60alh24ivv")
     Call<List<FruitsResponse>> getFruitsFromDB();
 
     @GET("dywj6h1xvdo4e")

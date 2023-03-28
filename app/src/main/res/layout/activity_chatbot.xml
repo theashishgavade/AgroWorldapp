@@ -13,9 +13,157 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/dp_10"
             android:layout_weight="1" />
 
+        <RelativeLayout
+            android:id="@+id/rlQueries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
+
+            <LinearLayout
+                android:id="@+id/llTopQueries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/tvAboutQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="About"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvContactQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Contact"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvLanguageQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Language"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvNewsQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="News"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llTopQueries"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+                <TextView
+                    android:id="@+id/tvHistoryQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="History"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvAlarmQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Alarm"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvWeatherQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Weather"
+                    android:textColor="@color/colorPrimary" />
+
+                <Space
+                    android:layout_width="@dimen/dp_10"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tvOtherQuery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/search_bgd"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:text="Other"
+                    android:textColor="@color/colorPrimary" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
         <LinearLayout
+            android:id="@+id/llMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/cart_bottom_bg"

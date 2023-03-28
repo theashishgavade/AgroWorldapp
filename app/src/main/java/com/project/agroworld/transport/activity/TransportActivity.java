@@ -42,8 +42,6 @@ public class TransportActivity extends AppCompatActivity {
     private AgroViewModel agroViewModel;
     private boolean isImageSelected = false;
     private boolean isDataFromIntent = false;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +155,6 @@ public class TransportActivity extends AppCompatActivity {
             Constants.showToast(TransportActivity.this, getString(R.string.failed_to_update_vehicle));
         });
     }
-
 
     private void selectImage() {
         Intent intent = new Intent();
