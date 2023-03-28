@@ -60,13 +60,14 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
                     progressBar.showProgressBar();
                     break;
                 case SUCCESS:
+                    progressBar.hideProgressBar();
                     if (resource.data != null) {
                         cropsResponseArrayList.clear();
                         cropsResponseArrayList.addAll(resource.data);
-                        progressBar.hideProgressBar();
                         binding.rvCrops.setVisibility(View.VISIBLE);
                         setRecyclerView();
                     } else {
+                        binding.rvCrops.setVisibility(View.GONE);
                         binding.tvNoCropsDataFound.setVisibility(View.VISIBLE);
                         binding.tvNoCropsDataFound.setText(R.string.no_data_found);
                     }

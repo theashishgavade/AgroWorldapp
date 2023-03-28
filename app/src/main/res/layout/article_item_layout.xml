@@ -12,7 +12,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dp_8"
             android:orientation="vertical">
 
             <ImageView
@@ -26,19 +25,21 @@
                 android:id="@+id/tvSeasonArticleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                android:fontFamily="@font/days_one"
+                android:layout_margin="@dimen/dp_8"
+                android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="season"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/sp_18" />
+                android:textSize="@dimen/size_16sp" />
 
             <TextView
                 android:id="@+id/tvTitleArticleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lexend_bold"
                 android:gravity="center"
                 android:text="article name"
+                android:layout_marginBottom="@dimen/dp_8"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_16sp" />
 

@@ -23,7 +23,6 @@ import com.project.agroworld.viewmodel.AgroViewModel;
 import java.util.ArrayList;
 
 public class DiseasesActivity extends AppCompatActivity implements DiseasesListener {
-
     private final ArrayList<DiseasesResponse> diseasesResponseArrayList = new ArrayList<>();
     ActivityDiseasesBinding binding;
     private DiseaseAdapter diseaseAdapter;

@@ -123,23 +123,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressBar.showProgressBar();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            progressBar.hideProgressBar();
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Constants.showToast(LoginActivity.this, "signInWithCredential:success");
-                            Constants.identifyUser(user, LoginActivity.this);
-                            finish();
-                        } else {
-                            progressBar.hideProgressBar();
-                            // If sign in fails, display a message to the user.
-                            Constants.showToast(LoginActivity.this, "signInWithCredential:failure");
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        progressBar.hideProgressBar();
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        Constants.showToast(LoginActivity.this, "signInWithCredential:success");
+                        Constants.identifyUser(user, LoginActivity.this);
+                        finish();
+                    } else {
+                        progressBar.hideProgressBar();
+                        // If sign in fails, display a message to the user.
+                        Constants.showToast(LoginActivity.this, "signInWithCredential:failure");
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
                     }
                 });
     }

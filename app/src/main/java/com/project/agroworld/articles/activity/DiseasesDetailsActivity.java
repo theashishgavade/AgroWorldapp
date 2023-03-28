@@ -12,16 +12,15 @@ import com.project.agroworld.databinding.ActivityDiseasesDetailsBinding;
 import com.project.agroworld.utils.Constants;
 
 public class DiseasesDetailsActivity extends AppCompatActivity {
-
     ActivityDiseasesDetailsBinding binding;
-    private DiseasesResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_diseases_details);
         Intent intent = getIntent();
-        response = ((DiseasesResponse) intent.getSerializableExtra("diseasesResponse"));
+
+        DiseasesResponse response = ((DiseasesResponse) intent.getSerializableExtra("diseasesResponse"));
         if (response != null) {
             updateUI(response);
         }

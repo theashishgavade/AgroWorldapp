@@ -176,4 +176,13 @@
     <string name="sindhudurg">सिंधुदुर्ग</string>
     <string name="thane">ठाणे</string>
     <string name="google_sign_up">गूगल साइन इन</string>
+    <string name="edit">सम्पादन</string>
+    <string name="delete">हटाएँ</string>
+    <string name="failed_to_fetch_location">Failed to fetch lattitude &amp; longitude</string>
+    <string name="message">संदेश</string>
+    <string name="remove_product_dialog_msg">क्या आप सुनिश्चित हैं, आप उत्पाद को हटाना चाहते हैं??</string>
+    <string name="remove">निकालना</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="failed_to_remove_prodcut">उत्पाद निकालने में विफल.</string>
+    <string name="token_expired">टोकन समाप्त हो गया है या निरस्त कर दिया गया है।</string>
 </resources>

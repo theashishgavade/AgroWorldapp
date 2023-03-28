@@ -66,6 +66,7 @@ public class NewsFragment extends Fragment {
         settings.setUseWideViewPort(true);
         settings.setAppCacheEnabled(true);
         webView.clearCache(true);
+
         if (selectedLanguage) {
             webView.loadUrl(Constants.HINDI_NEWS_WEB_URL);
         } else {

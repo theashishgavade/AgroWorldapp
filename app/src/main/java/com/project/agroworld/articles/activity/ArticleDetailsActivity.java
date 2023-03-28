@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
@@ -36,6 +37,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         boolean isFlowersResponse = intent.getBooleanExtra("isFlowersResponse", false);
         HowToExpandResponse expandItemResponse = ((HowToExpandResponse) intent.getSerializableExtra("expandItemResponse"));
         boolean isExpandResponse = intent.getBooleanExtra("isExpandResponse", false);
+        DiseasesResponse diseasesResponse = ((DiseasesResponse) intent.getSerializableExtra("diseasesItemResponse"));
+        boolean isDiseasesResponse = intent.getBooleanExtra("isDiseasesResponse", false);
 
         if (isCropResponse) {
             updateUIForCropsData(cropsResponse);
@@ -45,6 +48,8 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             updateUIForFlowersData(flowersResponse);
         } else if (isExpandResponse) {
             updateUIForExpandData(expandItemResponse);
+        }else if (isDiseasesResponse){
+
         }
 
     }

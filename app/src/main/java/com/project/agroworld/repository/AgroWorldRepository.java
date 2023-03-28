@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.agroworld.R;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
@@ -64,6 +65,8 @@ public class AgroWorldRepository {
             public void onResponse(Call<List<DiseasesResponse>> call, Response<List<DiseasesResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     diseasesMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    diseasesMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
                 }
             }
 
@@ -88,6 +91,9 @@ public class AgroWorldRepository {
             public void onResponse(Call<List<FlowersResponse>> call, Response<List<FlowersResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     flowersMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    flowersMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
+
                 }
             }
 
@@ -113,6 +119,8 @@ public class AgroWorldRepository {
             public void onResponse(Call<List<CropsResponse>> call, Response<List<CropsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     cropsMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    cropsMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
                 }
             }
 
@@ -137,6 +145,9 @@ public class AgroWorldRepository {
             public void onResponse(Call<List<FruitsResponse>> call, Response<List<FruitsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     fruitsMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    fruitsMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
+
                 }
             }
 
@@ -162,6 +173,8 @@ public class AgroWorldRepository {
                 Constants.printLog(response.body() + " getHowToExpandResponse");
                 if (response.isSuccessful() && response.body() != null) {
                     howToExpandLivedata.setValue(Resource.success(response.body()));
+                } else {
+                    howToExpandLivedata.setValue(Resource.error(context.getString(R.string.token_expired), null));
                 }
             }
 
