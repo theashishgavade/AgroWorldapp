@@ -23,7 +23,7 @@ public class ProductViewHolder extends RecyclerView.ViewHolder {
                 productModel.getImageUrl(),
                 binding.ivProductImage
         );
-        binding.crdProductView.setOnClickListener(v -> clickListener.onProductClick(productModel));
+        binding.btnViewMore.setOnClickListener(v -> clickListener.onProductClick(productModel));
 
     }
 }

@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">कृषिदुनिया</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="agrowoprld">कृषिदुनिया</string>
     <string name="quote1">"किसी भी किसान के लिए सर्वश्रेष्ठ मार्गदर्शक और सहायक। एक ही स्थान पर विभिन्न सुविधाएँ प्रदान करता है!"</string>
     <string name="register">पंजीकरण</string>
     <string name="new_user_register_now">नए उपयोगकर्ता? अभी पंजीकरण करें</string>
@@ -46,7 +45,6 @@
     <string name="crops">फसलें</string>
     <string name="flowers">पुष्प</string>
     <string name="fruits">फल</string>
-    <string name="education">शिक्षा</string>
     <string name="number">नंबर</string>
     <string name="articles">लेख</string>
     <string name="already_have_an_account">क्या आपके पास पहले से एक खाता मौजूद है?</string>
@@ -63,17 +61,14 @@
     <string name="longitude">देशान्तर</string>
     <string name="provide_permission">कृपया आवश्यक अनुमति प्रदान करें</string>
     <string name="manufacture_panel">निर्माता पैनल</string>
-    <string name="all_field_required">सभी क्षेत्रों को भरना आवश्यक है।</string>
     <string name="go_to_cart">कार्ट में जाओ</string>
     <string name="current_weather">मौजूदा मौसम</string>
     <string name="forecast_weather">हर घंटे मौसम का पूर्वानुमान</string>
-    <string name="yojanas">योजनाएँ</string>
     <string name="diseases">रोग</string>
     <string name="vehicle">वाहन</string>
     <string name="products">उत्पादों</string>
     <string name="how_to_expand">विस्तार कैसे करें</string>
     <string name="no_cart_data_found">ऐसा लगता है कि आपने कार्ट सूची में कुछ भी नहीं जोड़ा है</string>
-    <string name="no_task_data_found">ऐसा लगता है कि आपने नियमित सूची में कुछ भी नहीं जोड़ा है</string>
     <string name="next">आगे बढ़ें</string>
     <string name="this_field_required">यह फ़ील्ड आवश्यक है</string>
     <string name="create_new_routine">नया रूटीन बनाएं</string>
@@ -110,15 +105,10 @@
     <string name="routine_added">रूटीन सफलतापूर्वक जोड़ा गया।</string>
     <string name="vehicle_updated">वाहन सफलतापूर्वक अपडेट किया गया</string>
     <string name="failed_to_update_vehicle">वाहन विवरण अपडेट करने में विफल.</string>
-    <string name="remove_vehicle_message">क्या आप सुनिश्चित हैं, आप वाहन को हटाना चाहते हैं ??</string>
-    <string name="failed_to_remove_vehicle">वाहन निकालने में विफल.</string>
     <string name="google_signIn_success">Google साइन इन सफल</string>
     <string name="email_valid">एक बार अपना ईमेल चेक कर लें, यह वैलिड नहीं है।</string>
     <string name="contact_valid">संख्या दस अंकों की होनी चाहिए।</string>
     <string name="password_valid">छह से अधिक होना चाहिए चार प्रतीकों में शामिल हैं</string>
-    <string name="facebook_login">फेसबुक लॉगिन उपलब्ध नहीं है.</string>
-    <string name="github_login">जीथब लॉगिन उपलब्ध नहीं है.</string>
-    <string name="instagram_login">इंस्टाग्राम लॉगिन उपलब्ध नहीं है.</string>
     <string name="required_location">स्थान आवश्यक है</string>
     <string name="launguage_updated">भाषा को अद्यतन किया गया</string>
     <string name="about_us">हमारे बारे में</string>
@@ -131,9 +121,6 @@
     <string name="high">उच्च</string>
     <string name="low">कम</string>
     <string name="medium">मध्यम</string>
-    <string name="cart_list">कार्ट सूची</string>
-    <string name="history">इतिहास</string>
-    <string name="show_list">सूची दिखाएं</string>
     <string name="vehicle_not_found_location">ऐसा लगता है कि परिवहन समुदाय ने कोई आइटम नहीं जोड़ा है </string>
     <string name="show_product">उत्पाद दिखाएं</string>
     <string name="show_vehicles">वाहन दिखाएं</string>
@@ -143,7 +130,6 @@
     <string name="pen">पेन</string>
     <string name="uran">उरण</string>
     <string name="karjat">कर्जत</string>
-    <string name="khalapur">खालापुर</string>
     <string name="mangaon">मनगांव</string>
     <string name="roha">रोहा</string>
     <string name="shrivardhan">श्रीवर्धन</string>

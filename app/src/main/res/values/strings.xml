@@ -2,7 +2,6 @@
     <string name="app_name">AgroWorld</string>
     <!-- Strings used for fragments for navigation -->
 
-    <string name="agrowoprld">AgroWorld</string>
     <string name="quote1">"Best Guide and Helper for any Farmer. Provides various features at one place!"</string>
     <string name="register">Register</string>
     <string name="new_user_register_now">New user? Register Now</string>
@@ -46,7 +45,6 @@
     <string name="crops">Crops</string>
     <string name="flowers">Flowers</string>
     <string name="fruits">Fruits</string>
-    <string name="education">Education</string>
     <string name="number">Number</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="add_vehicle_to_agro_world_store">Add vehicle to AgroWorld store.</string>
@@ -62,18 +60,15 @@
     <string name="longitude">Longitude</string>
     <string name="provide_permission">Please provide required permission</string>
     <string name="manufacture_panel">Manufacture Panel</string>
-    <string name="all_field_required">All fields are required to fill.</string>
     <string name="go_to_cart">Go to cart</string>
     <string name="current_weather">Current Weather</string>
     <string name="forecast_weather">Hourly Forecast weather</string>
-    <string name="yojanas">Yojanas</string>
     <string name="diseases">Diseases</string>
     <string name="vehicle">Vehicle</string>
     <string name="products">Products</string>
     <string name="how_to_expand">How To Expand</string>
     <string name="articles">Articles</string>
     <string name="no_cart_data_found">Look\'s like you haven\'t add anything to cart list</string>
-    <string name="no_task_data_found">Look\'s like you haven\'t add anything to routine list</string>
     <string name="next">Proceed</string>
     <string name="this_field_required">This field is required</string>
     <string name="create_new_routine">Create new routine</string>
@@ -110,15 +105,10 @@
     <string name="routine_added">Routine added successfully.</string>
     <string name="vehicle_updated">Vehicle updated successfully</string>
     <string name="failed_to_update_vehicle">Failed to update vehicle details.</string>
-    <string name="remove_vehicle_message">Are you sure,you want to remove vehicle??</string>
-    <string name="failed_to_remove_vehicle">Failed to remove Vehicle.</string>
     <string name="google_signIn_success">Google sign in successful.</string>
     <string name="email_valid">Check your email once, it is not valid.</string>
     <string name="contact_valid">The number should be ten digits long.</string>
     <string name="password_valid">should be greater than six char include symbols</string>
-    <string name="facebook_login">Facebook login not available.</string>
-    <string name="github_login">Github login not available.</string>
-    <string name="instagram_login">Instagram login not available.</string>
     <string name="required_location">Location is required</string>
     <string name="launguage_updated">Language updated to english</string>
     <string name="about_us">About Us</string>
@@ -131,9 +121,6 @@
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="medium">Medium</string>
-    <string name="cart_list">Cart List</string>
-    <string name="history">History</string>
-    <string name="show_list">Show list</string>
     <string name="vehicle_not_found_location">Looks like Transport community haven\'t added any item for</string>
     <string name="show_product">Show Products</string>
     <string name="show_vehicles">Show Vehicles</string>
@@ -143,7 +130,6 @@
     <string name="pen">Pen</string>
     <string name="uran">Uran</string>
     <string name="karjat">Karjat</string>
-    <string name="khalapur">Khalapur</string>
     <string name="mangaon">Mangaon</string>
     <string name="roha">Roha</string>
     <string name="shrivardhan">Shrivardhan</string>

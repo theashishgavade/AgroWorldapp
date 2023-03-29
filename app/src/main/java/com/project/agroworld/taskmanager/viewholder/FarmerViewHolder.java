@@ -31,20 +31,16 @@ public class FarmerViewHolder extends RecyclerView.ViewHolder {
             menu.getMenu().add(Menu.NONE, 1, 1, "Delete");
             menu.getMenu().add(Menu.NONE, 2, 2, "Completed");
             menu.show();
-
-            menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem item) {
-                    int i = item.getItemId();
-                    if (i == 1) {
-                        listener.onDeleteClick(model);
-                        return true;
-                    } else if (i == 2) {
-                        listener.markTaskCompleted(model);
-                        return true;
-                    } else {
-                        return false;
-                    }
+            menu.setOnMenuItemClickListener(item -> {
+                int i = item.getItemId();
+                if (i == 1) {
+                    listener.onDeleteClick(model);
+                    return true;
+                } else if (i == 2) {
+                    listener.markTaskCompleted(model);
+                    return true;
+                } else {
+                    return false;
                 }
             });
         });
