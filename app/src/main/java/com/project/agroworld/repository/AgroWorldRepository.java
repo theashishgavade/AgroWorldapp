@@ -318,6 +318,11 @@ public class AgroWorldRepository {
         }).addOnFailureListener(e -> requestStatus.postValue(e.getLocalizedMessage()));
     }
 
+    public void removeAllTransactionHistory(String email) {
+        databaseReference = FirebaseDatabase.getInstance().getReference(email + "-transaction");
+        databaseReference.removeValue();
+    }
+
     public void deleteCartData(String email) {
         databaseReference = FirebaseDatabase.getInstance().getReference(email + "-CartItems");
         databaseReference.removeValue().addOnSuccessListener(unused -> Log.d("removeValue", "Cart node deleted successfully"));

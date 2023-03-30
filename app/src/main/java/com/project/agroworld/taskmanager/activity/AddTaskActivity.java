@@ -39,11 +39,8 @@ public class AddTaskActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
         viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
         binding.ivSelectTime.setOnClickListener(v -> showTimerPickerDialog());
-
         binding.ivSelectDate.setOnClickListener(v -> showDatePickerDialog());
-
         binding.tvDate.setOnClickListener(v -> showDatePickerDialog());
-
         binding.tvTime.setOnClickListener(v -> showTimerPickerDialog());
 
         binding.ivPriority.setOnClickListener(v -> {

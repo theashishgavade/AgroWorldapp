@@ -1,5 +1,7 @@
 package com.project.agroworld.ui.activity;
 
+import static com.project.agroworld.utils.Constants.setAppLocale;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -11,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.project.agroworld.R;
-import com.project.agroworld.chatbot.ChatBotActivity;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.ui.adapter.FragmentAdapter;
 import com.project.agroworld.ui.fragments.EducationFragment;
 import com.project.agroworld.ui.fragments.HomeFragment;
@@ -32,10 +33,18 @@ public class DashboardActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     ArrayList<Fragment> fragments;
+    PreferenceHelper preferenceHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        preferenceHelper = PreferenceHelper.getInstance(this);
+        boolean isHindi = preferenceHelper.getData(Constants.HINDI_KEY);
+        if (isHindi) {
+            setAppLocale(DashboardActivity.this, "hi");
+        } else {
+            setAppLocale(DashboardActivity.this, "en");
+        }
         setContentView(R.layout.activity_dashboard);
         Permissions.checkConnection(this);
         Permissions.isGpsEnable(this);

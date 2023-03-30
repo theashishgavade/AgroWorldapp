@@ -13,12 +13,10 @@ import com.project.agroworld.payment.viewholder.HistoryViewHolder;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
-    private final HistoryListener listener;
     private final List<PaymentModel> paymentModelList;
 
-    public HistoryAdapter(List<PaymentModel> paymentModelList, HistoryListener clickListener) {
+    public HistoryAdapter(List<PaymentModel> paymentModelList) {
         this.paymentModelList = paymentModelList;
-        this.listener = clickListener;
     }
 
     @NonNull
@@ -30,7 +28,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         PaymentModel paymentModel = paymentModelList.get(position);
-        holder.bindHistoryData(paymentModel, listener);
+        holder.bindHistoryData(paymentModel);
     }
 
     @Override

@@ -50,7 +50,7 @@
     <string name="add_vehicle_to_agro_world_store">Add vehicle to AgroWorld store.</string>
     <string name="model">model</string>
     <string name="address">address</string>
-    <string name="contact">contact</string>
+    <string name="contact">Contact</string>
     <string name="update_vehicle">Update Vehicle</string>
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
@@ -111,7 +111,7 @@
     <string name="password_valid">should be greater than six char include symbols</string>
     <string name="required_location">Location is required</string>
     <string name="launguage_updated">Language updated to english</string>
-    <string name="about_us">About Us</string>
+    <string name="about_us">About</string>
     <string name="contact_us">Contact Us</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="app_version">App Version</string>

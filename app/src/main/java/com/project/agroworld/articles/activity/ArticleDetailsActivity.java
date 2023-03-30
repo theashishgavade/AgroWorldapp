@@ -37,9 +37,6 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         boolean isFlowersResponse = intent.getBooleanExtra("isFlowersResponse", false);
         HowToExpandResponse expandItemResponse = ((HowToExpandResponse) intent.getSerializableExtra("expandItemResponse"));
         boolean isExpandResponse = intent.getBooleanExtra("isExpandResponse", false);
-        DiseasesResponse diseasesResponse = ((DiseasesResponse) intent.getSerializableExtra("diseasesItemResponse"));
-        boolean isDiseasesResponse = intent.getBooleanExtra("isDiseasesResponse", false);
-
         if (isCropResponse) {
             updateUIForCropsData(cropsResponse);
         } else if (isFruitResponse) {
@@ -48,8 +45,6 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             updateUIForFlowersData(flowersResponse);
         } else if (isExpandResponse) {
             updateUIForExpandData(expandItemResponse);
-        }else if (isDiseasesResponse){
-
         }
 
     }
@@ -123,5 +118,11 @@ public class ArticleDetailsActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

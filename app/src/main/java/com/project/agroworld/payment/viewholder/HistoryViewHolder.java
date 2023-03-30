@@ -15,14 +15,11 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
         this.binding = binding;
     }
 
-    public void bindHistoryData(PaymentModel paymentModel, HistoryListener listener) {
+    public void bindHistoryData(PaymentModel paymentModel) {
         binding.tvTransTitle.setText(paymentModel.getProductName());
         binding.tvTransID.setText("Id: " + paymentModel.getPaymentID());
         binding.tvTransStatus.setText("Status: " + paymentModel.getPaymentStatus());
         binding.tvTransPrice.setText(" " + paymentModel.getProductPrice());
         Constants.bindImage(binding.ivHistoryProduct, paymentModel.getProductImage(), binding.ivHistoryProduct);
-        binding.crdHistoryBanner.setOnClickListener(v -> {
-            listener.onTransactionRemovedClick(paymentModel);
-        });
     }
 }

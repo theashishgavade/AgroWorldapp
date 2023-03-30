@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 
 public class CropsActivity extends AppCompatActivity implements CropsClickListener {
-
     private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
     private ActivityCropsBinding binding;
     private CropsAdapter cropsAdapter;

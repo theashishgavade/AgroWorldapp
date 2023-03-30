@@ -35,6 +35,7 @@ import com.project.agroworld.taskmanager.adapter.FarmerAdapter;
 import com.project.agroworld.taskmanager.listener.OnItemClickListener;
 import com.project.agroworld.taskmanager.receiver.EventReceiver;
 import com.project.agroworld.taskmanager.viewmodel.FarmerViewModel;
+import com.project.agroworld.ui.activity.DashboardActivity;
 import com.project.agroworld.utils.Constants;
 
 import java.util.List;
@@ -78,12 +79,18 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                         preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
                         preferenceHelper.saveData(Constants.HINDI_KEY, false);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
+                        Intent intent = new Intent(getContext(), DashboardActivity.class);
+                        startActivity(intent);
+                        getActivity().finish();
                         return true;
                     case R.id.menu_hindi_lng:
                         setAppLocale(getContext(), "hi");
                         preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
                         preferenceHelper.saveData(Constants.HINDI_KEY, true);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
+                        Intent intent1 = new Intent(getContext(), DashboardActivity.class);
+                        startActivity(intent1);
+                        getActivity().finish();
                         return true;
                 }
                 return true;
