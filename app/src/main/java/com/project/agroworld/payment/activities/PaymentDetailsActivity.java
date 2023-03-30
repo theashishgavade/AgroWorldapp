@@ -74,12 +74,6 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         alertDialogBuilder = new AlertDialog.Builder(PaymentDetailsActivity.this);
         alertDialogBuilder.setCancelable(false);
         alertDialogBuilder.setTitle("Payment Result");
-        alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
-            finish();
-        });
-        alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
-            dialog.dismiss();
-        });
 
         viewModel.checkLoadingStatus().observe(this, s -> {
             Constants.showToast(this, s);
@@ -190,6 +184,13 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
                             + "\nExternalWallet: " + paymentData.getExternalWallet()
                             + "\nPayment Data: " + paymentData.getData()
             );
+            alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
+                startActivity(new Intent(this, PaymentHistoryActivity.class));
+                finish();
+            });
+            alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
             alertDialogBuilder.show();
         } else {
             alertDialogBuilder.setMessage(
@@ -199,6 +200,12 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
                             + "\nPayment Data: " + paymentData.getData()
 
             );
+            alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
+                finish();
+            });
+            alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
+                dialog.dismiss();
+            });
             alertDialogBuilder.show();
         }
     }
