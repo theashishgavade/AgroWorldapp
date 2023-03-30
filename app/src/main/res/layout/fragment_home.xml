@@ -41,6 +41,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <TextView
+                            android:id="@+id/tvWeatherError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/fredoka_one"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="15sp" />
+
                         <RelativeLayout
                             android:id="@+id/weatherLayout"
                             android:layout_width="match_parent"
@@ -88,7 +99,7 @@
                                 android:gravity="center"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="35sp" />
+                                android:textSize="40sp" />
 
 
                             <TextView
@@ -133,9 +144,9 @@
                                     android:id="@+id/tvWeatherWind"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/dp_10"
                                     android:fontFamily="@font/poppins_medium"
                                     android:textAlignment="textEnd"
-                                    android:layout_marginEnd="@dimen/dp_10"
                                     android:textColor="@color/colorPrimaryDark"
                                     android:textSize="14sp" />
 
@@ -186,9 +197,8 @@
                     app:layout_constraintTop_toBottomOf="@id/articlesTitle">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent">
-
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/crdCrops"

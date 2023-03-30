@@ -48,8 +48,8 @@ public class DashboardActivity extends AppCompatActivity {
         fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new ShoppingFragment());
-        fragments.add(new EducationFragment());
         fragments.add(new TransportFragment());
+        fragments.add(new EducationFragment());
         fragments.add(new NewsFragment());
         fragments.add(new ProfileFragment());
 
@@ -60,8 +60,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_baseline_home_24);
         tabLayout.getTabAt(1).setIcon(R.drawable.ic_baseline_shop_two_24);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_menu_book_24);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_baseline_emoji_transportation_24);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_baseline_emoji_transportation_24);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_baseline_menu_book_24);
         tabLayout.getTabAt(4).setIcon(R.drawable.ic_baseline_newspaper_24);
         tabLayout.getTabAt(5).setIcon(R.drawable.ic_baseline_person_24);
 

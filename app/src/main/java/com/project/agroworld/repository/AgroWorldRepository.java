@@ -1,6 +1,7 @@
 package com.project.agroworld.repository;
 
 import static com.project.agroworld.utils.Constants.BASE_URL_SHEET_DB;
+import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.content.Context;
 import android.util.Log;
@@ -28,6 +29,8 @@ import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Resource;
+import com.project.agroworld.weather.model.weather_data.WeatherResponse;
+import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,48 @@ public class AgroWorldRepository {
 
     public LiveData<String> getRequestErrorLivedata() {
         return requestStatus;
+    }
+
+    public LiveData<Resource<WeatherResponse>> performWeatherRequest(double latitude, double longitude, String apiKey) {
+        MutableLiveData<Resource<WeatherResponse>> weatherResponseMutableLiveData = new MutableLiveData<>();
+        apiService = Network.getInstance(BASE_URL_WEATHER);
+        apiService.getWeatherData(latitude, longitude, apiKey).enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                if (response.body() != null && response.isSuccessful()) {
+                    weatherResponseMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    weatherResponseMutableLiveData.setValue(Resource.error(response.message(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                weatherResponseMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return weatherResponseMutableLiveData;
+    }
+
+    public LiveData<Resource<WeatherDatesResponse>> performWeatherForecastRequest(double latitude, double longitude, String apiKey) {
+        MutableLiveData<Resource<WeatherDatesResponse>> weatherResponseMutableLiveData = new MutableLiveData<>();
+        apiService = Network.getInstance(BASE_URL_WEATHER);
+        apiService.getWeatherForecastData(latitude, longitude, apiKey).enqueue(new Callback<WeatherDatesResponse>() {
+            @Override
+            public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {
+                if (response.body() != null && response.code() == 200) {
+                    weatherResponseMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    weatherResponseMutableLiveData.setValue(Resource.error(response.message(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WeatherDatesResponse> call, Throwable t) {
+                weatherResponseMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return weatherResponseMutableLiveData;
     }
 
     public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponse() {
@@ -253,18 +298,6 @@ public class AgroWorldRepository {
             productRemovalLiveStatus.setValue(Resource.error(command.getLocalizedMessage(), null));
         });
         return productRemovalLiveStatus;
-    }
-
-    public LiveData<Resource<String>> performCartProductRemoveAction(String title) {
-        MutableLiveData<Resource<String>> cartProductRemoveStatus = new MutableLiveData<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("CartItemList");
-        databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
-            cartProductRemoveStatus.setValue(Resource.success("success"));
-        }).addOnFailureListener(command -> {
-            Log.d("removeCartItemTransport", command.getLocalizedMessage());
-            cartProductRemoveStatus.setValue(Resource.error(command.getLocalizedMessage(), null));
-        });
-        return cartProductRemoveStatus;
     }
 
     public LiveData<Resource<String>> performProductRemovalAction(String vehicleModel) {

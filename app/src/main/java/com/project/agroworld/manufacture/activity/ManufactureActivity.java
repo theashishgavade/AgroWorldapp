@@ -31,8 +31,9 @@ public class ManufactureActivity extends AppCompatActivity {
     private DatabaseReference firebaseStorage;
     private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
-
+    private String editImageUrl;
     private boolean isImageSelected = false;
+    private boolean isEditAction = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,12 @@ public class ManufactureActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.manufacture_panel));
         actionBar.setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
+        ProductModel productModel = ((ProductModel) intent.getSerializableExtra("productModel"));
+        boolean isManufactureEditAction = intent.getBooleanExtra("manufactureEditAction", false);
+        if (isManufactureEditAction && productModel != null) {
+            updateIntentData(productModel);
+        }
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         binding.crdUploadImage.setOnClickListener(v -> {
             isImageSelected = true;
@@ -51,8 +58,9 @@ public class ManufactureActivity extends AppCompatActivity {
             String title = binding.etProductTitle.getText().toString();
             double price = Double.parseDouble(binding.etProductPrice.getText().toString());
             String description = binding.etProductDescription.getText().toString();
-
-            if (Permissions.checkConnection(this) &&
+            if (isEditAction) {
+                uploadDataToFirebase(title, description, price, editImageUrl);
+            } else if (Permissions.checkConnection(this) &&
                     !title.isEmpty() &&
                     price != 0 &&
                     !description.isEmpty() &&
@@ -63,6 +71,16 @@ public class ManufactureActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void updateIntentData(ProductModel productModel) {
+        isEditAction = true;
+        editImageUrl = productModel.getImageUrl();
+        binding.ivProductUploadIcon.setVisibility(View.GONE);
+        binding.etProductTitle.setText(productModel.getTitle());
+        binding.etProductDescription.setText(productModel.getDescription());
+        binding.etProductPrice.setText(String.valueOf(productModel.getPrice()));
+        Constants.bindImage(binding.ivProductSelected, productModel.getImageUrl(), binding.ivProductSelected);
     }
 
     private void uploadImageToFirebase(String title, double price, String description) {
@@ -101,6 +119,7 @@ public class ManufactureActivity extends AppCompatActivity {
             progressBar.hideProgressBar();
             Constants.showToast(ManufactureActivity.this, getString(R.string.product_updated));
             startActivity(new Intent(ManufactureActivity.this, ManufactureDataActivity.class));
+            finish();
         }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();
             Constants.showToast(ManufactureActivity.this, "Failed to update product");

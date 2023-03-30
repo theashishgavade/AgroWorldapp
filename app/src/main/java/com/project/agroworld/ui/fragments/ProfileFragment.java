@@ -129,7 +129,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         });
 
         dataBinding.ivQuickHelp.setOnClickListener(v -> {
-            startActivity(new Intent(getContext(), ChatBotActivity.class));
+            startActivityForResult(new Intent(getContext(), ChatBotActivity.class), Constants.REQUEST_CODE);
         });
 
         dataBinding.btnTransHistory.setOnClickListener(v -> {

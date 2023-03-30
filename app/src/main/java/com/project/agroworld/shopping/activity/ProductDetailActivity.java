@@ -3,7 +3,9 @@ package com.project.agroworld.shopping.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,20 +22,20 @@ import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 
 public class ProductDetailActivity extends AppCompatActivity {
-
     FirebaseAuth auth;
     FirebaseUser user;
     private ActivityProductDetailBinding binding;
     private DatabaseReference database;
     private ProductModel productModel;
+    private ActionBar actionBar;
     private final int doubleButtonTap = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         Log.d("customProgressCycle", "ProductDetailActivity- onCreate");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -43,16 +45,18 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void updateUI(ProductModel productModel) {
+        actionBar.setTitle(productModel.getTitle());
         Glide.with(binding.ivProductDetailView).load(productModel.getImageUrl()).into(binding.ivProductDetailView);
         binding.tvPriceDetail.setText(getString(R.string.price) + "- ₹ " + productModel.getPrice());
         binding.tvSeedTitleDetail.setText(productModel.getTitle());
         binding.tvPrice.setText("₹ " + productModel.getPrice());
         binding.tvProductDescription.setText(productModel.getDescription().replaceAll("~", "\n\n"));
+
         binding.btnBuyNow.setOnClickListener(v -> {
             if (binding.btnBuyNow.getText().toString().contains(getString(R.string.add_to_cart))) {
                 addItemToCart(productModel);
             } else {
-                startActivityForResult(new Intent(ProductDetailActivity.this, AddToCartActivity.class), 120);
+                startActivity(new Intent(ProductDetailActivity.this, AddToCartActivity.class));
             }
         });
     }
@@ -68,8 +72,24 @@ public class ProductDetailActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != 120) {
+        if (requestCode == 201) {
             finish();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

@@ -31,16 +31,15 @@ public class Constants {
     public static final int REQUEST_CODE = 99;
     public static final int GPS_REQUEST_CODE = 999;
     public static final int LOGOUT_REQUEST_CODE = 129;
-    public static final int LANGUAGE_REQUEST_CODE = 129;
+    public static final int LANGUAGE_REQUEST_CODE = 139;
     public static final String ENGLISH_KEY = "EnglishLang";
     public static final String HINDI_KEY = "HindiLang";
-
     public static final String CHAT_BOT_API = "HC5OGdHhUQPzfMOy";
     public static final String BRAIN_ID = "174019";
     public static final String RAZORPAY_KEY_ID = "rzp_test_WOJv3yvX507r26";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
-    public static final String ABOUT_US_PAGE = "https://bhaveshppatil.notion.site/Agro-World-753fa8281ccc4b68a5508f0179f05295";
+    public static final String ABOUT_US_PAGE = "https://elastic-homegrown-53c.notion.site/AgroWorld-db0062bdf0ff4596a645186227edd9f8";
     public static final String PRIVACY_POLICY = "https://www.freeprivacypolicy.com/live/7de1b1a3-b257-4e98-b2ab-ed989935719b";
     public static final String ENGLISH_NEWS_WEB_URL = "https://krishijagran.com/news";
     public static final String HINDI_NEWS_WEB_URL = "https://hindi.krishijagran.com/news";
@@ -51,15 +50,17 @@ public class Constants {
     }
 
     public static void identifyUser(FirebaseUser user, Context context) {
-        if (user != null) {
-            if (user.getEmail().contains("devdeveloper66@gmail.com")
-                    || user.getEmail().contains("theashishgavade@gmail.com")) {
+        if (user.getEmail() != null) {
+            if (user.getEmail().equals("devdeveloper66@gmail.com")
+                    || user.getEmail().equals("theashishgavade@gmail.com")) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
-            } else if (user.getEmail().equals("nap.napster08@gmail.com")
-                    || user.getEmail().equals("devenpadhye.dp@gmail.com")) {
+            } else if (user.getEmail().equals("nap.napster08@gmail.com") ||
+                    user.getEmail().equals("devenpadhye.dp@gmail.com") ||
+                    user.getEmail().equals("ashugavade57@gmail.com")
+            ) {
                 //transport user
                 Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
@@ -126,7 +127,7 @@ public class Constants {
         return userName;
     }
 
-    public static void adminEmailContact(Context context){
+    public static void adminEmailContact(Context context) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"devdeveloper66@gmail.com", "theashishgavade@gmail.com"});

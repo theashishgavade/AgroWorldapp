@@ -1,7 +1,6 @@
 package com.project.agroworld.weather.activity;
 
 import static com.project.agroworld.utils.Constants.API_KEY;
-import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,35 +12,34 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityWeatherForecastBinding;
-import com.project.agroworld.network.APIService;
-import com.project.agroworld.network.Network;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.weather.adapter.WeatherForecastAdapter;
 import com.project.agroworld.weather.listener.WeatherForecastListener;
 import com.project.agroworld.weather.model.weatherlist.ListItem;
-import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class WeatherForecastActivity extends AppCompatActivity implements WeatherForecastListener {
-    private ActivityWeatherForecastBinding binding;
     private final ArrayList<ListItem> forecastItemArrayList = new ArrayList<>();
+    private ActivityWeatherForecastBinding binding;
     private CustomMultiColorProgressBar progressBar;
     private WeatherForecastAdapter forecastAdapter;
+    private AgroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_forecast);
+        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel.init(this);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.forecast_weather);
@@ -49,31 +47,34 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
         Intent intent = getIntent();
         double lat = intent.getDoubleExtra("lat", 0.0);
         double lon = intent.getDoubleExtra("lon", 0.0);
-        callForecastApiService(lat, lon);
+        if (lat != 0.0 && lon != 0.0 && Permissions.checkConnection(this)) {
+            callForecastApiService(lat, lon);
+        }
     }
 
     private void callForecastApiService(double lat, double lon) {
         progressBar.showProgressBar();
-        binding.tvForecastNoDataFound.setVisibility(View.GONE);
-        APIService apiService = Network.getInstance(BASE_URL_WEATHER);
-        apiService.getWeatherForecastData(lat, lon, API_KEY).enqueue(new Callback<WeatherDatesResponse>() {
-            @Override
-            public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {
-                progressBar.hideProgressBar();
-                if (response.body() != null) {
-                    forecastItemArrayList.clear();
-                    forecastItemArrayList.addAll(response.body().getList());
-                    setUpRecyclerView();
-                }
-                Log.d("forecastItemArrayList ", String.valueOf(forecastItemArrayList.size()));
-            }
-
-            @Override
-            public void onFailure(Call<WeatherDatesResponse> call, Throwable t) {
-                progressBar.hideProgressBar();
-                binding.tvForecastNoDataFound.setVisibility(View.VISIBLE);
-                binding.tvForecastNoDataFound.setText(t.getLocalizedMessage());
-                Constants.showToast(WeatherForecastActivity.this, t.getLocalizedMessage());
+        viewModel.performWeatherForecastRequest(lat, lon, API_KEY).observe(this, weatherDatesResponseResource -> {
+            switch (weatherDatesResponseResource.status) {
+                case ERROR:
+                    progressBar.hideProgressBar();
+                    binding.recyclerViewForecast.setVisibility(View.GONE);
+                    binding.tvForecastNoDataFound.setVisibility(View.VISIBLE);
+                    binding.tvForecastNoDataFound.setText(weatherDatesResponseResource.message);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    progressBar.hideProgressBar();
+                    if (weatherDatesResponseResource.data != null) {
+                        forecastItemArrayList.clear();
+                        forecastItemArrayList.addAll(weatherDatesResponseResource.data.getList());
+                        setUpRecyclerView();
+                    } else {
+                        binding.recyclerViewForecast.setVisibility(View.GONE);
+                        binding.tvForecastNoDataFound.setVisibility(View.VISIBLE);
+                        binding.tvForecastNoDataFound.setText(weatherDatesResponseResource.message);
+                    }
             }
         });
     }

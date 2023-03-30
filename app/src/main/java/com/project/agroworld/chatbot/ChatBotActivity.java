@@ -2,8 +2,11 @@ package com.project.agroworld.chatbot;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -21,11 +24,12 @@ public class ChatBotActivity extends AppCompatActivity implements View.OnClickLi
     private ArrayList<ChatBotModel> chatBotModels;
     private PerformRequest request;
     private ChatBotAdapter chatBotAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chatbot);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         request = new PerformRequest(this);
 
         // Set RecyclerView layout manager.
@@ -118,5 +122,21 @@ public class ChatBotActivity extends AppCompatActivity implements View.OnClickLi
             default:
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

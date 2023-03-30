@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureDataBinding;
@@ -23,21 +25,24 @@ import com.project.agroworld.utils.Constants;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ManufactureDataActivity extends AppCompatActivity implements ManufactureAdminListener {
 
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+    FirebaseAuth auth;
+    FirebaseUser user;
     private ActivityManufactureDataBinding binding;
     private DatabaseReference databaseReference;
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture_data);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
@@ -127,7 +132,6 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
                         break;
                     case SUCCESS:
                         Constants.showToast(this, "Successfully removed item from list.. wait few sec more");
-                        removeProductFromCartIfAdded(productModel);
                         getProductListFromFirebase();
                 }
             });
@@ -138,23 +142,6 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
             dialog.dismiss();
         });
         alertDialog.show();
-    }
-
-    private void removeProductFromCartIfAdded(ProductModel productModel) {
-        agroViewModel.performCartProductRemoveAction(productModel.getTitle()).observe(this, stringResource -> {
-            switch (stringResource.status) {
-                case ERROR:
-                    Constants.showToast(this, getString(R.string.failed_to_remove_prodcut));
-                    break;
-                case LOADING:
-                    break;
-                case SUCCESS:
-                    if (Objects.equals(stringResource.data, "success")) {
-                        Constants.showToast(this, "Successfully removed product.");
-                    }
-                    getProductListFromFirebase();
-            }
-        });
     }
 
     private void searchProduct(String query) {
@@ -180,7 +167,11 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
 
     @Override
     public void performEditAction(ProductModel productModel, int position) {
-        Constants.showToast(this, "ready to delete product");
+        Intent intent = new Intent(this, ManufactureActivity.class);
+        intent.putExtra("productModel", productModel);
+        intent.putExtra("manufactureEditAction", true);
+        startActivity(intent);
+        finish();
     }
 
     @Override

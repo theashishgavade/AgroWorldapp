@@ -1,5 +1,6 @@
 package com.project.agroworld.ui.fragments;
 
+import static com.project.agroworld.utils.Constants.API_KEY;
 import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.Manifest;
@@ -143,20 +144,25 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        APIService apiService = Network.getInstance(BASE_URL_WEATHER);
-        apiService.getWeatherData(lat, lon, Constants.API_KEY).enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                binding.weatherProgressbar.setVisibility(View.GONE);
-                if (response.body() != null) {
-                    updateUI(response.body());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                binding.weatherProgressbar.setVisibility(View.GONE);
-                Constants.printLog(t.getLocalizedMessage());
+        agroViewModel.performWeatherRequest(lat, lon, API_KEY).observe(this, weatherResponseResource -> {
+            switch (weatherResponseResource.status) {
+                case ERROR:
+                    binding.weatherProgressbar.setVisibility(View.GONE);
+                    binding.weatherLayout.setVisibility(View.GONE);
+                    binding.tvWeatherError.setVisibility(View.VISIBLE);
+                    binding.tvWeatherError.setText(weatherResponseResource.message);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    binding.weatherProgressbar.setVisibility(View.GONE);
+                    if (weatherResponseResource.data != null) {
+                        updateUI(weatherResponseResource.data);
+                    } else {
+                        binding.weatherLayout.setVisibility(View.GONE);
+                        binding.tvWeatherError.setVisibility(View.VISIBLE);
+                        binding.tvWeatherError.setText(weatherResponseResource.message);
+                    }
             }
         });
     }
@@ -269,7 +275,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void askPermission() {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.REQUEST_CODE);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.GPS_REQUEST_CODE);
 
     }
 

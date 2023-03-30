@@ -75,7 +75,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         alertDialogBuilder.setCancelable(false);
         alertDialogBuilder.setTitle("Payment Result");
         alertDialogBuilder.setPositiveButton("Ok", (dialog, which) -> {
-            finishActivity(289);
+            finish();
         });
         alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> {
             dialog.dismiss();

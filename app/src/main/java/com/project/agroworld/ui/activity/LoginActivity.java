@@ -5,20 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,23 +26,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.project.agroworld.R;
+import com.project.agroworld.databinding.ActivityLoginBinding;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
-    SignInButton ivGoogleLogin;
-    TextView tvNewUser, tvForgetPasswd;
-    Button btnLoginUp;
     FirebaseAuth mAuth;
-    EditText etEmail, etPasswd;
-    FloatingActionButton floatingActionButton;
+    FloatingActionButton fabAdminContact;
     private GoogleSignInClient mGoogleSignInClient;
     private CustomMultiColorProgressBar progressBar;
-    private int backPressCount = 0;
+    private ActivityLoginBinding binding;
 
     @Override
     protected void onStart() {
@@ -55,27 +48,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         loginWithGoogle();
         initViews();
     }
 
-
     private void initViews() {
-        ivGoogleLogin = findViewById(R.id.btnGoogleLogin);
-        tvNewUser = findViewById(R.id.tvNewUser);
-        tvForgetPasswd = findViewById(R.id.tvForgetPasswd);
-        btnLoginUp = findViewById(R.id.btnLoginUp);
-        etEmail = findViewById(R.id.etEmail);
-        etPasswd = findViewById(R.id.etPasswd);
-        floatingActionButton = findViewById(R.id.fabAdminContact);
-        ivGoogleLogin.setOnClickListener(LoginActivity.this);
-        tvNewUser.setOnClickListener(LoginActivity.this);
-        tvForgetPasswd.setOnClickListener(LoginActivity.this);
-        btnLoginUp.setOnClickListener(LoginActivity.this);
-        floatingActionButton.setOnClickListener(LoginActivity.this);
+        binding.btnGoogleLogin.setOnClickListener(LoginActivity.this);
+        binding.tvNewUser.setOnClickListener(LoginActivity.this);
+        binding.tvForgetPasswd.setOnClickListener(LoginActivity.this);
+        binding.btnLoginUp.setOnClickListener(LoginActivity.this);
+        binding.fabAdminContact.setOnClickListener(LoginActivity.this);
     }
 
     private void loginWithGoogle() {
@@ -129,7 +114,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "");
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Constants.showToast(LoginActivity.this, "signInWithCredential:success");
+                        assert user != null;
+                        Constants.showToast(LoginActivity.this, "signInWithCredential:success\n" + user.getEmail());
                         Constants.identifyUser(user, LoginActivity.this);
                         finish();
                     } else {
@@ -144,8 +130,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void checkDataValidOrNot() {
         progressBar.showProgressBar();
-        String email = etEmail.getText().toString();
-        String passwd = etPasswd.getText().toString();
+        String email = binding.etEmail.getText().toString();
+        String passwd = binding.etPasswd.getText().toString();
 
         if (!email.isEmpty() && passwd.length() > 6) {
             signInUser(email, passwd);
@@ -163,8 +149,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     progressBar.hideProgressBar();
                     // Sign in success, update UI with the signed-in user's information
                     Constants.showToast(LoginActivity.this, "Login Successful");
-                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                    startActivity(intent);
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        Constants.identifyUser(user, LoginActivity.this);
+                    } else {
+                        Constants.showToast(LoginActivity.this, "Null user found");
+                    }
                 } else {
                     progressBar.hideProgressBar();
                     // If sign in fails, display a message to the user.
@@ -187,6 +177,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tvNewUser:
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.btnLoginUp:
                 checkDataValidOrNot();
@@ -199,7 +190,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-        backPressCount++;
         new AlertDialog.Builder(this)
                 .setTitle("Agro world exit")
                 .setIcon(R.drawable.app_icon4)

@@ -157,8 +157,13 @@ public class SignUpActivity extends AppCompatActivity {
                 // Sign in success, update UI with the signed-in user's information
                 Log.d(TAG, "");
                 FirebaseUser user = mAuth.getCurrentUser();
-                showToast(SignUpActivity.this, getString(R.string.google_signIn_success));
-                Constants.identifyUser(user, SignUpActivity.this);
+                if (user != null) {
+                    showToast(SignUpActivity.this, getString(R.string.google_signIn_success));
+                    Constants.identifyUser(user, SignUpActivity.this);
+                    finish();
+                } else {
+                    showToast(SignUpActivity.this, "User not found.");
+                }
             } else {
                 progressBar.hideProgressBar();
                 // If sign in fails, display a message to the user.
@@ -182,7 +187,6 @@ public class SignUpActivity extends AppCompatActivity {
         final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(passwd);
-
         return matcher.matches();
     }
 }

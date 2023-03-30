@@ -10,9 +10,11 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -96,7 +98,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
             intent.putExtra("productItemList", productCartList);
             intent.putExtra("address", addressLine);
             intent.putExtra("totalAmount", binding.tvTotalAmount.getText().toString());
-            startActivity(intent);
+            startActivityForResult(intent, 201);
             finish();
 
         });
@@ -211,8 +213,26 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 201){
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
-        finishActivity(120);
+        finish();
         super.onBackPressed();
     }
 }

@@ -15,14 +15,26 @@ import com.project.agroworld.repository.AgroWorldRepository;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Resource;
+import com.project.agroworld.weather.model.weather_data.WeatherResponse;
+import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 public class AgroViewModel extends ViewModel {
     private AgroWorldRepository repository;
 
     public void init(Context context) {
         repository = new AgroWorldRepository(context);
+    }
+
+    public LiveData<Resource<WeatherResponse>> performWeatherRequest(double latitude, double longitude, String apiKey ){
+        return repository.performWeatherRequest(latitude, longitude, apiKey);
+    }
+
+    public LiveData<Resource<WeatherDatesResponse>> performWeatherForecastRequest(double latitude, double longitude, String apiKey ){
+        return repository.performWeatherForecastRequest(latitude, longitude, apiKey);
     }
 
     public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponseLivedata() {
@@ -60,11 +72,6 @@ public class AgroViewModel extends ViewModel {
     public LiveData<Resource<String>> removeProductFromFirebase(String title) {
         return repository.removeProductFromFirebase(title);
     }
-
-    public LiveData<Resource<String>> performCartProductRemoveAction(String title) {
-        return repository.performCartProductRemoveAction(title);
-    }
-
 
     public LiveData<Resource<String>> performVehicleRemovalAction(String vehicleModel) {
         return repository.performProductRemovalAction(vehicleModel);

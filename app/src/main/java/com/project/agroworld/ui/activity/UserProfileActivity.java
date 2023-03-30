@@ -56,7 +56,7 @@ public class UserProfileActivity extends AppCompatActivity {
             Constants.bindImage(binding.ivMfrProfile, String.valueOf(user.getPhotoUrl()), binding.ivMfrProfile);
             binding.tvMfrName.setText(user.getDisplayName());
             binding.tvMfrEmail.setText(user.getEmail());
-            binding.tvMfrWelcomeMsg.setText("Welcome '" + user.getDisplayName() + "' to the AgroWorld team ");
+            binding.tvMfrWelcomeMsg.setText("Welcome '" + user.getDisplayName() + "' to the AgroWorld");
         }
 
         binding.btnMfrProceed.setOnClickListener(v -> {
