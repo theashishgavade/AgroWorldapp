@@ -124,7 +124,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
         binding.crdDiseases.setOnClickListener(v -> {
             startActivityForResult(new Intent(requireContext(), DiseasesActivity.class), Constants.REQUEST_CODE);
-
         });
 
     }

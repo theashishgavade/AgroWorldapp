@@ -45,7 +45,6 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
     private final ArrayList<FlowersResponse> flowersResponseArrayList = new ArrayList<>();
     private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
-
     private final ArrayList<DiseasesResponse> diseasesResponseArrayList = new ArrayList<>();
 
     private FragmentEducationBinding binding;
@@ -251,7 +250,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
     private void setDiseasesRecyclerView() {
         diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
-        binding.rvDiseasesEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.rvDiseasesEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvDiseasesEd.setAdapter(diseaseAdapter);
     }
 

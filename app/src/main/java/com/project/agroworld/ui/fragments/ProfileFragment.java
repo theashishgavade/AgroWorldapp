@@ -169,9 +169,13 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     private void updateUI(FirebaseUser user) {
         dataBinding.uploadProgressBarProfile.setVisibility(View.GONE);
         if (user != null) {
-            Constants.bindImage(dataBinding.userImageUserFrag, String.valueOf(user.getPhotoUrl()), dataBinding.userImageUserFrag);
             dataBinding.tvProfileUserName.setText(user.getDisplayName());
             dataBinding.tvProfileUserEmail.setText(user.getEmail());
+        }
+        if (user.getPhotoUrl() != null){
+            Constants.bindImage(dataBinding.userImageUserFrag, String.valueOf(user.getPhotoUrl()), dataBinding.userImageUserFrag);
+        }else {
+            dataBinding.userImageUserFrag.setImageResource(R.drawable.app_icon4);
         }
     }
 

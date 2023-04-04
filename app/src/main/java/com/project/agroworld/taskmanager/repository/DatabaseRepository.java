@@ -44,7 +44,7 @@ public class DatabaseRepository {
     }
 
     public LiveData<Integer> getMaxIdCount() {
-        return maxIdCount;
+        return dao.getMaxCount();
     }
 
     private static class InsertRoutineAsyncTask extends AsyncTask<FarmerModel, Void, Void> {

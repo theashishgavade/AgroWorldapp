@@ -161,7 +161,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
                         productCartList.get(product).getTitle(),
                         productCartList.get(product).getImageUrl(),
                         productCartList.get(product).getPrice(),
-                        "false",
+                        "true",
                         paymentData.getPaymentId() + "-" + product
                 );
                 viewModel.uploadTransaction(paymentModel, Constants.plainStringEmail(user.getEmail()));

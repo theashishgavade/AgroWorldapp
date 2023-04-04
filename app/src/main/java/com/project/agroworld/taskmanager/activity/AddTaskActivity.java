@@ -112,34 +112,34 @@ public class AddTaskActivity extends AppCompatActivity {
         viewModel.getMaxIDCount().observe(this, integer -> {
             if (integer != null) {
                 maxIDCount = integer;
-                printLog("maxIdCountViewModel " + maxIDCount);
-
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.YEAR, dateModel.getYear());
-                calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);
-                calendar.set(Calendar.DAY_OF_MONTH, dateModel.getDay());
-                calendar.set(Calendar.HOUR_OF_DAY, timeModel.getHour());
-                calendar.set(Calendar.MINUTE, timeModel.getMinute());
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-
-                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
-                intent.setAction("com.project.agroworld");
-                intent.putExtra("task", task);
-                intent.putExtra("desc", desc);
-                intent.putExtra("date", binding.tvDate.getText().toString());
-                intent.putExtra("time", binding.tvTime.getText().toString());
-                intent.putExtra("maxIDCount", maxIDCount);
-                intent.putExtra("setNotify", "SetNotification");
-                printLog(calendar.toString());
-                printLog("setTaskRemainder " + maxIDCount);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, maxIDCount, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-                }
+                printLog("taskMaxID-ViewModel " + maxIDCount);
             }
         });
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, dateModel.getYear());
+        calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, dateModel.getDay());
+        calendar.set(Calendar.HOUR_OF_DAY, timeModel.getHour());
+        calendar.set(Calendar.MINUTE, timeModel.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), EventReceiver.class);
+        intent.setAction("com.project.agroworld");
+        intent.putExtra("task", task);
+        intent.putExtra("desc", desc);
+        intent.putExtra("date", binding.tvDate.getText().toString());
+        intent.putExtra("time", binding.tvTime.getText().toString());
+        intent.putExtra("maxIDCount", maxIDCount);
+        intent.putExtra("setNotify", "SetNotification");
+        printLog(calendar.toString());
+        printLog("updatingTaskMaxID " + maxIDCount);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, maxIDCount, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        }
     }
 
     private void showTimerPickerDialog() {

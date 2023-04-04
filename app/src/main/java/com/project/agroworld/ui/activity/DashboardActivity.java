@@ -125,4 +125,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
         back_pressed = System.currentTimeMillis();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finishAffinity();
+    }
 }

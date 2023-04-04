@@ -40,6 +40,6 @@ public class FarmerViewModel extends AndroidViewModel {
     }
 
     public LiveData<Integer> getMaxIDCount() {
-        return maxIDCount;
+        return repository.getMaxIdCount();
     }
 }

@@ -57,20 +57,6 @@ public class PaymentHistoryActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (Permissions.checkConnection(this)) {
-            binding.tvNoDataFoundErr.setVisibility(View.GONE);
-            getTransactionHistoryList(Constants.plainStringEmail(user.getEmail()));
-        } else {
-            binding.recyclerView.setVisibility(View.GONE);
-            binding.shimmer.setVisibility(View.GONE);
-            binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
-            binding.tvNoDataFoundErr.setText(getString(R.string.check_internet_connection));
-        }
-    }
-
     private void getTransactionHistoryList(String email) {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
@@ -112,37 +98,11 @@ public class PaymentHistoryActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.history_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
-        } else if (item.getItemId() == R.id.clearHistoryMn) {
-            removeTransactionAlert();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void removeTransactionAlert() {
-        if (!paymentModelArrayList.isEmpty()) {
-            new AlertDialog.Builder(this)
-                    .setTitle("Delete history")
-                    .setIcon(R.drawable.app_icon4)
-                    .setMessage("Are you sure you want to clear history?")
-                    .setCancelable(true)
-                    .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                        dialog.dismiss();
-                    })
-                    .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
-                        agroViewModel.clearAllHistory(Constants.plainStringEmail(user.getEmail()));
-                    }).create().show();
-        }else {
-            Constants.showToast(this, "Nothing to delete");
-        }
     }
 
     @Override

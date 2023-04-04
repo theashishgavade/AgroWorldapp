@@ -51,8 +51,8 @@ public class Constants {
 
     public static void identifyUser(FirebaseUser user, Context context) {
         if (user.getEmail() != null) {
-            if (user.getEmail().equals("devdeveloper66@gmail.com")
-                    || user.getEmail().equals("theashishgavade@gmail.com")) {
+            if (user.getEmail().equals("devdeveloper66@gmail.com") ||
+                    user.getEmail().equals("theashishgavade@gmail.com")) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");

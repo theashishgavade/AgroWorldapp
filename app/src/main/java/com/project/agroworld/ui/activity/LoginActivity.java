@@ -103,7 +103,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-
+    /*
+    Once user select the appropiate email from dialog box it will itendify & navigate to the user as per verification
+    */
     private void firebaseAuthWithGoogle(String idToken) {
         progressBar.showProgressBar();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
@@ -177,7 +179,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.tvNewUser:
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
-                finish();
                 break;
             case R.id.btnLoginUp:
                 checkDataValidOrNot();
