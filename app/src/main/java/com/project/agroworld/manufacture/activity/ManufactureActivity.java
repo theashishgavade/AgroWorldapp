@@ -56,18 +56,30 @@ public class ManufactureActivity extends AppCompatActivity {
 
         binding.btnUpdateData.setOnClickListener(v -> {
             String title = binding.etProductTitle.getText().toString();
-            double price = Double.parseDouble(binding.etProductPrice.getText().toString());
             String description = binding.etProductDescription.getText().toString();
+            String amountStr = binding.etProductPrice.getText().toString();
+
+            if (title.isEmpty()) {
+                binding.etProductTitle.setError(getString(R.string.this_field_required));
+                return;
+            }
+            if (amountStr.isEmpty()) {
+                binding.etProductPrice.setError(getString(R.string.this_field_required));
+                return;
+            }
+            if (description.isEmpty()) {
+                binding.etProductDescription.setError(getString(R.string.this_field_required));
+                return;
+            }
+
+            double price = Double.parseDouble(amountStr);
+
             if (isEditAction) {
                 uploadDataToFirebase(title, description, price, editImageUrl);
             } else if (Permissions.checkConnection(this) &&
-                    !title.isEmpty() &&
                     price != 0 &&
-                    !description.isEmpty() &&
                     isImageSelected) {
                 uploadImageToFirebase(title, price, description);
-            } else {
-                Constants.showToast(this, getString(R.string.requiredDataChecks));
             }
         });
 

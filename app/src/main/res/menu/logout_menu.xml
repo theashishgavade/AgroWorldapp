@@ -6,5 +6,17 @@
         android:id="@+id/menu_logout"
         android:title="@string/logout"
         app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/adminLanguage"
+        android:title="@string/change_language">
+        <menu>
+            <item
+                android:id="@+id/adminHindiLang"
+                android:title="@string/hindi" />
+            <item
+                android:id="@+id/adminEnglishLang"
+                android:title="@string/english" />
+        </menu>
+    </item>
 
 </menu>

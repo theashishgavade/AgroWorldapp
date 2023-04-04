@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     FarmerAdapter farmerAdapter;
     FirebaseAuth auth;
     FirebaseUser user;
+    int maxIDCount;
     private FragmentProfileBinding dataBinding;
 
     @Override
@@ -128,6 +129,7 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.addAlarmFab.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), AddTaskActivity.class);
+            intent.putExtra("maxIDCount", maxIDCount);
             startActivityForResult(intent, REQUEST_CODE);
         });
 
@@ -141,6 +143,13 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.btnTransHistory.setOnClickListener(v -> {
             startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
+        });
+
+        viewModel.getMaxIDCount().observe(getViewLifecycleOwner(), integer -> {
+            if (integer != null) {
+                maxIDCount = integer;
+                printLog("taskMaxID-ViewModel " + maxIDCount);
+            }
         });
     }
 

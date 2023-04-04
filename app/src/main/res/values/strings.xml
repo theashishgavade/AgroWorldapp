@@ -110,7 +110,8 @@
     <string name="contact_valid">The number should be ten digits long.</string>
     <string name="password_valid">should be greater than six char include symbols</string>
     <string name="required_location">Location is required</string>
-    <string name="launguage_updated">Language updated to english</string>
+    <string name="launguage_updated">Language updated to English</string>
+    <string name="launguage_updated_to_hindi">Language updated to Hindi</string>
     <string name="about_us">About</string>
     <string name="contact_us">Contact Us</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -124,43 +125,43 @@
     <string name="vehicle_not_found_location">Looks like Transport community haven\'t added any item for</string>
     <string name="show_product">Show Products</string>
     <string name="show_vehicles">Show Vehicles</string>
-    <string name="alibag">Alibag</string>
-    <string name="panvel">Panvel</string>
-    <string name="murud">Murud</string>
-    <string name="pen">Pen</string>
-    <string name="uran">Uran</string>
-    <string name="karjat">Karjat</string>
-    <string name="mangaon">Mangaon</string>
-    <string name="roha">Roha</string>
-    <string name="shrivardhan">Shrivardhan</string>
-    <string name="poladpur">Poladpur</string>
-    <string name="raigad">Raigad</string>
-    <string name="pune">Pune</string>
-    <string name="aundh">Aundh</string>
-    <string name="bavdhan">Bavdhan</string>
-    <string name="balewadi">Balewadi</string>
-    <string name="dhankawadi">Dhankawadi</string>
-    <string name="dhanori">Dhanori</string>
-    <string name="hadapsar">Hadapsar</string>
-    <string name="katraj">Katraj</string>
-    <string name="kharadi">Kharadi</string>
-    <string name="kothrud">Kothrud</string>
-    <string name="chinchwad">Chinchwad</string>
-    <string name="swargate">Swargate</string>
-    <string name="ratnagiri">Ratnagiri</string>
-    <string name="dapoli">Dapoli</string>
-    <string name="mandangad">Mandangad</string>
-    <string name="khed">Khed</string>
-    <string name="chiplun">Chiplun</string>
-    <string name="guhagar">Guhagar</string>
-    <string name="sangameshwar">Sangameshwar</string>
-    <string name="lanja">Lanja</string>
-    <string name="rajapur">Rajapur</string>
-    <string name="parbhani">Parbhani</string>
-    <string name="sangli">Sangli</string>
-    <string name="satara">Satara</string>
-    <string name="sindhudurg">Sindhudurg</string>
-    <string name="thane">Thane</string>
+    <string name="alibag" translatable="false">Alibag</string>
+    <string name="panvel" translatable="false">Panvel</string>
+    <string name="murud" translatable="false">Murud</string>
+    <string name="pen" translatable="false">Pen</string>
+    <string name="uran" translatable="false">Uran</string>
+    <string name="karjat" translatable="false">Karjat</string>
+    <string name="mangaon" translatable="false">Mangaon</string>
+    <string name="roha" translatable="false">Roha</string>
+    <string name="shrivardhan" translatable="false">Shrivardhan</string>
+    <string name="poladpur" translatable="false">Poladpur</string>
+    <string name="raigad" translatable="false">Raigad</string>
+    <string name="pune" translatable="false">Pune</string>
+    <string name="aundh" translatable="false">Aundh</string>
+    <string name="bavdhan" translatable="false">Bavdhan</string>
+    <string name="balewadi" translatable="false">Balewadi</string>
+    <string name="dhankawadi" translatable="false">Dhankawadi</string>
+    <string name="dhanori" translatable="false">Dhanori</string>
+    <string name="hadapsar" translatable="false">Hadapsar</string>
+    <string name="katraj" translatable="false">Katraj</string>
+    <string name="kharadi" translatable="false">Kharadi</string>
+    <string name="kothrud" translatable="false">Kothrud</string>
+    <string name="chinchwad" translatable="false">Chinchwad</string>
+    <string name="swargate" translatable="false">Swargate</string>
+    <string name="ratnagiri" translatable="false">Ratnagiri</string>
+    <string name="dapoli" translatable="false">Dapoli</string>
+    <string name="mandangad" translatable="false">Mandangad</string>
+    <string name="khed" translatable="false">Khed</string>
+    <string name="chiplun" translatable="false">Chiplun</string>
+    <string name="guhagar" translatable="false">Guhagar</string>
+    <string name="sangameshwar" translatable="false">Sangameshwar</string>
+    <string name="lanja" translatable="false">Lanja</string>
+    <string name="rajapur" translatable="false">Rajapur</string>
+    <string name="parbhani" translatable="false">Parbhani</string>
+    <string name="sangli" translatable="false">Sangli</string>
+    <string name="satara" translatable="false">Satara</string>
+    <string name="sindhudurg" translatable="false">Sindhudurg</string>
+    <string name="thane" translatable="false">Thane</string>
     <string name="google_sign_up">Google Sign In</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -171,4 +172,5 @@
     <string name="cancel">Cancel</string>
     <string name="failed_to_remove_prodcut">Failed to remove product.</string>
     <string name="token_expired">Token has been expired or revoked.</string>
+    <string name="change_language">Change Language</string>
 </resources>

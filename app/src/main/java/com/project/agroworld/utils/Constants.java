@@ -52,14 +52,17 @@ public class Constants {
     public static void identifyUser(FirebaseUser user, Context context) {
         if (user.getEmail() != null) {
             if (user.getEmail().equals("devdeveloper66@gmail.com") ||
-                    user.getEmail().equals("theashishgavade@gmail.com")) {
+                    user.getEmail().equals("theashishgavade@gmail.com") ||
+                    user.getEmail().equals("skhedekar431@gmail.com")
+            ) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
             } else if (user.getEmail().equals("nap.napster08@gmail.com") ||
                     user.getEmail().equals("devenpadhye.dp@gmail.com") ||
-                    user.getEmail().equals("ashugavade57@gmail.com")
+                    user.getEmail().equals("ashugavade57@gmail.com") ||
+                    user.getEmail().equals("rohitg2801@gmail.com")
             ) {
                 //transport user
                 Intent transportIntent = new Intent(context, UserProfileActivity.class);

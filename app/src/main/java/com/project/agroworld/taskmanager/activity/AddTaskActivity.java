@@ -37,6 +37,8 @@ public class AddTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
+        Intent intent = getIntent();
+        maxIDCount = intent.getIntExtra("maxIDCount", maxIDCount);
         viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
         binding.ivSelectTime.setOnClickListener(v -> showTimerPickerDialog());
         binding.ivSelectDate.setOnClickListener(v -> showDatePickerDialog());
@@ -61,28 +63,29 @@ public class AddTaskActivity extends AppCompatActivity {
             String desc = binding.etDecs.getText().toString();
             if (time.isEmpty()) {
                 binding.tvTime.setError(getString(R.string.this_field_required));
+                return;
             }
             if (date.isEmpty()) {
                 binding.tvDate.setError(getString(R.string.this_field_required));
+                return;
             }
             if (task.isEmpty()) {
                 binding.etRoutine.setError(getString(R.string.this_field_required));
+                return;
             }
             if (desc.isEmpty()) {
                 binding.etDecs.setError(getString(R.string.this_field_required));
+                return;
             }
-
-            if (!date.isEmpty() && !time.isEmpty() && !task.isEmpty() && !desc.isEmpty()) {
-                FarmerModel farmerModel = new FarmerModel();
-                farmerModel.setTask(task);
-                farmerModel.setDesc(desc);
-                farmerModel.setDate(date);
-                farmerModel.setTime(time);
-                viewModel.insert(farmerModel);
-                setTaskRemainder(task, desc);
-                Constants.showToast(AddTaskActivity.this, getString(R.string.routine_added));
-                finish();
-            }
+            FarmerModel farmerModel = new FarmerModel();
+            farmerModel.setTask(task);
+            farmerModel.setDesc(desc);
+            farmerModel.setDate(date);
+            farmerModel.setTime(time);
+            viewModel.insert(farmerModel);
+            setTaskRemainder(task, desc);
+            Constants.showToast(AddTaskActivity.this, getString(R.string.routine_added));
+            finish();
         });
     }
 
@@ -108,14 +111,6 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void setTaskRemainder(String task, String desc) {
-
-        viewModel.getMaxIDCount().observe(this, integer -> {
-            if (integer != null) {
-                maxIDCount = integer;
-                printLog("taskMaxID-ViewModel " + maxIDCount);
-            }
-        });
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, dateModel.getYear());
         calendar.set(Calendar.MONTH, dateModel.getMonth() - 1);

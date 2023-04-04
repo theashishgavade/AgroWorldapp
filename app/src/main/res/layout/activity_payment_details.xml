@@ -35,7 +35,7 @@
                     android:layout_marginTop="@dimen/dp_20"
                     android:fontFamily="@font/average_sans"
                     android:text="Class Name"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:fontFamily="@font/average_sans"
                     android:text="Class Date"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:fontFamily="@font/average_sans"
                     android:text="Seat Book"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -72,7 +72,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:fontFamily="@font/average_sans"
                     android:text="Class Fees"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -91,7 +91,7 @@
             android:fontFamily="@font/lexend_bold"
             android:text="Payment pending"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp"
             android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_20"
-            android:background="@drawable/search_bgd"
+            android:background="@drawable/button_bgd"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/next"
             android:textAllCaps="false"

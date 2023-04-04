@@ -1,5 +1,7 @@
 package com.project.agroworld.ui.activity;
 
+import static com.project.agroworld.utils.Constants.setAppLocale;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityManufactureBinding;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.activity.ManufactureActivity;
 import com.project.agroworld.manufacture.activity.ManufactureDataActivity;
 import com.project.agroworld.transport.activity.TransportActivity;
@@ -24,6 +27,7 @@ import java.util.Objects;
 public class UserProfileActivity extends AppCompatActivity {
 
     private ActivityManufactureBinding binding;
+    PreferenceHelper preferenceHelper;
     private FirebaseAuth auth;
     private FirebaseUser user;
     private String userType;
@@ -37,6 +41,7 @@ public class UserProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture);
+        preferenceHelper = PreferenceHelper.getInstance(this);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Intent intent = getIntent();
@@ -93,6 +98,22 @@ public class UserProfileActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_logout:
                 logoutUser();
+                return true;
+            case R.id.adminHindiLang:
+                setAppLocale(this, "hi");
+                preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
+                preferenceHelper.saveData(Constants.HINDI_KEY, true);
+                Constants.showToast(this, getString(R.string.launguage_updated_to_hindi));
+                startActivity(new Intent(this, UserProfileActivity.class));
+                finish();
+                return true;
+            case R.id.adminEnglishLang:
+                setAppLocale(this, "en");
+                preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
+                preferenceHelper.saveData(Constants.HINDI_KEY, false);
+                Constants.showToast(this, getString(R.string.launguage_updated));
+                startActivity(new Intent(this, UserProfileActivity.class));
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
