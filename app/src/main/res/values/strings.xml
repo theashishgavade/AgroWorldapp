@@ -173,4 +173,5 @@
     <string name="failed_to_remove_prodcut">Failed to remove product.</string>
     <string name="token_expired">Token has been expired or revoked.</string>
     <string name="change_language">Change Language</string>
+    <string name="proceed_with_ideas">Proceed With Ideas</string>
 </resources>

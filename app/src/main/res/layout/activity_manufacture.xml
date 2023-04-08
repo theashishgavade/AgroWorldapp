@@ -90,7 +90,7 @@
             android:layout_above="@id/btnMfrProceed"
             android:background="@drawable/button_bgd"
             android:fontFamily="@font/fredoka_one"
-            android:text="Show Product"
+            android:text="@string/show_product"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_20sp" />
@@ -108,7 +108,7 @@
             android:layout_marginBottom="@dimen/dp_30"
             android:background="@drawable/button_bgd"
             android:fontFamily="@font/fredoka_one"
-            android:text="Proceed With Ideas"
+            android:text="@string/proceed_with_ideas"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/size_20sp" />

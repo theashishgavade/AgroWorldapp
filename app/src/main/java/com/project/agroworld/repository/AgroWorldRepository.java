@@ -260,6 +260,34 @@ public class AgroWorldRepository {
         return productLiveData;
     }
 
+    public LiveData<Resource<List<ProductModel>>> getLocalizedProductDataList() {
+        final MutableLiveData<Resource<List<ProductModel>>> productLiveData = new MutableLiveData<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("product-Hindi");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+                if (snapshot.exists()) {
+                    for (DataSnapshot product : snapshot.getChildren()) {
+                        ProductModel productItem = product.getValue(ProductModel.class);
+                        if (productItem != null) {
+                            productModelArrayList.add(productItem);
+                        }
+                    }
+                    productLiveData.setValue(Resource.success(productModelArrayList));
+                } else {
+                    productLiveData.setValue(Resource.success(null));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                productLiveData.setValue(Resource.error(error.getMessage(), null));
+            }
+        });
+        return productLiveData;
+    }
+
     public LiveData<Resource<List<VehicleModel>>> getVehicleListFromFirebase() {
         final MutableLiveData<Resource<List<VehicleModel>>> vehicleLiveData = new MutableLiveData<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("vehicle");
@@ -291,6 +319,18 @@ public class AgroWorldRepository {
     public LiveData<Resource<String>> removeProductFromFirebase(String title) {
         MutableLiveData<Resource<String>> productRemovalLiveStatus = new MutableLiveData<>();
         databaseReference = FirebaseDatabase.getInstance().getReference("product");
+        databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
+            productRemovalLiveStatus.setValue(Resource.success("Success"));
+        }).addOnFailureListener(command -> {
+            Log.d("removeProduct", command.getLocalizedMessage());
+            productRemovalLiveStatus.setValue(Resource.error(command.getLocalizedMessage(), null));
+        });
+        return productRemovalLiveStatus;
+    }
+
+    public LiveData<Resource<String>> removeLocalizedProduct(String title) {
+        MutableLiveData<Resource<String>> productRemovalLiveStatus = new MutableLiveData<>();
+        databaseReference = FirebaseDatabase.getInstance().getReference("product-Hindi");
         databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
             productRemovalLiveStatus.setValue(Resource.success("Success"));
         }).addOnFailureListener(command -> {

@@ -61,6 +61,10 @@ public class AgroViewModel extends ViewModel {
         return repository.getProductListFromFirebase();
     }
 
+    public LiveData<Resource<List<ProductModel>>> getLocalizedProductDataList(){
+        return repository.getLocalizedProductDataList();
+    }
+
     public LiveData<Resource<List<VehicleModel>>> getVehicleModelLivedata() {
         return repository.getVehicleListFromFirebase();
     }
@@ -71,6 +75,10 @@ public class AgroViewModel extends ViewModel {
 
     public LiveData<Resource<String>> removeProductFromFirebase(String title) {
         return repository.removeProductFromFirebase(title);
+    }
+
+    public LiveData<Resource<String>> removeLocalizedProduct(String title){
+        return repository.removeLocalizedProduct(title);
     }
 
     public LiveData<Resource<String>> performVehicleRemovalAction(String vehicleModel) {

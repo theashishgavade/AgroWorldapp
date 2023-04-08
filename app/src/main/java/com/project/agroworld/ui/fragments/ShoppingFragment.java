@@ -11,11 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.FragmentShoppingBinding;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.payment.activities.PaymentHistoryActivity;
 import com.project.agroworld.shopping.activity.AddToCartActivity;
@@ -24,15 +26,18 @@ import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.utils.Resource;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class ShoppingFragment extends Fragment implements OnProductListener {
     private final ArrayList<ProductModel> productModelArrayList = new ArrayList<>();
+    private PreferenceHelper preferenceHelper;
     private FragmentShoppingBinding binding;
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
@@ -51,6 +56,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         super.onViewCreated(view, savedInstanceState);
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init(getContext());
+        preferenceHelper = PreferenceHelper.getInstance(getContext());
 
         if (Permissions.checkConnection(getContext())) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
@@ -126,7 +132,14 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     private void getProductListFromFirebase() {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
-        agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
+        LiveData<Resource<List<ProductModel>>> observeProductFirebaseLivedata;
+        boolean selectedAppLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+        if (selectedAppLanguage)
+            observeProductFirebaseLivedata = agroViewModel.getLocalizedProductDataList();
+        else
+            observeProductFirebaseLivedata = agroViewModel.getProductModelLivedata();
+        
+        observeProductFirebaseLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();

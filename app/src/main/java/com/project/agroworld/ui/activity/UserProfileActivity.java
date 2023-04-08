@@ -2,12 +2,14 @@ package com.project.agroworld.ui.activity;
 
 import static com.project.agroworld.utils.Constants.setAppLocale;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -65,26 +67,71 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         binding.btnMfrProceed.setOnClickListener(v -> {
-            Intent intent1;
-            if (Objects.equals(userType, "manufacturer")) {
-                intent1 = new Intent(UserProfileActivity.this, ManufactureActivity.class);
-            } else {
-                intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
-            }
-            intent1.putExtra("isActionWithData", false);
-            startActivity(intent1);
+            showProceedLanguageSelection("Proceed");
         });
 
         binding.btnShowHistory.setOnClickListener(v -> {
-            Intent intent1;
-            if (Objects.equals(userType, "manufacturer")) {
-                intent1 = new Intent(UserProfileActivity.this, ManufactureDataActivity.class);
-            } else {
-                intent1 = new Intent(UserProfileActivity.this, TransportDataActivity.class);
+            showProceedLanguageSelection("History");
+        });
+    }
+
+    private void showProceedLanguageSelection(String key) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(UserProfileActivity.this);
+        alertDialog.setTitle("Select language to upload data");
+        alertDialog.setIcon(R.drawable.app_icon4);
+        String[] items = {"Hindi", "English"};
+        alertDialog.setSingleChoiceItems(items, 1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        if (key.equals("Proceed")) {
+                            navigateToUploadPageWithLang("Hindi");
+                        } else {
+                            navigateToHistoryPage("Hindi", true);
+                        }
+                        dialog.dismiss();
+                        break;
+                    case 1:
+                        if (key.equals("Proceed")) {
+                            navigateToUploadPageWithLang("English");
+                        } else {
+                            navigateToHistoryPage("English", false);
+                        }
+                        dialog.dismiss();
+                        break;
+                    default:
+
+                }
             }
-            startActivity(intent1);
         });
 
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(false);
+        alert.show();
+    }
+
+    private void navigateToUploadPageWithLang(String language) {
+        Intent intent1;
+        if (Objects.equals(userType, "manufacturer")) {
+            intent1 = new Intent(UserProfileActivity.this, ManufactureActivity.class);
+        } else {
+            intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
+        }
+        intent1.putExtra("selectedDataLanguage", language);
+        intent1.putExtra("isActionWithData", false);
+        startActivity(intent1);
+    }
+
+    private void navigateToHistoryPage(String key, boolean isLocalized) {
+        Intent intent1;
+        if (Objects.equals(userType, "manufacturer")) {
+            intent1 = new Intent(UserProfileActivity.this, ManufactureDataActivity.class);
+        } else {
+            intent1 = new Intent(UserProfileActivity.this, TransportDataActivity.class);
+        }
+        intent1.putExtra("localizedData", isLocalized);
+        startActivity(intent1);
     }
 
     @Override

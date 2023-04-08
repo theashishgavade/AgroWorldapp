@@ -2,6 +2,7 @@ package com.project.agroworld.manufacture.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 
@@ -9,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -22,9 +24,12 @@ import com.project.agroworld.manufacture.listener.ManufactureAdminListener;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.utils.Resource;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ManufactureDataActivity extends AppCompatActivity implements ManufactureAdminListener {
 
@@ -35,6 +40,7 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
     private DatabaseReference databaseReference;
     private ProductAdapter productAdapter;
     private AgroViewModel agroViewModel;
+    private boolean isLocalizedData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +48,16 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture_data);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         agroViewModel.init(this);
-        getProductListFromFirebase();
+
+        Intent intent = getIntent();
+        isLocalizedData = intent.getBooleanExtra("localizedData", false);
+        if (Permissions.checkConnection(this)) {
+            getProductListFromFirebase();
+        }
         binding.ivSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +86,13 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
     }
 
     private void getProductListFromFirebase() {
-        agroViewModel.getProductModelLivedata().observe(this, productModelResource -> {
+        LiveData<Resource<List<ProductModel>>> observeProductData;
+        if (!isLocalizedData)
+            observeProductData = agroViewModel.getProductModelLivedata();
+        else
+            observeProductData = agroViewModel.getLocalizedProductDataList();
+
+        observeProductData.observe(this, productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -123,7 +139,13 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         alertDialog.setIcon(R.drawable.app_icon4);
 
         alertDialog.setPositiveButton(R.string.remove, (dialog, which) -> {
-            agroViewModel.removeProductFromFirebase(productModel.getTitle()).observe(this, stringResource -> {
+            LiveData<Resource<String>> observeProductRemovalStatus;
+            if (isLocalizedData)
+                observeProductRemovalStatus = agroViewModel.removeLocalizedProduct(productModel.getTitle());
+            else
+                observeProductRemovalStatus = agroViewModel.removeProductFromFirebase(productModel.getTitle());
+
+            observeProductRemovalStatus.observe(this, stringResource -> {
                 switch (stringResource.status) {
                     case ERROR:
                         Constants.showToast(this, getString(R.string.failed_to_remove_prodcut));
@@ -169,6 +191,7 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
     public void performEditAction(ProductModel productModel, int position) {
         Intent intent = new Intent(this, ManufactureActivity.class);
         intent.putExtra("productModel", productModel);
+        intent.putExtra("isLocalizedData", isLocalizedData);
         intent.putExtra("manufactureEditAction", true);
         startActivity(intent);
         finish();

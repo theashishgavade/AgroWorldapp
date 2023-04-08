@@ -24,6 +24,8 @@ import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 
+import java.util.Objects;
+
 public class ManufactureActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 99;
     private ActivityManufactureDataPostBinding binding;
@@ -33,6 +35,7 @@ public class ManufactureActivity extends AppCompatActivity {
     private CustomMultiColorProgressBar progressBar;
     private String editImageUrl;
     private boolean isImageSelected = false;
+    protected String selectedDataLanguage;
     private boolean isEditAction = false;
 
     @Override
@@ -42,9 +45,12 @@ public class ManufactureActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(getString(R.string.manufacture_panel));
         actionBar.setDisplayHomeAsUpEnabled(true);
+
         Intent intent = getIntent();
         ProductModel productModel = ((ProductModel) intent.getSerializableExtra("productModel"));
+        selectedDataLanguage = intent.getStringExtra("selectedDataLanguage");
         boolean isManufactureEditAction = intent.getBooleanExtra("manufactureEditAction", false);
+        boolean isLocalizedData = intent.getBooleanExtra("isLocalizedData", false);
         if (isManufactureEditAction && productModel != null) {
             updateIntentData(productModel);
         }
@@ -71,10 +77,14 @@ public class ManufactureActivity extends AppCompatActivity {
                 binding.etProductDescription.setError(getString(R.string.this_field_required));
                 return;
             }
-
+            if (!isImageSelected) {
+                Constants.showToast(this, "Please select image");
+                return;
+            }
             double price = Double.parseDouble(amountStr);
-
-            if (isEditAction) {
+            if (isEditAction && isLocalizedData) {
+                uploadLocalizedDataToFirebase(title, description, price, editImageUrl);
+            } else if (isEditAction) {
                 uploadDataToFirebase(title, description, price, editImageUrl);
             } else if (Permissions.checkConnection(this) &&
                     price != 0 &&
@@ -87,7 +97,10 @@ public class ManufactureActivity extends AppCompatActivity {
 
     private void updateIntentData(ProductModel productModel) {
         isEditAction = true;
+        isImageSelected = true;
         editImageUrl = productModel.getImageUrl();
+        binding.etProductTitle.setClickable(true);
+        binding.etProductTitle.setFocusable(false);
         binding.ivProductUploadIcon.setVisibility(View.GONE);
         binding.etProductTitle.setText(productModel.getTitle());
         binding.etProductDescription.setText(productModel.getDescription());
@@ -104,7 +117,11 @@ public class ManufactureActivity extends AppCompatActivity {
             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
                 String imageUrl = task.getResult().toString();
                 Log.d("fileLink", imageUrl);
-                uploadDataToFirebase(title, description, price, imageUrl);
+                if (selectedDataLanguage != null && selectedDataLanguage.equals("English")) {
+                    uploadDataToFirebase(title, description, price, imageUrl);
+                } else if (selectedDataLanguage != null && selectedDataLanguage.equals("Hindi")) {
+                    uploadLocalizedDataToFirebase(title, description, price, imageUrl);
+                }
             }).addOnFailureListener(e -> Constants.showToast(ManufactureActivity.this, getString(R.string.failed_to_generate_url)));
 
         }).addOnFailureListener(e -> {
@@ -130,7 +147,29 @@ public class ManufactureActivity extends AppCompatActivity {
             binding.etProductTitle.setText(null);
             progressBar.hideProgressBar();
             Constants.showToast(ManufactureActivity.this, getString(R.string.product_updated));
-            startActivity(new Intent(ManufactureActivity.this, ManufactureDataActivity.class));
+            Intent intent = new Intent(ManufactureActivity.this, ManufactureDataActivity.class);
+            intent.putExtra("localizedData", false);
+            startActivity(intent);
+            finish();
+        }).addOnFailureListener(e -> {
+            progressBar.hideProgressBar();
+            Constants.showToast(ManufactureActivity.this, "Failed to update product");
+        });
+    }
+
+    private void uploadLocalizedDataToFirebase(String title, String description, Double price, String imageUrl) {
+        firebaseStorage = FirebaseDatabase.getInstance().getReference("product-Hindi");
+        ProductModel productModel = new ProductModel(title, description, price, imageUrl, 0);
+        firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(unused -> {
+            binding.ivProductUploadIcon.setVisibility(View.VISIBLE);
+            binding.etProductDescription.setText(null);
+            binding.etProductPrice.setText(null);
+            binding.etProductTitle.setText(null);
+            progressBar.hideProgressBar();
+            Constants.showToast(ManufactureActivity.this, getString(R.string.product_updated));
+            Intent localizedIntent = new Intent(ManufactureActivity.this, ManufactureDataActivity.class);
+            localizedIntent.putExtra("localizedData", true);
+            startActivity(localizedIntent);
             finish();
         }).addOnFailureListener(e -> {
             progressBar.hideProgressBar();

@@ -136,4 +136,7 @@
     <string name="token_expired">टोकन समाप्त हो गया है या निरस्त कर दिया गया है।</string>
     <string name="launguage_updated_to_hindi">Language updated to Hindi</string>
 
+    <string name="change_language">Change Language</string>
+    <string name="proceed_with_ideas">Proceed With Ideas</string>
+
 </resources>
