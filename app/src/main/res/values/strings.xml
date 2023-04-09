@@ -164,7 +164,7 @@
     <string name="google_sign_up">Google Sign In</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="failed_to_fetch_location"><![CDATA[Failed to fetch latitude & longitude.]]></string>
+    <string name="failed_to_fetch_location">Failed to fetch latitude &amp; longitude.</string>
     <string name="message">Message</string>
     <string name="remove_product_dialog_msg">Are you sure,you want to remove product??</string>
     <string name="remove">Remove</string>
@@ -174,4 +174,5 @@
     <string name="change_language">Change Language</string>
     <string name="proceed_with_ideas">Proceed With Ideas</string>
     <string name="data_language_message">Note- Data should be uploaded according to the selected language because the data will be displayed according to the chosen language.</string>
+    <string name="insect_and_control">Insect &amp; Control</string>
 </resources>

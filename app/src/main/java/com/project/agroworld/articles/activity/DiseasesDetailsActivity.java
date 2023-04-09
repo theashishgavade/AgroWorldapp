@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.model.DiseasesResponse;
+import com.project.agroworld.articles.model.InsectControlResponse;
 import com.project.agroworld.databinding.ActivityDiseasesDetailsBinding;
 import com.project.agroworld.utils.Constants;
 
@@ -25,9 +26,15 @@ public class DiseasesDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        DiseasesResponse response = ((DiseasesResponse) intent.getSerializableExtra("diseasesResponse"));
-        if (response != null) {
-            updateUI(response);
+        DiseasesResponse diseasesResponse = ((DiseasesResponse) intent.getSerializableExtra("diseasesResponse"));
+        boolean isDiseasesResponse = intent.getBooleanExtra("isDiseasesResponse", false);
+
+        InsectControlResponse insectControlResponse = ((InsectControlResponse) intent.getSerializableExtra("insectControlResponse"));
+        boolean isInsectControlResponse = intent.getBooleanExtra("isInsectControlResponse", false);
+        if (isDiseasesResponse && diseasesResponse != null) {
+            updateUI(diseasesResponse);
+        } else if (isInsectControlResponse && insectControlResponse != null) {
+            updateInsectControlUI(insectControlResponse);
         }
     }
 
@@ -39,6 +46,16 @@ public class DiseasesDetailsActivity extends AppCompatActivity {
         binding.tvSymptomsTxt.setText(response.getSymptoms());
         binding.tvProtectInfoTxt.setText(response.getProtect());
     }
+
+    private void updateInsectControlUI(InsectControlResponse response) {
+        Constants.bindImage(binding.ivItemPicture, response.getImageLink(), binding.ivItemPicture);
+        actionBar.setTitle(response.getPlantName());
+        binding.tvPlantName.setText("Plant- " + response.getPlantName());
+        binding.tvDiseaseTitle.setText("Insect- " + response.getInsectName());
+        binding.tvSymptomsTxt.setText(response.getSymptoms());
+        binding.tvProtectInfoTxt.setText(response.getProtect());
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

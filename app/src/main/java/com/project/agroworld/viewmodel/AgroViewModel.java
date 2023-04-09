@@ -10,6 +10,7 @@ import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
+import com.project.agroworld.articles.model.InsectControlResponse;
 import com.project.agroworld.payment.model.PaymentModel;
 import com.project.agroworld.repository.AgroWorldRepository;
 import com.project.agroworld.shopping.model.ProductModel;
@@ -39,6 +40,10 @@ public class AgroViewModel extends ViewModel {
 
     public LiveData<Resource<List<DiseasesResponse>>> getDiseasesResponseLivedata() {
         return repository.getDiseasesResponse();
+    }
+
+    public LiveData<Resource<List<InsectControlResponse>>> getInsectAndControlLivedata() {
+        return repository.getInsectAndControlResponse();
     }
 
     public LiveData<Resource<List<FruitsResponse>>> getFruitsResponseLivedata() {

@@ -13,8 +13,8 @@ android {
         applicationId "com.project.agroworld"
         minSdk 21
         targetSdk 32
-        versionCode 6
-        versionName "2.0.6"
+        versionCode 1
+        versionName "3.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }

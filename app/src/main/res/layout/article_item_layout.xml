@@ -4,7 +4,7 @@
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/crdArticleItem"
-        android:layout_width="170dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10"
         app:cardCornerRadius="@dimen/dp_10">
@@ -17,7 +17,7 @@
             <ImageView
                 android:id="@+id/ivArticleItem"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_150"
+                android:layout_height="130dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/farmer_in" />
 
@@ -25,12 +25,12 @@
                 android:id="@+id/tvSeasonArticleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dp_8"
+                android:layout_margin="@dimen/dp_5"
                 android:fontFamily="@font/poppins_medium"
                 android:gravity="center"
                 android:text="season"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/size_16sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvTitleArticleItem"
@@ -44,7 +44,5 @@
                 android:textSize="@dimen/size_16sp" />
 
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
 </layout>

@@ -127,7 +127,7 @@
     <string name="google_sign_up">गूगल साइन इन</string>
     <string name="edit">सम्पादन</string>
     <string name="delete">हटाएँ</string>
-    <string name="failed_to_fetch_location">Failed to fetch lattitude &amp; longitude</string>
+    <string name="failed_to_fetch_location">अक्षांश और देशांतर लाने में विफल</string>
     <string name="message">संदेश</string>
     <string name="remove_product_dialog_msg">क्या आप सुनिश्चित हैं, आप उत्पाद को हटाना चाहते हैं??</string>
     <string name="remove">निकालना</string>
@@ -136,6 +136,8 @@
     <string name="token_expired">टोकन समाप्त हो गया है या निरस्त कर दिया गया है।</string>
     <string name="data_language_message">नोट - डाटा चयनित भाषा के अनुसार अपलोड किया जाना चाहिए क्योंकि डाटा चयनित भाषा के अनुसार प्रदर्शित होगा</string>
     <string name="change_language">Change Language</string>
-    <string name="proceed_with_ideas">Proceed With Ideas</string>
+    <string name="proceed_with_ideas">विचारों के साथ आगे बढ़ें</string>
+    <string name="insect_and_control">कीट और नियंत्रण</string>
+
 
 </resources>

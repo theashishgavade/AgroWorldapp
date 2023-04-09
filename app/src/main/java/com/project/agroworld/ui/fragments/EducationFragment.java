@@ -21,25 +21,27 @@ import com.project.agroworld.articles.adapter.DiseaseAdapter;
 import com.project.agroworld.articles.adapter.FlowersAdapter;
 import com.project.agroworld.articles.adapter.FruitsAdapter;
 import com.project.agroworld.articles.adapter.HowToExpandAdapter;
+import com.project.agroworld.articles.adapter.InsectControlAdapter;
 import com.project.agroworld.articles.listener.CropsClickListener;
 import com.project.agroworld.articles.listener.DiseasesListener;
 import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.listener.FlowerClickListener;
 import com.project.agroworld.articles.listener.FruitsClickListener;
+import com.project.agroworld.articles.listener.InsectControlListener;
 import com.project.agroworld.articles.model.CropsResponse;
 import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
+import com.project.agroworld.articles.model.InsectControlResponse;
 import com.project.agroworld.databinding.FragmentEducationBinding;
-import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
 
-public class EducationFragment extends Fragment implements CropsClickListener, FruitsClickListener, FlowerClickListener, ExpandClickListener, DiseasesListener {
+public class EducationFragment extends Fragment implements CropsClickListener, FruitsClickListener, FlowerClickListener, ExpandClickListener, DiseasesListener, InsectControlListener {
 
     private final ArrayList<CropsResponse> cropsResponseArrayList = new ArrayList<>();
     private final ArrayList<FruitsResponse> fruitsResponseArrayList = new ArrayList<>();
@@ -47,12 +49,16 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     private final ArrayList<HowToExpandResponse> expandResponseArrayList = new ArrayList<>();
     private final ArrayList<DiseasesResponse> diseasesResponseArrayList = new ArrayList<>();
 
+    private final ArrayList<InsectControlResponse> insectControlResponseList = new ArrayList<>();
+
     private FragmentEducationBinding binding;
     private CropsAdapter cropsAdapter;
     private FlowersAdapter flowersAdapter;
     private FruitsAdapter fruitsAdapter;
     private HowToExpandAdapter expandAdapter;
     private DiseaseAdapter diseaseAdapter;
+
+    private InsectControlAdapter insectControlAdapter;
     private AgroViewModel viewModel;
 
     @Override
@@ -78,6 +84,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         getFruitsListFromApi();
         getFlowersListFromApi();
         getExpandListFromApi();
+        getInsectAndControlData();
         getDiseasesList();
     }
 
@@ -223,6 +230,35 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         });
     }
 
+    private void getInsectAndControlData() {
+        binding.progressBarInsect.setVisibility(View.VISIBLE);
+        viewModel.getInsectAndControlLivedata().observe(getViewLifecycleOwner(), resource -> {
+            switch (resource.status) {
+                case ERROR:
+                    binding.progressBarInsect.setVisibility(View.GONE);
+                    binding.rvInsectEd.setVisibility(View.GONE);
+                    binding.tvInsectError.setVisibility(View.VISIBLE);
+                    binding.tvInsectError.setText(resource.message);
+                    break;
+                case LOADING:
+                    break;
+                case SUCCESS:
+                    binding.progressBarInsect.setVisibility(View.GONE);
+                    if (resource.data != null) {
+                        insectControlResponseList.clear();
+                        insectControlResponseList.addAll(resource.data);
+                        binding.rvInsectEd.setVisibility(View.VISIBLE);
+                        setInsectControlRecyclerView();
+                    } else {
+                        binding.rvInsectEd.setVisibility(View.GONE);
+                        binding.tvInsectError.setVisibility(View.VISIBLE);
+                        binding.tvInsectError.setText(getString(R.string.no_data_found));
+                    }
+                    break;
+            }
+        });
+    }
+
 
     private void setRecyclerView() {
         cropsAdapter = new CropsAdapter(cropsResponseArrayList, this);
@@ -253,6 +289,13 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         binding.rvDiseasesEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvDiseasesEd.setAdapter(diseaseAdapter);
     }
+
+    private void setInsectControlRecyclerView() {
+        insectControlAdapter = new InsectControlAdapter(insectControlResponseList, this);
+        binding.rvInsectEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvInsectEd.setAdapter(insectControlAdapter);
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -295,6 +338,15 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     public void onDiseaseItemClick(DiseasesResponse response) {
         Intent intent = new Intent(getContext(), DiseasesDetailsActivity.class);
         intent.putExtra("diseasesResponse", response);
+        intent.putExtra("isDiseasesResponse", true);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onInsectControlItemClick(InsectControlResponse insectControlResponse) {
+        Intent intent = new Intent(getContext(), DiseasesDetailsActivity.class);
+        intent.putExtra("insectControlResponse", insectControlResponse);
+        intent.putExtra("isInsectControlResponse", true);
         startActivity(intent);
     }
 }

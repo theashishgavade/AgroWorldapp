@@ -21,6 +21,7 @@ import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
+import com.project.agroworld.articles.model.InsectControlResponse;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.network.APIService;
 import com.project.agroworld.network.Network;
@@ -119,6 +120,32 @@ public class AgroWorldRepository {
             }
         });
         return diseasesMutableLiveData;
+    }
+
+    public LiveData<Resource<List<InsectControlResponse>>> getInsectAndControlResponse() {
+        final MutableLiveData<Resource<List<InsectControlResponse>>> insectControlMutableLiveData = new MutableLiveData<>();
+        Call<List<InsectControlResponse>> insectControlApiService;
+        if (selectedLanguage) {
+            insectControlApiService = apiService.getLocalizedInsectAndControlList();
+        } else {
+            insectControlApiService = apiService.getInsectAndControlList();
+        }
+        insectControlApiService.enqueue(new Callback<List<InsectControlResponse>>() {
+            @Override
+            public void onResponse(Call<List<InsectControlResponse>> call, Response<List<InsectControlResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    insectControlMutableLiveData.setValue(Resource.success(response.body()));
+                } else {
+                    insectControlMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InsectControlResponse>> call, Throwable t) {
+                insectControlMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+            }
+        });
+        return insectControlMutableLiveData;
     }
 
     public LiveData<Resource<List<FlowersResponse>>> getFlowersResponse() {

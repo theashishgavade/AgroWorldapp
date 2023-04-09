@@ -5,6 +5,7 @@ import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
+import com.project.agroworld.articles.model.InsectControlResponse;
 import com.project.agroworld.weather.model.weather_data.WeatherResponse;
 import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
@@ -33,31 +34,26 @@ public interface APIService {
 
     @GET("pak7qin2yt7i8")
     Call<List<DiseasesResponse>> getDiseasesList();
-
     @GET("cstwpz7gpz1da")
     Call<List<DiseasesResponse>> getLocalizedDiseasesList();
-
     @GET("0kofxd6x0muzp")
     Call<List<FruitsResponse>> getFruitsFromDB();
-
     @GET("9ax3hlz0utbby")
     Call<List<FruitsResponse>> getLocalizedFruitsList();
-
     @GET("jzqcnwnhd7pms")
     Call<List<FlowersResponse>> getFlowersList();
-
     @GET("bekl2o7zqgxb8")
     Call<List<FlowersResponse>> getLocalizedFlowersList();
-
     @GET("54hyqipsecvsw")
     Call<List<CropsResponse>> getListOfCrops();
-
     @GET("te4foxozbz2rk")
     Call<List<CropsResponse>> getLocalizedCropsList();
-
     @GET("hw7m9n2kxvupq")
     Call<List<HowToExpandResponse>> getListOfHowToExpandData();
-
     @GET("qy85vf93vhlbc")
     Call<List<HowToExpandResponse>> getLocalizedHowToExpandData();
+    @GET("jvv0uk3btu7ln")
+    Call<List<InsectControlResponse>> getInsectAndControlList();
+    @GET("fg3ysaf8mkyxo")
+    Call<List<InsectControlResponse>> getLocalizedInsectAndControlList();
 }
