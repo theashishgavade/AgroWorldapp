@@ -43,8 +43,12 @@ public class SplashScreen extends AppCompatActivity {
         actionBar.hide();
 
         /*
-        Function- Identify user type Manufacturer, Transport or Farmer
+        identifyUser()- It will identify user type & It will navigate user to the appropriate screen.
+                        -> Manufacturer user
+                        -> Transport user
+                        -> Farmer
         */
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

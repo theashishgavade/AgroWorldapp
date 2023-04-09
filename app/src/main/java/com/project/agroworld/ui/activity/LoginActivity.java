@@ -79,6 +79,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+    * On google account selection it will pass token ID to firebaseAuthWithGoogle\
+     * Once successful It will identify the userType as per it will navigate user to particular screen.
+     * */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -143,6 +148,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+    * Email password signUp
+    * */
     private void signInUser(String email, String passwd) {
         mAuth.signInWithEmailAndPassword(email, passwd).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override

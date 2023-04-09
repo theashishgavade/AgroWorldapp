@@ -111,7 +111,6 @@
     <string name="password_valid">should be greater than six char include symbols</string>
     <string name="required_location">Location is required</string>
     <string name="launguage_updated">Language updated to English</string>
-    <string name="launguage_updated_to_hindi">Language updated to Hindi</string>
     <string name="about_us">About</string>
     <string name="contact_us">Contact Us</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -174,4 +173,5 @@
     <string name="token_expired">Token has been expired or revoked.</string>
     <string name="change_language">Change Language</string>
     <string name="proceed_with_ideas">Proceed With Ideas</string>
+    <string name="data_language_message">Note- Data should be uploaded according to the selected language because the data will be displayed according to the chosen language.</string>
 </resources>

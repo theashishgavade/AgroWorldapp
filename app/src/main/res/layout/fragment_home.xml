@@ -35,8 +35,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:scaleType="fitXY"
-                        tools:ignore="ContentDescription"
-                        android:src="@drawable/weather_sky_light" />
+                        android:src="@drawable/couldy_sky1"
+                        tools:ignore="ContentDescription" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -49,9 +49,9 @@
                             android:layout_centerInParent="true"
                             android:fontFamily="@font/fredoka_one"
                             android:gravity="center"
-                            android:visibility="gone"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:visibility="gone" />
 
                         <RelativeLayout
                             android:id="@+id/weatherLayout"
@@ -71,8 +71,8 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="@dimen/dp_10"
-                                tools:ignore="ContentDescription"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="centerCrop"
+                                tools:ignore="ContentDescription" />
 
                             <TextView
                                 android:id="@+id/tvWeatherStatus"
@@ -97,24 +97,24 @@
                                 android:layout_below="@id/tvWeatherCity"
                                 android:layout_toStartOf="@id/layoutWeatherDT"
                                 android:layout_toEndOf="@id/ivWeatherIconHome"
-                                android:gravity="center"
                                 android:fontFamily="@font/days_one"
-                                android:textStyle="bold"
+                                android:gravity="center"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryDark"
-                                android:textSize="40sp" />
+                                android:textSize="40sp"
+                                android:textStyle="bold" />
 
 
                             <TextView
                                 android:id="@+id/tvWeatherDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
                                 android:layout_marginBottom="@dimen/dp_10"
                                 android:layout_toStartOf="@id/layoutWeatherDT"
                                 android:layout_toEndOf="@id/ivWeatherIconHome"
                                 android:fontFamily="@font/fredoka_one"
                                 android:gravity="center"
-                                android:layout_alignParentBottom="true"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="14sp" />
@@ -218,8 +218,8 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
-                                    tools:ignore="ContentDescription"
-                                    android:src="@drawable/plant3" />
+                                    android:src="@drawable/plant3"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -251,8 +251,8 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
-                                    tools:ignore="ContentDescription"
-                                    android:src="@drawable/fruits" />
+                                    android:src="@drawable/fruits"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -283,8 +283,8 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
-                                    tools:ignore="ContentDescription"
-                                    android:src="@drawable/flowers" />
+                                    android:src="@drawable/flowers"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -316,8 +316,8 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
-                                    tools:ignore="ContentDescription"
-                                    android:src="@drawable/expand" />
+                                    android:src="@drawable/expand"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -348,8 +348,8 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
-                                    tools:ignore="ContentDescription"
-                                    android:src="@drawable/disease" />
+                                    android:src="@drawable/disease"
+                                    tools:ignore="ContentDescription" />
 
                                 <TextView
                                     android:layout_width="wrap_content"

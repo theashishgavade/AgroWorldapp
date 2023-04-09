@@ -31,33 +31,33 @@ public interface APIService {
             @Query("lon") Double lon,
             @Query("appid") String apiKey);
 
-    @GET("n79017ltxsonb")
+    @GET("pak7qin2yt7i8")
     Call<List<DiseasesResponse>> getDiseasesList();
 
-    @GET("e49zdqylo9c2q")
+    @GET("cstwpz7gpz1da")
     Call<List<DiseasesResponse>> getLocalizedDiseasesList();
 
-    @GET("vbw60alh24ivv")
+    @GET("0kofxd6x0muzp")
     Call<List<FruitsResponse>> getFruitsFromDB();
 
-    @GET("dywj6h1xvdo4e")
+    @GET("9ax3hlz0utbby")
     Call<List<FruitsResponse>> getLocalizedFruitsList();
 
-    @GET("rf4q48fi53xul")
+    @GET("jzqcnwnhd7pms")
     Call<List<FlowersResponse>> getFlowersList();
 
-    @GET("8uqwwa7qvueqf")
+    @GET("bekl2o7zqgxb8")
     Call<List<FlowersResponse>> getLocalizedFlowersList();
 
-    @GET("fmosl71by7gzq")
+    @GET("54hyqipsecvsw")
     Call<List<CropsResponse>> getListOfCrops();
 
-    @GET("gnmuv9wnwcawh")
+    @GET("te4foxozbz2rk")
     Call<List<CropsResponse>> getLocalizedCropsList();
 
-    @GET("tsljs9opsrj4c")
+    @GET("hw7m9n2kxvupq")
     Call<List<HowToExpandResponse>> getListOfHowToExpandData();
 
-    @GET("habebx59tfol4")
+    @GET("qy85vf93vhlbc")
     Call<List<HowToExpandResponse>> getLocalizedHowToExpandData();
 }

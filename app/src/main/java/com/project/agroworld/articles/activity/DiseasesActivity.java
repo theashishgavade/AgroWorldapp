@@ -2,13 +2,16 @@ package com.project.agroworld.articles.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
@@ -74,7 +77,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
 
     private void setRecyclerView() {
         diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
-        binding.rvDiseases.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.rvDiseases.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvDiseases.setAdapter(diseaseAdapter);
     }
 
@@ -91,5 +94,21 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
         if (Permissions.checkConnection(this)) {
             getDiseasesListFromAPI();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 }

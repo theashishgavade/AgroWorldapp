@@ -146,6 +146,16 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/size_20sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnUpdateData"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="@dimen/dp_10"
+                android:text="@string/data_language_message"
+                android:textAlignment="center" />
+
         </RelativeLayout>
     </ScrollView>
 

@@ -28,6 +28,10 @@ import com.project.agroworld.utils.Permissions;
 
 import java.util.ArrayList;
 
+/**
+* This Activity will setup the bottom tab layout & view pager
+* */
+
 public class DashboardActivity extends AppCompatActivity {
     long back_pressed;
     ViewPager viewPager;

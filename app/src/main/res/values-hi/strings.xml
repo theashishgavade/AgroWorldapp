@@ -134,8 +134,7 @@
     <string name="cancel">रद्द करें</string>
     <string name="failed_to_remove_prodcut">उत्पाद निकालने में विफल.</string>
     <string name="token_expired">टोकन समाप्त हो गया है या निरस्त कर दिया गया है।</string>
-    <string name="launguage_updated_to_hindi">Language updated to Hindi</string>
-
+    <string name="data_language_message">नोट - डाटा चयनित भाषा के अनुसार अपलोड किया जाना चाहिए क्योंकि डाटा चयनित भाषा के अनुसार प्रदर्शित होगा</string>
     <string name="change_language">Change Language</string>
     <string name="proceed_with_ideas">Proceed With Ideas</string>
 
