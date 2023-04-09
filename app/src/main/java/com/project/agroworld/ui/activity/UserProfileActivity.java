@@ -67,11 +67,19 @@ public class UserProfileActivity extends AppCompatActivity {
         }
 
         binding.btnMfrProceed.setOnClickListener(v -> {
-            showProceedLanguageSelection("Proceed");
+            if (!Objects.equals(userType, "manufacturer")) {
+                startActivity(new Intent(this, TransportActivity.class));
+            } else {
+                showProceedLanguageSelection("Proceed");
+            }
         });
 
         binding.btnShowHistory.setOnClickListener(v -> {
-            showProceedLanguageSelection("History");
+            if (!Objects.equals(userType, "manufacturer")) {
+                startActivity(new Intent(this, TransportDataActivity.class));
+            } else {
+                showProceedLanguageSelection("History");
+            }
         });
     }
 
@@ -112,26 +120,20 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void navigateToUploadPageWithLang(String language) {
-        Intent intent1;
         if (Objects.equals(userType, "manufacturer")) {
-            intent1 = new Intent(UserProfileActivity.this, ManufactureActivity.class);
-        } else {
-            intent1 = new Intent(UserProfileActivity.this, TransportActivity.class);
+            Intent intent1 = new Intent(UserProfileActivity.this, ManufactureActivity.class);
+            intent1.putExtra("selectedDataLanguage", language);
+            intent1.putExtra("isActionWithData", false);
+            startActivity(intent1);
         }
-        intent1.putExtra("selectedDataLanguage", language);
-        intent1.putExtra("isActionWithData", false);
-        startActivity(intent1);
     }
 
     private void navigateToHistoryPage(String key, boolean isLocalized) {
-        Intent intent1;
         if (Objects.equals(userType, "manufacturer")) {
-            intent1 = new Intent(UserProfileActivity.this, ManufactureDataActivity.class);
-        } else {
-            intent1 = new Intent(UserProfileActivity.this, TransportDataActivity.class);
+            Intent intent1 = new Intent(UserProfileActivity.this, ManufactureDataActivity.class);
+            intent1.putExtra("localizedData", isLocalized);
+            startActivity(intent1);
         }
-        intent1.putExtra("localizedData", isLocalized);
-        startActivity(intent1);
     }
 
     @Override

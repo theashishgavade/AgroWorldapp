@@ -21,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -35,6 +36,7 @@ import com.project.agroworld.articles.activity.FlowersActivity;
 import com.project.agroworld.articles.activity.FruitsActivity;
 import com.project.agroworld.articles.activity.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.network.APIService;
 import com.project.agroworld.network.Network;
@@ -46,6 +48,7 @@ import com.project.agroworld.transport.adapter.VehicleAdapter;
 import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.utils.Resource;
 import com.project.agroworld.viewmodel.AgroViewModel;
 import com.project.agroworld.weather.activity.WeatherActivity;
 import com.project.agroworld.weather.model.weather_data.WeatherResponse;
@@ -67,11 +70,14 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
     double latitude, longitude;
     private FusedLocationProviderClient fusedLocationProviderClient;
+
+    PreferenceHelper preferenceHelper;
     private FragmentHomeBinding binding;
     private AgroViewModel agroViewModel;
     private VehicleAdapter vehicleAdapter;
     private ProductAdapter productAdapter;
     private String locality;
+    private boolean selectedLanguage;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -81,6 +87,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+
         if ((ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             askPermission();
         }
@@ -184,7 +191,13 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
 
     private void getProductListFromFirebase() {
-        agroViewModel.getProductModelLivedata().observe(getViewLifecycleOwner(), productModelResource -> {
+        LiveData<Resource<List<ProductModel>>> observeProductLivedata;
+        if (Constants.selectedLanguage(getContext()))
+            observeProductLivedata = agroViewModel.getLocalizedProductDataList();
+        else
+            observeProductLivedata = agroViewModel.getProductModelLivedata();
+
+        observeProductLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
                     binding.shoppingRecyclerView.setVisibility(View.GONE);
@@ -213,7 +226,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getVehicleListFromFirebase() {
-
         agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
             switch (vehicleModelResource.status) {
                 case ERROR:

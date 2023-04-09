@@ -50,11 +50,10 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         user = auth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
-        agroViewModel.init(this);
-
         Intent intent = getIntent();
         isLocalizedData = intent.getBooleanExtra("localizedData", false);
+        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getProductListFromFirebase();
         }
@@ -200,5 +199,11 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
     @Override
     public void performDeleteAction(ProductModel productModel, int position) {
         performProductRemovalAction(productModel);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

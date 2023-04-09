@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityProductDetailBinding;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 
@@ -29,7 +30,6 @@ public class ProductDetailActivity extends AppCompatActivity {
     private ProductModel productModel;
     private ActionBar actionBar;
     private final int doubleButtonTap = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +62,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void addItemToCart(ProductModel productModel) {
-        database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
+        if (Constants.selectedLanguage(this))
+            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-LocalizedCartItems");
+        else
+            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
+
         database.child(productModel.getTitle()).setValue(productModel).addOnSuccessListener(unused -> {
             Constants.showToast(ProductDetailActivity.this, "Item added to cart");
             binding.btnBuyNow.setText(getString(R.string.go_to_cart));
@@ -79,7 +83,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;

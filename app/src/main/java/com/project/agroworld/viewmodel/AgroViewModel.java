@@ -29,11 +29,11 @@ public class AgroViewModel extends ViewModel {
         repository = new AgroWorldRepository(context);
     }
 
-    public LiveData<Resource<WeatherResponse>> performWeatherRequest(double latitude, double longitude, String apiKey ){
+    public LiveData<Resource<WeatherResponse>> performWeatherRequest(double latitude, double longitude, String apiKey) {
         return repository.performWeatherRequest(latitude, longitude, apiKey);
     }
 
-    public LiveData<Resource<WeatherDatesResponse>> performWeatherForecastRequest(double latitude, double longitude, String apiKey ){
+    public LiveData<Resource<WeatherDatesResponse>> performWeatherForecastRequest(double latitude, double longitude, String apiKey) {
         return repository.performWeatherForecastRequest(latitude, longitude, apiKey);
     }
 
@@ -61,7 +61,7 @@ public class AgroViewModel extends ViewModel {
         return repository.getProductListFromFirebase();
     }
 
-    public LiveData<Resource<List<ProductModel>>> getLocalizedProductDataList(){
+    public LiveData<Resource<List<ProductModel>>> getLocalizedProductDataList() {
         return repository.getLocalizedProductDataList();
     }
 
@@ -77,7 +77,7 @@ public class AgroViewModel extends ViewModel {
         return repository.removeProductFromFirebase(title);
     }
 
-    public LiveData<Resource<String>> removeLocalizedProduct(String title){
+    public LiveData<Resource<String>> removeLocalizedProduct(String title) {
         return repository.removeLocalizedProduct(title);
     }
 
@@ -93,7 +93,7 @@ public class AgroViewModel extends ViewModel {
         repository.deleteCartData(email);
     }
 
-    public void clearAllHistory(String email){
+    public void clearAllHistory(String email) {
         repository.removeAllTransactionHistory(email);
     }
 

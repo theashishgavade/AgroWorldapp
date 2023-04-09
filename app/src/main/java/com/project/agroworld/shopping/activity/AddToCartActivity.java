@@ -33,12 +33,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddToCartBinding;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.payment.activities.PaymentDetailsActivity;
 import com.project.agroworld.shopping.adapter.ProductCartAdapter;
 import com.project.agroworld.shopping.listener.ItemCartActionListener;
 import com.project.agroworld.shopping.model.ProductModel;
 import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -47,7 +49,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class AddToCartActivity extends AppCompatActivity implements ItemCartActionListener {
-
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private final ArrayList<ProductModel> productCartList = new ArrayList<>();
     ActionBar actionBar;
@@ -55,16 +56,20 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     private DatabaseReference databaseReference;
     private ProductCartAdapter productAdapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
+    PreferenceHelper preferenceHelper;
     private String addressLine;
     private double totalItemAmount = 0.0;
     private CustomMultiColorProgressBar progressBar;
     private FirebaseAuth auth;
     private FirebaseUser user;
+    boolean selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_cart);
+        preferenceHelper = PreferenceHelper.getInstance(this);
+        selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
         actionBar = getSupportActionBar();
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
@@ -73,7 +78,9 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         actionBar.hide();
         setRecyclerView();
-        getProductListFromFirebase();
+        if (Permissions.checkConnection(this)) {
+            getProductListFromFirebase();
+        }
         binding.tvAddAddress.setOnClickListener(v -> {
             if ((ContextCompat.checkSelfPermission(AddToCartActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
                 askPermission();
@@ -106,7 +113,10 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
     private void getProductListFromFirebase() {
         progressBar.showProgressBar();
-        databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
+        if (selectedLanguage)
+            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-LocalizedCartItems");
+        else
+            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -215,14 +225,14 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 201){
+        if (requestCode == 201) {
             finish();
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;

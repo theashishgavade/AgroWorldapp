@@ -40,16 +40,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AgroWorldRepository {
-    public MutableLiveData<String> requestStatus = new MutableLiveData<>();
     Context context;
-    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
-    PreferenceHelper preferenceHelper = PreferenceHelper.getInstance(context);
-    private final boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
-    private DatabaseReference databaseReference;
-
     public AgroWorldRepository(Context context) {
         this.context = context;
     }
+    public MutableLiveData<String> requestStatus = new MutableLiveData<>();
+    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
+    private final boolean selectedLanguage = Constants.selectedLanguage(context);
+    private DatabaseReference databaseReference;
 
     public LiveData<String> getRequestErrorLivedata() {
         return requestStatus;
@@ -395,5 +393,4 @@ public class AgroWorldRepository {
         });
         return historyLivedata;
     }
-
 }

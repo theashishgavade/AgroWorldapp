@@ -5,10 +5,12 @@ import android.content.SharedPreferences;
 
 public class PreferenceHelper {
     private static PreferenceHelper preferenceHelper;
-    private final SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     private PreferenceHelper(Context context) {
-        sharedPreferences = context.getSharedPreferences("prep_helper", Context.MODE_PRIVATE);
+        if (context != null) {
+            sharedPreferences = context.getSharedPreferences("prep_helper", Context.MODE_PRIVATE);
+        }
     }
 
     public static PreferenceHelper getInstance(Context context) {

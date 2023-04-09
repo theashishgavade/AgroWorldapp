@@ -138,7 +138,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
             observeProductFirebaseLivedata = agroViewModel.getLocalizedProductDataList();
         else
             observeProductFirebaseLivedata = agroViewModel.getProductModelLivedata();
-        
+
         observeProductFirebaseLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
@@ -159,6 +159,9 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
                         binding.recyclerView.setVisibility(View.VISIBLE);
                         setRecyclerView();
                     } else {
+                        binding.shimmer.stopShimmer();
+                        binding.shimmer.setVisibility(View.GONE);
+                        binding.recyclerView.setVisibility(View.GONE);
                         binding.tvNoDataFoundErr.setVisibility(View.VISIBLE);
                         binding.tvNoDataFoundErr.setText(getString(R.string.no_data_found));
                     }

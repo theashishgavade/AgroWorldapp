@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
+import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.ui.activity.DashboardActivity;
 import com.project.agroworld.ui.activity.LoginActivity;
 import com.project.agroworld.ui.activity.UserProfileActivity;
@@ -136,6 +137,11 @@ public class Constants {
         emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"devdeveloper66@gmail.com", "theashishgavade@gmail.com"});
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Enter your subject here..");
         context.startActivity(Intent.createChooser(emailIntent, "Email via..."));
+    }
+
+    public static boolean selectedLanguage(Context context) {
+        PreferenceHelper helper = PreferenceHelper.getInstance(context);
+        return helper.getData(Constants.HINDI_KEY);
     }
 
 }

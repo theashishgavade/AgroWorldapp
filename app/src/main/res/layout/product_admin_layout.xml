@@ -51,13 +51,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="@dimen/dp_10"
                     android:layout_toStartOf="@id/ivProductMoreOption"
                     android:layout_toEndOf="@id/crdProdctData"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/darkPink"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
 
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvProductName"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="8dp"
                     android:layout_toEndOf="@id/crdProdctData"
                     android:fontFamily="@font/poppins_medium"

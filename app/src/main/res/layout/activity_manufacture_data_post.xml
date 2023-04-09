@@ -65,6 +65,7 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:hint="@string/title"
+                android:orientation="vertical"
                 app:boxBackgroundColor="#20D81B60"
                 app:boxCornerRadiusTopEnd="@dimen/dp_10"
                 app:boxCornerRadiusTopStart="@dimen/dp_10">
@@ -73,6 +74,7 @@
                     android:id="@+id/etProductTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:baselineAligned="false"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>

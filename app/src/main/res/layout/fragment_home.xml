@@ -35,7 +35,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/couldy_sky1" />
+                        tools:ignore="ContentDescription"
+                        android:src="@drawable/weather_sky_light" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -70,6 +71,7 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="@dimen/dp_10"
+                                tools:ignore="ContentDescription"
                                 android:scaleType="centerCrop" />
 
                             <TextView
@@ -216,6 +218,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
+                                    tools:ignore="ContentDescription"
                                     android:src="@drawable/plant3" />
 
                                 <TextView
@@ -248,6 +251,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
+                                    tools:ignore="ContentDescription"
                                     android:src="@drawable/fruits" />
 
                                 <TextView
@@ -279,6 +283,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
+                                    tools:ignore="ContentDescription"
                                     android:src="@drawable/flowers" />
 
                                 <TextView
@@ -311,6 +316,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
+                                    tools:ignore="ContentDescription"
                                     android:src="@drawable/expand" />
 
                                 <TextView
@@ -342,6 +348,7 @@
                                     android:layout_width="100dp"
                                     android:layout_height="100dp"
                                     android:scaleType="fitXY"
+                                    tools:ignore="ContentDescription"
                                     android:src="@drawable/disease" />
 
                                 <TextView
