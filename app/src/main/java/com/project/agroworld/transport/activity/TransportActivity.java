@@ -42,6 +42,7 @@ public class TransportActivity extends AppCompatActivity {
     private AgroViewModel agroViewModel;
     private boolean isImageSelected = false;
     private boolean isDataFromIntent = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,6 @@ public class TransportActivity extends AppCompatActivity {
             updateUI(vehicleModel);
         }
         binding.crdUploadImageVehicle.setOnClickListener(v -> {
-            isImageSelected = true;
             selectImage();
         });
 
@@ -179,6 +179,7 @@ public class TransportActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE && data != null && data.getData() != null) {
+            isImageSelected = true;
             imageUri = data.getData();
             Log.d("imageURi", imageUri.toString());
             binding.ivVehicleUploadIcon.setVisibility(View.GONE);
