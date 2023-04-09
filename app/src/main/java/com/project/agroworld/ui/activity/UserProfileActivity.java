@@ -152,16 +152,14 @@ public class UserProfileActivity extends AppCompatActivity {
                 setAppLocale(this, "hi");
                 preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
                 preferenceHelper.saveData(Constants.HINDI_KEY, true);
-                Constants.showToast(this, getString(R.string.launguage_updated_to_hindi));
-                startActivity(new Intent(this, UserProfileActivity.class));
+                startActivity(new Intent(this, SplashScreen.class));
                 finish();
                 return true;
             case R.id.adminEnglishLang:
                 setAppLocale(this, "en");
                 preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
                 preferenceHelper.saveData(Constants.HINDI_KEY, false);
-                Constants.showToast(this, getString(R.string.launguage_updated));
-                startActivity(new Intent(this, UserProfileActivity.class));
+                startActivity(new Intent(this, SplashScreen.class));
                 finish();
                 return true;
             default:
