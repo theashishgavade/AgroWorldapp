@@ -85,6 +85,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
     public void onDiseaseItemClick(DiseasesResponse response) {
         Intent intent = new Intent(this, DiseasesDetailsActivity.class);
         intent.putExtra("diseasesResponse", response);
+        intent.putExtra("isDiseasesResponse", true);
         startActivityForResult(intent, Constants.REQUEST_CODE);
     }
 
