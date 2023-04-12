@@ -22,7 +22,6 @@ import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.articles.model.InsectControlResponse;
-import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.network.APIService;
 import com.project.agroworld.network.Network;
 import com.project.agroworld.payment.model.PaymentModel;
@@ -59,7 +58,7 @@ public class AgroWorldRepository {
         apiService = Network.getInstance(BASE_URL_WEATHER);
         apiService.getWeatherData(latitude, longitude, apiKey).enqueue(new Callback<WeatherResponse>() {
             @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+            public void onResponse(@NonNull Call<WeatherResponse> call, @NonNull Response<WeatherResponse> response) {
                 if (response.body() != null && response.isSuccessful()) {
                     weatherResponseMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -68,7 +67,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
                 weatherResponseMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -80,7 +79,7 @@ public class AgroWorldRepository {
         apiService = Network.getInstance(BASE_URL_WEATHER);
         apiService.getWeatherForecastData(latitude, longitude, apiKey).enqueue(new Callback<WeatherDatesResponse>() {
             @Override
-            public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {
+            public void onResponse(@NonNull Call<WeatherDatesResponse> call, @NonNull Response<WeatherDatesResponse> response) {
                 if (response.body() != null && response.code() == 200) {
                     weatherResponseMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -89,7 +88,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<WeatherDatesResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<WeatherDatesResponse> call, @NonNull Throwable t) {
                 weatherResponseMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -106,7 +105,7 @@ public class AgroWorldRepository {
         }
         diseasesApiService.enqueue(new Callback<List<DiseasesResponse>>() {
             @Override
-            public void onResponse(Call<List<DiseasesResponse>> call, Response<List<DiseasesResponse>> response) {
+            public void onResponse(@NonNull Call<List<DiseasesResponse>> call, @NonNull Response<List<DiseasesResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     diseasesMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -115,7 +114,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<DiseasesResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<DiseasesResponse>> call, @NonNull Throwable t) {
                 diseasesMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -132,7 +131,7 @@ public class AgroWorldRepository {
         }
         insectControlApiService.enqueue(new Callback<List<InsectControlResponse>>() {
             @Override
-            public void onResponse(Call<List<InsectControlResponse>> call, Response<List<InsectControlResponse>> response) {
+            public void onResponse(@NonNull Call<List<InsectControlResponse>> call, @NonNull Response<List<InsectControlResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     insectControlMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -141,7 +140,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<InsectControlResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<InsectControlResponse>> call, @NonNull Throwable t) {
                 insectControlMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -158,7 +157,7 @@ public class AgroWorldRepository {
         }
         flowerApi.enqueue(new Callback<List<FlowersResponse>>() {
             @Override
-            public void onResponse(Call<List<FlowersResponse>> call, Response<List<FlowersResponse>> response) {
+            public void onResponse(@NonNull Call<List<FlowersResponse>> call, @NonNull Response<List<FlowersResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     flowersMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -168,7 +167,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<FlowersResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<FlowersResponse>> call, @NonNull Throwable t) {
                 flowersMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -186,7 +185,7 @@ public class AgroWorldRepository {
         }
         cropApiService.enqueue(new Callback<List<CropsResponse>>() {
             @Override
-            public void onResponse(Call<List<CropsResponse>> call, Response<List<CropsResponse>> response) {
+            public void onResponse(@NonNull Call<List<CropsResponse>> call, @NonNull Response<List<CropsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     cropsMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -195,7 +194,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<CropsResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<CropsResponse>> call, @NonNull Throwable t) {
                 cropsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -212,7 +211,7 @@ public class AgroWorldRepository {
         }
         fruitsApiService.enqueue(new Callback<List<FruitsResponse>>() {
             @Override
-            public void onResponse(Call<List<FruitsResponse>> call, Response<List<FruitsResponse>> response) {
+            public void onResponse(@NonNull Call<List<FruitsResponse>> call, @NonNull Response<List<FruitsResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     fruitsMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
@@ -222,7 +221,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<FruitsResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<FruitsResponse>> call, @NonNull Throwable t) {
                 fruitsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
@@ -239,7 +238,7 @@ public class AgroWorldRepository {
         }
         howToExpandApiService.enqueue(new Callback<List<HowToExpandResponse>>() {
             @Override
-            public void onResponse(Call<List<HowToExpandResponse>> call, Response<List<HowToExpandResponse>> response) {
+            public void onResponse(@NonNull Call<List<HowToExpandResponse>> call, @NonNull Response<List<HowToExpandResponse>> response) {
                 Constants.printLog(response.body() + " getHowToExpandResponse");
                 if (response.isSuccessful() && response.body() != null) {
                     howToExpandLivedata.setValue(Resource.success(response.body()));
@@ -249,7 +248,7 @@ public class AgroWorldRepository {
             }
 
             @Override
-            public void onFailure(Call<List<HowToExpandResponse>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<HowToExpandResponse>> call, @NonNull Throwable t) {
                 Constants.printLog(t.getMessage() + " getHowToExpandResponse");
                 howToExpandLivedata.setValue(Resource.error(t.getLocalizedMessage(), null));
             }
@@ -381,11 +380,6 @@ public class AgroWorldRepository {
         databaseReference.child(paymentModel.getPaymentID()).setValue(paymentModel).addOnSuccessListener(unused -> {
 
         }).addOnFailureListener(e -> requestStatus.postValue(e.getLocalizedMessage()));
-    }
-
-    public void removeAllTransactionHistory(String email) {
-        databaseReference = FirebaseDatabase.getInstance().getReference(email + "-transaction");
-        databaseReference.removeValue();
     }
 
     public void deleteCartData(String email) {

@@ -1,5 +1,7 @@
 package com.project.agroworld.weather.model.weather_data;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -17,6 +19,7 @@ public class Clouds implements Serializable {
         return all;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return

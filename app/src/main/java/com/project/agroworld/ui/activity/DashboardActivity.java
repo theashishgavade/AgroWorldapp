@@ -53,6 +53,7 @@ public class DashboardActivity extends AppCompatActivity {
         Permissions.checkConnection(this);
         Permissions.isGpsEnable(this);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.hide();
 
         viewPager = findViewById(R.id.viewpager);

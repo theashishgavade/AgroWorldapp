@@ -10,10 +10,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DatabaseReference;
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityTransportDataBinding;
 import com.project.agroworld.transport.adapter.VehicleAdapter;
@@ -28,7 +27,6 @@ import java.util.ArrayList;
 public class TransportDataActivity extends AppCompatActivity implements AdminListener {
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private ActivityTransportDataBinding binding;
-    private DatabaseReference databaseReference;
     private VehicleAdapter vehicleAdapter;
     private AgroViewModel agroViewModel;
 
@@ -38,7 +36,7 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transport_data);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getVehicleListFromFirebase();

@@ -34,7 +34,7 @@ public class NewsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_news, container, false);
@@ -86,11 +86,6 @@ public class NewsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         binding.newsProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     private class AgroNews extends WebViewClient {

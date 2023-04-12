@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
@@ -52,17 +52,11 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     private final ArrayList<InsectControlResponse> insectControlResponseList = new ArrayList<>();
 
     private FragmentEducationBinding binding;
-    private CropsAdapter cropsAdapter;
-    private FlowersAdapter flowersAdapter;
-    private FruitsAdapter fruitsAdapter;
-    private HowToExpandAdapter expandAdapter;
-    private DiseaseAdapter diseaseAdapter;
 
-    private InsectControlAdapter insectControlAdapter;
     private AgroViewModel viewModel;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_education, container, false);
@@ -72,7 +66,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(getContext());
         if (Permissions.checkConnection(getContext())) {
             checkPermissionCallApi();
@@ -261,37 +255,37 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
 
     private void setRecyclerView() {
-        cropsAdapter = new CropsAdapter(cropsResponseArrayList, this);
+        CropsAdapter cropsAdapter = new CropsAdapter(cropsResponseArrayList, this);
         binding.rvCropsEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvCropsEd.setAdapter(cropsAdapter);
     }
 
     private void setFruitsRecyclerView() {
-        fruitsAdapter = new FruitsAdapter(fruitsResponseArrayList, this);
+        FruitsAdapter fruitsAdapter = new FruitsAdapter(fruitsResponseArrayList, this);
         binding.rvFruitsEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvFruitsEd.setAdapter(fruitsAdapter);
     }
 
     private void setFlowersRecyclerView() {
-        flowersAdapter = new FlowersAdapter(flowersResponseArrayList, this);
+        FlowersAdapter flowersAdapter = new FlowersAdapter(flowersResponseArrayList, this);
         binding.rvFlowersEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvFlowersEd.setAdapter(flowersAdapter);
     }
 
     private void setExpandRecyclerView() {
-        expandAdapter = new HowToExpandAdapter(expandResponseArrayList, this);
+        HowToExpandAdapter expandAdapter = new HowToExpandAdapter(expandResponseArrayList, this);
         binding.rvHowToExpandEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvHowToExpandEd.setAdapter(expandAdapter);
     }
 
     private void setDiseasesRecyclerView() {
-        diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
+        DiseaseAdapter diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
         binding.rvDiseasesEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvDiseasesEd.setAdapter(diseaseAdapter);
     }
 
     private void setInsectControlRecyclerView() {
-        insectControlAdapter = new InsectControlAdapter(insectControlResponseList, this);
+        InsectControlAdapter insectControlAdapter = new InsectControlAdapter(insectControlResponseList, this);
         binding.rvInsectEd.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvInsectEd.setAdapter(insectControlAdapter);
     }

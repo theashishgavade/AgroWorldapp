@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworld.R;
@@ -16,7 +16,6 @@ import com.project.agroworld.articles.adapter.HowToExpandAdapter;
 import com.project.agroworld.articles.listener.ExpandClickListener;
 import com.project.agroworld.articles.model.HowToExpandResponse;
 import com.project.agroworld.databinding.ActivityHowToExpandBinding;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 import com.project.agroworld.viewmodel.AgroViewModel;
 
@@ -25,19 +24,18 @@ import java.util.ArrayList;
 public class HowToExpandActivity extends AppCompatActivity implements ExpandClickListener {
 
     private final ArrayList<HowToExpandResponse> howToExpandDataList = new ArrayList<>();
-    private HowToExpandAdapter expandAdapter;
     private AgroViewModel viewModel;
     private ActivityHowToExpandBinding binding;
-    private CustomMultiColorProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_how_to_expand);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.how_to_expand));
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getExpandListFromApi();
@@ -73,7 +71,7 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
     }
 
     private void setRecyclerView() {
-        expandAdapter = new HowToExpandAdapter(howToExpandDataList, this);
+        HowToExpandAdapter expandAdapter = new HowToExpandAdapter(howToExpandDataList, this);
         binding.rvHowToExpand.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvHowToExpand.setAdapter(expandAdapter);
     }
@@ -88,17 +86,16 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
     }
 }

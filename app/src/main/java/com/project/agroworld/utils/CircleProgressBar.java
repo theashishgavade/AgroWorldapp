@@ -58,21 +58,17 @@ public class CircleProgressBar extends ImageView {
     private Animation.AnimationListener mListener;
     private int mShadowRadius;
     private int mBackGroundColor;
-    private int mProgressColor;
     private int mProgressStokeWidth;
     private int mArrowWidth;
     private int mArrowHeight;
     private int mProgress;
     private int mMax;
-    private int mDiameter;
     private int mInnerRadius;
     private Paint mTextPaint;
-    private int mTextColor;
     private int mTextSize;
     private boolean mIfDrawText;
     private boolean mShowArrow;
     private MaterialProgressDrawable mProgressDrawable;
-    private ShapeDrawable mBgCircle;
     private boolean mCircleBackgroundEnabled;
     private int[] mColors = new int[]{Color.BLACK};
 
@@ -97,8 +93,7 @@ public class CircleProgressBar extends ImageView {
 
         final float density = getContext().getResources().getDisplayMetrics().density;
         mBackGroundColor = DEFAULT_CIRCLE_BG_LIGHT;
-        mProgressColor = DEFAULT_CIRCLE_BG_LIGHT;
-        mColors = new int[]{mProgressColor};
+        mColors = new int[]{DEFAULT_CIRCLE_BG_LIGHT};
 
         mInnerRadius = -1;
 
@@ -106,7 +101,7 @@ public class CircleProgressBar extends ImageView {
         mArrowWidth = -1;
         mArrowHeight = -1;
         mTextSize = (int) (DEFAULT_TEXT_SIZE * density);
-        mTextColor = Color.BLACK;
+        int mTextColor = Color.BLACK;
 
         mShowArrow = false;
         mCircleBackgroundEnabled = true;
@@ -146,7 +141,7 @@ public class CircleProgressBar extends ImageView {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         final float density = getContext().getResources().getDisplayMetrics().density;
-        mDiameter = Math.min(getMeasuredWidth(), getMeasuredHeight());
+        int mDiameter = Math.min(getMeasuredWidth(), getMeasuredHeight());
         if (mDiameter <= 0) {
             mDiameter = (int) density * DEFAULT_CIRCLE_DIAMETER;
         }
@@ -155,6 +150,7 @@ public class CircleProgressBar extends ImageView {
             final int shadowXOffset = (int) (density * X_OFFSET);
             mShadowRadius = (int) (density * SHADOW_RADIUS);
 
+            ShapeDrawable mBgCircle;
             if (elevationSupported()) {
                 mBgCircle = new ShapeDrawable(new OvalShape());
                 ViewCompat.setElevation(this, SHADOW_ELEVATION * density);
@@ -314,10 +310,6 @@ public class CircleProgressBar extends ImageView {
     }
 
 
-    public boolean circleBackgroundEnabled() {
-        return mCircleBackgroundEnabled;
-    }
-
     public void setCircleBackgroundEnabled(boolean enableCircleBackground) {
         this.mCircleBackgroundEnabled = enableCircleBackground;
     }
@@ -365,7 +357,6 @@ public class CircleProgressBar extends ImageView {
 
 
     private class OvalShadow extends OvalShape {
-        private final RadialGradient mRadialGradient;
         private final int mShadowRadius;
         private final Paint mShadowPaint;
         private final int mCircleDiameter;
@@ -375,7 +366,7 @@ public class CircleProgressBar extends ImageView {
             mShadowPaint = new Paint();
             mShadowRadius = shadowRadius;
             mCircleDiameter = circleDiameter;
-            mRadialGradient = new RadialGradient(mCircleDiameter / 2, mCircleDiameter / 2,
+            RadialGradient mRadialGradient = new RadialGradient(mCircleDiameter / 2, mCircleDiameter / 2,
                     mShadowRadius, new int[]{
                     FILL_SHADOW_COLOR, Color.TRANSPARENT
             }, null, Shader.TileMode.CLAMP);

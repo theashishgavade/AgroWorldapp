@@ -21,8 +21,6 @@ import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.util.List;
 
-import retrofit2.Call;
-
 public class AgroViewModel extends ViewModel {
     private AgroWorldRepository repository;
 
@@ -96,10 +94,6 @@ public class AgroViewModel extends ViewModel {
 
     public void deleteCartData(String email) {
         repository.deleteCartData(email);
-    }
-
-    public void clearAllHistory(String email) {
-        repository.removeAllTransactionHistory(email);
     }
 
     public LiveData<String> checkLoadingStatus() {

@@ -11,10 +11,6 @@ import com.project.agroworld.databinding.ForecastItemLayoutBinding;
 import com.project.agroworld.weather.listener.WeatherForecastListener;
 import com.project.agroworld.weather.model.weatherlist.ListItem;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
     private final ForecastItemLayoutBinding binding;
 

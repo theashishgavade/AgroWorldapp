@@ -21,11 +21,6 @@ public class SplashScreen extends AppCompatActivity {
     PreferenceHelper preferenceHelper;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceHelper = PreferenceHelper.getInstance(this);

@@ -12,7 +12,7 @@ import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.project.agroworld.R;
 import com.project.agroworld.databinding.ActivityAddTaskBinding;
@@ -39,7 +39,7 @@ public class AddTaskActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_task);
         Intent intent = getIntent();
         maxIDCount = intent.getIntExtra("maxIDCount", maxIDCount);
-        viewModel = ViewModelProviders.of(this).get(FarmerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(FarmerViewModel.class);
         binding.ivSelectTime.setOnClickListener(v -> showTimerPickerDialog());
         binding.ivSelectDate.setOnClickListener(v -> showDatePickerDialog());
         binding.tvDate.setOnClickListener(v -> showDatePickerDialog());

@@ -47,22 +47,22 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class AddToCartActivity extends AppCompatActivity implements ItemCartActionListener {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private final ArrayList<ProductModel> productCartList = new ArrayList<>();
     ActionBar actionBar;
+    PreferenceHelper preferenceHelper;
+    boolean selectedLanguage;
     private ActivityAddToCartBinding binding;
     private DatabaseReference databaseReference;
     private ProductCartAdapter productAdapter;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    PreferenceHelper preferenceHelper;
     private String addressLine;
     private double totalItemAmount = 0.0;
     private CustomMultiColorProgressBar progressBar;
-    private FirebaseAuth auth;
     private FirebaseUser user;
-    boolean selectedLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         preferenceHelper = PreferenceHelper.getInstance(this);
         selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
         actionBar = getSupportActionBar();
-        auth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Log.d("customProgressCycle", "AddToCartActivity- onCreate");
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -114,9 +114,9 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
     private void getProductListFromFirebase() {
         progressBar.showProgressBar();
         if (selectedLanguage)
-            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-LocalizedCartItems");
+            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())) + "-LocalizedCartItems");
         else
-            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
+            databaseReference = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())) + "-CartItems");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -127,6 +127,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                     for (DataSnapshot product : snapshot.getChildren()) {
                         ProductModel productItem = product.getValue(ProductModel.class);
                         productCartList.add(productItem);
+                        assert productItem != null;
                         totalItemAmount += productItem.getPrice();
                     }
                     binding.tvTotalAmount.setText("₹ " + df.format(totalItemAmount));
@@ -178,7 +179,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
                 public void onSuccess(Location location) {
                     if (location != null) {
                         Geocoder geocoder = new Geocoder(AddToCartActivity.this, Locale.getDefault());
-                        List<Address> addresses = null;
+                        List<Address> addresses;
                         try {
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             addressLine = addresses.get(0).getAddressLine(0);
@@ -232,10 +233,9 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -24,6 +24,7 @@ public class ChatBotActivity extends AppCompatActivity implements View.OnClickLi
     private ArrayList<ChatBotModel> chatBotModels;
     private PerformRequest request;
     private ChatBotAdapter chatBotAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,10 +127,9 @@ public class ChatBotActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

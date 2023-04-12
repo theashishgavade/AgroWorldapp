@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.model.CropsResponse;
-import com.project.agroworld.articles.model.DiseasesResponse;
 import com.project.agroworld.articles.model.FlowersResponse;
 import com.project.agroworld.articles.model.FruitsResponse;
 import com.project.agroworld.articles.model.HowToExpandResponse;
@@ -27,6 +26,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_article_details);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         CropsResponse cropsResponse = ((CropsResponse) intent.getSerializableExtra("itemResponse"));

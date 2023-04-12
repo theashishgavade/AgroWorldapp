@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -35,7 +35,6 @@ import com.project.agroworld.articles.activity.FlowersActivity;
 import com.project.agroworld.articles.activity.FruitsActivity;
 import com.project.agroworld.articles.activity.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
-import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.adapter.ProductAdapter;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.shopping.listener.OnProductListener;
@@ -87,7 +86,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return binding.getRoot();
@@ -97,7 +96,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(getContext());
 
         binding.crdFruits.setOnClickListener(v -> {
@@ -249,7 +248,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                 public void onSuccess(Location location) {
                     if (location != null) {
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        List<Address> addresses = null;
+                        List<Address> addresses;
                         try {
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             Double lat = addresses.get(0).getLatitude();
@@ -261,8 +260,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {
-
                     }
                 }
             });

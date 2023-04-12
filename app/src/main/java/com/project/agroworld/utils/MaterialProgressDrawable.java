@@ -86,9 +86,6 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
     static final int ARROW_WIDTH_LARGE = 12;
     static final int ARROW_HEIGHT_LARGE = 6;
     private static final float MAX_PROGRESS_ARC = .8f;
-    private final int[] COLORS = new int[]{
-            Color.BLACK
-    };
     /**
      * The list of animators operating on this drawable.
      */
@@ -97,22 +94,6 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
      * The indicator ring, used to manage animation state.
      */
     private final Ring mRing;
-    private final Callback mCallback = new Callback() {
-        @Override
-        public void invalidateDrawable(Drawable d) {
-            invalidateSelf();
-        }
-
-        @Override
-        public void scheduleDrawable(Drawable d, Runnable what, long when) {
-            scheduleSelf(what, when);
-        }
-
-        @Override
-        public void unscheduleDrawable(Drawable d, Runnable what) {
-            unscheduleSelf(what);
-        }
-    };
     boolean mFinishing;
     /**
      * Canvas rotation in degrees.
@@ -130,7 +111,26 @@ public class MaterialProgressDrawable extends Drawable implements Animatable {
         mAnimExcutor = animExcutor;
         mResources = context.getResources();
 
+        Callback mCallback = new Callback() {
+            @Override
+            public void invalidateDrawable(Drawable d) {
+                invalidateSelf();
+            }
+
+            @Override
+            public void scheduleDrawable(Drawable d, Runnable what, long when) {
+                scheduleSelf(what, when);
+            }
+
+            @Override
+            public void unscheduleDrawable(Drawable d, Runnable what) {
+                unscheduleSelf(what);
+            }
+        };
         mRing = new Ring(mCallback);
+        int[] COLORS = new int[]{
+                Color.BLACK
+        };
         mRing.setColors(COLORS);
 
         updateSizes(DEFAULT);

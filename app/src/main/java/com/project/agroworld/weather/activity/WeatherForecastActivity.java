@@ -4,7 +4,6 @@ import static com.project.agroworld.utils.Constants.API_KEY;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworld.R;
@@ -31,14 +30,13 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
     private final ArrayList<ListItem> forecastItemArrayList = new ArrayList<>();
     private ActivityWeatherForecastBinding binding;
     private CustomMultiColorProgressBar progressBar;
-    private WeatherForecastAdapter forecastAdapter;
     private AgroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_forecast);
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         ActionBar actionBar = getSupportActionBar();
@@ -80,7 +78,7 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
     }
 
     private void setUpRecyclerView() {
-        forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
+        WeatherForecastAdapter forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
         binding.recyclerViewForecast.setAdapter(forecastAdapter);
         binding.recyclerViewForecast.setLayoutManager(new GridLayoutManager(WeatherForecastActivity.this, 2));
 

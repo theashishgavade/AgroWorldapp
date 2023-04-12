@@ -58,13 +58,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginEnd="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_10"
                     android:layout_toStartOf="@id/tvMenu"
                     android:layout_toEndOf="@id/crdView"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Workout"
                     android:textColor="#00ADC1"
-                    android:textSize="20sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvRoutineDate"
@@ -102,7 +102,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:text="Nothing will work unless you do"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

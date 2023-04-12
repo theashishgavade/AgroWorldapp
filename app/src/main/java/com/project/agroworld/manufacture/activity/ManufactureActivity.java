@@ -24,14 +24,11 @@ import com.project.agroworld.utils.Constants;
 import com.project.agroworld.utils.CustomMultiColorProgressBar;
 import com.project.agroworld.utils.Permissions;
 
-import java.util.Objects;
-
 public class ManufactureActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 99;
     private ActivityManufactureDataPostBinding binding;
     private Uri imageUri;
     private DatabaseReference firebaseStorage;
-    private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
     private String editImageUrl;
     private boolean isImageSelected = false;
@@ -109,7 +106,7 @@ public class ManufactureActivity extends AppCompatActivity {
 
     private void uploadImageToFirebase(String title, double price, String description) {
         progressBar.showProgressBar();
-        storage = FirebaseStorage.getInstance().getReference("product");
+        StorageReference storage = FirebaseStorage.getInstance().getReference("product");
         storage.child(title).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             binding.ivProductSelected.setImageResource(R.color.colorPrimary);
             Constants.showToast(ManufactureActivity.this, getString(R.string.image_uploaded));
@@ -178,12 +175,10 @@ public class ManufactureActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

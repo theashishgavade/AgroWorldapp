@@ -10,9 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworld.R;
 import com.project.agroworld.articles.adapter.DiseaseAdapter;
@@ -35,9 +34,10 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_diseases);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.diseases));
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getDiseasesListFromAPI();
@@ -75,7 +75,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
     }
 
     private void setRecyclerView() {
-       DiseaseAdapter diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
+        DiseaseAdapter diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
         binding.rvDiseases.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvDiseases.setAdapter(diseaseAdapter);
     }

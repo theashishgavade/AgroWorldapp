@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
@@ -41,14 +41,13 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     double latitude, longitude;
     private ActivityWeatherBinding binding;
     private CustomMultiColorProgressBar progressBar;
-    private WeatherForecastAdapter forecastAdapter;
     private AgroViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather);
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.current_weather);
@@ -123,7 +122,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     }
 
     private void setUpRecyclerView() {
-        forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
+        WeatherForecastAdapter forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
         binding.recyclerViewForecast.setAdapter(forecastAdapter);
         binding.recyclerViewForecast.setLayoutManager(new LinearLayoutManager(WeatherActivity.this, LinearLayoutManager.HORIZONTAL, false));
     }

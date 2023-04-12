@@ -8,7 +8,7 @@ import com.project.agroworld.transport.model.VehicleModel;
 import com.project.agroworld.utils.Constants;
 
 public class VehicleViewHolder extends RecyclerView.ViewHolder {
-    TransportItemLayoutBinding binding;
+    final TransportItemLayoutBinding binding;
 
     public VehicleViewHolder(TransportItemLayoutBinding binding) {
         super(binding.getRoot());

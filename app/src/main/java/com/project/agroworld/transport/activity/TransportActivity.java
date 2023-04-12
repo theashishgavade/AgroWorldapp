@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +36,7 @@ public class TransportActivity extends AppCompatActivity {
     VehicleModel vehicleModel;
     private ActivityTransportBinding binding;
     private Uri imageUri;
-    private DatabaseReference firebaseStorage;
-    private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
-    private AgroViewModel agroViewModel;
     private boolean isImageSelected = false;
     private boolean isDataFromIntent = false;
 
@@ -51,7 +48,7 @@ public class TransportActivity extends AppCompatActivity {
         actionBar.setTitle("Transport Panel");
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        AgroViewModel agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(this);
 
         Intent intent = getIntent();
@@ -120,7 +117,7 @@ public class TransportActivity extends AppCompatActivity {
 
     private void uploadImageToFirebase(String model, String rates, String unit, String address, String contact) {
         progressBar.showProgressBar();
-        storage = FirebaseStorage.getInstance().getReference("vehicle");
+        StorageReference storage = FirebaseStorage.getInstance().getReference("vehicle");
         storage.child(model).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             Constants.showToast(TransportActivity.this, getString(R.string.image_uploaded));
             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(task -> {
@@ -137,7 +134,7 @@ public class TransportActivity extends AppCompatActivity {
     }
 
     private void uploadDataToFirebase(String model, String rates, String unit, String address, String contact, String imageUrl) {
-        firebaseStorage = FirebaseDatabase.getInstance().getReference("vehicle");
+        DatabaseReference firebaseStorage = FirebaseDatabase.getInstance().getReference("vehicle");
         VehicleModel vehicleModel = new VehicleModel(model, address, rates, unit, contact, imageUrl);
         firebaseStorage.child(model).setValue(vehicleModel).addOnSuccessListener(unused -> {
 
@@ -166,13 +163,11 @@ public class TransportActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

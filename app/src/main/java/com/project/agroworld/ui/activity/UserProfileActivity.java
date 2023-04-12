@@ -16,7 +16,6 @@ import androidx.databinding.DataBindingUtil;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworld.R;
-import com.project.agroworld.databinding.ActivityManufactureBinding;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.activity.ManufactureActivity;
 import com.project.agroworld.manufacture.activity.ManufactureDataActivity;
@@ -28,24 +27,17 @@ import java.util.Objects;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    private ActivityManufactureBinding binding;
     PreferenceHelper preferenceHelper;
     private FirebaseAuth auth;
-    private FirebaseUser user;
     private String userType;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture);
+        com.project.agroworld.databinding.ActivityManufactureBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture);
         preferenceHelper = PreferenceHelper.getInstance(this);
         auth = FirebaseAuth.getInstance();
-        user = auth.getCurrentUser();
+        FirebaseUser user = auth.getCurrentUser();
         Intent intent = getIntent();
 
         if (intent != null) {
