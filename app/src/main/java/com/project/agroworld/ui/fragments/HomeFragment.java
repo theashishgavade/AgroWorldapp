@@ -1,7 +1,6 @@
 package com.project.agroworld.ui.fragments;
 
 import static com.project.agroworld.utils.Constants.API_KEY;
-import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -38,8 +37,6 @@ import com.project.agroworld.articles.activity.HowToExpandActivity;
 import com.project.agroworld.databinding.FragmentHomeBinding;
 import com.project.agroworld.db.PreferenceHelper;
 import com.project.agroworld.manufacture.adapter.ProductAdapter;
-import com.project.agroworld.network.APIService;
-import com.project.agroworld.network.Network;
 import com.project.agroworld.shopping.activity.ProductDetailActivity;
 import com.project.agroworld.shopping.listener.OnProductListener;
 import com.project.agroworld.shopping.model.ProductModel;
@@ -60,25 +57,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class HomeFragment extends Fragment implements OnProductListener, OnVehicleCallClick {
 
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
     double latitude, longitude;
     private FusedLocationProviderClient fusedLocationProviderClient;
-
-    PreferenceHelper preferenceHelper;
     private FragmentHomeBinding binding;
     private AgroViewModel agroViewModel;
-    private VehicleAdapter vehicleAdapter;
-    private ProductAdapter productAdapter;
     private String locality;
-    private boolean selectedLanguage;
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -194,8 +181,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         LiveData<Resource<List<ProductModel>>> observeProductLivedata;
         if (Constants.selectedLanguage(getContext()))
             observeProductLivedata = agroViewModel.getLocalizedProductDataList();
-        else
-            observeProductLivedata = agroViewModel.getProductModelLivedata();
+        else observeProductLivedata = agroViewModel.getProductModelLivedata();
 
         observeProductLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
@@ -219,7 +205,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setRecyclerView() {
-        productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this, 1);
+        ProductAdapter productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this, 1);
         binding.shoppingRecyclerView.setAdapter(productAdapter);
         binding.shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.shoppingRecyclerView.setHasFixedSize(true);
@@ -248,7 +234,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setVehicleRecyclerView() {
-        vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this, 1);
+        VehicleAdapter vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this, 1);
         binding.transportRecyclerView.setAdapter(vehicleAdapter);
         binding.transportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.transportRecyclerView.setHasFixedSize(true);
