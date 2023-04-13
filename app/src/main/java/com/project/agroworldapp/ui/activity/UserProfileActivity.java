@@ -1,6 +1,7 @@
-package com.project.agroworld.ui.activity;
+package com.project.agroworldapp.ui.activity;
 
-import static com.project.agroworld.utils.Constants.setAppLocale;
+
+import static com.project.agroworldapp.utils.Constants.setAppLocale;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,13 +16,14 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.project.agroworld.R;
-import com.project.agroworld.db.PreferenceHelper;
-import com.project.agroworld.manufacture.activity.ManufactureActivity;
-import com.project.agroworld.manufacture.activity.ManufactureDataActivity;
-import com.project.agroworld.transport.activity.TransportActivity;
-import com.project.agroworld.transport.activity.TransportDataActivity;
-import com.project.agroworld.utils.Constants;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.databinding.ActivityManufactureBinding;
+import com.project.agroworldapp.db.PreferenceHelper;
+import com.project.agroworldapp.manufacture.activity.ManufactureActivity;
+import com.project.agroworldapp.manufacture.activity.ManufactureDataActivity;
+import com.project.agroworldapp.transport.activity.TransportActivity;
+import com.project.agroworldapp.transport.activity.TransportDataActivity;
+import com.project.agroworldapp.utils.Constants;
 
 import java.util.Objects;
 
@@ -34,7 +36,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.project.agroworld.databinding.ActivityManufactureBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture);
+        ActivityManufactureBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_manufacture);
         preferenceHelper = PreferenceHelper.getInstance(this);
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();

@@ -1,10 +1,10 @@
-package com.project.agroworld.payment.viewholder;
+package com.project.agroworldapp.payment.viewholder;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.agroworld.databinding.TransactionItemLayoutBinding;
-import com.project.agroworld.payment.model.PaymentModel;
-import com.project.agroworld.utils.Constants;
+import com.project.agroworldapp.databinding.TransactionItemLayoutBinding;
+import com.project.agroworldapp.payment.model.PaymentModel;
+import com.project.agroworldapp.utils.Constants;
 
 public class HistoryViewHolder extends RecyclerView.ViewHolder {
     final TransactionItemLayoutBinding binding;

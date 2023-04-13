@@ -1,7 +1,7 @@
-package com.project.agroworld.repository;
+package com.project.agroworldapp.shopping.activity.repository;
 
-import static com.project.agroworld.utils.Constants.BASE_URL_SHEET_DB;
-import static com.project.agroworld.utils.Constants.BASE_URL_WEATHER;
+import static com.project.agroworldapp.utils.Constants.BASE_URL_SHEET_DB;
+import static com.project.agroworldapp.utils.Constants.BASE_URL_WEATHER;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,22 +15,22 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.project.agroworld.R;
-import com.project.agroworld.articles.model.CropsResponse;
-import com.project.agroworld.articles.model.DiseasesResponse;
-import com.project.agroworld.articles.model.FlowersResponse;
-import com.project.agroworld.articles.model.FruitsResponse;
-import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.articles.model.InsectControlResponse;
-import com.project.agroworld.network.APIService;
-import com.project.agroworld.network.Network;
-import com.project.agroworld.payment.model.PaymentModel;
-import com.project.agroworld.shopping.model.ProductModel;
-import com.project.agroworld.transport.model.VehicleModel;
-import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.Resource;
-import com.project.agroworld.weather.model.weather_data.WeatherResponse;
-import com.project.agroworld.weather.model.weatherlist.WeatherDatesResponse;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.articles.model.CropsResponse;
+import com.project.agroworldapp.articles.model.DiseasesResponse;
+import com.project.agroworldapp.articles.model.FlowersResponse;
+import com.project.agroworldapp.articles.model.FruitsResponse;
+import com.project.agroworldapp.articles.model.HowToExpandResponse;
+import com.project.agroworldapp.articles.model.InsectControlResponse;
+import com.project.agroworldapp.network.APIService;
+import com.project.agroworldapp.network.Network;
+import com.project.agroworldapp.payment.model.PaymentModel;
+import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.utils.Constants;
+import com.project.agroworldapp.utils.Resource;
+import com.project.agroworldapp.weather.model.weather_data.WeatherResponse;
+import com.project.agroworldapp.weather.model.weatherlist.WeatherDatesResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +40,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AgroWorldRepository {
+    public MutableLiveData<String> requestStatus = new MutableLiveData<>();
     Context context;
+    private DatabaseReference databaseReference;
     public AgroWorldRepository(Context context) {
         this.context = context;
     }
-    public MutableLiveData<String> requestStatus = new MutableLiveData<>();
-    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
+
     private final boolean selectedLanguage = Constants.selectedLanguage(context);
-    private DatabaseReference databaseReference;
+    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
 
     public LiveData<String> getRequestErrorLivedata() {
         return requestStatus;
@@ -73,7 +74,6 @@ public class AgroWorldRepository {
         });
         return weatherResponseMutableLiveData;
     }
-
     public LiveData<Resource<WeatherDatesResponse>> performWeatherForecastRequest(double latitude, double longitude, String apiKey) {
         MutableLiveData<Resource<WeatherDatesResponse>> weatherResponseMutableLiveData = new MutableLiveData<>();
         apiService = Network.getInstance(BASE_URL_WEATHER);
@@ -286,7 +286,7 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<List<ProductModel>>> getLocalizedProductDataList() {
         final MutableLiveData<Resource<List<ProductModel>>> productLiveData = new MutableLiveData<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("product-Hindi");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Localized_product");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -354,7 +354,7 @@ public class AgroWorldRepository {
 
     public LiveData<Resource<String>> removeLocalizedProduct(String title) {
         MutableLiveData<Resource<String>> productRemovalLiveStatus = new MutableLiveData<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference("product-Hindi");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Localized_product");
         databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
             productRemovalLiveStatus.setValue(Resource.success("Success"));
         }).addOnFailureListener(command -> {

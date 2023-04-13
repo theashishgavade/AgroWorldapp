@@ -1,4 +1,4 @@
-package com.project.agroworld.transport.activity;
+package com.project.agroworldapp.transport.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,14 +13,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.project.agroworld.R;
-import com.project.agroworld.databinding.ActivityTransportDataBinding;
-import com.project.agroworld.transport.adapter.VehicleAdapter;
-import com.project.agroworld.transport.listener.AdminListener;
-import com.project.agroworld.transport.model.VehicleModel;
-import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.Permissions;
-import com.project.agroworld.viewmodel.AgroViewModel;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.databinding.ActivityTransportDataBinding;
+import com.project.agroworldapp.transport.adapter.VehicleAdapter;
+import com.project.agroworldapp.transport.listener.AdminListener;
+import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.utils.Constants;
+import com.project.agroworldapp.utils.Permissions;
+import com.project.agroworldapp.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 

@@ -12,7 +12,7 @@ import com.project.agroworldapp.articles.model.FruitsResponse;
 import com.project.agroworldapp.articles.model.HowToExpandResponse;
 import com.project.agroworldapp.articles.model.InsectControlResponse;
 import com.project.agroworldapp.payment.model.PaymentModel;
-import com.project.agroworldapp.repository.AgroWorldRepository;
+import com.project.agroworldapp.shopping.activity.repository.AgroWorldRepository;
 import com.project.agroworldapp.shopping.model.ProductModel;
 import com.project.agroworldapp.transport.model.VehicleModel;
 import com.project.agroworldapp.utils.Resource;

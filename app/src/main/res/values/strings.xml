@@ -175,4 +175,5 @@
     <string name="proceed_with_ideas">Proceed With Ideas</string>
     <string name="data_language_message">Note- Data should be uploaded according to the selected language because the data will be displayed according to the chosen language.</string>
     <string name="insect_and_control">Insect &amp; Control</string>
+    <string name="constant_title_error">It\'s constant, you can\'t change it.</string>
 </resources>

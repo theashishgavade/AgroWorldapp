@@ -1,4 +1,4 @@
-package com.project.agroworld.manufacture.activity;
+package com.project.agroworldapp.manufacture.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,22 +17,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.project.agroworld.R;
-import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
-import com.project.agroworld.shopping.model.ProductModel;
-import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.CustomMultiColorProgressBar;
-import com.project.agroworld.utils.Permissions;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.databinding.ActivityManufactureDataPostBinding;
+import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.utils.Constants;
+import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
+import com.project.agroworldapp.utils.Permissions;
 
 public class ManufactureActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 99;
+    protected String selectedDataLanguage;
     private ActivityManufactureDataPostBinding binding;
     private Uri imageUri;
     private DatabaseReference firebaseStorage;
     private CustomMultiColorProgressBar progressBar;
     private String editImageUrl;
     private boolean isImageSelected = false;
-    protected String selectedDataLanguage;
     private boolean isEditAction = false;
 
     @Override
@@ -82,9 +82,7 @@ public class ManufactureActivity extends AppCompatActivity {
                 uploadLocalizedDataToFirebase(title, description, price, editImageUrl);
             } else if (isEditAction) {
                 uploadDataToFirebase(title, description, price, editImageUrl);
-            } else if (Permissions.checkConnection(this) &&
-                    price != 0 &&
-                    isImageSelected) {
+            } else if (Permissions.checkConnection(this) && price != 0 && isImageSelected) {
                 uploadImageToFirebase(title, price, description);
             }
         });
@@ -101,6 +99,9 @@ public class ManufactureActivity extends AppCompatActivity {
         binding.etProductTitle.setText(productModel.getTitle());
         binding.etProductDescription.setText(productModel.getDescription());
         binding.etProductPrice.setText(String.valueOf(productModel.getPrice()));
+        binding.etProductTitle.setOnClickListener(v -> {
+            Constants.showToast(this, getString(R.string.constant_title_error));
+        });
         Constants.bindImage(binding.ivProductSelected, productModel.getImageUrl(), binding.ivProductSelected);
     }
 
@@ -154,7 +155,7 @@ public class ManufactureActivity extends AppCompatActivity {
     }
 
     private void uploadLocalizedDataToFirebase(String title, String description, Double price, String imageUrl) {
-        firebaseStorage = FirebaseDatabase.getInstance().getReference("product-Hindi");
+        firebaseStorage = FirebaseDatabase.getInstance().getReference("Localized_product");
         ProductModel productModel = new ProductModel(title, description, price, imageUrl, 0);
         firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(unused -> {
             binding.ivProductUploadIcon.setVisibility(View.VISIBLE);

@@ -1,4 +1,4 @@
-package com.project.agroworld.articles.activity;
+package com.project.agroworldapp.articles.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.project.agroworld.R;
-import com.project.agroworld.articles.adapter.HowToExpandAdapter;
-import com.project.agroworld.articles.listener.ExpandClickListener;
-import com.project.agroworld.articles.model.HowToExpandResponse;
-import com.project.agroworld.databinding.ActivityHowToExpandBinding;
-import com.project.agroworld.utils.Permissions;
-import com.project.agroworld.viewmodel.AgroViewModel;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.articles.adapter.HowToExpandAdapter;
+import com.project.agroworldapp.articles.listener.ExpandClickListener;
+import com.project.agroworldapp.articles.model.HowToExpandResponse;
+import com.project.agroworldapp.databinding.ActivityHowToExpandBinding;
+import com.project.agroworldapp.utils.Permissions;
+import com.project.agroworldapp.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 

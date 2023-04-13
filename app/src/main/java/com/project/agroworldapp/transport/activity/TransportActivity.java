@@ -111,7 +111,11 @@ public class TransportActivity extends AppCompatActivity {
         binding.etVehicleRateUnit.setText(unit);
         binding.etVehicleContact.setText(contact);
         binding.ivVehicleUploadIcon.setVisibility(View.GONE);
-        binding.etLayoutModelVehicle.setClickable(false);
+        binding.etVehicleModel.setClickable(true);
+        binding.etVehicleModel.setFocusable(false);
+        binding.etVehicleModel.setOnClickListener(v -> {
+            Constants.showToast(this, getString(R.string.constant_title_error));
+        });
         Glide.with(binding.ivVehicleSelected).load(image).into(binding.ivVehicleSelected);
     }
 

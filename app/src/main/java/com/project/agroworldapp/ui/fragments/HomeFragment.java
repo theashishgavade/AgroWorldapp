@@ -1,6 +1,7 @@
-package com.project.agroworld.ui.fragments;
+package com.project.agroworldapp.ui.fragments;
 
-import static com.project.agroworld.utils.Constants.API_KEY;
+
+import static com.project.agroworldapp.utils.Constants.API_KEY;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -28,26 +29,26 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.project.agroworld.R;
-import com.project.agroworld.articles.activity.CropsActivity;
-import com.project.agroworld.articles.activity.DiseasesActivity;
-import com.project.agroworld.articles.activity.FlowersActivity;
-import com.project.agroworld.articles.activity.FruitsActivity;
-import com.project.agroworld.articles.activity.HowToExpandActivity;
-import com.project.agroworld.databinding.FragmentHomeBinding;
-import com.project.agroworld.manufacture.adapter.ProductAdapter;
-import com.project.agroworld.shopping.activity.ProductDetailActivity;
-import com.project.agroworld.shopping.listener.OnProductListener;
-import com.project.agroworld.shopping.model.ProductModel;
-import com.project.agroworld.transport.adapter.OnVehicleCallClick;
-import com.project.agroworld.transport.adapter.VehicleAdapter;
-import com.project.agroworld.transport.model.VehicleModel;
-import com.project.agroworld.utils.Constants;
-import com.project.agroworld.utils.Permissions;
-import com.project.agroworld.utils.Resource;
-import com.project.agroworld.viewmodel.AgroViewModel;
-import com.project.agroworld.weather.activity.WeatherActivity;
-import com.project.agroworld.weather.model.weather_data.WeatherResponse;
+import com.project.agroworldapp.articles.activity.HowToExpandActivity;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.articles.activity.CropsActivity;
+import com.project.agroworldapp.articles.activity.DiseasesActivity;
+import com.project.agroworldapp.articles.activity.FlowersActivity;
+import com.project.agroworldapp.articles.activity.FruitsActivity;
+import com.project.agroworldapp.databinding.FragmentHomeBinding;
+import com.project.agroworldapp.manufacture.adapter.ProductAdapter;
+import com.project.agroworldapp.shopping.activity.ProductDetailActivity;
+import com.project.agroworldapp.shopping.listener.OnProductListener;
+import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.transport.adapter.OnVehicleCallClick;
+import com.project.agroworldapp.transport.adapter.VehicleAdapter;
+import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.utils.Constants;
+import com.project.agroworldapp.utils.Permissions;
+import com.project.agroworldapp.utils.Resource;
+import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.weather.activity.WeatherActivity;
+import com.project.agroworldapp.weather.model.weather_data.WeatherResponse;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private FragmentHomeBinding binding;
     private AgroViewModel agroViewModel;
     private String locality;
+
     public HomeFragment() {
         // Required empty public constructor
     }

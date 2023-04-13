@@ -1,4 +1,4 @@
-package com.project.agroworld.chatbot;
+package com.project.agroworldapp.chatbot;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.agroworld.R;
+import com.project.agroworldapp.R;
 
 public class ChatBotViewHolder extends RecyclerView.ViewHolder {
     private final LinearLayout sentLayout;

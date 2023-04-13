@@ -1,4 +1,4 @@
-package com.project.agroworld.shopping.activity;
+package com.project.agroworldapp.shopping.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,19 +16,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.project.agroworld.R;
-import com.project.agroworld.databinding.ActivityProductDetailBinding;
-import com.project.agroworld.shopping.model.ProductModel;
-import com.project.agroworld.utils.Constants;
+import com.project.agroworldapp.R;
+import com.project.agroworldapp.databinding.ActivityProductDetailBinding;
+import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.utils.Constants;
 
 import java.util.Objects;
 
 public class ProductDetailActivity extends AppCompatActivity {
+    private final int doubleButtonTap = 0;
     FirebaseAuth auth;
     FirebaseUser user;
     private ActivityProductDetailBinding binding;
     private ActionBar actionBar;
-    private final int doubleButtonTap = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
