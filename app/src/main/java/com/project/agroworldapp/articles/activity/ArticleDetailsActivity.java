@@ -1,4 +1,4 @@
-package com.project.agroworldapp.articles.activity;
+package com.project.agroworld.articles.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +9,13 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.articles.model.CropsResponse;
-import com.project.agroworldapp.articles.model.FlowersResponse;
-import com.project.agroworldapp.articles.model.FruitsResponse;
-import com.project.agroworldapp.articles.model.HowToExpandResponse;
-import com.project.agroworldapp.databinding.ActivityArticleDetailsBinding;
-import com.project.agroworldapp.utils.Constants;
+import com.project.agroworld.R;
+import com.project.agroworld.articles.model.CropsResponse;
+import com.project.agroworld.articles.model.FlowersResponse;
+import com.project.agroworld.articles.model.FruitsResponse;
+import com.project.agroworld.articles.model.HowToExpandResponse;
+import com.project.agroworld.databinding.ActivityArticleDetailsBinding;
+import com.project.agroworld.utils.Constants;
 
 public class ArticleDetailsActivity extends AppCompatActivity {
     ActionBar actionBar;
@@ -26,6 +26,7 @@ public class ArticleDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_article_details);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         CropsResponse cropsResponse = ((CropsResponse) intent.getSerializableExtra("itemResponse"));

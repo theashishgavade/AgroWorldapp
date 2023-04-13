@@ -1,5 +1,7 @@
 package com.project.agroworldapp.articles.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -55,16 +57,8 @@ public class CropsResponse implements Serializable {
         return imageLink;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
-
     public String getSeed() {
         return seed;
-    }
-
-    public void setSeed(String seed) {
-        this.seed = seed;
     }
 
     public String getCropInfo() {
@@ -79,117 +73,53 @@ public class CropsResponse implements Serializable {
         return soil;
     }
 
-    public void setSoil(String soil) {
-        this.soil = soil;
-    }
-
     public String getTitle() {
         return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getFertilizer() {
         return fertilizer;
     }
 
-    public void setFertilizer(String fertilizer) {
-        this.fertilizer = fertilizer;
-    }
-
     public String getLandPreparation() {
         return landPreparation;
-    }
-
-    public void setLandPreparation(String landPreparation) {
-        this.landPreparation = landPreparation;
     }
 
     public String getTimeOfSowing() {
         return timeOfSowing;
     }
 
-    public void setTimeOfSowing(String timeOfSowing) {
-        this.timeOfSowing = timeOfSowing;
-    }
-
     public String getSeedTreatment() {
         return seedTreatment;
-    }
-
-    public void setSeedTreatment(String seedTreatment) {
-        this.seedTreatment = seedTreatment;
     }
 
     public String getIrrigation() {
         return irrigation;
     }
 
-    public void setIrrigation(String irrigation) {
-        this.irrigation = irrigation;
-    }
-
     public String getRequiredTemperature() {
         return requiredTemperature;
-    }
-
-    public void setRequiredTemperature(String requiredTemperature) {
-        this.requiredTemperature = requiredTemperature;
     }
 
     public String getHarvesting() {
         return harvesting;
     }
 
-    public void setHarvesting(String harvesting) {
-        this.harvesting = harvesting;
-    }
-
     public String getPostHarvest() {
         return postHarvest;
-    }
-
-    public void setPostHarvest(String postHarvest) {
-        this.postHarvest = postHarvest;
     }
 
     public String getSeason() {
         return season;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
-    }
-
     public String getState() {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
+    @NonNull
     @Override
     public String toString() {
-        return
-                "CropsResponse{" +
-                        "image_link = '" + imageLink + '\'' +
-                        ",seed = '" + seed + '\'' +
-                        ",crop_info = '" + cropInfo + '\'' +
-                        ",soil = '" + soil + '\'' +
-                        ",title = '" + title + '\'' +
-                        ",fertilizer = '" + fertilizer + '\'' +
-                        ",land_preparation = '" + landPreparation + '\'' +
-                        ",time of sowing = '" + timeOfSowing + '\'' +
-                        ",seed_treatment = '" + seedTreatment + '\'' +
-                        ",irrigation = '" + irrigation + '\'' +
-                        ",required_temperature  = '" + requiredTemperature + '\'' +
-                        ",harvesting = '" + harvesting + '\'' +
-                        ",post_harvest = '" + postHarvest + '\'' +
-                        ",season = '" + season + '\'' +
-                        ",state = '" + state + '\'' +
-                        "}";
+        return "CropsResponse{" + "image_link = '" + imageLink + '\'' + ",seed = '" + seed + '\'' + ",crop_info = '" + cropInfo + '\'' + ",soil = '" + soil + '\'' + ",title = '" + title + '\'' + ",fertilizer = '" + fertilizer + '\'' + ",land_preparation = '" + landPreparation + '\'' + ",time of sowing = '" + timeOfSowing + '\'' + ",seed_treatment = '" + seedTreatment + '\'' + ",irrigation = '" + irrigation + '\'' + ",required_temperature  = '" + requiredTemperature + '\'' + ",harvesting = '" + harvesting + '\'' + ",post_harvest = '" + postHarvest + '\'' + ",season = '" + season + '\'' + ",state = '" + state + '\'' + "}";
     }
 }

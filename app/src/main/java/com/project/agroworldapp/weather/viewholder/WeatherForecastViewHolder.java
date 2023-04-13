@@ -1,4 +1,4 @@
-package com.project.agroworldapp.weather.viewholder;
+package com.project.agroworld.weather.viewholder;
 
 import android.view.View;
 
@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.databinding.ForecastItemLayoutBinding;
-import com.project.agroworldapp.weather.listener.WeatherForecastListener;
-import com.project.agroworldapp.weather.model.weatherlist.ListItem;
+import com.project.agroworld.R;
+import com.project.agroworld.databinding.ForecastItemLayoutBinding;
+import com.project.agroworld.weather.listener.WeatherForecastListener;
+import com.project.agroworld.weather.model.weatherlist.ListItem;
 
 public class WeatherForecastViewHolder extends RecyclerView.ViewHolder {
     private final ForecastItemLayoutBinding binding;

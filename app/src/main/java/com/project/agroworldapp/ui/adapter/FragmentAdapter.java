@@ -2,6 +2,7 @@ package com.project.agroworldapp.ui.adapter;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -25,6 +26,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     }
 
 
+    @NonNull
     @Override
     public Fragment getItem(int i) {
         return fragments.get(i);

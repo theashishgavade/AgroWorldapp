@@ -1,4 +1,4 @@
-package com.project.agroworldapp.transport.activity;
+package com.project.agroworld.transport.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,25 +10,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.google.firebase.database.DatabaseReference;
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.databinding.ActivityTransportDataBinding;
-import com.project.agroworldapp.transport.adapter.VehicleAdapter;
-import com.project.agroworldapp.transport.listener.AdminListener;
-import com.project.agroworldapp.transport.model.VehicleModel;
-import com.project.agroworldapp.utils.Constants;
-import com.project.agroworldapp.utils.Permissions;
-import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworld.R;
+import com.project.agroworld.databinding.ActivityTransportDataBinding;
+import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.listener.AdminListener;
+import com.project.agroworld.transport.model.VehicleModel;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
 
 public class TransportDataActivity extends AppCompatActivity implements AdminListener {
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();
     private ActivityTransportDataBinding binding;
-    private DatabaseReference databaseReference;
     private VehicleAdapter vehicleAdapter;
     private AgroViewModel agroViewModel;
 
@@ -38,7 +36,7 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transport_data);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getVehicleListFromFirebase();

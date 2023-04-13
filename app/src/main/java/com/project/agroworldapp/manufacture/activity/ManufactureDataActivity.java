@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,10 +48,11 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.hide();
         Intent intent = getIntent();
         isLocalizedData = intent.getBooleanExtra("localizedData", false);
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getProductListFromFirebase();

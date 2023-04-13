@@ -1,5 +1,7 @@
 package com.project.agroworldapp.weather.model.weatherlist;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -50,6 +52,7 @@ public class WeatherItem implements Serializable {
         return icon;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return

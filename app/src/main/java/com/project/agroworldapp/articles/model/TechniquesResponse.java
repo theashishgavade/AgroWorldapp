@@ -1,5 +1,7 @@
 package com.project.agroworldapp.articles.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -72,6 +74,7 @@ public class TechniquesResponse implements Serializable {
         this.techniqueDetail = techniqueDetail;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return

@@ -14,7 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -45,7 +45,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_transport, container, false);
@@ -57,7 +57,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(getContext());
         if (Permissions.checkConnection(getContext())) {
             getVehicleListFromFirebase();

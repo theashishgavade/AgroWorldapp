@@ -1,5 +1,7 @@
 package com.project.agroworldapp.weather.model.weather_data;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -18,46 +20,41 @@ public class WeatherItem implements Serializable {
     @SerializedName("icon")
     private String icon;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setMain(String main) {
-        this.main = main;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMain() {
         return main;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setMain(String main) {
+        this.main = main;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getIcon() {
         return icon;
     }
 
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    @NonNull
     @Override
     public String toString() {
-        return
-                "WeatherItem{" +
-                        "id = '" + id + '\'' +
-                        ",main = '" + main + '\'' +
-                        ",description = '" + description + '\'' +
-                        ",icon = '" + icon + '\'' +
-                        "}";
+        return "WeatherItem{" + "id = '" + id + '\'' + ",main = '" + main + '\'' + ",description = '" + description + '\'' + ",icon = '" + icon + '\'' + "}";
     }
 }

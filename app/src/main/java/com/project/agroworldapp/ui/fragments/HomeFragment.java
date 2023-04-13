@@ -1,4 +1,6 @@
-package com.project.agroworldapp.ui.fragments;
+package com.project.agroworld.ui.fragments;
+
+import static com.project.agroworld.utils.Constants.API_KEY;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -19,34 +21,33 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.articles.activity.CropsActivity;
-import com.project.agroworldapp.articles.activity.DiseasesActivity;
-import com.project.agroworldapp.articles.activity.FlowersActivity;
-import com.project.agroworldapp.articles.activity.FruitsActivity;
-import com.project.agroworldapp.articles.activity.HowToExpandActivity;
-import com.project.agroworldapp.databinding.FragmentHomeBinding;
-import com.project.agroworldapp.db.PreferenceHelper;
-import com.project.agroworldapp.manufacture.adapter.ProductAdapter;
-import com.project.agroworldapp.shopping.activity.ProductDetailActivity;
-import com.project.agroworldapp.shopping.listener.OnProductListener;
-import com.project.agroworldapp.shopping.model.ProductModel;
-import com.project.agroworldapp.transport.adapter.OnVehicleCallClick;
-import com.project.agroworldapp.transport.adapter.VehicleAdapter;
-import com.project.agroworldapp.transport.model.VehicleModel;
-import com.project.agroworldapp.utils.Constants;
-import com.project.agroworldapp.utils.Permissions;
-import com.project.agroworldapp.utils.Resource;
-import com.project.agroworldapp.viewmodel.AgroViewModel;
-import com.project.agroworldapp.weather.activity.WeatherActivity;
-import com.project.agroworldapp.weather.model.weather_data.WeatherResponse;
+import com.project.agroworld.R;
+import com.project.agroworld.articles.activity.CropsActivity;
+import com.project.agroworld.articles.activity.DiseasesActivity;
+import com.project.agroworld.articles.activity.FlowersActivity;
+import com.project.agroworld.articles.activity.FruitsActivity;
+import com.project.agroworld.articles.activity.HowToExpandActivity;
+import com.project.agroworld.databinding.FragmentHomeBinding;
+import com.project.agroworld.manufacture.adapter.ProductAdapter;
+import com.project.agroworld.shopping.activity.ProductDetailActivity;
+import com.project.agroworld.shopping.listener.OnProductListener;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.transport.adapter.OnVehicleCallClick;
+import com.project.agroworld.transport.adapter.VehicleAdapter;
+import com.project.agroworld.transport.model.VehicleModel;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.Permissions;
+import com.project.agroworld.utils.Resource;
+import com.project.agroworld.viewmodel.AgroViewModel;
+import com.project.agroworld.weather.activity.WeatherActivity;
+import com.project.agroworld.weather.model.weather_data.WeatherResponse;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -60,15 +61,10 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     private final List<ProductModel> productModelArrayList = new ArrayList<>(5);
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>(5);
     double latitude, longitude;
-    PreferenceHelper preferenceHelper;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private FragmentHomeBinding binding;
     private AgroViewModel agroViewModel;
-    private VehicleAdapter vehicleAdapter;
-    private ProductAdapter productAdapter;
     private String locality;
-    private boolean selectedLanguage;
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -90,7 +86,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         return binding.getRoot();
@@ -100,7 +96,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(getContext());
 
         binding.crdFruits.setOnClickListener(v -> {
@@ -140,7 +136,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        agroViewModel.performWeatherRequest(lat, lon, Constants.API_KEY).observe(this, weatherResponseResource -> {
+        agroViewModel.performWeatherRequest(lat, lon, API_KEY).observe(this, weatherResponseResource -> {
             switch (weatherResponseResource.status) {
                 case ERROR:
                     binding.weatherProgressbar.setVisibility(View.GONE);
@@ -184,8 +180,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         LiveData<Resource<List<ProductModel>>> observeProductLivedata;
         if (Constants.selectedLanguage(getContext()))
             observeProductLivedata = agroViewModel.getLocalizedProductDataList();
-        else
-            observeProductLivedata = agroViewModel.getProductModelLivedata();
+        else observeProductLivedata = agroViewModel.getProductModelLivedata();
 
         observeProductLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
@@ -209,7 +204,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setRecyclerView() {
-        productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this, 1);
+        ProductAdapter productAdapter = new ProductAdapter(productModelArrayList, HomeFragment.this, 1);
         binding.shoppingRecyclerView.setAdapter(productAdapter);
         binding.shoppingRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
         binding.shoppingRecyclerView.setHasFixedSize(true);
@@ -238,7 +233,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void setVehicleRecyclerView() {
-        vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this, 1);
+        VehicleAdapter vehicleAdapter = new VehicleAdapter(vehicleItemList, HomeFragment.this, 1);
         binding.transportRecyclerView.setAdapter(vehicleAdapter);
         binding.transportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.transportRecyclerView.setHasFixedSize(true);
@@ -253,7 +248,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                 public void onSuccess(Location location) {
                     if (location != null) {
                         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-                        List<Address> addresses = null;
+                        List<Address> addresses;
                         try {
                             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             Double lat = addresses.get(0).getLatitude();
@@ -265,8 +260,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {
-
                     }
                 }
             });

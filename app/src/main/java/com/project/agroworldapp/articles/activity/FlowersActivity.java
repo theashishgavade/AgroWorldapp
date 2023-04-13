@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class FlowersActivity extends AppCompatActivity implements FlowerClickListener {
     private final ArrayList<FlowersResponse> flowersResponsesList = new ArrayList<>();
     private ActivityFlowersBinding binding;
-    private FlowersAdapter flowersAdapter;
     private CustomMultiColorProgressBar progressBar;
     private AgroViewModel viewModel;
 
@@ -33,9 +32,10 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_flowers);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.flowers));
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         viewModel.init(this);
         getFlowersListFromApi();
@@ -71,7 +71,7 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
     }
 
     private void setRecyclerView() {
-        flowersAdapter = new FlowersAdapter(flowersResponsesList, this);
+        FlowersAdapter flowersAdapter = new FlowersAdapter(flowersResponsesList, this);
         binding.rvFlowers.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvFlowers.setAdapter(flowersAdapter);
     }
@@ -86,12 +86,16 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

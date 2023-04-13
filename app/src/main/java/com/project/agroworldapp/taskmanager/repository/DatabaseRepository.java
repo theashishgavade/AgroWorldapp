@@ -14,13 +14,12 @@ import java.util.List;
 public class DatabaseRepository {
     private final FarmerDAO dao;
     private final LiveData<List<FarmerModel>> farmerRoutines;
-    private final LiveData<Integer> maxIdCount;
 
     public DatabaseRepository(Application application) {
         FarmerDatabase database = FarmerDatabase.getInstance(application);
         dao = database.taskDao();
         farmerRoutines = dao.getFarmerRoutines();
-        maxIdCount = dao.getMaxCount();
+        LiveData<Integer> maxIdCount = dao.getMaxCount();
     }
 
     public void insert(FarmerModel model) {

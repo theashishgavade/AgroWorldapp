@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,7 +51,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         user = auth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         Checkout.preload(getApplicationContext());
         Intent intent = getIntent();

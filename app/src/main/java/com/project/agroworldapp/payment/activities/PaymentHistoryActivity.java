@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +22,7 @@ import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PaymentHistoryActivity extends AppCompatActivity {
 
@@ -29,7 +30,6 @@ public class PaymentHistoryActivity extends AppCompatActivity {
     ActivityPaymentHistoryBinding binding;
     FirebaseAuth auth;
     FirebaseUser user;
-    private HistoryAdapter historyAdapter;
     private AgroViewModel agroViewModel;
 
     @Override
@@ -41,12 +41,12 @@ public class PaymentHistoryActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        agroViewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
+        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         agroViewModel.init(this);
 
         if (Permissions.checkConnection(this)) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
-            getTransactionHistoryList(Constants.plainStringEmail(user.getEmail()));
+            getTransactionHistoryList(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())));
         } else {
             binding.recyclerView.setVisibility(View.GONE);
             binding.shimmer.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class PaymentHistoryActivity extends AppCompatActivity {
     }
 
     private void setRecyclerView() {
-        historyAdapter = new HistoryAdapter(paymentModelArrayList);
+        HistoryAdapter historyAdapter = new HistoryAdapter(paymentModelArrayList);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recyclerView.setAdapter(historyAdapter);
     }

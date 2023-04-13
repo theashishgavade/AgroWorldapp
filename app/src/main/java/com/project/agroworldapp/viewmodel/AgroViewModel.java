@@ -96,10 +96,6 @@ public class AgroViewModel extends ViewModel {
         repository.deleteCartData(email);
     }
 
-    public void clearAllHistory(String email) {
-        repository.removeAllTransactionHistory(email);
-    }
-
     public LiveData<String> checkLoadingStatus() {
         return repository.getRequestErrorLivedata();
     }

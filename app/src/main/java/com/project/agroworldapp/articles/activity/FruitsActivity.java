@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class FruitsActivity extends AppCompatActivity implements FruitsClickListener {
 
     private final ArrayList<FruitsResponse> fruitsList = new ArrayList<>();
-    private FruitsAdapter fruitsAdapter;
     private AgroViewModel viewModel;
     private ActivityFruitsBinding binding;
     private CustomMultiColorProgressBar progressBar;
@@ -34,10 +33,11 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_fruits);
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.fruits));
-        viewModel = ViewModelProviders.of(this).get(AgroViewModel.class);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
+        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
         viewModel.init(this);
         getFruitsListFromApi();
     }
@@ -72,7 +72,7 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
     }
 
     private void setRecyclerView() {
-        fruitsAdapter = new FruitsAdapter(fruitsList, this);
+        FruitsAdapter fruitsAdapter = new FruitsAdapter(fruitsList, this);
         binding.rvFruits.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvFruits.setAdapter(fruitsAdapter);
     }
@@ -87,12 +87,16 @@ public class FruitsActivity extends AppCompatActivity implements FruitsClickList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

@@ -2,7 +2,7 @@ package com.project.agroworldapp.chatbot;
 
 public class ChatBotModel {
     // Type 0 for sent, 1 for received
-    private boolean type;
+    private final boolean type;
     // Message content
     private String message;
 
@@ -23,7 +23,4 @@ public class ChatBotModel {
         return this.type;
     }
 
-    public void setType(boolean type) {
-        this.type = type;
-    }
 }

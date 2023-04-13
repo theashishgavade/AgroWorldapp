@@ -14,13 +14,12 @@ import java.util.List;
 public class FarmerViewModel extends AndroidViewModel {
     private final DatabaseRepository repository;
     private final LiveData<List<FarmerModel>> farmerRoutines;
-    private final LiveData<Integer> maxIDCount;
 
     public FarmerViewModel(@NonNull Application application) {
         super(application);
         repository = new DatabaseRepository(application);
         farmerRoutines = repository.getFarmerRoutines();
-        maxIDCount = repository.getMaxIdCount();
+        LiveData<Integer> maxIDCount = repository.getMaxIdCount();
     }
 
     public void insert(FarmerModel model) {

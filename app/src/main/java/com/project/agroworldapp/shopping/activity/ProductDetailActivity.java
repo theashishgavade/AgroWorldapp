@@ -1,4 +1,4 @@
-package com.project.agroworldapp.shopping.activity;
+package com.project.agroworld.shopping.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,18 +16,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.project.agroworld.R;
+import com.project.agroworld.databinding.ActivityProductDetailBinding;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.utils.Constants;
 
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.databinding.ActivityProductDetailBinding;
-import com.project.agroworldapp.shopping.model.ProductModel;
-import com.project.agroworldapp.utils.Constants;
+import java.util.Objects;
 
 public class ProductDetailActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser user;
     private ActivityProductDetailBinding binding;
-    private DatabaseReference database;
-    private ProductModel productModel;
     private ActionBar actionBar;
     private final int doubleButtonTap = 0;
     @Override
@@ -35,12 +34,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         Log.d("customProgressCycle", "ProductDetailActivity- onCreate");
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         Intent intent = getIntent();
-        productModel = ((ProductModel) intent.getSerializableExtra("productModel"));
+        ProductModel productModel = ((ProductModel) intent.getSerializableExtra("productModel"));
         updateUI(productModel);
     }
 
@@ -62,10 +62,11 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void addItemToCart(ProductModel productModel) {
+        DatabaseReference database;
         if (Constants.selectedLanguage(this))
-            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-LocalizedCartItems");
+            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())) + "-LocalizedCartItems");
         else
-            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(user.getEmail()) + "-CartItems");
+            database = FirebaseDatabase.getInstance().getReference(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())) + "-CartItems");
 
         database.child(productModel.getTitle()).setValue(productModel).addOnSuccessListener(unused -> {
             Constants.showToast(ProductDetailActivity.this, "Item added to cart");
@@ -83,10 +84,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

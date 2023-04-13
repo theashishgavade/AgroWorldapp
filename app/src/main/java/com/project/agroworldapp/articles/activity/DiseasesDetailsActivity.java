@@ -25,6 +25,7 @@ public class DiseasesDetailsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_diseases_details);
         Intent intent = getIntent();
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         DiseasesResponse diseasesResponse = ((DiseasesResponse) intent.getSerializableExtra("diseasesResponse"));
         boolean isDiseasesResponse = intent.getBooleanExtra("isDiseasesResponse", false);

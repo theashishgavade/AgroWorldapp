@@ -1,4 +1,4 @@
-package com.project.agroworldapp.manufacture.activity;
+package com.project.agroworld.manufacture.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,19 +17,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.project.agroworldapp.R;
-import com.project.agroworldapp.databinding.ActivityManufactureDataPostBinding;
-import com.project.agroworldapp.shopping.model.ProductModel;
-import com.project.agroworldapp.utils.Constants;
-import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
-import com.project.agroworldapp.utils.Permissions;
+import com.project.agroworld.R;
+import com.project.agroworld.databinding.ActivityManufactureDataPostBinding;
+import com.project.agroworld.shopping.model.ProductModel;
+import com.project.agroworld.utils.Constants;
+import com.project.agroworld.utils.CustomMultiColorProgressBar;
+import com.project.agroworld.utils.Permissions;
 
 public class ManufactureActivity extends AppCompatActivity {
     private final int REQUEST_CODE = 99;
     private ActivityManufactureDataPostBinding binding;
     private Uri imageUri;
     private DatabaseReference firebaseStorage;
-    private StorageReference storage;
     private CustomMultiColorProgressBar progressBar;
     private String editImageUrl;
     private boolean isImageSelected = false;
@@ -107,7 +106,7 @@ public class ManufactureActivity extends AppCompatActivity {
 
     private void uploadImageToFirebase(String title, double price, String description) {
         progressBar.showProgressBar();
-        storage = FirebaseStorage.getInstance().getReference("product");
+        StorageReference storage = FirebaseStorage.getInstance().getReference("product");
         storage.child(title).putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             binding.ivProductSelected.setImageResource(R.color.colorPrimary);
             Constants.showToast(ManufactureActivity.this, getString(R.string.image_uploaded));
@@ -155,7 +154,7 @@ public class ManufactureActivity extends AppCompatActivity {
     }
 
     private void uploadLocalizedDataToFirebase(String title, String description, Double price, String imageUrl) {
-        firebaseStorage = FirebaseDatabase.getInstance().getReference("Localized_product");
+        firebaseStorage = FirebaseDatabase.getInstance().getReference("product-Hindi");
         ProductModel productModel = new ProductModel(title, description, price, imageUrl, 0);
         firebaseStorage.child(title).setValue(productModel).addOnSuccessListener(unused -> {
             binding.ivProductUploadIcon.setVisibility(View.VISIBLE);
@@ -176,12 +175,10 @@ public class ManufactureActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

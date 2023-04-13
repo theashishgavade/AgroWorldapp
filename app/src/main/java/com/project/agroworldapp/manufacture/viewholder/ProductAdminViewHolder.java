@@ -13,7 +13,7 @@ import com.project.agroworldapp.utils.Constants;
 
 public class ProductAdminViewHolder extends RecyclerView.ViewHolder {
 
-    ProductAdminLayoutBinding binding;
+    final ProductAdminLayoutBinding binding;
 
     public ProductAdminViewHolder(ProductAdminLayoutBinding binding) {
         super(binding.getRoot());
