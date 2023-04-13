@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class DiseasesActivity extends AppCompatActivity implements DiseasesListener {
     private final ArrayList<DiseasesResponse> diseasesResponseArrayList = new ArrayList<>();
     ActivityDiseasesBinding binding;
-    private DiseaseAdapter diseaseAdapter;
     private AgroViewModel viewModel;
 
     @Override
@@ -75,7 +74,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
     }
 
     private void setRecyclerView() {
-        diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
+       DiseaseAdapter diseaseAdapter = new DiseaseAdapter(diseasesResponseArrayList, this);
         binding.rvDiseases.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvDiseases.setAdapter(diseaseAdapter);
     }
@@ -98,10 +97,8 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                break;
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
