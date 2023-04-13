@@ -5,7 +5,7 @@
     android:animateLayoutChanges="true"
     android:orientation="vertical">
 
-    <com.project.agroworld.utils.CircleProgressBar
+    <com.project.agroworldapp.utils.CircleProgressBar
         android:id="@+id/bar"
         android:layout_width="50dp"
         android:layout_height="50dp"

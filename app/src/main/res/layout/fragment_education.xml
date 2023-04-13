@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/crdHeader"
                 android:orientation="vertical"
-                tools:context=".ui.fragments.EducationFragment">
+                tools:context="com.project.agroworldapp.ui.fragments.EducationFragment">
 
                 <RelativeLayout
                     android:id="@+id/rlCrops"

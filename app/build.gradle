@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.project.agroworld'
+    namespace 'com.project.agroworldapp'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.project.agroworld"
+        applicationId "com.project.agroworldapp"
         minSdk 21
         targetSdk 32
         versionCode 1

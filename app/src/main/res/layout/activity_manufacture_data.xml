@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".manufacture.activity.ManufactureDataActivity">
+        tools:context="com.project.agroworldapp.manufacture.activity.ManufactureDataActivity">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdHeader"

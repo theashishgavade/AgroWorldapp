@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "739959985230",
-    "firebase_url": "https://agro-world-55872-default-rtdb.firebaseio.com",
-    "project_id": "agro-world-55872",
-    "storage_bucket": "agro-world-55872.appspot.com"
+    "project_number": "110633362018",
+    "firebase_url": "https://agroworld-963b9-default-rtdb.firebaseio.com",
+    "project_id": "agroworld-963b9",
+    "storage_bucket": "agroworld-963b9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:739959985230:android:0a47b872661f8a67121f1f",
+        "mobilesdk_app_id": "1:110633362018:android:a621099191234fa25de73b",
         "android_client_info": {
-          "package_name": "com.project.agroworld"
+          "package_name": "com.project.agroworldapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "739959985230-4bhclcmc77vmhrp2sfmn2ot9fd648mgn.apps.googleusercontent.com",
+          "client_id": "110633362018-mgamke32ogocroqe8llmeagtr3vg2slr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.project.agroworld",
+            "package_name": "com.project.agroworldapp",
             "certificate_hash": "0f9a86268052ad94c64565d35f9685743bd42b0a"
           }
         },
         {
-          "client_id": "739959985230-kefcjiqjm62dcihqtlec1l3f7b06dt8k.apps.googleusercontent.com",
+          "client_id": "110633362018-8gp3gj1mebi67lh4euk8sip9n433rtev.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAs-_-ivVsQKOrYmeMG5NFDFOpR95ygROQ"
+          "current_key": "AIzaSyDQRMjra2oGEk7sG75xJNtvIU-pXIuS9rE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "739959985230-kefcjiqjm62dcihqtlec1l3f7b06dt8k.apps.googleusercontent.com",
+              "client_id": "110633362018-2gc18ankqo1a4k2im9n490n0761aobbk.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

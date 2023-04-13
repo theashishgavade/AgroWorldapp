@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.adapter.FragmentAdapter$DiseasesActivity">
+        tools:context="com.project.agroworldapp.ui.adapter.FragmentAdapter$DiseasesActivity">
 
         <TextView
             android:id="@+id/tvNoDataFoundErr"

@@ -9,7 +9,7 @@
         android:layout_gravity="center"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        tools:context=".ui.activity.LoginActivity">
+        tools:context="com.project.agroworldapp.ui.activity.LoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -27,107 +27,107 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".chatbot.ChatBotActivity"
+            android:name="com.project.agroworldapp.chatbot.ChatBotActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.activity.DiseasesDetailsActivity"
+            android:name="com.project.agroworldapp.articles.activity.DiseasesDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".payment.activities.PaymentHistoryActivity"
+            android:name="com.project.agroworldapp.payment.activities.PaymentHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".payment.activities.PaymentDetailsActivity"
+            android:name="com.project.agroworldapp.payment.activities.PaymentDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".taskmanager.activity.AddTaskActivity"
+            android:name="com.project.agroworldapp.taskmanager.activity.AddTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.activity.HowToExpandActivity"
+            android:name="com.project.agroworldapp.articles.activity.HowToExpandActivity"
             android:exported="false" />
         <activity
-            android:name=".manufacture.activity.ManufactureDataActivity"
+            android:name="com.project.agroworldapp.manufacture.activity.ManufactureDataActivity"
             android:exported="false" />
         <activity
-            android:name=".transport.activity.TransportDataActivity"
+            android:name="com.project.agroworldapp.transport.activity.TransportDataActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.activity.ArticleDetailsActivity"
+            android:name="com.project.agroworldapp.articles.activity.ArticleDetailsActivity"
             android:exported="false"
             android:launchMode="singleTask" />
         <activity
-            android:name=".weather.activity.WeatherForecastActivity"
+            android:name="com.project.agroworldapp.weather.activity.WeatherForecastActivity"
             android:exported="false" />
-        <activity android:name=".shopping.activity.AddToCartActivity" />
+        <activity android:name="com.project.agroworldapp.shopping.activity.AddToCartActivity" />
         <activity
-            android:name=".articles.activity.DiseasesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".articles.activity.FlowersActivity"
+            android:name="com.project.agroworldapp.articles.activity.DiseasesActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.activity.FruitsActivity"
+            android:name="com.project.agroworldapp.articles.activity.FlowersActivity"
             android:exported="false" />
         <activity
-            android:name=".articles.activity.CropsActivity"
+            android:name="com.project.agroworldapp.articles.activity.FruitsActivity"
             android:exported="false" />
         <activity
-            android:name=".shopping.activity.ProductDetailActivity"
+            android:name="com.project.agroworldapp.articles.activity.CropsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.project.agroworldapp.shopping.activity.ProductDetailActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".manufacture.activity.ManufactureActivity"
+            android:name="com.project.agroworldapp.manufacture.activity.ManufactureActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".transport.activity.TransportActivity"
+            android:name="com.project.agroworldapp.transport.activity.TransportActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.UserProfileActivity"
+            android:name="com.project.agroworldapp.ui.activity.UserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".weather.activity.WeatherActivity"
+            android:name="com.project.agroworldapp.weather.activity.WeatherActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.SignUpActivity"
+            android:name="com.project.agroworldapp.ui.activity.SignUpActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.DashboardActivity"
+            android:name="com.project.agroworldapp.ui.activity.DashboardActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name="com.project.agroworldapp.ui.activity.LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.SplashScreen"
+            android:name="com.project.agroworldapp.ui.activity.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -141,7 +141,7 @@
         </activity>
 
         <receiver
-            android:name=".taskmanager.receiver.SnoozeReceiver"
+            android:name="com.project.agroworldapp.taskmanager.receiver.SnoozeReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
@@ -149,11 +149,11 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".taskmanager.receiver.EventReceiver"
+            android:name="com.project.agroworldapp.taskmanager.receiver.EventReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.project.agroworld" />
+                <action android:name="com.project.agroworldapp" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
                 <category android:name="android.intent.category.DEFAULT" />

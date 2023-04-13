@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.fragments.ProfileFragment">
+        tools:context="com.project.agroworldapp.ui.fragments.ProfileFragment">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/crdHeader"
