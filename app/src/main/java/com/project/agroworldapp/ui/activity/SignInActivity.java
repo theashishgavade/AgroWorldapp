@@ -73,7 +73,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-    * On google account selection it will pass token ID to firebaseAuthWithGoogle\
+     * On google account selection it will pass token ID to firebaseAuthWithGoogle()
      * Once successful It will identify the userType as per it will navigate user to particular screen.
      * */
 

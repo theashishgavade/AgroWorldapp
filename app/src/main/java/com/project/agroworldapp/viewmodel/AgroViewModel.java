@@ -90,7 +90,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<List<DiseasesResponse>>> diseasesMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Resource<List<DiseasesResponse>>> diseasesMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<DiseasesResponse>>> observeDiseaseResponseLivedata = diseasesMutableLiveData;
 
     public void getDiseasesResponseLivedata() {
@@ -116,7 +116,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<List<InsectControlResponse>>> insectControlMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Resource<List<InsectControlResponse>>> insectControlMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<InsectControlResponse>>> observeInsectControlLiveData = insectControlMutableLiveData;
 
     public void getInsectAndControlLivedata() {
@@ -142,7 +142,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<FruitsResponse>>> observeFruitsLiveData = fruitsMutableLiveData;
 
     public void getFruitsResponseLivedata() {
@@ -225,7 +225,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<FlowersResponse>>> observeFlowersLiveData = flowersMutableLiveData;
 
     public void getFlowersResponseLivedata() {
@@ -380,7 +380,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<String>> localizedProductRemovalMutableLivedata = new MutableLiveData<>();
+    private final MutableLiveData<Resource<String>> localizedProductRemovalMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeLocalizedProductRemovalLivedata = localizedProductRemovalMutableLivedata;
 
     public void removeLocalizedProduct(String title) {
@@ -404,7 +404,7 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
-    private MutableLiveData<Resource<String>> uploadPaymentTransactionMutableLivedata = new MutableLiveData<>();
+    private final MutableLiveData<Resource<String>> uploadPaymentTransactionMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeUploadPaymentTransactionLivedata = uploadPaymentTransactionMutableLivedata;
 
     public void uploadTransaction(PaymentModel paymentModel, String email) {

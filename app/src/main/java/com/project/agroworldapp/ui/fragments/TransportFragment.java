@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
 public class TransportFragment extends Fragment implements OnVehicleCallClick {
 
     private final ArrayList<VehicleModel> vehicleItemList = new ArrayList<>();

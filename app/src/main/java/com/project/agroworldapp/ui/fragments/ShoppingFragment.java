@@ -45,8 +45,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     private AgroViewModel agroViewModel;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shopping, container, false);
@@ -130,7 +129,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         });
     }
 
-    public void initializeAgroWorldViewModel() {
+    private void initializeAgroWorldViewModel() {
         AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
         agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, getContext())).get(AgroViewModel.class);
     }

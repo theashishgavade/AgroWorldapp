@@ -35,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        /*
+        /**
         identifyUser()- It will identify user type & It will navigate user to the appropriate screen.
                         -> Manufacturer user
                         -> Transport user
