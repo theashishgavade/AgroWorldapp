@@ -48,7 +48,8 @@ public class AgroViewModel extends ViewModel {
     }
 
     /**
-     * To call the weather api & pass the LiveData to views.
+     *  Call the weather API & return the updated live data to views.
+     *
      */
     private final MutableLiveData<Resource<WeatherResponse>> weatherResponseMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<WeatherResponse>> observeWeatherResponseLivedata = weatherResponseMutableLivedata;
@@ -70,6 +71,11 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     *  For calling the weather forecast api & returning livedata to views.
+     *
+     */
+
     private final MutableLiveData<Resource<WeatherDatesResponse>> weatherDatesMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<WeatherDatesResponse>> observeWeatherDateResourceLiveData = weatherDatesMutableLivedata;
 
@@ -90,6 +96,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will hit the diseases API & return livedata.
+     */
     private final MutableLiveData<Resource<List<DiseasesResponse>>> diseasesMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<DiseasesResponse>>> observeDiseaseResponseLivedata = diseasesMutableLiveData;
 
@@ -116,6 +126,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will identify the language & as per key, It will hit the insect & control API & return livedata.
+     */
     private final MutableLiveData<Resource<List<InsectControlResponse>>> insectControlMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<InsectControlResponse>>> observeInsectControlLiveData = insectControlMutableLiveData;
 
@@ -142,6 +156,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will identify the language & as per key, It will hit the fruits API & return livedata.
+     */
     private final MutableLiveData<Resource<List<FruitsResponse>>> fruitsMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<FruitsResponse>>> observeFruitsLiveData = fruitsMutableLiveData;
 
@@ -169,6 +187,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will identify the language & as per key, It will hit the How to expand API & return livedata.
+     */
     private final MutableLiveData<Resource<List<HowToExpandResponse>>> howToExpandLivedata = new MutableLiveData<>();
     public LiveData<Resource<List<HowToExpandResponse>>> observeHowToExpandLivedata = howToExpandLivedata;
 
@@ -198,6 +220,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will identify the language & as per key, It will hit the crops API & return livedata.
+     */
     private final MutableLiveData<Resource<List<CropsResponse>>> cropsMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<CropsResponse>>> observeCropsLiveData = cropsMutableLiveData;
 
@@ -225,6 +251,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the data from sheetDB.
+     * It will identify the language & as per key, It will hit the flower API & update livedata.
+     */
     private final MutableLiveData<Resource<List<FlowersResponse>>> flowersMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<FlowersResponse>>> observeFlowersLiveData = flowersMutableLiveData;
 
@@ -252,6 +282,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the non-localized product model data from firebase.
+     * Actively it will observe the product model data in firebase
+     */
     private final MutableLiveData<Resource<List<ProductModel>>> productMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<List<ProductModel>>> observeProductLivedata = productMutableLivedata;
 
@@ -280,7 +314,10 @@ public class AgroViewModel extends ViewModel {
             }
         });
     }
-
+    /**
+     * For getting the localized product model data from firebase.
+     * Actively it will observe the product model data in firebase
+     */
     private final MutableLiveData<Resource<List<ProductModel>>> localizedProductMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<List<ProductModel>>> observeLocalizedProductLivedata = localizedProductMutableLivedata;
 
@@ -310,6 +347,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the non-localized vehicle model data from firebase.
+     * Actively it will observe the vehicle model data in firebase
+     */
     private final MutableLiveData<Resource<List<VehicleModel>>> transportResourceMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<VehicleModel>>> observeTransportResourceLiveData = transportResourceMutableLiveData;
 
@@ -339,6 +380,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * For getting the payment transaction from firebase.
+     * It will fetch the transaction using the key of user current email & -transaction.
+     */
     private final MutableLiveData<Resource<List<PaymentModel>>> paymentHistoryMutableLiveData = new MutableLiveData<>();
     public LiveData<Resource<List<PaymentModel>>> observePaymentHistoryLiveData = paymentHistoryMutableLiveData;
 
@@ -368,6 +413,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Block of below code will perform action to remove selected value by checking the product title in firebase product field
+     * & remove the respective product from list, only manufacturer user have this permission
+     */
     private final MutableLiveData<Resource<String>> productRemovalMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeProductRemovalLivedata = productRemovalMutableLivedata;
 
@@ -380,9 +429,12 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Using the code below, the selected value will be removed by checking the product title in the Firebase product field, and removing the respective product from the list.
+     * Only the manufacturer user has access to this functionality.
+     */
     private final MutableLiveData<Resource<String>> localizedProductRemovalMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeLocalizedProductRemovalLivedata = localizedProductRemovalMutableLivedata;
-
     public void removeLocalizedProduct(String title) {
         databaseReference = FirebaseDatabase.getInstance().getReference("Localized_product");
         databaseReference.child(title).removeValue().addOnSuccessListener(product -> {
@@ -392,6 +444,11 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+
+    /**
+     * Using the code below, the selected value will be removed by checking the product title in the Firebase localized product field, and removing the respective product from the list.
+     * Only the manufacturer user has access to this functionality.
+     */
     private final MutableLiveData<Resource<String>> vehicleRemovalMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeVehicleRemovalLivedata = vehicleRemovalMutableLivedata;
 
@@ -404,6 +461,10 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * After the payment transaction has been successfully completed by the user,
+     * it will upload the related transaction details to Firebase using the key of the user's current email and transaction key.
+     **/
     private final MutableLiveData<Resource<String>> uploadPaymentTransactionMutableLivedata = new MutableLiveData<>();
     public LiveData<Resource<String>> observeUploadPaymentTransactionLivedata = uploadPaymentTransactionMutableLivedata;
 
@@ -416,6 +477,9 @@ public class AgroViewModel extends ViewModel {
         });
     }
 
+    /**
+     * Once user made successful transaction it will remove all present cart item from current user list.
+     */
     public void deleteCartData(String email) {
         databaseReference = FirebaseDatabase.getInstance().getReference(email + "-CartItems");
         databaseReference.removeValue().addOnSuccessListener(unused -> Log.d("removeValue", "Cart node deleted successfully"));
