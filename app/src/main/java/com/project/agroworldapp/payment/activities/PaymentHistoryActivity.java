@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,9 +17,11 @@ import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityPaymentHistoryBinding;
 import com.project.agroworldapp.payment.adapter.HistoryAdapter;
 import com.project.agroworldapp.payment.model.PaymentModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -41,9 +43,7 @@ public class PaymentHistoryActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(this);
-
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(this)) {
             binding.tvNoDataFoundErr.setVisibility(View.GONE);
             getTransactionHistoryList(Constants.plainStringEmail(Objects.requireNonNull(user.getEmail())));
@@ -58,7 +58,8 @@ public class PaymentHistoryActivity extends AppCompatActivity {
     private void getTransactionHistoryList(String email) {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
-        agroViewModel.getTransactionList(email).observe(this, paymentModelList -> {
+        agroViewModel.getTransactionList(email);
+        agroViewModel.observePaymentHistoryLiveData.observe(this, paymentModelList -> {
             switch (paymentModelList.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -93,6 +94,11 @@ public class PaymentHistoryActivity extends AppCompatActivity {
         HistoryAdapter historyAdapter = new HistoryAdapter(paymentModelArrayList);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recyclerView.setAdapter(historyAdapter);
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     @Override

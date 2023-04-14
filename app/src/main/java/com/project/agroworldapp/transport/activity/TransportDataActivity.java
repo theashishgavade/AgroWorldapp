@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -18,9 +18,11 @@ import com.project.agroworldapp.databinding.ActivityTransportDataBinding;
 import com.project.agroworldapp.transport.adapter.VehicleAdapter;
 import com.project.agroworldapp.transport.listener.AdminListener;
 import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -36,8 +38,7 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
         binding = DataBindingUtil.setContentView(this, R.layout.activity_transport_data);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(this);
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(this)) {
             getVehicleListFromFirebase();
         }
@@ -66,7 +67,8 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
 
     private void getVehicleListFromFirebase() {
         binding.shimmer.startShimmer();
-        agroViewModel.getVehicleModelLivedata().observe(this, vehicleModelResource -> {
+        agroViewModel.getVehicleModelLivedata();
+        agroViewModel.observeTransportResourceLiveData.observe(this, vehicleModelResource -> {
             switch (vehicleModelResource.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -122,6 +124,11 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
         }
     }
 
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
+    }
+
     @Override
     public void performOnCardClickAction(VehicleModel vehicleModel) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -149,7 +156,8 @@ public class TransportDataActivity extends AppCompatActivity implements AdminLis
         alertDialog.setMessage(getString(R.string.vehicle_remove_message));
         alertDialog.setIcon(R.drawable.app_icon4);
         alertDialog.setPositiveButton(R.string.remove, (dialog, which) -> {
-            agroViewModel.performVehicleRemovalAction(model).observe(this, stringResource -> {
+            agroViewModel.performVehicleRemovalAction(model);
+            agroViewModel.observeVehicleRemovalLivedata.observe(this, stringResource -> {
                 switch (stringResource.status) {
                     case ERROR:
                         Constants.showToast(this, getString(R.string.failed_to_remove_prodcut));

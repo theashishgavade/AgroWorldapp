@@ -22,19 +22,19 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.project.agroworldapp.articles.activity.HowToExpandActivity;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.articles.activity.CropsActivity;
 import com.project.agroworldapp.articles.activity.DiseasesActivity;
 import com.project.agroworldapp.articles.activity.FlowersActivity;
 import com.project.agroworldapp.articles.activity.FruitsActivity;
+import com.project.agroworldapp.articles.activity.HowToExpandActivity;
 import com.project.agroworldapp.databinding.FragmentHomeBinding;
 import com.project.agroworldapp.manufacture.adapter.ProductAdapter;
 import com.project.agroworldapp.shopping.activity.ProductDetailActivity;
@@ -43,10 +43,12 @@ import com.project.agroworldapp.shopping.model.ProductModel;
 import com.project.agroworldapp.transport.adapter.OnVehicleCallClick;
 import com.project.agroworldapp.transport.adapter.VehicleAdapter;
 import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.utils.Resource;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 import com.project.agroworldapp.weather.activity.WeatherActivity;
 import com.project.agroworldapp.weather.model.weather_data.WeatherResponse;
 
@@ -75,7 +77,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
-
+        initializeAgroWorldViewModel();
         if ((ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             askPermission();
         }
@@ -98,8 +100,6 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(getContext());
 
         binding.crdFruits.setOnClickListener(v -> {
             startActivityForResult(new Intent(requireContext(), FruitsActivity.class), Constants.REQUEST_CODE);
@@ -138,7 +138,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        agroViewModel.performWeatherRequest(lat, lon, API_KEY).observe(this, weatherResponseResource -> {
+        agroViewModel.performWeatherRequest(lat, lon, API_KEY);
+        agroViewModel.observeWeatherResponseLivedata.observe(getViewLifecycleOwner(), weatherResponseResource -> {
             switch (weatherResponseResource.status) {
                 case ERROR:
                     binding.weatherProgressbar.setVisibility(View.GONE);
@@ -159,6 +160,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
                     }
             }
         });
+
     }
 
     private void updateUI(WeatherResponse response) {
@@ -179,12 +181,16 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
 
     private void getProductListFromFirebase() {
-        LiveData<Resource<List<ProductModel>>> observeProductLivedata;
-        if (Constants.selectedLanguage(getContext()))
-            observeProductLivedata = agroViewModel.getLocalizedProductDataList();
-        else observeProductLivedata = agroViewModel.getProductModelLivedata();
-
-        observeProductLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
+        LiveData<Resource<List<ProductModel>>> observeProductFirebaseLivedata;
+        boolean selectedAppLanguage = Constants.selectedLanguage(getContext());
+        if (selectedAppLanguage) {
+            agroViewModel.getLocalizedProductDataList();
+            observeProductFirebaseLivedata = agroViewModel.observeLocalizedProductLivedata;
+        } else {
+            agroViewModel.getProductModelLivedata();
+            observeProductFirebaseLivedata = agroViewModel.observeProductLivedata;
+        }
+        observeProductFirebaseLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {
                 case ERROR:
                     binding.shoppingRecyclerView.setVisibility(View.GONE);
@@ -213,7 +219,8 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
     }
 
     private void getVehicleListFromFirebase() {
-        agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
+        agroViewModel.getVehicleModelLivedata();
+        agroViewModel.observeTransportResourceLiveData.observe(getViewLifecycleOwner(), vehicleModelResource -> {
             switch (vehicleModelResource.status) {
                 case ERROR:
                     binding.shoppingRecyclerView.setVisibility(View.GONE);
@@ -239,6 +246,11 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
         binding.transportRecyclerView.setAdapter(vehicleAdapter);
         binding.transportRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.transportRecyclerView.setHasFixedSize(true);
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, getContext())).get(AgroViewModel.class);
     }
 
 

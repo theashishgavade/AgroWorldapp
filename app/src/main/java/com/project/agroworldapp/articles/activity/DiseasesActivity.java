@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -18,9 +18,11 @@ import com.project.agroworldapp.articles.adapter.DiseaseAdapter;
 import com.project.agroworldapp.articles.listener.DiseasesListener;
 import com.project.agroworldapp.articles.model.DiseasesResponse;
 import com.project.agroworldapp.databinding.ActivityDiseasesBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -37,8 +39,7 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.diseases));
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        viewModel.init(this);
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(this)) {
             getDiseasesListFromAPI();
         }
@@ -46,7 +47,8 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
 
     private void getDiseasesListFromAPI() {
         binding.shimmer.startShimmer();
-        viewModel.getDiseasesResponseLivedata().observe(this, resource -> {
+        viewModel.getDiseasesResponseLivedata();
+        viewModel.observeDiseaseResponseLivedata.observe(this, resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -72,6 +74,11 @@ public class DiseasesActivity extends AppCompatActivity implements DiseasesListe
                     break;
             }
         });
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     private void setRecyclerView() {

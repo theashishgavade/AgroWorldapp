@@ -1,4 +1,7 @@
-package com.project.agroworldapp.shopping.activity.repository;
+package com.project.agroworldapp.ui.repository;
+
+import static com.project.agroworldapp.utils.Constants.BASE_URL_SHEET_DB;
+import static com.project.agroworldapp.utils.Constants.BASE_URL_WEATHER;
 
 import com.project.agroworldapp.articles.model.CropsResponse;
 import com.project.agroworldapp.articles.model.DiseasesResponse;
@@ -7,6 +10,7 @@ import com.project.agroworldapp.articles.model.FruitsResponse;
 import com.project.agroworldapp.articles.model.HowToExpandResponse;
 import com.project.agroworldapp.articles.model.InsectControlResponse;
 import com.project.agroworldapp.network.APIService;
+import com.project.agroworldapp.network.Network;
 import com.project.agroworldapp.weather.model.weather_data.WeatherResponse;
 import com.project.agroworldapp.weather.model.weatherlist.WeatherDatesResponse;
 
@@ -15,73 +19,78 @@ import java.util.List;
 import retrofit2.Call;
 
 public class AgroWorldRepositoryImpl implements APIService {
+    APIService apiService = Network.getInstance(BASE_URL_SHEET_DB);
+
     @Override
     public Call<WeatherResponse> getWeatherData(Double lat, Double lon, String apiKey) {
-        return null;
+        apiService = Network.getInstance(BASE_URL_WEATHER);
+        return apiService.getWeatherData(lat, lon, apiKey);
     }
 
     @Override
     public Call<WeatherDatesResponse> getWeatherForecastData(Double lat, Double lon, String apiKey) {
-        return null;
+        apiService = Network.getInstance(BASE_URL_WEATHER);
+        return apiService.getWeatherForecastData(lat, lon, apiKey);
     }
 
     @Override
     public Call<List<DiseasesResponse>> getDiseasesList() {
-        return null;
+        return apiService.getDiseasesList();
     }
+
 
     @Override
     public Call<List<DiseasesResponse>> getLocalizedDiseasesList() {
-        return null;
+        return apiService.getLocalizedDiseasesList();
     }
 
     @Override
     public Call<List<FruitsResponse>> getFruitsFromDB() {
-        return null;
+        return apiService.getFruitsFromDB();
     }
 
     @Override
     public Call<List<FruitsResponse>> getLocalizedFruitsList() {
-        return null;
+        return apiService.getLocalizedFruitsList();
     }
 
     @Override
     public Call<List<FlowersResponse>> getFlowersList() {
-        return null;
+        return apiService.getFlowersList();
     }
 
     @Override
     public Call<List<FlowersResponse>> getLocalizedFlowersList() {
-        return null;
+        return apiService.getLocalizedFlowersList();
     }
 
     @Override
     public Call<List<CropsResponse>> getListOfCrops() {
-        return null;
+        return apiService.getListOfCrops();
     }
 
     @Override
     public Call<List<CropsResponse>> getLocalizedCropsList() {
-        return null;
+        return apiService.getLocalizedCropsList();
     }
 
     @Override
     public Call<List<HowToExpandResponse>> getListOfHowToExpandData() {
-        return null;
+        return apiService.getListOfHowToExpandData();
     }
 
     @Override
     public Call<List<HowToExpandResponse>> getLocalizedHowToExpandData() {
-        return null;
+        return apiService.getLocalizedHowToExpandData();
     }
 
     @Override
     public Call<List<InsectControlResponse>> getInsectAndControlList() {
-        return null;
+        return apiService.getInsectAndControlList();
     }
 
     @Override
     public Call<List<InsectControlResponse>> getLocalizedInsectAndControlList() {
-        return null;
+        return apiService.getLocalizedInsectAndControlList();
     }
 }

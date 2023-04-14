@@ -9,15 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityWeatherForecastBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 import com.project.agroworldapp.weather.adapter.WeatherForecastAdapter;
 import com.project.agroworldapp.weather.listener.WeatherForecastListener;
 import com.project.agroworldapp.weather.model.weatherlist.ListItem;
@@ -34,8 +36,7 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_weather_forecast);
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        viewModel.init(this);
+        initializeAgroWorldViewModel();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(R.string.forecast_weather);
@@ -50,7 +51,8 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
 
     private void callForecastApiService(double lat, double lon) {
         progressBar.showProgressBar();
-        viewModel.performWeatherForecastRequest(lat, lon, Constants.API_KEY).observe(this, weatherDatesResponseResource -> {
+        viewModel.performWeatherForecastRequest(lat, lon, Constants.API_KEY);
+        viewModel.observeWeatherDateResourceLiveData.observe(this, weatherDatesResponseResource -> {
             switch (weatherDatesResponseResource.status) {
                 case ERROR:
                     progressBar.hideProgressBar();
@@ -79,7 +81,11 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
         WeatherForecastAdapter forecastAdapter = new WeatherForecastAdapter(forecastItemArrayList, this);
         binding.recyclerViewForecast.setAdapter(forecastAdapter);
         binding.recyclerViewForecast.setLayoutManager(new GridLayoutManager(WeatherForecastActivity.this, 2));
+    }
 
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     @Override

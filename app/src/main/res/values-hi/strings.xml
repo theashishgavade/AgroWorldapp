@@ -138,6 +138,6 @@
     <string name="change_language">Change Language</string>
     <string name="proceed_with_ideas">विचारों के साथ आगे बढ़ें</string>
     <string name="insect_and_control">कीट और नियंत्रण</string>
-
-
+    <string name="constant_title_error">यह स्थिर है, आप इसे बदल नहीं सकते।</string>
+    <string name="no_payment_transaction_message">ऐसा लगता है कि आपने अभी तक कोई लेन-देन नहीं किया है.</string>
 </resources>

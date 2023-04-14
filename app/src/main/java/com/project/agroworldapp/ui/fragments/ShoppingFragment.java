@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -24,10 +24,12 @@ import com.project.agroworldapp.shopping.activity.AddToCartActivity;
 import com.project.agroworldapp.shopping.activity.ProductDetailActivity;
 import com.project.agroworldapp.shopping.listener.OnProductListener;
 import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.utils.Resource;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +56,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(getContext());
+        initializeAgroWorldViewModel();
         preferenceHelper = PreferenceHelper.getInstance(getContext());
 
         if (Permissions.checkConnection(getContext())) {
@@ -129,15 +130,23 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         });
     }
 
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, getContext())).get(AgroViewModel.class);
+    }
+
     private void getProductListFromFirebase() {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
         LiveData<Resource<List<ProductModel>>> observeProductFirebaseLivedata;
         boolean selectedAppLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
-        if (selectedAppLanguage)
-            observeProductFirebaseLivedata = agroViewModel.getLocalizedProductDataList();
-        else
-            observeProductFirebaseLivedata = agroViewModel.getProductModelLivedata();
+        if (selectedAppLanguage) {
+            agroViewModel.getLocalizedProductDataList();
+            observeProductFirebaseLivedata = agroViewModel.observeLocalizedProductLivedata;
+        } else {
+            agroViewModel.getProductModelLivedata();
+            observeProductFirebaseLivedata = agroViewModel.observeProductLivedata;
+        }
 
         observeProductFirebaseLivedata.observe(getViewLifecycleOwner(), productModelResource -> {
             switch (productModelResource.status) {

@@ -11,6 +11,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,8 +19,10 @@ import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityPaymentDetailsBinding;
 import com.project.agroworldapp.payment.model.PaymentModel;
 import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 import com.razorpay.Checkout;
 import com.razorpay.ExternalWalletListener;
 import com.razorpay.PaymentData;
@@ -51,8 +54,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         user = auth.getCurrentUser();
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        viewModel.init(this);
+        initializeAgroWorldViewModel();
         Checkout.preload(getApplicationContext());
         Intent intent = getIntent();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
@@ -74,10 +76,6 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         alertDialogBuilder = new AlertDialog.Builder(PaymentDetailsActivity.this);
         alertDialogBuilder.setCancelable(false);
         alertDialogBuilder.setTitle("Payment Result");
-
-        viewModel.checkLoadingStatus().observe(this, s -> {
-            Constants.showToast(this, s);
-        });
 
         binding.btnProceed.setOnClickListener(v -> {
             if (amount != 0.0) {
@@ -134,6 +132,11 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     @Override

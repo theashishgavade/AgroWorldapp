@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -16,8 +16,10 @@ import com.project.agroworldapp.articles.adapter.FlowersAdapter;
 import com.project.agroworldapp.articles.listener.FlowerClickListener;
 import com.project.agroworldapp.articles.model.FlowersResponse;
 import com.project.agroworldapp.databinding.ActivityFlowersBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -35,15 +37,15 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.flowers));
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
+        initializeAgroWorldViewModel();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        viewModel.init(this);
         getFlowersListFromApi();
     }
 
     private void getFlowersListFromApi() {
         progressBar.showProgressBar();
-        viewModel.getFlowersResponseLivedata().observe(this, resource -> {
+        viewModel.getFlowersResponseLivedata();
+        viewModel.observeFlowersLiveData.observe(this, resource -> {
             switch (resource.status) {
                 case ERROR:
                     progressBar.hideProgressBar();
@@ -68,6 +70,11 @@ public class FlowersActivity extends AppCompatActivity implements FlowerClickLis
                     break;
             }
         });
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     private void setRecyclerView() {

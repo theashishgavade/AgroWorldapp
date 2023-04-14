@@ -143,7 +143,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.activity.SignInActivity"
             android:exported="false"
             android:screenOrientation="portrait">
             <meta-data

@@ -29,7 +29,7 @@ import com.project.agroworldapp.databinding.ActivityLoginBinding;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 99;
     private static final String TAG = "GoogleLogin";
@@ -49,11 +49,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initViews() {
-        binding.btnGoogleLogin.setOnClickListener(LoginActivity.this);
-        binding.tvNewUser.setOnClickListener(LoginActivity.this);
-        binding.tvForgetPasswd.setOnClickListener(LoginActivity.this);
-        binding.btnLoginUp.setOnClickListener(LoginActivity.this);
-        binding.fabAdminContact.setOnClickListener(LoginActivity.this);
+        binding.btnGoogleLogin.setOnClickListener(SignInActivity.this);
+        binding.tvNewUser.setOnClickListener(SignInActivity.this);
+        binding.tvForgetPasswd.setOnClickListener(SignInActivity.this);
+        binding.btnLoginUp.setOnClickListener(SignInActivity.this);
+        binding.fabAdminContact.setOnClickListener(SignInActivity.this);
     }
 
     private void loginWithGoogle() {
@@ -115,13 +115,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.d(TAG, "");
                         FirebaseUser user = mAuth.getCurrentUser();
                         assert user != null;
-                        Constants.showToast(LoginActivity.this, "signInWithCredential:success\n" + user.getEmail());
-                        Constants.identifyUser(user, LoginActivity.this);
+                        Constants.showToast(SignInActivity.this, "signInWithCredential:success\n" + user.getEmail());
+                        Constants.identifyUser(user, SignInActivity.this);
                         finish();
                     } else {
                         progressBar.hideProgressBar();
                         // If sign in fails, display a message to the user.
-                        Constants.showToast(LoginActivity.this, "signInWithCredential:failure");
+                        Constants.showToast(SignInActivity.this, "signInWithCredential:failure");
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
                     }
                 });
@@ -151,18 +151,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (task.isSuccessful()) {
                     progressBar.hideProgressBar();
                     // Sign in success, update UI with the signed-in user's information
-                    Constants.showToast(LoginActivity.this, "Login Successful");
+                    Constants.showToast(SignInActivity.this, "Login Successful");
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null) {
-                        Constants.identifyUser(user, LoginActivity.this);
+                        Constants.identifyUser(user, SignInActivity.this);
                     } else {
-                        Constants.showToast(LoginActivity.this, "Null user found");
+                        Constants.showToast(SignInActivity.this, "Null user found");
                     }
                 } else {
                     progressBar.hideProgressBar();
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.getException());
-                    Constants.showToast(LoginActivity.this, task.getException().getLocalizedMessage());
+                    Constants.showToast(SignInActivity.this, task.getException().getLocalizedMessage());
                 }
             }
         });
@@ -178,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Constants.showToast(this, "Try to login with new account");
                 break;
             case R.id.tvNewUser:
-                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnLoginUp:
@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .setNegativeButton(android.R.string.no, null)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        LoginActivity.super.onBackPressed();
+                        SignInActivity.super.onBackPressed();
                     }
                 }).create().show();
     }

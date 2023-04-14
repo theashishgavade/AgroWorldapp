@@ -21,8 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.db.PreferenceHelper;
+import com.project.agroworldapp.ui.activity.SignInActivity;
 import com.project.agroworldapp.ui.activity.DashboardActivity;
-import com.project.agroworldapp.ui.activity.LoginActivity;
 import com.project.agroworldapp.ui.activity.UserProfileActivity;
 
 import java.util.Locale;
@@ -116,7 +116,7 @@ public class Constants {
                     auth.signOut();
                     GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
                     GoogleSignIn.getClient(context, gso).revokeAccess();
-                    Intent intent = new Intent(context, LoginActivity.class);
+                    Intent intent = new Intent(context, SignInActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivityForResult(intent, Constants.LOGOUT_REQUEST_CODE);
                     context.finish();
@@ -143,5 +143,4 @@ public class Constants {
         PreferenceHelper helper = PreferenceHelper.getInstance(context);
         return helper.getData(Constants.HINDI_KEY);
     }
-
 }

@@ -10,9 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.articles.activity.ArticleDetailsActivity;
@@ -36,8 +35,10 @@ import com.project.agroworldapp.articles.model.FruitsResponse;
 import com.project.agroworldapp.articles.model.HowToExpandResponse;
 import com.project.agroworldapp.articles.model.InsectControlResponse;
 import com.project.agroworldapp.databinding.FragmentEducationBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -67,8 +68,7 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        viewModel.init(getContext());
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(getContext())) {
             checkPermissionCallApi();
         }
@@ -85,7 +85,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
     private void getCropsListFromApi() {
         binding.progressBarCrop.setVisibility(View.VISIBLE);
-        viewModel.getCropsResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getCropsResponseLivedata();
+        viewModel.observeCropsLiveData.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.progressBarCrop.setVisibility(View.GONE);
@@ -112,9 +113,15 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
         });
     }
 
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, getContext())).get(AgroViewModel.class);
+    }
+
     private void getFlowersListFromApi() {
         binding.progressBarFlower.setVisibility(View.VISIBLE);
-        viewModel.getFlowersResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getFlowersResponseLivedata();
+        viewModel.observeFlowersLiveData.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.progressBarFlower.setVisibility(View.GONE);
@@ -143,7 +150,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
     private void getFruitsListFromApi() {
         binding.progressBarFruit.setVisibility(View.VISIBLE);
-        viewModel.getFruitsResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getFruitsResponseLivedata();
+        viewModel.observeFruitsLiveData.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.progressBarFruit.setVisibility(View.GONE);
@@ -172,7 +180,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
     private void getExpandListFromApi() {
         binding.progressBarExpand.setVisibility(View.VISIBLE);
-        viewModel.getHowToExpandResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getHowToExpandResponseLivedata();
+        viewModel.observeHowToExpandLivedata.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.progressBarExpand.setVisibility(View.GONE);
@@ -200,7 +209,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
     }
 
     private void getDiseasesList() {
-        viewModel.getDiseasesResponseLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getDiseasesResponseLivedata();
+        viewModel.observeDiseaseResponseLivedata.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.rvDiseasesEd.setVisibility(View.GONE);
@@ -227,7 +237,8 @@ public class EducationFragment extends Fragment implements CropsClickListener, F
 
     private void getInsectAndControlData() {
         binding.progressBarInsect.setVisibility(View.VISIBLE);
-        viewModel.getInsectAndControlLivedata().observe(getViewLifecycleOwner(), resource -> {
+        viewModel.getInsectAndControlLivedata();
+        viewModel.observeInsectControlLiveData.observe(getViewLifecycleOwner(), resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.progressBarInsect.setVisibility(View.GONE);

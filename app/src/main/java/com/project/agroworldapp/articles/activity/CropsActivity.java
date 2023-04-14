@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -16,9 +16,11 @@ import com.project.agroworldapp.articles.adapter.CropsAdapter;
 import com.project.agroworldapp.articles.listener.CropsClickListener;
 import com.project.agroworldapp.articles.model.CropsResponse;
 import com.project.agroworldapp.databinding.ActivityCropsBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -37,9 +39,8 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.crops));
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
+        initializeAgroWorldViewModel();
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        viewModel.init(this);
         if (Permissions.checkConnection(this)) {
             getCropsListFromApi();
         }
@@ -47,7 +48,8 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
 
     private void getCropsListFromApi() {
         progressBar.showProgressBar();
-        viewModel.getCropsResponseLivedata().observe(this, resource -> {
+        viewModel.getCropsResponseLivedata();
+        viewModel.observeCropsLiveData.observe(this, resource -> {
             switch (resource.status) {
                 case ERROR:
                     progressBar.hideProgressBar();
@@ -87,6 +89,11 @@ public class CropsActivity extends AppCompatActivity implements CropsClickListen
         intent.putExtra("itemResponse", response);
         intent.putExtra("isCropResponse", true);
         startActivity(intent);
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     @Override

@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +24,12 @@ import com.google.firebase.storage.StorageReference;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityTransportBinding;
 import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.CustomMultiColorProgressBar;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.Locale;
 
@@ -48,8 +51,6 @@ public class TransportActivity extends AppCompatActivity {
         actionBar.setTitle("Transport Panel");
         actionBar.setDisplayHomeAsUpEnabled(true);
         progressBar = new CustomMultiColorProgressBar(this, getString(R.string.loader_message));
-        AgroViewModel agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(this);
 
         Intent intent = getIntent();
         boolean isActionWithData = intent.getBooleanExtra("isActionWithData", false);

@@ -14,7 +14,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -22,10 +22,11 @@ import com.project.agroworldapp.databinding.FragmentTransportBinding;
 import com.project.agroworldapp.transport.adapter.OnVehicleCallClick;
 import com.project.agroworldapp.transport.adapter.VehicleAdapter;
 import com.project.agroworldapp.transport.model.VehicleModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
-import com.project.agroworldapp.utils.Resource;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,8 +46,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_transport, container, false);
         return binding.getRoot();
@@ -57,8 +57,7 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
         super.onViewCreated(view, savedInstanceState);
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         actionBar.hide();
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(getContext());
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(getContext())) {
             getVehicleListFromFirebase();
         } else {
@@ -137,7 +136,8 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
     private void getVehicleListFromFirebase() {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
-        agroViewModel.getVehicleModelLivedata().observe(getViewLifecycleOwner(), vehicleModelResource -> {
+        agroViewModel.getVehicleModelLivedata();
+        agroViewModel.observeTransportResourceLiveData.observe(getViewLifecycleOwner(), vehicleModelResource -> {
             switch (vehicleModelResource.status) {
                 case ERROR:
                     binding.shimmer.stopShimmer();
@@ -167,6 +167,11 @@ public class TransportFragment extends Fragment implements OnVehicleCallClick {
                     break;
             }
         });
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, getContext())).get(AgroViewModel.class);
     }
 
     private void setRecyclerView() {

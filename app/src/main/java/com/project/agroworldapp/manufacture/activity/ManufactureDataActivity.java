@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,10 +22,12 @@ import com.project.agroworldapp.manufacture.adapter.ProductAdapter;
 import com.project.agroworldapp.manufacture.listener.ManufactureAdminListener;
 import com.project.agroworldapp.shopping.activity.ProductDetailActivity;
 import com.project.agroworldapp.shopping.model.ProductModel;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Constants;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.utils.Resource;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +54,7 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         actionBar.hide();
         Intent intent = getIntent();
         isLocalizedData = intent.getBooleanExtra("localizedData", false);
-        agroViewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        agroViewModel.init(this);
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(this)) {
             getProductListFromFirebase();
         }
@@ -86,10 +87,13 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
 
     private void getProductListFromFirebase() {
         LiveData<Resource<List<ProductModel>>> observeProductData;
-        if (!isLocalizedData)
-            observeProductData = agroViewModel.getProductModelLivedata();
-        else
-            observeProductData = agroViewModel.getLocalizedProductDataList();
+        if (!isLocalizedData) {
+            agroViewModel.getProductModelLivedata();
+            observeProductData = agroViewModel.observeProductLivedata;
+        } else {
+            agroViewModel.getLocalizedProductDataList();
+            observeProductData = agroViewModel.observeLocalizedProductLivedata;
+        }
 
         observeProductData.observe(this, productModelResource -> {
             switch (productModelResource.status) {
@@ -124,6 +128,11 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
         });
     }
 
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        agroViewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
+    }
+
     private void setRecyclerView() {
         productAdapter = new ProductAdapter(this, productModelArrayList, this, 0);
         binding.recyclerView.setAdapter(productAdapter);
@@ -139,10 +148,13 @@ public class ManufactureDataActivity extends AppCompatActivity implements Manufa
 
         alertDialog.setPositiveButton(R.string.remove, (dialog, which) -> {
             LiveData<Resource<String>> observeProductRemovalStatus;
-            if (isLocalizedData)
-                observeProductRemovalStatus = agroViewModel.removeLocalizedProduct(productModel.getTitle());
-            else
-                observeProductRemovalStatus = agroViewModel.removeProductFromFirebase(productModel.getTitle());
+            if (isLocalizedData) {
+                agroViewModel.removeLocalizedProduct(productModel.getTitle());
+                observeProductRemovalStatus = agroViewModel.observeLocalizedProductRemovalLivedata;
+            } else {
+                agroViewModel.removeProductFromFirebase(productModel.getTitle());
+                observeProductRemovalStatus = agroViewModel.observeProductRemovalLivedata;
+            }
 
             observeProductRemovalStatus.observe(this, stringResource -> {
                 switch (stringResource.status) {

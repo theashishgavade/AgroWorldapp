@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
         binding.tvHaveAnAccountUp.setOnClickListener(v -> {
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
             finish();
         });
 
@@ -101,7 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
                 progressBar.hideProgressBar();
                 // Sign in success, update UI with the signed-in user's information
                 Constants.showToast(SignUpActivity.this, "createUserWithEmail:success");
-                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                 finish();
             } else {
                 progressBar.hideProgressBar();

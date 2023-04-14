@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.project.agroworldapp.R;
@@ -16,8 +16,10 @@ import com.project.agroworldapp.articles.adapter.HowToExpandAdapter;
 import com.project.agroworldapp.articles.listener.ExpandClickListener;
 import com.project.agroworldapp.articles.model.HowToExpandResponse;
 import com.project.agroworldapp.databinding.ActivityHowToExpandBinding;
+import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
 import com.project.agroworldapp.utils.Permissions;
 import com.project.agroworldapp.viewmodel.AgroViewModel;
+import com.project.agroworldapp.viewmodel.AgroWorldViewModelFactory;
 
 import java.util.ArrayList;
 
@@ -35,8 +37,7 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(getString(R.string.how_to_expand));
-        viewModel = new ViewModelProvider(this).get(AgroViewModel.class);
-        viewModel.init(this);
+        initializeAgroWorldViewModel();
         if (Permissions.checkConnection(this)) {
             getExpandListFromApi();
         }
@@ -44,7 +45,8 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
 
     private void getExpandListFromApi() {
         binding.expandProgressBar.setVisibility(View.VISIBLE);
-        viewModel.getHowToExpandResponseLivedata().observe(this, resource -> {
+        viewModel.getHowToExpandResponseLivedata();
+        viewModel.observeHowToExpandLivedata.observe(this, resource -> {
             switch (resource.status) {
                 case ERROR:
                     binding.expandProgressBar.setVisibility(View.GONE);
@@ -68,6 +70,11 @@ public class HowToExpandActivity extends AppCompatActivity implements ExpandClic
                     break;
             }
         });
+    }
+
+    public void initializeAgroWorldViewModel() {
+        AgroWorldRepositoryImpl agroWorldRepository = new AgroWorldRepositoryImpl();
+        viewModel = ViewModelProviders.of(this, new AgroWorldViewModelFactory(agroWorldRepository, this)).get(AgroViewModel.class);
     }
 
     private void setRecyclerView() {
