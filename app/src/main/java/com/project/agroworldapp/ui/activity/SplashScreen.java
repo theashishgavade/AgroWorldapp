@@ -23,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceHelper = PreferenceHelper.getInstance(this);
-        boolean isHindi = preferenceHelper.getData(BuildConfig.HINDI_KEY);
+        boolean isHindi = preferenceHelper.getData(Constants.HINDI_KEY);
         if (isHindi) {
             Constants.setAppLocale(SplashScreen.this, "hi");
         } else {

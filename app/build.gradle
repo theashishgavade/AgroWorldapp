@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
-
 }
 
 android {
@@ -13,14 +12,12 @@ android {
         applicationId "com.project.agroworldapp"
         minSdk 21
         targetSdk 32
-        versionCode 5
-        versionName "3.0.5"
+        versionCode 6
+        versionName "3.0.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "RAZORPAY_KEY_ID", RAZORPAY_KEY_ID
         buildConfigField "String", "CHAT_BOT_API", CHAT_BOT_API
-        buildConfigField "String", "ENGLISH_KEY", ENGLISH_KEY
-        buildConfigField "String", "HINDI_KEY", HINDI_KEY
         buildConfigField "String", "BRAIN_ID", BRAIN_ID
         buildConfigField "String", "API_KEY", API_KEY
 

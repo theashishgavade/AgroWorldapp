@@ -33,6 +33,8 @@ public class Constants {
     public static final int GPS_REQUEST_CODE = 999;
     public static final int LOGOUT_REQUEST_CODE = 129;
     public static final String ALARM_ID = "AlarmID";
+    public static final String ENGLISH_KEY = "EnglishLanguage";
+    public static final String HINDI_KEY = "HindiLanguage";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
     public static final String ABOUT_US_PAGE = "https://elastic-homegrown-53c.notion.site/AgroWorld-db0062bdf0ff4596a645186227edd9f8";
@@ -47,19 +49,12 @@ public class Constants {
 
     public static void identifyUser(FirebaseUser user, Context context) {
         if (user.getEmail() != null) {
-            if (user.getEmail().equals("devdeveloper66@gmail.com") ||
-                    user.getEmail().equals("theashishgavade@gmail.com") ||
-                    user.getEmail().equals("skhedekar431@gmail.com")
-            ) {
+            if (user.getEmail().equals("devdeveloper66@gmail.com") || user.getEmail().equals("theashishgavade@gmail.com") || user.getEmail().equals("skhedekar431@gmail.com")) {
                 //Manufacture user
                 Intent manufacturerIntent = new Intent(context, UserProfileActivity.class);
                 manufacturerIntent.putExtra("manufacturerUser", "manufacturer");
                 context.startActivity(manufacturerIntent);
-            } else if (user.getEmail().equals("nap.napster08@gmail.com") ||
-                    user.getEmail().equals("devenpadhye.dp@gmail.com") ||
-                    user.getEmail().equals("ashugavade57@gmail.com") ||
-                    user.getEmail().equals("rohitg2801@gmail.com")
-            ) {
+            } else if (user.getEmail().equals("nap.napster08@gmail.com") || user.getEmail().equals("devenpadhye.dp@gmail.com") || user.getEmail().equals("ashugavade57@gmail.com") || user.getEmail().equals("rohitg2801@gmail.com")) {
                 //transport user
                 Intent transportIntent = new Intent(context, UserProfileActivity.class);
                 transportIntent.putExtra("transportUser", "transport");
@@ -98,24 +93,18 @@ public class Constants {
     }
 
     public static void logoutAlertMessage(Activity context, FirebaseAuth auth) {
-        new AlertDialog.Builder(context)
-                .setTitle(context.getString(R.string.logout))
-                .setIcon(R.drawable.app_icon4)
-                .setMessage(context.getString(R.string.logout_alert_message))
-                .setCancelable(true)
-                .setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                    dialog.dismiss();
-                })
-                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+        new AlertDialog.Builder(context).setTitle(context.getString(R.string.logout)).setIcon(R.drawable.app_icon4).setMessage(context.getString(R.string.logout_alert_message)).setCancelable(true).setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            dialog.dismiss();
+        }).setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
 
-                    auth.signOut();
-                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
-                    GoogleSignIn.getClient(context, gso).revokeAccess();
-                    Intent intent = new Intent(context, SignInActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivityForResult(intent, Constants.LOGOUT_REQUEST_CODE);
-                    context.finish();
-                }).create().show();
+            auth.signOut();
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(context.getString(R.string.default_web_client_id)).requestEmail().build();
+            GoogleSignIn.getClient(context, gso).revokeAccess();
+            Intent intent = new Intent(context, SignInActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivityForResult(intent, Constants.LOGOUT_REQUEST_CODE);
+            context.finish();
+        }).create().show();
     }
 
     public static String plainStringEmail(String email) {
@@ -136,6 +125,6 @@ public class Constants {
 
     public static boolean selectedLanguage(Context context) {
         PreferenceHelper helper = PreferenceHelper.getInstance(context);
-        return helper.getData("HINDI_KEY");
+        return helper.getData(HINDI_KEY);
     }
 }

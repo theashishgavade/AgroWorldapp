@@ -70,7 +70,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_cart);
         preferenceHelper = PreferenceHelper.getInstance(this);
-        selectedLanguage = preferenceHelper.getData(BuildConfig.HINDI_KEY);
+        selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
         actionBar = getSupportActionBar();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

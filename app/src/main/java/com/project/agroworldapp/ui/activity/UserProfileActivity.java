@@ -145,15 +145,15 @@ public class UserProfileActivity extends AppCompatActivity {
                 return true;
             case R.id.adminHindiLang:
                 setAppLocale(this, "hi");
-                preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, false);
-                preferenceHelper.saveData(BuildConfig.HINDI_KEY, true);
+                preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
+                preferenceHelper.saveData(Constants.HINDI_KEY, true);
                 startActivity(new Intent(this, SplashScreen.class));
                 finish();
                 return true;
             case R.id.adminEnglishLang:
                 setAppLocale(this, "en");
-                preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, true);
-                preferenceHelper.saveData(BuildConfig.HINDI_KEY, false);
+                preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
+                preferenceHelper.saveData(Constants.HINDI_KEY, false);
                 startActivity(new Intent(this, SplashScreen.class));
                 finish();
                 return true;

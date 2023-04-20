@@ -139,7 +139,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
         LiveData<Resource<List<ProductModel>>> observeProductFirebaseLivedata;
-        boolean selectedAppLanguage = preferenceHelper.getData(BuildConfig.HINDI_KEY);
+        boolean selectedAppLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
         if (selectedAppLanguage) {
             agroViewModel.getLocalizedProductDataList();
             observeProductFirebaseLivedata = agroViewModel.observeLocalizedProductLivedata;

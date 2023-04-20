@@ -1,5 +1,7 @@
 package com.project.agroworldapp.ui.fragments;
 
+import static com.project.agroworldapp.utils.Constants.ENGLISH_KEY;
+import static com.project.agroworldapp.utils.Constants.HINDI_KEY;
 import static com.project.agroworldapp.utils.Constants.setAppLocale;
 
 import android.app.AlarmManager;
@@ -88,8 +90,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_english_lng:
                         setAppLocale(getContext(), "en");
-                        preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, true);
-                        preferenceHelper.saveData(BuildConfig.HINDI_KEY, false);
+                        preferenceHelper.saveData(ENGLISH_KEY, true);
+                        preferenceHelper.saveData(HINDI_KEY, false);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
                         Intent intent = new Intent(getContext(), DashboardActivity.class);
                         startActivity(intent);
@@ -97,8 +99,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                         return true;
                     case R.id.menu_hindi_lng:
                         setAppLocale(getContext(), "hi");
-                        preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, false);
-                        preferenceHelper.saveData(BuildConfig.HINDI_KEY, true);
+                        preferenceHelper.saveData(ENGLISH_KEY, false);
+                        preferenceHelper.saveData(HINDI_KEY, true);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
                         Intent intent1 = new Intent(getContext(), DashboardActivity.class);
                         startActivity(intent1);
