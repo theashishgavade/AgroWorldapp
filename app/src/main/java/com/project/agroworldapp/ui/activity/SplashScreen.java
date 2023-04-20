@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.db.PreferenceHelper;
 import com.project.agroworldapp.utils.Constants;
@@ -22,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceHelper = PreferenceHelper.getInstance(this);
-        boolean isHindi = preferenceHelper.getData(Constants.HINDI_KEY);
+        boolean isHindi = preferenceHelper.getData(BuildConfig.HINDI_KEY);
         if (isHindi) {
             Constants.setAppLocale(SplashScreen.this, "hi");
         } else {

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bumptech.glide.Glide;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityWeatherBinding;
 import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
@@ -69,7 +70,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
 
     private void callApiService(Double lat, Double lon) {
         progressBar.showProgressBar();
-        viewModel.performWeatherRequest(lat, lon, Constants.API_KEY);
+        viewModel.performWeatherRequest(lat, lon, BuildConfig.API_KEY);
         viewModel.observeWeatherResponseLivedata.observe(this, weatherResponseResource -> {
             switch (weatherResponseResource.status) {
                 case ERROR:
@@ -96,7 +97,7 @@ public class WeatherActivity extends AppCompatActivity implements WeatherForecas
     private void callForecastApiService(double lat, double lon) {
         binding.forecastProgressBar.setVisibility(View.VISIBLE);
         binding.tvForecastNoDataFound.setVisibility(View.GONE);
-        viewModel.performWeatherForecastRequest(lat, lon, Constants.API_KEY);
+        viewModel.performWeatherForecastRequest(lat, lon, BuildConfig.API_KEY);
         viewModel.observeWeatherDateResourceLiveData.observe(this, weatherDatesResponseResource -> {
             switch (weatherDatesResponseResource.status) {
                 case ERROR:

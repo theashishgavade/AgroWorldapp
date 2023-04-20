@@ -8,6 +8,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.utils.Constants;
 
 import org.json.JSONException;
@@ -34,7 +35,7 @@ public class PerformRequest {
 
     public void getResponse(String message, final ChatBotListener volleyResponseListener) {
         message = formatMessage(message);
-        String url = "http://api.brainshop.ai/get?bid=" + Constants.BRAIN_ID + "&key=" + Constants.CHAT_BOT_API + "&uid=1&msg=" + message;
+        String url = "http://api.brainshop.ai/get?bid=" + BuildConfig.BRAIN_ID + "&key=" + BuildConfig.CHAT_BOT_API + "&uid=1&msg=" + message;
         Log.d("URL", url);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

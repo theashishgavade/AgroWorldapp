@@ -1,8 +1,6 @@
 package com.project.agroworldapp.ui.fragments;
 
 
-import static com.project.agroworldapp.utils.Constants.API_KEY;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -29,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.articles.activity.CropsActivity;
 import com.project.agroworldapp.articles.activity.DiseasesActivity;
@@ -138,7 +137,7 @@ public class HomeFragment extends Fragment implements OnProductListener, OnVehic
 
     private void callApiService(Double lat, Double lon) {
         binding.weatherProgressbar.setVisibility(View.VISIBLE);
-        agroViewModel.performWeatherRequest(lat, lon, API_KEY);
+        agroViewModel.performWeatherRequest(lat, lon, BuildConfig.API_KEY);
         agroViewModel.observeWeatherResponseLivedata.observe(getViewLifecycleOwner(), weatherResponseResource -> {
             switch (weatherResponseResource.status) {
                 case ERROR:

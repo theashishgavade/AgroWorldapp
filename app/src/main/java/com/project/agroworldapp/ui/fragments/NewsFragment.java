@@ -1,6 +1,7 @@
 package com.project.agroworldapp.ui.fragments;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.FragmentNewsBinding;
 import com.project.agroworldapp.db.PreferenceHelper;
@@ -47,7 +49,7 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.newsProgressBar.setVisibility(View.VISIBLE);
-        boolean selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+        boolean selectedLanguage = preferenceHelper.getData(BuildConfig.HINDI_KEY);
         WebView webView = view.findViewById(R.id.newsWebView);
         webView.setWebViewClient(new AgroNews());
         WebSettings settings = webView.getSettings();

@@ -26,6 +26,16 @@ public class PreferenceHelper {
         prefsEditor.apply();
     }
 
+    public void saveID(String key, int value) {
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+        prefsEditor.putInt(key, value);
+        prefsEditor.apply();
+    }
+
+    public int getAlarmID(String key) {
+        return sharedPreferences.getInt(key, 0);
+    }
+
     public boolean getData(String key) {
         if (sharedPreferences != null) {
             return sharedPreferences.getBoolean(key, false);

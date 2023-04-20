@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityAddToCartBinding;
 import com.project.agroworldapp.db.PreferenceHelper;
@@ -69,7 +70,7 @@ public class AddToCartActivity extends AppCompatActivity implements ItemCartActi
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_to_cart);
         preferenceHelper = PreferenceHelper.getInstance(this);
-        selectedLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+        selectedLanguage = preferenceHelper.getData(BuildConfig.HINDI_KEY);
         actionBar = getSupportActionBar();
         FirebaseAuth auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();

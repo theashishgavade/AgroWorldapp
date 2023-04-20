@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityWeatherForecastBinding;
 import com.project.agroworldapp.ui.repository.AgroWorldRepositoryImpl;
@@ -51,7 +52,7 @@ public class WeatherForecastActivity extends AppCompatActivity implements Weathe
 
     private void callForecastApiService(double lat, double lon) {
         progressBar.showProgressBar();
-        viewModel.performWeatherForecastRequest(lat, lon, Constants.API_KEY);
+        viewModel.performWeatherForecastRequest(lat, lon, BuildConfig.API_KEY);
         viewModel.observeWeatherDateResourceLiveData.observe(this, weatherDatesResponseResource -> {
             switch (weatherDatesResponseResource.status) {
                 case ERROR:

@@ -59,6 +59,17 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        viewModel.getMaxIDCount().observe(getViewLifecycleOwner(), integer -> {
+            if (integer != null) {
+                maxIDCount = integer;
+                printLog("taskMaxID-ViewModel " + maxIDCount);
+            }
+        });
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         auth = FirebaseAuth.getInstance();
@@ -77,8 +88,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_english_lng:
                         setAppLocale(getContext(), "en");
-                        preferenceHelper.saveData(Constants.ENGLISH_KEY, true);
-                        preferenceHelper.saveData(Constants.HINDI_KEY, false);
+                        preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, true);
+                        preferenceHelper.saveData(BuildConfig.HINDI_KEY, false);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
                         Intent intent = new Intent(getContext(), DashboardActivity.class);
                         startActivity(intent);
@@ -86,8 +97,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
                         return true;
                     case R.id.menu_hindi_lng:
                         setAppLocale(getContext(), "hi");
-                        preferenceHelper.saveData(Constants.ENGLISH_KEY, false);
-                        preferenceHelper.saveData(Constants.HINDI_KEY, true);
+                        preferenceHelper.saveData(BuildConfig.ENGLISH_KEY, false);
+                        preferenceHelper.saveData(BuildConfig.HINDI_KEY, true);
                         Constants.showToast(getContext(), getString(R.string.launguage_updated));
                         Intent intent1 = new Intent(getContext(), DashboardActivity.class);
                         startActivity(intent1);
@@ -143,13 +154,6 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
 
         dataBinding.btnTransHistory.setOnClickListener(v -> {
             startActivityForResult(new Intent(getContext(), PaymentHistoryActivity.class), Constants.REQUEST_CODE);
-        });
-
-        viewModel.getMaxIDCount().observe(getViewLifecycleOwner(), integer -> {
-            if (integer != null) {
-                maxIDCount = integer;
-                printLog("taskMaxID-ViewModel " + maxIDCount);
-            }
         });
     }
 
@@ -219,9 +223,8 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         intent.putExtra("date", "ignore");
         intent.putExtra("setNotify", "SetNotificationNot");
         PendingIntent pi = PendingIntent.getBroadcast(requireActivity(), id, intent, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-        assert am != null;
         am.cancel(pi);
-        printLog("Alarm deactivated for " + id);
+        printLog("Alarm deactivated for maxIDCount " + id);
     }
 
     private void printLog(String message) {

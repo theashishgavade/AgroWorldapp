@@ -40,11 +40,12 @@ public class AgroViewModel extends ViewModel {
     AgroWorldRepositoryImpl repository;
     private DatabaseReference databaseReference;
     private Context context;
-    boolean selectedLanguage = Constants.selectedLanguage(context);
+    boolean selectedLanguage;
 
     public AgroViewModel(AgroWorldRepositoryImpl repository, Context context) {
         this.repository = repository;
         this.context = context;
+        selectedLanguage = Constants.selectedLanguage(context);
     }
 
     /**
@@ -58,7 +59,7 @@ public class AgroViewModel extends ViewModel {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    weatherResponseMutableLivedata.postValue(Resource.success(response.body()));
+                    weatherResponseMutableLivedata.setValue(Resource.success(response.body()));
                 } else {
                     weatherResponseMutableLivedata.postValue(Resource.error(response.message(), null));
                 }
@@ -84,7 +85,7 @@ public class AgroViewModel extends ViewModel {
             @Override
             public void onResponse(Call<WeatherDatesResponse> call, Response<WeatherDatesResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    weatherDatesMutableLivedata.postValue(Resource.success(response.body()));
+                    weatherDatesMutableLivedata.setValue(Resource.success(response.body()));
                 } else {
                     weatherDatesMutableLivedata.postValue(Resource.error(response.message(), null));
                 }
@@ -121,7 +122,7 @@ public class AgroViewModel extends ViewModel {
             }
             @Override
             public void onFailure(@NonNull Call<List<DiseasesResponse>> call, @NonNull Throwable t) {
-                diseasesMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+                diseasesMutableLiveData.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -151,7 +152,7 @@ public class AgroViewModel extends ViewModel {
             }
             @Override
             public void onFailure(@NonNull Call<List<InsectControlResponse>> call, @NonNull Throwable t) {
-                insectControlMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+                insectControlMutableLiveData.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -182,7 +183,7 @@ public class AgroViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<List<FruitsResponse>> call, @NonNull Throwable t) {
-                fruitsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+                fruitsMutableLiveData.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -215,7 +216,7 @@ public class AgroViewModel extends ViewModel {
             @Override
             public void onFailure(@NonNull Call<List<HowToExpandResponse>> call, @NonNull Throwable t) {
                 Constants.printLog(t.getMessage() + " getHowToExpandResponse");
-                howToExpandLivedata.setValue(Resource.error(t.getLocalizedMessage(), null));
+                howToExpandLivedata.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -246,7 +247,7 @@ public class AgroViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<List<CropsResponse>> call, @NonNull Throwable t) {
-                cropsMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+                cropsMutableLiveData.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -271,13 +272,13 @@ public class AgroViewModel extends ViewModel {
                 if (response.isSuccessful() && response.body() != null) {
                     flowersMutableLiveData.setValue(Resource.success(response.body()));
                 } else {
-                    flowersMutableLiveData.setValue(Resource.error(context.getString(R.string.token_expired), null));
+                    flowersMutableLiveData.postValue(Resource.error(context.getString(R.string.token_expired), null));
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<FlowersResponse>> call, @NonNull Throwable t) {
-                flowersMutableLiveData.setValue(Resource.error(t.getLocalizedMessage(), null));
+                flowersMutableLiveData.postValue(Resource.error(t.getLocalizedMessage(), null));
             }
         });
     }
@@ -310,7 +311,7 @@ public class AgroViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                productMutableLivedata.setValue(Resource.error(error.getMessage(), null));
+                productMutableLivedata.postValue(Resource.error(error.getMessage(), null));
             }
         });
     }
@@ -342,7 +343,7 @@ public class AgroViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                localizedProductMutableLivedata.setValue(Resource.error(error.getMessage(), null));
+                localizedProductMutableLivedata.postValue(Resource.error(error.getMessage(), null));
             }
         });
     }
@@ -375,7 +376,7 @@ public class AgroViewModel extends ViewModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                transportResourceMutableLiveData.setValue(Resource.error(error.getMessage(), null));
+                transportResourceMutableLiveData.postValue(Resource.error(error.getMessage(), null));
             }
         });
     }

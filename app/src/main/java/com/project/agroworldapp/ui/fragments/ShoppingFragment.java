@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.FragmentShoppingBinding;
 import com.project.agroworldapp.db.PreferenceHelper;
@@ -138,7 +139,7 @@ public class ShoppingFragment extends Fragment implements OnProductListener {
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
         LiveData<Resource<List<ProductModel>>> observeProductFirebaseLivedata;
-        boolean selectedAppLanguage = preferenceHelper.getData(Constants.HINDI_KEY);
+        boolean selectedAppLanguage = preferenceHelper.getData(BuildConfig.HINDI_KEY);
         if (selectedAppLanguage) {
             agroViewModel.getLocalizedProductDataList();
             observeProductFirebaseLivedata = agroViewModel.observeLocalizedProductLivedata;

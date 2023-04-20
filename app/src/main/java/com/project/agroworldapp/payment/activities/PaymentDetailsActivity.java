@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.databinding.ActivityPaymentDetailsBinding;
 import com.project.agroworldapp.payment.model.PaymentModel;
@@ -88,7 +89,7 @@ public class PaymentDetailsActivity extends AppCompatActivity implements Payment
         printLog("Amount - " + amount);
         final Activity activity = this;
         final Checkout checkout = new Checkout();
-        checkout.setKeyID(Constants.RAZORPAY_KEY_ID);
+        checkout.setKeyID(BuildConfig.RAZORPAY_KEY_ID);
         try {
             JSONObject options = new JSONObject();
             options.put("name", "Agro World");

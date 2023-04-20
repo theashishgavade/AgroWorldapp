@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.db.PreferenceHelper;
 import com.project.agroworldapp.ui.adapter.FragmentAdapter;
@@ -41,7 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         preferenceHelper = PreferenceHelper.getInstance(this);
-        boolean isHindi = preferenceHelper.getData(Constants.HINDI_KEY);
+        boolean isHindi = preferenceHelper.getData(BuildConfig.HINDI_KEY);
         if (isHindi) {
             Constants.setAppLocale(DashboardActivity.this, "hi");
         } else {

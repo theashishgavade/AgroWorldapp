@@ -22,7 +22,7 @@ public class EventReceiver extends BroadcastReceiver {
             String date = bundle.getString("date");
             String time = bundle.getString("time");
             int maxIDCount = bundle.getInt("maxIDCount", 0);
-            System.out.println("EventReceiverID " + maxIDCount);
+            System.out.println("EventReceiverMaxID " + maxIDCount);
 
             if (bundle.getString("setNotify").equalsIgnoreCase("SetNotification")) {
                 MusicControl.getInstance(context).playMusic();

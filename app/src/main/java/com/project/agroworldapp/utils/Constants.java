@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.project.agroworldapp.BuildConfig;
 import com.project.agroworldapp.R;
 import com.project.agroworldapp.db.PreferenceHelper;
 import com.project.agroworldapp.ui.activity.SignInActivity;
@@ -28,16 +29,10 @@ import com.project.agroworldapp.ui.activity.UserProfileActivity;
 import java.util.Locale;
 
 public class Constants {
-    public static final String API_KEY = "92f4e9a9c233be99f0b33d1c58c72386";
     public static final int REQUEST_CODE = 99;
     public static final int GPS_REQUEST_CODE = 999;
     public static final int LOGOUT_REQUEST_CODE = 129;
-    public static final int LANGUAGE_REQUEST_CODE = 139;
-    public static final String ENGLISH_KEY = "EnglishLang";
-    public static final String HINDI_KEY = "HindiLang";
-    public static final String CHAT_BOT_API = "HC5OGdHhUQPzfMOy";
-    public static final String BRAIN_ID = "174019";
-    public static final String RAZORPAY_KEY_ID = "rzp_test_HrFw0vaoVIDlP9";
+    public static final String ALARM_ID = "AlarmID";
     public static final String BASE_URL_SHEET_DB = "https://sheetdb.io/api/v1/";
     public static final String BASE_URL_WEATHER = "https://api.openweathermap.org/data/2.5/";
     public static final String ABOUT_US_PAGE = "https://elastic-homegrown-53c.notion.site/AgroWorld-db0062bdf0ff4596a645186227edd9f8";
@@ -141,6 +136,6 @@ public class Constants {
 
     public static boolean selectedLanguage(Context context) {
         PreferenceHelper helper = PreferenceHelper.getInstance(context);
-        return helper.getData(Constants.HINDI_KEY);
+        return helper.getData("HINDI_KEY");
     }
 }
