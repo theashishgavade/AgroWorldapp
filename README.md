@@ -40,6 +40,6 @@ It is a farming application that helps farmers to track climate data and forecas
 * [Ashish Gavade](https://www.instagram.com/theashishgavade/)
 * [Deven Padhye](https://www.instagram.com/deven_23/)
 * [Shubham Khedekar]()
-* [Rohit Gupta]()
+* [Rohit Gupta](https://www.instagram.com/_rohit__gupta_/)
 
 ## Happy Learning!✨✨
